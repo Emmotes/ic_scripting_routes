@@ -103,7 +103,7 @@ function cursedFarmer() {
 }
 
 function pre4TT() {
-	var comment = addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>You will likely find Tall Tales in the Witchlight campaign to be fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing. You will need to walk all z1s because a rogue 3 jump will put on bosses if you don't.`);
+	var comment = addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>You will likely find Tall Tales in the Witchlight campaign to be fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
