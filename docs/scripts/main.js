@@ -50,6 +50,7 @@ function update() {
 		comment+=feat4TT();
 	} else if (jumps == 5) {
 		comment+=feat54TT();
+		comment+=feat4TT();
 	} else if (jumps > 5 && jumps < 6) {
 		comment+=feat4TT();
 	} else if (jumps == 6) {
