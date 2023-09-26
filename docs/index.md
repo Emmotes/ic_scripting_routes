@@ -14,7 +14,7 @@
 		<span class="routesCol2">
 			<input type="number" name="ilvl" id="ilvl" value="3626">
 		</span>
-		<!--<span class="routesCol3">
+		<span class="routesCol3">
 			<label for="presets">Specific Jumps:</label>
 		</span>
 		<span class="routesCol4">
@@ -30,7 +30,7 @@
 			<option value="9j">9j</option>
 			<option value="11j">11j</option>
 			</select>
-		</span>-->
+		</span>
 	</span>
 	<span class="routesRow">
 		<span class="routesCol1">

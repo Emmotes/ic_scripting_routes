@@ -1,5 +1,5 @@
 const ilvlInput = document.getElementById("ilvl");
-//const presetsInput = document.getElementById("presets");
+const presetsInput = document.getElementById("presets");
 const rarityInput = document.getElementById("rarity");
 const gildingInput = document.getElementById("gilding");
 const spacer = `<span class="routesDesc">&nbsp;</span>`;
@@ -10,16 +10,49 @@ const jump = " checked";
 
 function init() {
 	ilvlInput.addEventListener("change", update);
-	//presetsInput.addEventListener("change", preset);
+	presetsInput.addEventListener("change", preset);
 	rarityInput.addEventListener("change", update);
 	gildingInput.addEventListener("change", update);
 	update();
 }
 
 function preset() {
-	var ilvls = ilvlInput.value;
-	var rarity = presetsInput.value;
-	var gilding = presetsInput.value;
+	rarityInput.value = "epic";
+	gildingInput.value = "golden";
+	
+	var jumps = presetsInput.value;
+	switch (jumps) {
+		case "1j":
+			ilvlInput.value = 126;
+			break;
+		case "2j":
+			ilvlInput.value = 626;
+			break;
+		case "3j":
+			ilvlInput.value = 1626;
+			break;
+		case "5j":
+			ilvlInput.value = 7626;
+			break;
+		case "6j":
+			ilvlInput.value = 15626;
+			break;
+		case "7j":
+			ilvlInput.value = 31626;
+			break;
+		case "8j":
+			ilvlInput.value = 63626;
+			break;
+		case "9j":
+			ilvlInput.value = 127626;
+			break;
+		case "11j":
+			ilvlInput.value = 511626;
+			break;
+		default:
+			ilvlInput.value = 3626;
+	}
+	update();
 }
 
 function update() {
