@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{% seo %}
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="{{ '/assets/css/ie.css' | relative_url }}">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<link rel="apple-touch-icon" sizes="180x180" href="/ic_scripting_routes/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/ic_scripting_routes/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/ic_scripting_routes/favicon-16x16.png">
+	<link rel="manifest" href="/ic_scripting_routes/site.webmanifest">
+	<link rel="shortcut icon" href="/ic_scripting_routes/favicon.ico">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="msapplication-config" content="/ic_scripting_routes/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+    {% include head-custom.html %}
+  </head>
+  <body onload="init()">
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>{{ site.title | default: site.github.repository_name }}</h1>
+          <p>{{ site.description | default: site.github.project_tagline }}</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>
+		  <br />
+		  Report issues <a href="{{ site.github.owner_url }}/ic_scripting_routes/issues">here</a>
+		  <br />
+		  View the <a href="{{ site.github.owner_url }}/ic_scripting_routes/commits/main">Changelog</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a>
+		  <span id="modes" hidden>&nbsp;</span></span>
+        </div>
+
+        {{ content }}
+
+      </section>
+
+    </div>
+	<script type="text/javascript" src="scripts/main.js"></script>
+  </body>
+</html>

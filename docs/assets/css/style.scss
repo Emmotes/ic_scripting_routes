@@ -1,0 +1,135 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.wrapper {
+	max-width: 850px;
+}
+section {
+	max-width: 850px;
+}
+h1,h2,h3 {
+	line-height: 2.0em;
+	color: #F2F2F2;
+}
+h4,h5 {
+	line-height: 1.7em;
+}
+h6 {
+	line-height: 1.4em;
+}
+h3 {
+	color: #CCCCCC;
+}
+summary {
+	cursor: pointer;
+	color: #FFCC00;
+}
+summary:hover {
+	cursor: pointer;
+	color: #FFEB9B;
+}
+section #title .credits.right {
+	text-align: right;
+}
+code{
+    padding: 0px;
+    border-radius: 0px;
+}
+.routes {
+	display: flex;
+	flex-direction: column;
+	max-width: 848px;
+	min-width: 348px;
+	background-color: #1a1a1a;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 15px;
+}
+.routesRow {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	padding: 3px;
+}
+.routesDesc {
+	width: 100%;
+}
+.routesCol1 {
+	width: 120px;
+	text-align: right;
+	padding-right: 8px;
+}
+.routesCol2 {
+	width: 210px;
+}
+.routesCol3 {
+	width: 120px;
+	text-align: right;
+	padding-right: 8px;
+}
+.routesCol4 {
+	width: 210px;
+}
+.routesCol2 input,.routesCol2 select,.routesCol4 input,.routesCol4 select {
+	min-width: 200px;
+	background-color: #101010;
+	border: 1px solid currentColor;
+	border-radius: 6px;
+	color: #F0E7D5;
+	padding: 3px;
+	font-size: 0.95em;
+}
+.routesCol2 input {
+	min-width: 188px;
+	padding-left: 7px;
+}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+	display: none;
+}
+.routesBoxes {
+	display: flex;
+	flex-direction: row;
+	width: 10%;
+}
+.cblabel {
+	line-height: 1.1;
+	display: grid;
+	text-align: right;
+	grid-template-columns: 1.5em auto;
+	gap: 0.5em;
+	width: 15px;
+}
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #101010;
+	margin: 4px;
+	font: inherit;
+	color: currentColor;
+	width: 1.6em;
+	height: 1.6em;
+	border: 0.1em solid currentColor;
+	border-radius: 0.3em;
+	transform: translateY(-0.49em);
+	display: grid;
+	place-content: center;
+}
+input[type="checkbox"]::before {
+	content: "";
+	width: 1.6em;
+	height: 1.6em;
+	transform: scale(0);
+	transition: 120ms transform ease-in-out;
+	box-shadow: inset 1em 1em currentColor;
+	transform-origin: center;
+	/* Windows High Contrast Mode */
+	background-color: CanvasText;
+	
+	clip-path: polygon(17% 54%, 28% 43%, 38% 54%, 70% 22%, 81% 33%, 38% 75%, 17% 54%)
+}
+input[type="checkbox"]:checked::before {
+	transform: scale(1);
+}
