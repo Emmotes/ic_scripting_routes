@@ -24,6 +24,10 @@ function preset() {
 
 function update() {
 	var ilvls = ilvlInput.value;
+	if (ilvls < 1) {
+		document.getElementById("ilvl").value = 1;
+		ilvls = 1;
+	}
 	var rarity = determineRarity();
 	var gilding = determineGilding();
 	var skips = determineJumps(ilvls,rarity,gilding);
