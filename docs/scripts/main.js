@@ -81,6 +81,7 @@ function update() {
 		comment+=cursedFarmer();
 	} else if (jumps < 4) {
 		comment+=pre4TT();
+		comment+=cursedFarmer();
 	} else if (jumps == 4) {
 		comment+=pure4TT();
 	} else if (jumps > 4 && jumps < 5) {
@@ -106,13 +107,11 @@ function update() {
 		comment+=feat84TT();
 		comment+=feat84TT2();
 		comment+=pure8TT();
-	//} else if (jumps >= 8 && jumps < 9) {
-	//	comment+=mixed89TT();
+	} else if (jumps >= 8 && jumps < 9) {
+		comment+=mixed89TT();
 	} else if (jumps == 9) {
 		comment+=feat94TT();
 		comment+=pure9TT();
-	//} else if (jumps > 9 && jumps < 11) {
-	//	comment+=fuckedup();
 	} else if (jumps == 11) {
 		comment+=pure11TT();
 	} else {
@@ -122,7 +121,7 @@ function update() {
 }
 
 function unknownRoute() {
-	var comment = addToDescRow(`<h3>Unknown</h3>Congratulations. You have a jump chance I haven't accounted for yet. I have no idea what route you need.`);
+	var comment = addToDescRow(`<h3>Unknown</h3>You have a skip amount and jump chance that I haven't accounted for yet. I have no idea what route you need. You would have been much better off sticking with a 100% skip chance.`);
 	return comment;
 }
 
@@ -148,9 +147,9 @@ function pre4TT() {
 	for (let i=1; i<=50; i++) {
 		// Default jump.
 		var checked = jump;
-		// Walk 1s.
+		// Walk 1s and 5s.
 		var mod5 = i%5;
-		if (mod5==1) {
+		if (mod5==1 || mod5 == 0) {
 			checked = "";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
@@ -166,17 +165,17 @@ function pure4TT() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked = "";
-		// Jumps 1s.
+		// Default jump.
+		var checked = jump;
+		// Walk bosses
 		var mod5 = i%5;
-		if (mod5==1) {
-			checked = jump;
+		if (mod5 == 0) {
+			checked = "";
 		}
-		// Avoid bad bosses in-case of drifting.
+		// Unique walks.
 		var mod50 = i%50;
-		if ( (mod50 > 15 && mod50 < 20) || (mod50 > 20 && mod50 < 25) || (mod50 > 25 && mod50 < 30) ) {
-			checked = jump;
+		if (mod50 == 22 || mod50 == 23 || mod50 == 24 || mod50 == 37 || mod50 == 38 || mod50 == 39) {
+			checked = "";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
@@ -418,7 +417,7 @@ function pure8TT() {
 		var checked = jump;
 		// Unique walks.
 		var mod50 = i%50;
-		if (mod50 == 21 || mod50 == 24 || mod50 == 36) {
+		if (mod50 == 21 || mod50 == 26 || mod50 == 36) {
 			checked = "";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
@@ -426,7 +425,37 @@ function pure8TT() {
 	comment+=`</span>`;
 	
 	return comment;
-}63626
+}
+
+function mixed89TT() {
+	var comment=addToDescRow(`&nbsp;`);
+	comment+=addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`);
+	comment+=addToDescRow(`&nbsp;`);
+	
+	comment+=`<span class="routesRow">`;
+	for (let i=1; i<=50; i++) {
+		// Default jump.
+		var checked = jump;
+		// Walk 1s and 5s.
+		var mod5 = i%5;
+		if (mod5 == 1 || mod5 == 0) {
+			checked = "";
+		}
+		// Unique walks.
+		var mod50 = i%50;
+		if (mod50 == 47 || mod50 == 48 || mod50 == 49) {
+			checked = "";
+		}
+		// Unique jumps.
+		if (mod50 == 41) {
+			checked = jump;
+		}
+		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+	}
+	comment+=`</span>`;
+	
+	return comment;
+}
 
 function feat94TT() {
 	var comment=addToDescRow(`&nbsp;`);
@@ -465,17 +494,17 @@ function pure9TT() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked = "";
-		// Jumps 1s.
+		// Default jump.
+		var checked = jump;
+		// Walk bosses
 		var mod5 = i%5;
-		if (mod5==1) {
-			checked = jump;
+		if (mod5 == 0) {
+			checked = "";
 		}
-		// Avoid bad bosses in-case of drifting.
+		// Unique walks.
 		var mod50 = i%50;
-		if ( (mod50 > 15 && mod50 < 20) || (mod50 > 20 && mod50 < 25) || (mod50 > 25 && mod50 < 30) ) {
-			checked = jump;
+		if (mod50 == 22 || mod50 == 23 || mod50 == 24 || mod50 == 36 || mod50 == 37 || mod50 == 38 || mod50 == 39) {
+			checked = "";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
@@ -495,7 +524,7 @@ function pure11TT() {
 		var checked = jump;
 		// Avoid bad bosses in-case of drifting.
 		var mod50 = i%50;
-		if (mod50 == 23 || mod50 == 48) {
+		if (mod50 == 11 || mod50 == 21 || mod50 == 22 || mod50 == 23 || mod50 == 5 || mod50 == 45 || mod50 == 6 || mod50 == 36 || mod50 == 46 || mod50 == 7 || mod50 == 47 || mod50 == 8 || mod50 == 38 || mod50 == 48 || mod50 == 9 || mod50 == 10) {
 			checked = "";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
