@@ -9,7 +9,7 @@ const fasterClickSwapAddon = `<br/>This will be faster with mouse clicks enabled
 const jump = " checked";
 
 function init() {
-	ilvlInput.addEventListener("change", update);
+	ilvlInput.addEventListener("input", update);
 	presetsInput.addEventListener("change", preset);
 	rarityInput.addEventListener("change", update);
 	gildingInput.addEventListener("change", update);
