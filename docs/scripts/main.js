@@ -3,7 +3,7 @@ const presetsInput=document.getElementById("presets");
 const rarityInput=document.getElementById("rarity");
 const gildingInput=document.getElementById("gilding");
 const shinyNote=document.getElementById("shinyNote");
-const featSwapAddon=`<br />This requires<a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
+const featSwapAddon=`<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const reqClickSwapAddon=`<br/>This requires mouse clicks to function.<br/>`;
 const fasterClickSwapAddon=`<br/>This will be faster with mouse clicks enabled.`;
 const jump=" checked";
