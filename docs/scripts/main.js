@@ -396,7 +396,7 @@ function feat84TT() {
 }
 
 function feat84TT2() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.<br />This requires<a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${featSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${featSwapAddon}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
