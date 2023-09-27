@@ -56,6 +56,9 @@
 			<option value="golden" selected>Golden</option>
 			</select>
 		</span>
+		<span class="routesCol5" id="shinyNote" style="display:none">
+			Note: You can't get 100% on even numbered jumps with Shiny.
+		</span>
 	</span>
 	<span class="routesWrapper" id="wrapper">
 		&nbsp;

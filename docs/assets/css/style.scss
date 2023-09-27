@@ -73,6 +73,13 @@ code{
 .routesCol4 {
 	width: 210px;
 }
+.routesCol5 {
+	min-width: fit-content;
+	display: flex;
+	font-size: 0.9em;
+	justify-content: flex-start;
+	align-items: center;
+}
 .routesCol2 input,.routesCol2 select,.routesCol4 input,.routesCol4 select {
 	min-width: 200px;
 	background-color: #101010;

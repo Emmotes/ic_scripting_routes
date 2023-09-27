@@ -2,6 +2,7 @@ const ilvlInput = document.getElementById("ilvl");
 const presetsInput = document.getElementById("presets");
 const rarityInput = document.getElementById("rarity");
 const gildingInput = document.getElementById("gilding");
+const shinyNote = document.getElementById("shinyNote");
 const spacer = `<span class="routesDesc">&nbsp;</span>`;
 const featSwapAddon = `<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const reqClickSwapAddon = `<br/>This requires mouse clicks to function.<br/>`;
@@ -56,6 +57,11 @@ function preset() {
 }
 
 function update() {
+	if (gildingInput.value == "shiny" && shinyNote.style.display == 'none') {
+		shinyNote.style.display = '';
+	} else if (gildingInput.value != "shiny" && shinyNote.style.display == '') {
+		shinyNote.style.display = 'none';
+	}
 	var ilvls = ilvlInput.value;
 	if (ilvls < 1) {
 		document.getElementById("ilvl").value = 1;
@@ -64,8 +70,8 @@ function update() {
 	var rarity = determineRarity();
 	var gilding = determineGilding();
 	var skips = determineJumps(ilvls,rarity,gilding);
-	var p = (skips[1]*100).toFixed(2);
-	var np = ((1-skips[1])*100).toFixed(2);
+	var p = (skips[1]*100).toFixed(3);
+	var np = ((1-skips[1])*100).toFixed(3);
 	var jumps = (skips[0]-1)+skips[1];
 	
 	var comment = ``;
