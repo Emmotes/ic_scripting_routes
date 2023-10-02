@@ -84,7 +84,7 @@ function update() {
 	comment+=spacer;
 	
 	
-	if (jumps<3.75) {
+	if (jumps<3.25) {
 		comment+=cursedFarmer();
 	} else if (jumps<4) {
 		comment+=pre4TT();
