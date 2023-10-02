@@ -3,10 +3,15 @@ const presetsInput=document.getElementById("presets");
 const rarityInput=document.getElementById("rarity");
 const gildingInput=document.getElementById("gilding");
 const shinyNote=document.getElementById("shinyNote");
-const featSwapAddon=`<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
+const fsa=`<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const reqClickSwapAddon=`<br/>This requires mouse clicks to function.<br/>`;
-const fasterClickSwapAddon=`<br/>This will be faster with mouse clicks enabled.`;
+const fcsa=`<br/>This will be faster with mouse clicks enabled.`;
 const jump=" checked";
+const tt="Tall Tales is in the Witchlight campaign.";
+const ll="The Roots of Loomlurch is in the Witchlight campaign.";
+const cf="Cursed Farmer is in The Grand Tour of the Sword Coast campaign.";
+const rac="Resolve Amongst Chaos is in the Descent into Avernus campaign."
+const bbb="Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing."
 
 function init() {
 	ilvlInput.addEventListener("input", update);
@@ -123,9 +128,19 @@ function update() {
 	} else if (jumps==11) {
 		comment+=pure11TT();
 	} else if (jumps<3.25) {
+		comment+=pre4LL();
+		comment+=spacer;
+		comment+=cursedFarmer();
+	} else if (jumps<3.5) {
+		comment+=pre4LL();
+		comment+=spacer;
+		comment+=pre4TT();
+		comment+=spacer;
 		comment+=cursedFarmer();
 	} else if (jumps<4) {
 		comment+=pre4TT();
+		comment+=spacer;
+		comment+=pre4LL();
 		comment+=spacer;
 		comment+=cursedFarmer();
 	} else if (jumps>4&&jumps<5) {
@@ -150,7 +165,7 @@ function unknownRoute() {
 }
 
 function cursedFarmer() {
-	var comment=addToDescRow(`<h3>Cursed Farmer</h3>Cursed Farmer in Grand Tour of the Sword Coast campaign is the usual starting point for early Briv. You don't want to be walking any areas as that will only slow you down.`);
+	var comment=addToDescRow(`<h3>Cursed Farmer</h3>$(cf) You won't want to be walking any areas as that will only slow you down.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -164,7 +179,7 @@ function cursedFarmer() {
 }
 
 function pure2LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>For pure 2j - The Roots of Loomlurch in the Witchlight campaign is the fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -173,7 +188,7 @@ function pure2LL() {
 		var checked=jump;
 		// Unique walks.
 		var mod50=i%50;
-		if (mod50==7||mod50==42||mod50==47) {
+		if (mod50==7||mod50==12||mod50==22||mod50==42||mod50==47) {
 			checked="";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
@@ -184,7 +199,7 @@ function pure2LL() {
 }
 
 function pure3LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>For pure 3j - The Roots of Loomlurch in the Witchlight campaign is the fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -193,7 +208,32 @@ function pure3LL() {
 		var checked=jump;
 		// Unique walks.
 		var mod50=i%50;
-		if (mod50==1||mod50==26||mod50==46) {
+		if (mod50==1||mod50==11||mod50==21||mod50==26||mod50==46) {
+			checked="";
+		}
+		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+	}
+	comment+=`</span>`;
+	
+	return comment;
+}
+
+function pre4LL() {
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (Mixed 3/4j)</h3>${ll} ${bbb}`);
+	comment+=addToDescRow(`&nbsp;`);
+	
+	comment+=`<span class="routesRow">`;
+	for (let i=1; i<=50; i++) {
+		// Default jump.
+		var checked=jump;
+		// Walk bosses.
+		var mod5=i%5;
+		if (mod5==0) {
+			checked="";
+		}
+		// Unique walks.
+		var mod50=i%50;
+		if (mod50==1||mod50==11||mod50==21||mod50==26||mod50==46) {
 			checked="";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
@@ -204,7 +244,7 @@ function pure3LL() {
 }
 
 function pre4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>You will likely find Tall Tales in the Witchlight campaign to be faster than Cursed Farmer at this point. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -224,7 +264,7 @@ function pre4TT() {
 }
 
 function pure4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 4j)</h3>For pure 4j - Tall Tales in the Witchlight campaign is the fastest by far. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -249,7 +289,7 @@ function pure4TT() {
 }
 
 function feat4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>You'll want to equip Briv's Wasting Haste feat to return to pure 4j and run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -274,7 +314,7 @@ function feat4TT() {
 }
 
 function feat54TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.${featSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -299,7 +339,7 @@ function feat54TT() {
 }
 
 function pure6LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>You'll want to run The Roots of Loomlurch in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -324,7 +364,7 @@ function pure6LL() {
 }
 
 function feat64TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.${featSwapAddon}${fasterClickSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -344,7 +384,7 @@ function feat64TT() {
 }
 
 function feat64RAC() {
-	var comment=addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>You'll want to run Resolve Amongst Chaos in the Descent into Avernus campaign. This does not benefit from any quest reduction blessings or perks.${featSwapAddon}${fasterClickSwapAddon}`);
+	var comment=addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -364,7 +404,7 @@ function feat64RAC() {
 }
 
 function pure6TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 6j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -384,7 +424,7 @@ function pure6TT() {
 }
 
 function pure7TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 7j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -404,7 +444,7 @@ function pure7TT() {
 }
 
 function feat74TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.${featSwapAddon}${fasterClickSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -424,7 +464,7 @@ function feat74TT() {
 }
 
 function feat84TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.${featSwapAddon}${fasterClickSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -444,7 +484,7 @@ function feat84TT() {
 }
 
 function feat84TT2() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${featSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${fsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -464,7 +504,7 @@ function feat84TT2() {
 }
 
 function pure8TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -484,7 +524,7 @@ function pure8TT() {
 }
 
 function mixed89TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`);
+	var comment=addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>${tt} ${bbb}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -513,7 +553,7 @@ function mixed89TT() {
 }
 
 function feat94TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.${featSwapAddon}`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -542,7 +582,7 @@ function feat94TT() {
 }
 
 function pure9TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 9j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -567,7 +607,7 @@ function pure9TT() {
 }
 
 function pure11TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 11j)</h3>You'll want to run Tall Tales in the Witchlight campaign. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
