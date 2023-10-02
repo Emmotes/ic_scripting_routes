@@ -157,7 +157,7 @@ function unknownRoute() {
 }
 
 function cursedFarmer() {
-	var comment=addToDescRow(`<h3>Cursed Farmer</h3>$(cf) You won't want to be walking any areas as that will only slow you down.`);
+	var comment=addToDescRow(`<h3>Cursed Farmer</h3>${cf} You won't want to be walking any areas as that will only slow you down.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
