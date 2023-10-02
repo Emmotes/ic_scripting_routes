@@ -86,7 +86,7 @@ function update() {
 	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
-	if (skips[1]!=1) {
+	if (skips[1]!=1&&jumps>2) {
 		comment+=`<span class="routesRow"><span class="routesCol5" style="padding-left:10px;">Note: Please be aware that it is highly recommended to stay at 100% jumps as that allows for far more consistent runs.</span></span>`;
 	}
 	comment+=spacer;
