@@ -142,7 +142,7 @@ function unknownRoute() {
 }
 
 function cursedFarmer() {
-	var comment=addToDescRow(`<h3>Cursed Farmer</h3>The best place is likely to be Cursed Farmer in Grand Tour of the Sword Coast campaign. You don't want to be walking any areas.`);
+	var comment=addToDescRow(`<h3>Cursed Farmer</h3>Cursed Farmer in Grand Tour of the Sword Coast campaign is the usual starting point for early Briv. You don't want to be walking any areas as that will only slow you down.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -156,7 +156,7 @@ function cursedFarmer() {
 }
 
 function pre4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>You will likely find Tall Tales in the Witchlight campaign to be fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>You will likely find Tall Tales in the Witchlight campaign to be faster than Cursed Farmer at this point. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
@@ -176,7 +176,7 @@ function pre4TT() {
 }
 
 function pure4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 4j)</h3>For pure 4j Tall Tales in the Witchlight campaign is the fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	var comment=addToDescRow(`<h3>Tall Tales (100% 4j)</h3>For pure 4j - Tall Tales in the Witchlight campaign is the fastest by far. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
 	comment+=addToDescRow(`&nbsp;`);
 	
 	comment+=`<span class="routesRow">`;
