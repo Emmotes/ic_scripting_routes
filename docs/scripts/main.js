@@ -84,21 +84,19 @@ function update() {
 	comment+=spacer;
 	
 	
-	if (jumps<3.25) {
+	if (jumps==2) {
+		comment+=pure2LL();
+		comment+=spacer;
 		comment+=cursedFarmer();
-	} else if (jumps<4) {
-		comment+=pre4TT();
+	} else if (jumps==3) {
+		comment+=pure3LL();
 		comment+=spacer;
 		comment+=cursedFarmer();
 	} else if (jumps==4) {
 		comment+=pure4TT();
-	} else if (jumps>4&&jumps<5) {
-		comment+=feat4TT();
 	} else if (jumps==5) {
 		comment+=feat54TT();
 		comment+=spacer;
-		comment+=feat4TT();
-	} else if (jumps>5&&jumps<6) {
 		comment+=feat4TT();
 	} else if (jumps==6) {
 		comment+=pure6LL();
@@ -108,28 +106,38 @@ function update() {
 		comment+=feat64RAC();
 		comment+=spacer;
 		comment+=pure6TT();
-	//} else if (jumps>6&&jumps<7) {
-	//	comment+=mixed67TT();
 	} else if (jumps==7) {
 		comment+=pure7TT();
 		comment+=spacer;
 		comment+=feat74TT();
-	//} else if (jumps>7&&jumps<8) {
-	//	comment+=mixed78TT();
 	} else if (jumps==8) {
 		comment+=feat84TT();
 		comment+=spacer;
 		comment+=feat84TT2();
 		comment+=spacer;
 		comment+=pure8TT();
-	} else if (jumps >= 8&&jumps<9) {
-		comment+=mixed89TT();
 	} else if (jumps==9) {
 		comment+=feat94TT();
 		comment+=spacer;
 		comment+=pure9TT();
 	} else if (jumps==11) {
 		comment+=pure11TT();
+	} else if (jumps<3.25) {
+		comment+=cursedFarmer();
+	} else if (jumps<4) {
+		comment+=pre4TT();
+		comment+=spacer;
+		comment+=cursedFarmer();
+	} else if (jumps>4&&jumps<5) {
+		comment+=feat4TT();
+	} else if (jumps>5&&jumps<6) {
+		comment+=feat4TT();
+	//} else if (jumps>6&&jumps<7) {
+	//	comment+=mixed67TT();
+	//} else if (jumps>7&&jumps<8) {
+	//	comment+=mixed78TT();
+	} else if (jumps>=8&&jumps<9) {
+		comment+=mixed89TT();
 	} else {
 		comment+=unknownRoute();
 	}
@@ -149,6 +157,46 @@ function cursedFarmer() {
 	for (let i=1; i<=50; i++) {
 		// Don't walk.
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" checked disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+	}
+	comment+=`</span>`;
+	
+	return comment;
+}
+
+function pure2LL() {
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>For pure 2j - The Roots of Loomlurch in the Witchlight campaign is the fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	comment+=addToDescRow(`&nbsp;`);
+	
+	comment+=`<span class="routesRow">`;
+	for (let i=1; i<=50; i++) {
+		// Default jump.
+		var checked=jump;
+		// Unique walks.
+		var mod50=i%50;
+		if (mod50==7||mod50==42||mod50==47) {
+			checked="";
+		}
+		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+	}
+	comment+=`</span>`;
+	
+	return comment;
+}
+
+function pure3LL() {
+	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>For pure 3j - The Roots of Loomlurch in the Witchlight campaign is the fastest. Don't forget to enable Vajra patron to benefit from the Brisk Benefactor local blessing.`);
+	comment+=addToDescRow(`&nbsp;`);
+	
+	comment+=`<span class="routesRow">`;
+	for (let i=1; i<=50; i++) {
+		// Default jump.
+		var checked=jump;
+		// Unique walks.
+		var mod50=i%50;
+		if (mod50==1||mod50==26||mod50==46) {
+			checked="";
+		}
+		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
 	comment+=`</span>`;
 	
