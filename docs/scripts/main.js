@@ -86,8 +86,10 @@ function update() {
 	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
+	if (skips[1]!=1) {
+		comment+=`<span class="routesRow"><span class="routesCol5" style="padding-left:10px;">Note: Please be aware that it is highly recommended to stay at 100% jumps as that allows for far more consistent runs.</span></span>`;
+	}
 	comment+=spacer;
-	
 	
 	if (jumps==2) {
 		comment+=pure2LL();
@@ -128,19 +130,9 @@ function update() {
 	} else if (jumps==11) {
 		comment+=pure11TT();
 	} else if (jumps<3.25) {
-		comment+=pre4LL();
-		comment+=spacer;
-		comment+=cursedFarmer();
-	} else if (jumps<3.5) {
-		comment+=pre4LL();
-		comment+=spacer;
-		comment+=pre4TT();
-		comment+=spacer;
 		comment+=cursedFarmer();
 	} else if (jumps<4) {
 		comment+=pre4TT();
-		comment+=spacer;
-		comment+=pre4LL();
 		comment+=spacer;
 		comment+=cursedFarmer();
 	} else if (jumps>4&&jumps<5) {
