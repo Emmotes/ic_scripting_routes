@@ -288,17 +288,17 @@ function feat4TT() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Jumps 1s.
+		// Default jump.
+		var checked=jump;
+		// Walk bosses
 		var mod5=i%5;
-		if (mod5==1) {
-			checked=jump;
+		if (mod5==0) {
+			checked="";
 		}
-		// Avoid bad bosses in-case of drifting.
+		// Unique walks.
 		var mod50=i%50;
-		if ( (mod50>15&&mod50<20)||(mod50>20&&mod50<25)||(mod50>25&&mod50<30) ) {
-			checked=jump;
+		if (mod50==22||mod50==23||mod50==24||mod50==37||mod50==38||mod50==39) {
+			checked="";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
