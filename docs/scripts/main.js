@@ -315,15 +315,11 @@ function feat54TT() {
 		// Default jump.
 		var checked=jump;
 		// Unique walks
-		var mod5=i%5;
-		if (mod5==1||mod5==4) {
+		var mod50=i%50;
+		if (mod50==1||mod50==11||mod50==21||mod50==12||mod50==22||mod50==32||mod50==4||mod50==14||mod50==24||mod50==34||mod50==44||mod50==45||mod50==6||mod50==16||mod50==26||mod50==46||mod50==17||mod50==27||mod50==38||mod50==29||mod50==39||mod50==0) {
 			checked="";
 		}
 		// Unique Jumps
-		var mod50=i%50;
-		if ( mod50==31||mod50==41||mod50==44||mod50==36||mod50==46||mod50==9||mod50==19||mod50==39||mod50==49) {
-			checked=jump;
-		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
 	comment+=`</span>`;
@@ -366,7 +362,7 @@ function feat64TT() {
 		var checked=jump;
 		// Unique Walks
 		var mod50=i%50;
-		if (mod50==11||mod50==21||mod50==22||mod50==32||mod50==13||mod50==23||mod50==44||mod50==16||mod50==27||mod50==28||mod50==49) {
+		if (mod50==11||mod50==21||mod50==22||mod50==32||mod50==13||mod50==23||mod50==44||mod50==6||mod50==16||mod50==46||mod50==27||mod50==28||mod50==9||mod50==39||mod50==49||mod50==10) {
 			checked="";
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
@@ -382,12 +378,16 @@ function feat64RAC() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique Walks
+		// Default walk.
+		var checked="";
+		// Unique Jumps
+		var mod10=i%10;
+		if (mod10==2||mod10==5||mod10==7) {
+			checked=jump;
+		}
 		var mod50=i%50;
-		if (mod50==1||mod50==3||mod50==13||mod50==23||mod50==33||mod50==6||mod50==8||mod50==38||mod50==48||mod50==39) {
-			checked="";
+		if (mod50==11||mod50==21||mod50==43||mod50==4||mod50==14||mod50==44||mod50==26||mod50==18||mod50==28||mod50==9||mod50==49||mod50==10||mod50==30||mod50==40||mod50==0) {
+			checked=jump;
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
@@ -442,12 +442,16 @@ function feat74TT() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique Walks
+		// Default walk.
+		var checked="";
+		// Unique Jumps
+		var mod10=i%10;
+		if (mod10==4||mod10==5) {
+			checked=jump;
+		}
 		var mod50=i%50;
-		if (mod50==21||mod50==12||mod50==22||mod50==32||mod50==42||mod50==34||mod50==16||mod50==26||mod50==27||mod50==37||mod50==8||mod50==9||mod50==0) {
-			checked="";
+		if (mod50==31||mod50==41||mod50==3||mod50==13||mod50==23||mod50==33||mod50==36||mod50==7||mod50==17||mod50==47||mod50==8||mod50==18||mod50==28||mod50==19||mod50==29||mod50==39||mod50==49||mod50==20||mod50==30||mod50==40) {
+			checked=jump;
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
@@ -462,12 +466,12 @@ function feat84TT() {
 	
 	comment+=`<span class="routesRow">`;
 	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique Walks
+		// Default walk.
+		var checked="";
+		// Unique Jumps
 		var mod50=i%50;
-		if (mod50==11||mod50==21||mod50==32||mod50==4||mod50==26) {
-			checked="";
+		if (mod50==1||mod50==2||mod50==12||mod50==3||mod50==13||mod50==23||mod50==33||mod50==43||mod50==4||mod50==14||mod50==24||mod50==5||mod50==15||mod50==25||mod50==35||mod50==45||mod50==46||mod50==37||mod50==18||mod50==28||mod50==38||mod50==19||mod50==29||mod50==10||mod50==20||mod50==30||mod50==40) {
+			checked=jump;
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
@@ -564,7 +568,7 @@ function feat94TT() {
 			checked="";
 		}
 		// Unique Jumps
-		if (mod50==15||mod50==36) {
+		if (mod50==15||mod50==16||mod50==26||mod50==36) {
 			checked=jump;
 		}
 		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
