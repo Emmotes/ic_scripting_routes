@@ -128,6 +128,8 @@ function update() {
 		comment+=feat94TT();
 		comment+=spacer;
 		comment+=pure9TT();
+		comment+=spacer;
+		comment+=pure9TTs();
 	} else if (jumps==11) {
 		comment+=pure11TT();
 	} else if (jumps<3.25) {
@@ -158,469 +160,109 @@ function unknownRoute() {
 }
 
 function cursedFarmer() {
-	var comment=addToDescRow(`<h3>Cursed Farmer</h3>${cf} You won't want to be walking any areas as that will only slow you down.`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Don't walk.
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" checked disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1125899906842623n;
+	return addToDescRow(`<h3>Cursed Farmer</h3>${cf} You won't want to be walking any areas as that will only slow you down.`)+addChecked(bf);
 }
 
 function pure2LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==7||mod50==12||mod50==22||mod50==42||mod50==47) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1053332137310143n;
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`)+addChecked(bf);
 }
 
 function pure3LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==1||mod50==11||mod50==21||mod50==26||mod50==46) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
-}
-
-function pre4LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (Mixed 3/4j)</h3>${ll} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk bosses.
-		var mod5=i%5;
-		if (mod5==0) {
-			checked="";
-		}
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==1||mod50==11||mod50==21||mod50==26||mod50==46) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1090715500149758n;
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`)+addChecked(bf);
 }
 
 function pre4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk 1s and 5s.
-		var mod5=i%5;
-		if (mod5==1||mod5==0) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 508470925670862n;
+	return addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function pure4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk bosses
-		var mod5=i%5;
-		if (mod5==0) {
-			checked="";
-		}
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==22||mod50==23||mod50==24||mod50==37||mod50==38||mod50==39) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 544309226487279n;
+	return addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function feat4TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk bosses
-		var mod5=i%5;
-		if (mod5==0) {
-			checked="";
-		}
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==22||mod50==23||mod50==24||mod50==37||mod50==38||mod50==39) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 544309226487279n;
+	return addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`)+addChecked(bf);
 }
 
 function feat54TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks
-		var mod50=i%50;
-		if (mod50==1||mod50==11||mod50==21||mod50==12||mod50==22||mod50==32||mod50==4||mod50==14||mod50==24||mod50==34||mod50==44||mod50==45||mod50==6||mod50==16||mod50==26||mod50==46||mod50==17||mod50==27||mod50==38||mod50==29||mod50==39||mod50==0) {
-			checked="";
-		}
-		// Unique Jumps
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 500953867244502n;
+	return addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
 function pure6LL() {
-	var comment=addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Jumps 4s and 5s.
-		var mod5=i%5;
-		if (mod5==4||mod5==0) {
-			checked=jump;
-		}
-		// Unique Jumps
-		var mod50=i%50;
-		if (mod50==12||mod50==42||mod50==13||mod50==6||mod50==26||mod50==27) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 873863567932216n;
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`)+addChecked(bf);
 }
 
 function feat64TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique Walks
-		var mod50=i%50;
-		if (mod50==11||mod50==21||mod50==22||mod50==32||mod50==13||mod50==23||mod50==44||mod50==6||mod50==16||mod50==46||mod50==27||mod50==28||mod50==9||mod50==39||mod50==49||mod50==10) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 800167230925023n;
+	return addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
 function feat64RAC() {
-	var comment=addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Unique Jumps
-		var mod10=i%10;
-		if (mod10==2||mod10==5||mod10==7) {
-			checked=jump;
-		}
-		var mod50=i%50;
-		if (mod50==11||mod50==21||mod50==43||mod50==4||mod50==14||mod50==44||mod50==26||mod50==18||mod50==28||mod50==9||mod50==49||mod50==10||mod50==30||mod50==40||mod50==0) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 948417617686362n;
+	return addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`)+addChecked(bf);
 }
 
 function pure6TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==1||mod50==31||mod50==23||mod50==46||mod50==28) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1090714322599934n;
+	return addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function pure7TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==21||mod50==2||mod50==12||mod50==22||mod50==42||mod50==27) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1123700813330429n;
+	return addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function feat74TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Unique Jumps
-		var mod10=i%10;
-		if (mod10==4||mod10==5) {
-			checked=jump;
-		}
-		var mod50=i%50;
-		if (mod50==31||mod50==41||mod50==3||mod50==13||mod50==23||mod50==33||mod50==36||mod50==7||mod50==17||mod50==47||mod50==8||mod50==18||mod50==28||mod50==19||mod50==29||mod50==39||mod50==49||mod50==20||mod50==30||mod50==40) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 380222613450972n;
+	return addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
 function feat84TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Unique Jumps
-		var mod50=i%50;
-		if (mod50==1||mod50==2||mod50==12||mod50==3||mod50==13||mod50==23||mod50==33||mod50==43||mod50==4||mod50==14||mod50==24||mod50==5||mod50==15||mod50==25||mod50==35||mod50==45||mod50==46||mod50==37||mod50==18||mod50==28||mod50==38||mod50==19||mod50==29||mod50==10||mod50==20||mod50==30||mod50==40) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 57952963557919n;
+	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
 function feat84TT2() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${fsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique Walks
-		var mod50=i%50;
-		if (mod50==1||mod50==11||mod50==21||mod50==2||mod50==32||mod50==3||mod50==4||mod50==26) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1125897724754928n;
+	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${fsa}`)+addChecked(bf);
 }
 
 function pure8TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==21||mod50==26||mod50==36) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 1125865512501247n;
+	return addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function mixed89TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>${tt} ${bbb}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`);
+	var bf = 16989228054990n;
+	return addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>${tt} ${bbb}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`)+addChecked(bf);
 	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk 1s and 5s.
-		var mod5=i%5;
-		if (mod5==1||mod5==0) {
-			checked="";
-		}
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==47||mod50==48||mod50==49) {
-			checked="";
-		}
-		// Unique jumps.
-		if (mod50==41) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
 }
 
 function feat94TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked="";
-		// Jump z1s/z2s/z3s/z4s/z10s.
-		var mod10=i%10;
-		if (mod10==1||mod10==2||mod10==3||mod10==4||mod10==0) {
-			checked=jump;
-		}
-		// Unique Walks
-		var mod50=i%50;
-		if (mod50==31) {
-			checked="";
-		}
-		// Unique Jumps
-		if (mod50==15||mod50==16||mod50==26||mod50==36) {
-			checked=jump;
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 580042362519055n;
+	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf);
 }
 
 function pure9TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default jump.
-		var checked=jump;
-		// Walk bosses
-		var mod5=i%5;
-		if (mod5==0) {
-			checked="";
-		}
-		// Unique walks.
-		var mod50=i%50;
-		if (mod50==22||mod50==23||mod50==24||mod50==36||mod50==37||mod50==38||mod50==39) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 17024683589103n;
+	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`)+addChecked(bf);
+}
+
+function pure9TTs() {
+	var bf = 544274866748911n;
+	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}<br />Safer for Shandie's Dash.`)+addChecked(bf);
 }
 
 function pure11TT() {
-	var comment=addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`);
-	comment+=addToDescRow(`&nbsp;`);
-	
-	comment+=`<span class="routesRow">`;
-	for (let i=1; i<=50; i++) {
-		// Default walk.
-		var checked=jump;
-		// Avoid bad bosses in-case of drifting.
-		var mod50=i%50;
-		if (mod50==11||mod50==21||mod50==22||mod50==23||mod50==5||mod50==45||mod50==6||mod50==36||mod50==46||mod50==7||mod50==47||mod50==8||mod50==38||mod50==48||mod50==9||mod50==10) {
-			checked="";
-		}
-		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
-	}
-	comment+=`</span>`;
-	
-	return comment;
+	var bf = 861845310142479n;
+	return addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function addToDescRow(content) {
@@ -670,4 +312,18 @@ function determineJumps(ilvls,rarity,gilding) {
 
 function mapFromToRange(v, oldMin, oldMax, newMin, newMax) {
 	return (v - oldMin) * ((newMax - newMin) / (oldMax - oldMin)) + newMin;
+}
+
+function addChecked(bf) {
+	var comment=addToDescRow(`&nbsp;`)+`<span class="routesRow">`;
+	for (let i=1; i<=50; i++) {
+		var checked=isChecked(bf,i) ? " checked" : "";
+		comment+=`<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+	}
+	comment+=`</span>`;
+	return comment;
+}
+
+function isChecked(bf,i) {
+	return (bf & BigInt(Math.pow(2,i-1))) != 0 ? true : false;
 }
