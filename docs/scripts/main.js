@@ -94,7 +94,7 @@ function update() {
 	
 	var skipsL=determineJumps(ilvls-1,rarity,gilding);
 	var pL=(skipsL[1]*100);
-	var pDiff = p-pL;
+	var pDiff=p-pL;
 	
 	var fix=vSigFig(p,pDiff);
 	p=p.toFixed(fix);
@@ -178,7 +178,7 @@ function update() {
 }
 
 function unknownRoute() {
-	var comment=addToDescRow(`<h3>Unknown</h3>You have a skip amount and jump chance that I haven't accounted for yet. I have no idea what route you need. You would have been much better off sticking with a 100% skip chance.`);
+	var comment=addToDescRow(`<h3>Unknown</h3>You have a skip amount and jump chance that I haven't accounted for yet. I have no idea what route you need.`);
 	return comment;
 }
 
