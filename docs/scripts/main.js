@@ -60,6 +60,21 @@ function preset() {
 }
 
 function update() {
+	if (rarityInput.value!="epic") {
+		if (gildingInput.value=="golden") {
+			gildingInput.value="shiny";
+		}
+		if (gildingInput.options.length==3) {
+			gildingInput.options.remove(2);
+		}
+	} else {
+		if (gildingInput.options.length==2) {
+			var opt=document.createElement("option");
+			opt.text="Golden";
+			opt.value="golden";
+			gildingInput.options.add(opt);
+		}
+	}
 	if (gildingInput.value=="shiny"&&shinyNote.style.display=='none') {
 		shinyNote.style.display='';
 	} else if (gildingInput.value!="shiny"&&shinyNote.style.display=='') {
@@ -73,9 +88,17 @@ function update() {
 	var rarity=determineRarity();
 	var gilding=determineGilding();
 	var skips=determineJumps(ilvls,rarity,gilding);
-	var p=(skips[1]*100).toFixed(3);
-	var np=((1-skips[1])*100).toFixed(3);
+	var p=(skips[1]*100);
+	var np=((1-skips[1])*100);
 	var jumps=(skips[0]-1)+skips[1];
+	
+	var skipsL=determineJumps(ilvls-1,rarity,gilding);
+	var pL=(skipsL[1]*100);
+	var pDiff = p-pL;
+	
+	var fix=vSigFig(p,pDiff);
+	p=p.toFixed(fix);
+	np=np.toFixed(fix);
 	
 	var comment=``;
 	var spacer=addToDescRow(`&nbsp;`)
@@ -326,4 +349,15 @@ function addChecked(bf) {
 
 function isChecked(bf,i) {
 	return (bf & BigInt(Math.pow(2,i-1))) != 0 ? true : false;
+}
+
+function vSigFig(n,nDif) {
+	var p = 2;
+	if (n==100) {
+		return p;
+	}
+	while (parseFloat(nDif.toFixed(p)) == 0) {
+		p++;
+	}
+	return p+1;
 }
