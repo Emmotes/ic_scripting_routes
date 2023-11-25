@@ -253,7 +253,7 @@ function feat84TT() {
 }
 
 function feat84TT2() {
-	var bf = 1125897724754928n;
+	var bf = 57952963557919n;
 	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${fsa}`)+addChecked(bf);
 }
 
@@ -269,7 +269,7 @@ function mixed89TT() {
 }
 
 function feat94TT() {
-	var bf = 580042362519055n;
+	var bf = 580108934512143n;
 	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf);
 }
 
