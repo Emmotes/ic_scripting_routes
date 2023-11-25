@@ -144,8 +144,6 @@ function update() {
 	} else if (jumps==8) {
 		comment+=feat84TT();
 		comment+=spacer;
-		comment+=feat84TT2();
-		comment+=spacer;
 		comment+=pure8TT();
 	} else if (jumps==9) {
 		comment+=feat94TT();
@@ -250,11 +248,6 @@ function feat74TT() {
 function feat84TT() {
 	var bf = 57952963557919n;
 	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
-}
-
-function feat84TT2() {
-	var bf = 57952963557919n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_LevelUp_Extra" target="_blank">ImpEGamer's LevelUp</a> addon because it walks z1-4 before levelling any champions.${fsa}`)+addChecked(bf);
 }
 
 function pure8TT() {
