@@ -262,7 +262,7 @@ function mixed89TT() {
 }
 
 function feat94TT() {
-	var bf = 580108934512143n;
+	var bf = 17571766008863n;
 	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf);
 }
 
