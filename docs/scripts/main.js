@@ -149,8 +149,6 @@ function update() {
 		comment+=feat94TT();
 		comment+=spacer;
 		comment+=pure9TT();
-		comment+=spacer;
-		comment+=pure9TTs();
 	} else if (jumps==11) {
 		comment+=pure11TT();
 	} else if (jumps<3.25) {
@@ -269,11 +267,6 @@ function feat94TT() {
 function pure9TT() {
 	var bf = 17020252302587n;
 	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`)+addChecked(bf);
-}
-
-function pure9TTs() {
-	var bf = 544274866748911n;
-	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}<br />Safer for Shandie's Dash.`)+addChecked(bf);
 }
 
 function pure11TT() {
