@@ -211,7 +211,7 @@ function feat4TT() {
 }
 
 function feat54TT() {
-	var bf = 500953867244502n;
+	var bf = 498342527128532n;
 	return addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
@@ -221,7 +221,7 @@ function pure6LL() {
 }
 
 function feat64TT() {
-	var bf = 800167230925023n;
+	var bf = 800122939009243n;
 	return addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
@@ -231,17 +231,17 @@ function feat64RAC() {
 }
 
 function pure6TT() {
-	var bf = 1090714322599934n;
+	var bf = 1086144474247034n;
 	return addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function pure7TT() {
-	var bf = 1123700813330429n;
+	var bf = 1108238796846077n;
 	return addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
 function feat74TT() {
-	var bf = 380222613450972n;
+	var bf = 380222613385436n;
 	return addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf);
 }
 
@@ -251,7 +251,7 @@ function feat84TT() {
 }
 
 function pure8TT() {
-	var bf = 1125865512501247n;
+	var bf = 985128007367679n;
 	return addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
@@ -262,12 +262,12 @@ function mixed89TT() {
 }
 
 function feat94TT() {
-	var bf = 17571766008863n;
+	var bf = 35181131988031n;
 	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf);
 }
 
 function pure9TT() {
-	var bf = 17024683589103n;
+	var bf = 17020252302587n;
 	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
@@ -277,7 +277,7 @@ function pure9TTs() {
 }
 
 function pure11TT() {
-	var bf = 861845310142479n;
+	var bf = 853162999544159n;
 	return addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`)+addChecked(bf);
 }
 
