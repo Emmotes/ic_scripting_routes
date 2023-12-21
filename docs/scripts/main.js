@@ -3,6 +3,9 @@ const presetsInput=document.getElementById(`presets`);
 const rarityInput=document.getElementById(`rarity`);
 const gildingInput=document.getElementById(`gilding`);
 const shinyNote=document.getElementById(`shinyNote`);
+const eventPresets=document.getElementById(`eventPresets`);
+const eventChoices=document.getElementById(`eventChoices`);
+const eventList=document.getElementById(`eventList`);
 const fsa=`<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const fcsa=`<br/>This will be faster with mouse clicks enabled.`;
 const jump=` checked`;
@@ -146,13 +149,15 @@ const json=[
 
 
 function init() {
-	populateEventsList();
+	populateEventChoices();
 	ilvlInput.addEventListener(`input`, update);
 	presetsInput.addEventListener(`change`, preset);
 	rarityInput.addEventListener(`change`, update);
 	gildingInput.addEventListener(`change`, update);
 	window.addEventListener('hashchange',() =>{swapTab();});
 	swapTab();
+	eventPresets.addEventListener(`change`, populateEventList);
+	eventChoices.addEventListener(`change`, populateEventList);
 	update();
 }
 
@@ -470,22 +475,35 @@ function setHash(hash) {
 	}
 }
 
-function populateEventsList() {
-	var eventsList=document.getElementById(`eventsList`);
-	var contents=``;
+function populateEventChoices() {
 	for (let i=0;i<json.length;i++) {
-		var curr=json[i];
-		var onClick=` onClick="toggleEvent('${curr.name}','e${curr.id}')" style=""`;
-		var imgType=`Expand`;
-		if (curr.bitfields.length==0) {
-			onClick=` style="cursor:default;color:#777777;"`;
-			imgType=`Empty`;
+		if (json[i].bitfields.length==0) continue;
+		var opt=document.createElement("option");
+		opt.value=json[i].id;
+		opt.text=json[i].name;
+		eventChoices.add(opt);
+	}
+}
+
+function populateEventList() {
+	var jumps=eventPresets.value;
+	var event=eventChoices.value;
+	if (event==``) return;
+	
+	var curr=null;
+	for (let i=0;i<json.length;i++) {
+		if (json[i].id==event) {
+			curr=json[i];
+			break;
 		}
-		contents+=addToDescRow(`<h2><a href="javascript:void(0);" id="${curr.name}"${onClick}>`+genExpColImg(imgType,curr.name)+` ${curr.name}</a></h2>`);
-		contents+=`<span class="routesRow"><span class="routesWrapper" id="e${curr.id}" hidden>`;
-		for (let k=0;k<curr.bitfields.length;k++) {
-			var bf = curr.bitfields[k];
-			if (k>0) contents+=addToDescRow(`&nbsp;`);
+	}
+	if (curr==null) return;
+	
+	var contents=``;
+	for (let k=0;k<curr.bitfields.length;k++) {
+		var bf = curr.bitfields[k];
+		if (jumps==`all`||jumps==bf.name) {
+			if (k>0&&jumps==`all`) contents+=addToDescRow(`&nbsp;`);
 			contents+=addToDescRow(`<h3>${curr.name}: ${bf.name}</h3>`);
 			if (bf.custom!=undefined&&bf.custom!="") {
 				contents+=addToDescRow(`${bf.custom}`);
@@ -493,23 +511,7 @@ function populateEventsList() {
 				contents+=addChecked(bf.bitfield,false);
 			}
 		}
-		contents+=`</span></span>`;
 	}
-	eventsList.innerHTML=contents;
-}
-
-function toggleEvent(name,id) {
-	var a=document.getElementById(name);
-	var ele=document.getElementById(id);
-	if (ele.hidden) {
-		a.innerHTML = genExpColImg("Collapse",name)+` ${name}`;
-		ele.hidden=false;
-	} else {
-		a.innerHTML = genExpColImg("Expand",name)+` ${name}`;
-		ele.hidden=true;
-	}
-}
-
-function genExpColImg(type,name) {
-	return `<img src="images/${type.toLowerCase()}.png" alt="${type} ${name} Icon">`;
+	contents+=addToDescRow(`&nbsp;`);
+	eventList.innerHTML=contents;
 }

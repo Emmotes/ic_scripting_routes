@@ -69,6 +69,51 @@
 	</div>
 	<input onClick="setHash('eventTab')" type="radio" class="tabsRadio" name="routesTabs" id="eventTab">
 	<label for="eventTab" class="tabsLabel">Events</label>
-	<div class="tabsContent" id="eventsList">&nbsp;</div>
+	<div class="tabsContent">
+		<span class="routesRow">
+			<span class="routesDesc">
+				<h3 id="eventInput">Select an event and then choose your jump value.</h3>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol1">
+				<label for="eventChoices">Event:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="eventChoices" id="eventChoices">
+				<option value="" selected disabled style="display:none;">&nbsp;</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol1">
+				<label for="eventPresets">Jump value:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="eventPresets" id="eventPresets">
+				<option value="all" selected>All</option>
+				<option value="1j">1j</option>
+				<option value="2j">2j</option>
+				<option value="3j">3j</option>
+				<option value="4j">4j</option>
+				<option value="5j">5j</option>
+				<option value="6j">6j</option>
+				<option value="7j">7j</option>
+				<option value="8j">8j</option>
+				<option value="9j">9j</option>
+				<option value="10j">10j</option>
+				<option value="11j">11j</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesDesc">
+				&nbsp;
+			</span>
+		</span>
+		<span class="routesWrapper" id="eventList">
+			&nbsp;
+		</span>
+	</div>
 </div>
 {:/nomarkdown}
