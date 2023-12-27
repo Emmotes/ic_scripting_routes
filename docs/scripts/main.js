@@ -356,7 +356,7 @@ function feat74TT() {
 
 function feat84TT() {
 	var bf = 57952963557919n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf,true);
 }
 
 function pure8TT() {
