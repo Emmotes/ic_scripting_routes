@@ -88,7 +88,52 @@ const json=[
 	{
 		id: 9,
 		name: "Midwinter",
-		bitfields: []
+		bitfields: [
+			{
+				name: "1j",
+				bitfield: 984990484524027n
+			},
+			{
+				name: "2j",
+				bitfield: 1055529014591485n
+			},
+			{
+				name: "3j",
+				bitfield: 1090578061982719n
+			},
+			{
+				name: "4j",
+				bitfield: 544790273178991n
+			},
+			{
+				name: "5j",
+				bitfield: 1117101666270207n
+			},
+			{
+				name: "6j",
+				bitfield: 1121359052636155n
+			},
+			{
+				name: "7j",
+				bitfield: 1123700883570621n
+			},
+			{
+				name: "8j",
+				bitfield: 984062901574654n
+			},
+			{
+				name: "9j",
+				bitfield: 474421529062831n
+			},
+			{
+				name: "10j",
+				bitfield: 1125581001324540n
+			},
+			{
+				name: "11j",
+				bitfield: 1125762333539327n
+			}
+		]
 	},
 	{
 		id: 10,
