@@ -495,7 +495,7 @@ function addLoop(bf,j,fs) {
 	let z = 1;
 	let route = [z];
 	while (z <= 200) {
-		z += isChecked(bf,z%50) ? s : w;
+		z += isChecked(bf,z%50||50) ? s : w;
 		route.push(z);
 	}
 	let lastOfLoop = route[route.length-1] % 50;
@@ -508,9 +508,9 @@ function addLoop(bf,j,fs) {
 	}
 	let loop = [];
 	for (let i=loopStartIndex; i<route.length-1; i++) {
-		loop.push(route[i] % 50);
+		loop.push(route[i] % 50 || 50);
 	}
-	if (loop[0]==0) {
+	if (loop[0]==50) {
 		loop.splice(0, 1);
 		loop.push(50);
 	}
@@ -525,7 +525,6 @@ function addLoop(bf,j,fs) {
 }
 
 function isChecked(bf,i) {
-	if (i==0) i = 50;
 	return (bf & BigInt(Math.pow(2,i-1))) != 0 ? true : false;
 }
 
