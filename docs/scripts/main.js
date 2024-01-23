@@ -361,7 +361,7 @@ function pure4TT() {
 
 function feat4TT() {
 	var bf = 544309226487279n;
-	return addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`+addLoop(bf,4))+addChecked(bf,true);
 }
 
 function feat54TT() {
@@ -494,7 +494,7 @@ function addLoop(bf,j,fs) {
 	let w = fs ? 5 : 1;
 	let z = 1;
 	let route = [z];
-	while (z < 200) {
+	while (z <= 200) {
 		z += isChecked(bf,z%50) ? s : w;
 		route.push(z);
 	}
@@ -514,7 +514,7 @@ function addLoop(bf,j,fs) {
 		loop.splice(0, 1);
 		loop.push(50);
 	}
-	var spacer = ` - `;
+	let spacer = ` - `;
 	var comment=`<br>Preferred Loop: `;
 	for (let i=0; i<loop.length; i++) {
 		if (i > 0) comment += spacer;
