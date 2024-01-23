@@ -6,8 +6,8 @@ const shinyNote=document.getElementById(`shinyNote`);
 const eventPresets=document.getElementById(`eventPresets`);
 const eventChoices=document.getElementById(`eventChoices`);
 const eventList=document.getElementById(`eventList`);
-const fsa=`<br />This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
-const fcsa=`<br/>This will be faster with mouse clicks enabled.`;
+const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
+const fcsa=`<br>This will be faster with mouse clicks enabled.`;
 const jump=` checked`;
 const tt=`Tall Tales is in the Witchlight campaign.`;
 const ll=`The Roots of Loomlurch is in the Witchlight campaign.`;
@@ -260,7 +260,7 @@ function update() {
 	var spacer=addToDescRow(`&nbsp;`)
 	var skipBlurb=`${p}% chance to skip ${skips[0]} areas.`;
 	if (np>0) {
-		skipBlurb+=`<br/>${np}% chance to skip ${skips[0]-1} areas.`;
+		skipBlurb+=`<br>${np}% chance to skip ${skips[0]-1} areas.`;
 	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
@@ -341,12 +341,12 @@ function cursedFarmer() {
 
 function pure2LL() {
 	var bf = 1053332137310143n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`+addLoop(bf,2))+addChecked(bf,true);
 }
 
 function pure3LL() {
 	var bf = 1090715500149758n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`+addLoop(bf,3))+addChecked(bf,true);
 }
 
 function pre4TT() {
@@ -356,7 +356,7 @@ function pre4TT() {
 
 function pure4TT() {
 	var bf = 544309226487279n;
-	return addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`+addLoop(bf,4))+addChecked(bf,true);
 }
 
 function feat4TT() {
@@ -366,47 +366,47 @@ function feat4TT() {
 
 function feat54TT() {
 	var bf = 498342527128532n;
-	return addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,5,true))+addChecked(bf,true);
 }
 
 function pure6LL() {
 	var bf = 873863567932216n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`+addLoop(bf,6))+addChecked(bf,true);
 }
 
 function feat64TT() {
 	var bf = 800122939009243n;
-	return addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,6,true))+addChecked(bf,true);
 }
 
 function feat64RAC() {
 	var bf = 948417617686362n;
-	return addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`+addLoop(bf,6,true))+addChecked(bf,true);
 }
 
 function pure6TT() {
 	var bf = 1086144474247034n;
-	return addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`+addLoop(bf,6))+addChecked(bf,true);
 }
 
 function pure7TT() {
 	var bf = 1108238796846077n;
-	return addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`+addLoop(bf,7))+addChecked(bf,true);
 }
 
 function feat74TT() {
 	var bf = 380222613385436n;
-	return addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,7,true))+addChecked(bf,true);
 }
 
 function feat84TT() {
 	var bf = 57952963557919n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`+addLoop(bf,8,true))+addChecked(bf,true);
 }
 
 function pure8TT() {
 	var bf = 985128007367679n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`+addLoop(bf,8))+addChecked(bf,true);
 }
 
 function mixed89TT() {
@@ -417,17 +417,17 @@ function mixed89TT() {
 
 function feat94TT() {
 	var bf = 35181131988031n;
-	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`+addLoop(bf,9,true))+addChecked(bf,true);
 }
 
 function pure9TT() {
 	var bf = 17020252302587n;
-	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`+addLoop(bf,9))+addChecked(bf,true);
 }
 
 function pure11TT() {
 	var bf = 853162999544159n;
-	return addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
+	return addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`+addLoop(bf,11))+addChecked(bf,true);
 }
 
 function addToDescRow(content) {
@@ -489,7 +489,43 @@ function addChecked(bf,br) {
 	return comment;
 }
 
+function addLoop(bf,j,fs) {
+	let s = j+1;
+	let w = fs ? 5 : 1;
+	let z = 1;
+	let route = [z];
+	while (z < 200) {
+		z += isChecked(bf,z%50) ? s : w;
+		route.push(z);
+	}
+	let lastOfLoop = route[route.length-1] % 50;
+	let loopStartIndex = 0;
+	for (let i=route.length-2; i>=0; i--) {
+		if (route[i] % 50 == lastOfLoop) {
+			loopStartIndex = i;
+			break;
+		}
+	}
+	let loop = [];
+	for (let i=loopStartIndex; i<route.length-1; i++) {
+		loop.push(route[i] % 50);
+	}
+	if (loop[0]==0) {
+		loop.splice(0, 1);
+		loop.push(50);
+	}
+	var spacer = ` - `;
+	var comment=`<br>Preferred Loop: `;
+	for (let i=0; i<loop.length; i++) {
+		if (i > 0) comment += spacer;
+		comment += loop[i];
+	}
+	comment += `${spacer} repeat`;
+	return comment;
+}
+
 function isChecked(bf,i) {
+	if (i==0) i = 50;
 	return (bf & BigInt(Math.pow(2,i-1))) != 0 ? true : false;
 }
 
