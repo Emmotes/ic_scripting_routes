@@ -65,6 +65,9 @@ code{
 .routesDesc a:hover {
 	color: #EEEEEE;
 }
+.routesDesc table td {
+	text-align: end;
+}
 .routesCol1,.routesCol3,.routesCol6 {
 	width: 120px;
 	text-align: right;
