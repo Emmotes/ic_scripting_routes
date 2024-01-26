@@ -6,195 +6,20 @@ const shinyNote=document.getElementById(`shinyNote`);
 const eventPresets=document.getElementById(`eventPresets`);
 const eventChoices=document.getElementById(`eventChoices`);
 const eventList=document.getElementById(`eventList`);
-const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
-const fcsa=`<br>This will be faster with mouse clicks enabled.`;
 const jump=` checked`;
-const tt=`Tall Tales is in the Witchlight campaign.`;
-const ll=`The Roots of Loomlurch is in the Witchlight campaign.`;
-const cf=`Cursed Farmer is in The Grand Tour of the Sword Coast campaign.`;
-const rac=`Resolve Amongst Chaos is in the Descent into Avernus campaign.`
-const bbb=`Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing.`
-const json=[
-	{
-		id: 1,
-		name: "Highharvestide",
-		bitfields: []
-	},
-	{
-		id: 2,
-		name: "Liars' Night",
-		bitfields: []
-	},
-	{
-		id: 3,
-		name: "Feast of the Moon",
-		bitfields: []
-	},
-	{
-		id: 4,
-		name: "Simril",
-		bitfields: []
-	},
-	{
-		id: 5,
-		name: "Wintershield",
-		bitfields: [
-			{
-				name: "1j",
-				bitfield: 843325416243167n
-			},
-			{
-				name: "2j",
-				bitfield: 966951756085247n
-			},
-			{
-				name: "3j",
-				bitfield: 1125623954636799n
-			},
-			{
-				name: "4j",
-				bitfield: 1068016077999467n
-			},
-			{
-				name: "5j",
-				custom: "Use the 4j route with the Wasting Haste feat."
-			},
-			{
-				name: "6j",
-				bitfield: 1116861684840824n
-			},
-			{
-				name: "7j",
-				bitfield: 1121482463737855n
-			},
-			{
-				name: "8j",
-				bitfield: 1125887020841951n
-			},
-			{
-				name: "9j",
-				bitfield: 965761360567659n
-			},
-			{
-				name: "10j",
-				bitfield: 597582421159869n
-			},
-			{
-				name: "11j",
-				bitfield: 949667735009275n
-			}
-		]
-	},
-	{
-		id: 9,
-		name: "Midwinter",
-		bitfields: [
-			{
-				name: "1j",
-				bitfield: 984990484524027n
-			},
-			{
-				name: "2j",
-				bitfield: 1055529014591485n
-			},
-			{
-				name: "3j",
-				bitfield: 1090578061982719n
-			},
-			{
-				name: "4j",
-				bitfield: 544790273178991n
-			},
-			{
-				name: "5j",
-				bitfield: 1117101666270207n
-			},
-			{
-				name: "6j",
-				bitfield: 1121359052636155n
-			},
-			{
-				name: "7j",
-				bitfield: 1123700883570621n
-			},
-			{
-				name: "8j",
-				bitfield: 984062901574654n
-			},
-			{
-				name: "9j",
-				bitfield: 474421529062831n
-			},
-			{
-				name: "10j",
-				bitfield: 1125581001324540n
-			},
-			{
-				name: "11j",
-				bitfield: 1125762333539327n
-			}
-		]
-	},
-	{
-		id: 10,
-		name: "Grand Revel",
-		bitfields: []
-	},
-	{
-		id: 12,
-		name: "Fleetswake",
-		bitfields: []
-	},
-	{
-		id: 16,
-		name: "Festival of Fools",
-		bitfields: []
-	},
-	{
-		id: 18,
-		name: "Greengrass",
-		bitfields: []
-	},
-	{
-		id: 23,
-		name: "The Running",
-		bitfields: []
-	},
-	{
-		id: 26,
-		name: "The Great Modron March",
-		bitfields: []
-	},
-	{
-		id: 30,
-		name: "Dragondown",
-		bitfields: []
-	},
-	{
-		id: 37,
-		name: "Founder's Day",
-		bitfields: []
-	},
-	{
-		id: 38,
-		name: "Midsummer",
-		bitfields: []
-	},
-	{
-		id: 39,
-		name: "Ahghairon's Day",
-		bitfields: []
-	},
-	{
-		id: 49,
-		name: "Brightswords",
-		bitfields: []
-	}
-];
-
+const stackRoute=document.getElementById(`stackRoute`);
+const stackReset=document.getElementById(`stackReset`);
+const stackFavour=document.getElementById(`stackFavour`);
+const stackStack=document.getElementById(`stackStack`);
+const stackBrivZone=document.getElementById(`stackBrivZone`);
+const stackWithMetal=document.getElementById(`stackWithMetal`);
+const stackResult=document.getElementById(`stackResult`);
+const metalLevel=170;
+const stackMult=[1/((100-3.2)/100),1/((100-4)/100)];
 
 function init() {
 	populateEventChoices();
+	populateStackRoutes();
 	ilvlInput.addEventListener(`input`, update);
 	presetsInput.addEventListener(`change`, preset);
 	rarityInput.addEventListener(`change`, update);
@@ -203,6 +28,12 @@ function init() {
 	swapTab();
 	eventPresets.addEventListener(`change`, populateEventList);
 	eventChoices.addEventListener(`change`, populateEventList);
+	stackRoute.addEventListener(`change`, calculateStacks);
+	stackReset.addEventListener(`change`, calculateStacks);
+	stackFavour.addEventListener(`change`, calculateStacks);
+	stackStack.addEventListener(`change`, calculateStacks);
+	stackBrivZone.addEventListener(`change`, calculateStacks);
+	stackWithMetal.addEventListener(`change`, calculateStacks);
 	update();
 }
 
@@ -272,162 +103,57 @@ function update() {
 	comment+=spacer;
 	
 	if (jumps==2) {
-		comment+=pure2LL();
+		comment+=parseRoute(gemFarmJson.pure2LL);
 		comment+=spacer;
-		comment+=cursedFarmer();
+		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps==3) {
-		comment+=pure3LL();
+		comment+=parseRoute(gemFarmJson.pure3LL);
 		comment+=spacer;
-		comment+=cursedFarmer();
+		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps==4) {
-		comment+=pure4TT();
+		comment+=parseRoute(gemFarmJson.pure4TT);
 	} else if (jumps==5) {
-		comment+=feat54TT();
+		comment+=parseRoute(gemFarmJson.feat54TT);
 		comment+=spacer;
-		comment+=feat4TT();
+		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps==6) {
-		comment+=pure6LL();
+		comment+=parseRoute(gemFarmJson.pure6LL);
 		comment+=spacer;
-		comment+=feat64TT();
+		comment+=parseRoute(gemFarmJson.feat64TT);
 		comment+=spacer;
-		comment+=feat64RAC();
+		comment+=parseRoute(gemFarmJson.feat64RAC);
 		comment+=spacer;
-		comment+=pure6TT();
+		comment+=parseRoute(gemFarmJson.pure6TT);
 	} else if (jumps==7) {
-		comment+=pure7TT();
+		comment+=parseRoute(gemFarmJson.pure7TT);
 		comment+=spacer;
-		comment+=feat74TT();
+		comment+=parseRoute(gemFarmJson.feat74TT);
 	} else if (jumps==8) {
-		comment+=feat84TT();
+		comment+=parseRoute(gemFarmJson.feat84TT);
 		comment+=spacer;
-		comment+=pure8TT();
+		comment+=parseRoute(gemFarmJson.pure8TT);
 	} else if (jumps==9) {
-		comment+=feat94TT();
+		comment+=parseRoute(gemFarmJson.feat94TT);
 		comment+=spacer;
-		comment+=pure9TT();
+		comment+=parseRoute(gemFarmJson.pure9TT);
 	} else if (jumps==11) {
-		comment+=pure11TT();
+		comment+=parseRoute(gemFarmJson.pure11TT);
 	} else if (jumps<3.25) {
-		comment+=cursedFarmer();
+		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps<4) {
-		comment+=pre4TT();
+		comment+=parseRoute(gemFarmJson.pre4TT);
 		comment+=spacer;
-		comment+=cursedFarmer();
+		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps>4&&jumps<5) {
-		comment+=feat4TT();
+		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>5&&jumps<6) {
-		comment+=feat4TT();
-	//} else if (jumps>6&&jumps<7) {
-	//	comment+=mixed67TT();
-	//} else if (jumps>7&&jumps<8) {
-	//	comment+=mixed78TT();
+		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>=8&&jumps<9) {
-		comment+=mixed89TT();
+		comment+=parseRoute(gemFarmJson.mixed89TT);
 	} else {
-		comment+=unknownRoute();
+		comment+=parseRoute(gemFarmJson.unknown);
 	}
 	document.getElementById('wrapper').innerHTML=comment;
-}
-
-function unknownRoute() {
-	var comment=addToDescRow(`<h3>Unknown</h3>You have a skip amount and jump chance that I haven't accounted for yet. I have no idea what route you need.`);
-	return comment;
-}
-
-function cursedFarmer() {
-	var bf = 1125899906842623n;
-	return addToDescRow(`<h3>Cursed Farmer</h3>${cf} You won't want to be walking any areas as that will only slow you down.`)+addChecked(bf,true);
-}
-
-function pure2LL() {
-	var bf = 1053332137310143n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 2j)</h3>${ll} ${bbb}`+addLoop(bf,2))+addChecked(bf,true);
-}
-
-function pure3LL() {
-	var bf = 1090715500149758n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 3j)</h3>${ll} ${bbb}`+addLoop(bf,3))+addChecked(bf,true);
-}
-
-function pre4TT() {
-	var bf = 508470925670862n;
-	return addToDescRow(`<h3>Tall Tales (Mixed 3/4j)</h3>${tt} ${bbb}`)+addChecked(bf,true);
-}
-
-function pure4TT() {
-	var bf = 544309226487279n;
-	return addToDescRow(`<h3>Tall Tales (100% 4j)</h3>${tt} ${bbb}`+addLoop(bf,4))+addChecked(bf,true);
-}
-
-function feat4TT() {
-	var bf = 544309226487279n;
-	return addToDescRow(`<h3>Tall Tales (100% 4j with Wasting Haste Feat)</h3>${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`+addLoop(bf,4))+addChecked(bf,true);
-}
-
-function feat54TT() {
-	var bf = 498342527128532n;
-	return addToDescRow(`<h3>Tall Tales (100% 5j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,5,true))+addChecked(bf,true);
-}
-
-function pure6LL() {
-	var bf = 873863567932216n;
-	return addToDescRow(`<h3>Roots of Loomlurch (100% 6j)</h3>${ll} ${bbb}`+addLoop(bf,6))+addChecked(bf,true);
-}
-
-function feat64TT() {
-	var bf = 800122939009243n;
-	return addToDescRow(`<h3>Tall Tales (100% 6j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,6,true))+addChecked(bf,true);
-}
-
-function feat64RAC() {
-	var bf = 948417617686362n;
-	return addToDescRow(`<h3>Resolve Amongst Chaos (100% 6j / 4j Feat Swap)</h3>${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`+addLoop(bf,6,true))+addChecked(bf,true);
-}
-
-function pure6TT() {
-	var bf = 1086144474247034n;
-	return addToDescRow(`<h3>Tall Tales (100% 6j)</h3>${tt} ${bbb}`+addLoop(bf,6))+addChecked(bf,true);
-}
-
-function pure7TT() {
-	var bf = 1108238796846077n;
-	return addToDescRow(`<h3>Tall Tales (100% 7j)</h3>${tt} ${bbb}`+addLoop(bf,7))+addChecked(bf,true);
-}
-
-function feat74TT() {
-	var bf = 380222613385436n;
-	return addToDescRow(`<h3>Tall Tales (100% 7j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}${fcsa}`+addLoop(bf,7,true))+addChecked(bf,true);
-}
-
-function feat84TT() {
-	var bf = 57952963557919n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`+addLoop(bf,8,true))+addChecked(bf,true);
-}
-
-function pure8TT() {
-	var bf = 985128007367679n;
-	return addToDescRow(`<h3>Tall Tales (100% 8j)</h3>${tt} ${bbb}`+addLoop(bf,8))+addChecked(bf,true);
-}
-
-function mixed89TT() {
-	var bf = 16989228054990n;
-	return addToDescRow(`<h3>Tall Tales (Mixed 8j/9j)</h3>${tt} ${bbb}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump. Recommended to use Ezmerelda if you use Shandie to avoid loss of Dash.`)+addChecked(bf,true);
-	comment+=addToDescRow(`&nbsp;`);
-}
-
-function feat94TT() {
-	var bf = 35181131988031n;
-	return addToDescRow(`<h3>Tall Tales (100% 9j / 4j Feat Swap)</h3>${tt} ${bbb}${fsa}`+addLoop(bf,9,true))+addChecked(bf,true);
-}
-
-function pure9TT() {
-	var bf = 17020252302587n;
-	return addToDescRow(`<h3>Tall Tales (100% 9j)</h3>${tt} ${bbb}`+addLoop(bf,9))+addChecked(bf,true);
-}
-
-function pure11TT() {
-	var bf = 853162999544159n;
-	return addToDescRow(`<h3>Tall Tales (100% 11j)</h3>${tt} ${bbb}`+addLoop(bf,11))+addChecked(bf,true);
 }
 
 function addToDescRow(content) {
@@ -556,11 +282,11 @@ function setHash(hash) {
 }
 
 function populateEventChoices() {
-	for (let i=0;i<json.length;i++) {
-		if (json[i].bitfields.length==0) continue;
+	for (let i=0;i<eventsJson.length;i++) {
+		if (eventsJson[i].bitfields.length==0) continue;
 		var opt=document.createElement("option");
-		opt.value=json[i].id;
-		opt.text=json[i].name;
+		opt.value=eventsJson[i].id;
+		opt.text=eventsJson[i].name;
 		eventChoices.add(opt);
 	}
 }
@@ -571,9 +297,9 @@ function populateEventList() {
 	if (event==``) return;
 	
 	var curr=null;
-	for (let i=0;i<json.length;i++) {
-		if (json[i].id==event) {
-			curr=json[i];
+	for (let i=0;i<eventsJson.length;i++) {
+		if (eventsJson[i].id==event) {
+			curr=eventsJson[i];
 			break;
 		}
 	}
@@ -594,4 +320,75 @@ function populateEventList() {
 	}
 	contents+=addToDescRow(`&nbsp;`);
 	eventList.innerHTML=contents;
+}
+
+function populateStackRoutes() {
+	let keyset=Object.keys(gemFarmJson);
+	for (let key of keyset) {
+		if (typeof(gemFarmJson[key].jump)!="number") continue;
+		var opt=document.createElement("option");
+		opt.value=key;
+		opt.text=parseName(gemFarmJson[key],true);
+		stackRoute.add(opt);
+	}
+	stackRoute.value=`pure4TT`;
+	calculateStacks();
+}
+
+function calculateStacks() {
+	var contents=``;
+	if (stackRoute.value==""||stackFavour.value==""||stackReset.value==""||stackBrivZone.value=="") {
+		contents+=addToDescRow(`Need more data.`);
+		contents+=addToDescRow(`&nbsp;`);
+		stackResult.innerHTML=contents;
+		return
+	}
+	let f=Number(stackFavour.value);
+	let r=Number(stackReset.value);
+	let bz=Number(stackBrivZone.value);
+	let t=Math.min(f,Math.floor(r/5))+1;
+	let jsonRoute=gemFarmJson[stackRoute.value];
+	let s = Number(jsonRoute.jump)+1;
+	let w = jsonRoute.fs||false?5:1;
+	let z = t;
+	let mj=0;
+	let nmj=0;
+	let stacks=50;
+	let route=[1,z];
+	while (z<=r&&route.length<2000) {
+		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
+		let metal=!(!stackWithMetal.checked&&z<stackStack.value);
+		z += checked ? s : w;
+		route.push(z);
+		if ((checked||w>1)&&z<r&&z>=bz) {
+			stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
+			if (metal) mj++;
+			else nmj++;
+		}
+	}
+	let result=`<h2>Stacks Required: ${stacks}</h2>`;
+	let loop=addLoop(jsonRoute.bf,s-1).substring(4);
+	result+=`<ul><li>${loop}</li>`;
+	result+=`<li>Thellora will land you on z${t}.</li><ul><li>If this is not on the preferred loop then you will need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	if (bz>t) {
+		let diff=bz-t;
+		result+=`<li>The route will walk ${diff} zones before levelling Briv.</li>`;
+	}
+	result+=`<li>Briv will jump `+(mj+nmj)+` times</li>`;
+	if (nmj>0) {
+		result+=`<ul><li>${mj}x with Metalborn.</li>`;
+		result+=`<li>${nmj}x without Metalborn.</li></ul>`;
+	}
+	result+=`</ul><h3>Route</h3>`;
+	result+=`<table><tbody><tr>`;
+	for (let i=0;i<route.length;i++) {
+		if (i%10==0&&i>0) result+=`</tr><tr>`;
+		result+=`<td>${route[i]}</td>`;
+	}
+	for (let i=0;i<10-(route.length%10);i++) result+=`<td>&nbsp;</td>`;
+	result+=`</tr></tbody></table>`;
+	
+	contents+=addToDescRow(result);
+	contents+=addToDescRow(`&nbsp;`);
+	stackResult.innerHTML=contents;
 }

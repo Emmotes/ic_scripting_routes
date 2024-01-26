@@ -115,5 +115,80 @@
 			&nbsp;
 		</span>
 	</div>
+	<input onClick="setHash('stacksTab')" type="radio" class="tabsRadio" name="routesTabs" id="stacksTab">
+	<label for="stacksTab" class="tabsLabel">Stacks</label>
+	<div class="tabsContent">
+		<span class="routesRow">
+			<span class="routesDesc">
+				<h3 id="eventInput">Fill out all the information below.</h3>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesDesc">
+				This tab is currently a work in progress. I can't guarantee it works properly.
+			</span>
+			<span class="routesDesc">
+				&nbsp;
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackRoute">Route:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="stackRoute" id="stackRoute">
+				<option value="" selected disabled style="display:none;">&nbsp;</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackReset">Modron Reset Zone:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackReset" id="stackReset" value="500" min="15">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackFavour">Favour Exponent:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackFavour" id="stackFavour" value="100" min="1">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackStack">Stack Zone:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackStack" id="stackStack" value="490" min="1">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackBrivZone">Min Zone to Reach Before Leveling Briv:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackBrivZone" id="stackBrivZone" value="2" min="1">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackWithMetal">Stack With Metalborn:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="checkbox" name="stackWithMetal" id="stackWithMetal" checked>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesDesc">
+				&nbsp;
+			</span>
+		</span>
+		<span class="routesWrapper" id="stackResult">
+			&nbsp;
+		</span>
+	</div>
 </div>
 {:/nomarkdown}

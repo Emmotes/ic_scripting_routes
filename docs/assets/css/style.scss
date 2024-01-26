@@ -65,21 +65,17 @@ code{
 .routesDesc a:hover {
 	color: #EEEEEE;
 }
-.routesCol1 {
+.routesCol1,.routesCol3,.routesCol6 {
 	width: 120px;
 	text-align: right;
 	padding-right: 8px;
 }
-.routesCol2 {
+.routesCol2,.routesCol4 {
 	width: 210px;
 }
 .routesCol3 {
-	width: 120px;
-	text-align: right;
-	padding-right: 8px;
 }
 .routesCol4 {
-	width: 210px;
 }
 .routesCol5 {
 	min-width: fit-content;
@@ -88,6 +84,9 @@ code{
 	justify-content: flex-start;
 	align-items: center;
 	color: #DDCCEE;
+}
+.routesCol6 {
+	width: 300px;
 }
 .routesCol2 input,.routesCol2 select,.routesCol4 input,.routesCol4 select {
 	min-width: 200px;
@@ -98,9 +97,13 @@ code{
 	padding: 3px;
 	font-size: 0.95em;
 }
-.routesCol2 input {
+.routesCol2 input[type="number"] {
 	min-width: 188px;
 	padding-left: 7px;
+}
+.routesCol2 input[type="checkbox"] {
+	min-width: 0;
+	transform: translate(-4px,-2px);
 }
 input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 	display: none;
@@ -144,7 +147,7 @@ input[type="checkbox"]::before {
 	/* Windows High Contrast Mode */
 	background-color: CanvasText;
 	
-	clip-path: polygon(17% 54%, 28% 43%, 38% 54%, 70% 22%, 81% 33%, 38% 75%, 17% 54%)
+	clip-path: polygon(17% 54%, 28% 43%, 38% 54%, 70% 22%, 81% 33%, 38% 75%, 17% 54%);
 }
 input[type="checkbox"]:checked::before {
 	transform: scale(1);
@@ -190,7 +193,7 @@ input[type="checkbox"]:checked::before {
 	display: none;
 	border: 1px solid black;
 	background-color: #1a1a1a;
-	padding: 12px 15px 0 20px;
+	padding: 12px 20px 0 20px;
 	border-radius: 0 10px 10px 10px;
 }
 .tabsRadio:checked+.tabsLabel {
