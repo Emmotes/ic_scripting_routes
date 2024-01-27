@@ -380,7 +380,7 @@ function calculateStacks() {
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
 	result+=`<ul><li>${loop}</li>`;
-	result+=`<li>Thellora will land you on z${t}.</li><ul><li>If this is not on the preferred loop then you will need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	result+=`<li>Thellora will land you on z${t}.</li><ul><li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	if (bz>t) {
 		let diff=bz-t;
 		result+=`<li>The route will walk ${diff} zones before levelling Briv.</li>`;
