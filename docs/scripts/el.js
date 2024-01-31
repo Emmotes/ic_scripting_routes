@@ -122,7 +122,52 @@ const eventsJson=[
 	{
 		id: 10,
 		name: "Grand Revel",
-		bitfields: []
+		bitfields: [
+			{
+				name: "1j",
+				bitfield: 949943686638591n
+			},
+			{
+				name: "2j",
+				bitfield: 1053329924660669n
+			},
+			{
+				name: "3j",
+				bitfield: 1090680063125710n
+			},
+			{
+				name: "4j",
+				bitfield: 540250362651951n
+			},
+			{
+				name: "5j",
+				bitfield: 1117103745645567n
+			},
+			{
+				name: "6j",
+				bitfield: 1121328983619960n
+			},
+			{
+				name: "7j",
+				bitfield: 1053332138999020n
+			},
+			{
+				name: "8j",
+				bitfield: 1124764961591126n
+			},
+			{
+				name: "9j",
+				bitfield: 544785843924395n
+			},
+			{
+				name: "10j",
+				bitfield: 1125625028472797n
+			},
+			{
+				name: "11j",
+				bitfield: 1125762467733487n
+			}
+		]
 	},
 	{
 		id: 12,
