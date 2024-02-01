@@ -182,6 +182,14 @@
 			</span>
 		</span>
 		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackRuns">Number of Runs Per Stacking:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackRuns" id="stackRuns" value="1" min="1">
+			</span>
+		</span>
+		<span class="routesRow">
 			<span class="routesDesc">
 				&nbsp;
 			</span>

@@ -14,6 +14,7 @@ const stackFavour=document.getElementById(`stackFavour`);
 const stackStack=document.getElementById(`stackStack`);
 const stackBrivZone=document.getElementById(`stackBrivZone`);
 const stackWithMetal=document.getElementById(`stackWithMetal`);
+const stackRuns=document.getElementById(`stackRuns`);
 const stackResult=document.getElementById(`stackResult`);
 const metalLevel=170;
 const stackMult=[1/((100-3.2)/100),1/((100-4)/100)];
@@ -35,6 +36,7 @@ function init() {
 	stackStack.addEventListener(`change`,calculateStacks);
 	stackBrivZone.addEventListener(`change`,calculateStacks);
 	stackWithMetal.addEventListener(`change`,calculateStacks);
+	stackRuns.addEventListener(`change`,calculateStacks);
 	update();
 	calculateStacks();
 }
@@ -273,6 +275,7 @@ function swapTab() {
 				stackStack.value=hash[4];
 				stackBrivZone.value=hash[5];
 				stackWithMetal.checked=hash[6]==`1`?true:false;
+				stackRuns.value=hash[7];
 				break;
 		}
 	}
@@ -280,7 +283,8 @@ function swapTab() {
 
 function setHash(hash) {
 	if (hash==st) {
-		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_`+(stackWithMetal.checked?1:0);
+		let swm=stackWithMetal.checked?1:0;
+		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${swm}_${stackRuns.value}`;
 	}
 	hash=`#`+hash;
 	if(history.replaceState) {
@@ -357,39 +361,57 @@ function calculateStacks() {
 	let f=Number(stackFavour.value);
 	let r=Number(stackReset.value);
 	let bz=Number(stackBrivZone.value);
-	let t=Math.min(f,Math.floor(r/5))+1;
+	let runs=Number(stackRuns.value);
 	let jsonRoute=gemFarmJson[stackRoute.value];
 	let s=Number(jsonRoute.jump)+1;
 	let w=jsonRoute.fs||false?5:1;
-	let z=t;
+	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s:0);
 	let mj=0;
 	let nmj=0;
 	let stacks=50;
+	let z=t;
 	let route=[1,z];
-	while (z<=r&&route.length<2000) {
-		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
-		let metal=!(!stackWithMetal.checked&&z<stackStack.value);
-		z+=checked?s:w;
-		route.push(z);
-		if ((checked||w>1)&&z<r&&z>=bz) {
-			stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
-			if (metal) mj++;
-			else nmj++;
+	for (let i=0;i<runs;i++) {
+		z=t;
+		while (z<=r&&route.length<2000) {
+			let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
+			let metal=!(!stackWithMetal.checked&&z<stackStack.value);
+			z+=checked?s:w;
+			if (i==0) route.push(z);
+			if ((checked||w>1)&&z<r&&z>=bz) {
+				stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
+				if (metal) mj++;
+				else nmj++;
+			}
 		}
 	}
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
 	result+=`<ul><li>${loop}</li>`;
-	result+=`<li>Thellora will land you on z${t}.</li><ul><li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	let pBriv=(bz==1?`<li>This is because she might consume a Briv jump at the same time. Note that this can be unreliable. It is highly recommended that you level Briv at zone 2 or higher with the level up addon.`:``);
+	result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	if (bz>t) {
 		let diff=bz-t;
 		result+=`<li>The route will walk ${diff} zones before levelling Briv.</li>`;
 	}
-	result+=`<li>Briv will jump `+(mj+nmj)+` times</li>`;
-	if (nmj>0) {
-		result+=`<ul><li>${mj}x with Metalborn.</li>`;
-		result+=`<li>${nmj}x without Metalborn.</li></ul>`;
+	let perRun=(runs>1)?` (per run)`:``;
+	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}</li>`;
+	if (nmj>0||runs>1) result+=`<ul>`;
+	if (runs>1) {
+		let type=``;
+		switch (runs) {
+			case 2: type=`Doubles`; break;
+			case 3: type=`Triples`; break;
+			case 4: type=`Quadruples`; break;
+			default: type=`${runs} Times`;
+		}
+		result+=`<li>Running ${type}.`;
 	}
+	if (nmj>0) {
+		result+=`<li>${mj}x with Metalborn${perRun}.</li>`;
+		result+=`<li>${nmj}x without Metalborn${perRun}.</li>`;
+	}
+	if (nmj>0||runs>1) result+=`</ul>`;
 	result+=`</ul><h3>Route</h3>`;
 	result+=`<table><tbody><tr>`;
 	for (let i=0;i<route.length;i++) {
