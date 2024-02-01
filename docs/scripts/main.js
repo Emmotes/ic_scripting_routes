@@ -395,7 +395,7 @@ function calculateStacks() {
 		result+=`<li>The route will walk ${diff} zones before levelling Briv.</li>`;
 	}
 	let perRun=(runs>1)?` (per run)`:``;
-	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}</li>`;
+	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}.</li>`;
 	if (nmj>0||runs>1) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
@@ -405,7 +405,7 @@ function calculateStacks() {
 			case 4: type=`Quadruples`; break;
 			default: type=`${runs} Times`;
 		}
-		result+=`<li>Running ${type}.`;
+		result+=`<li>Running ${type}.</li>`;
 	}
 	if (nmj>0) {
 		result+=`<li>${mj}x with Metalborn${perRun}.</li>`;
