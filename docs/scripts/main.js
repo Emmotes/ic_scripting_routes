@@ -392,7 +392,8 @@ function calculateStacks() {
 	result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	if (bz>t) {
 		let diff=bz-t;
-		result+=`<li>The route will walk ${diff} zones before levelling Briv.</li>`;
+		let pl=(diff>1?`s`:``);
+		result+=`<li>The route will walk ${diff} zone${pl} before levelling Briv.</li>`;
 	}
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}.</li>`;
