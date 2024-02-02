@@ -113,6 +113,8 @@ function update() {
 	} else if (jumps==3) {
 		comment+=parseRoute(gemFarmJson.pure3LL);
 		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.pure3VL);
+		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps==4) {
 		comment+=parseRoute(gemFarmJson.pure4TT);

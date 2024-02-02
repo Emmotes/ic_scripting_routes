@@ -2,12 +2,14 @@ const ncf=[`Cursed Farmer`,`CF`];
 const ntt=[`Tall Tales`,`TT`];
 const nll=[`Roots of Loomlurch`,`LL`];
 const nrac=[`Resolve Amongst Chaos`,`RAC`];
+const nvl=[`Vecna Lives!`,`VL!`];
 const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const fcsa=`<br>This will be faster with mouse clicks enabled.`;
-const tt=`${ntt[0]} is in the Witchlight campaign.`;
-const ll=`The ${nll[0]} is in the Witchlight campaign.`;
-const cf=`${ncf[0]} is in The Grand Tour of the Sword Coast campaign.`;
-const rac=`${nrac[0]} is in the Descent into Avernus campaign.`;
+const tt=`${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
+const ll=`The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
+const cf=`${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign.`;
+const rac=`${nrac[0]} (${nrac[1]}) is in the Descent into Avernus campaign.`;
+const vl=`${nvl[0]} (${nvl[1]}) is in the Grand Tour of the Sword Coast campaign.`;
 const bbb=`Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing.`;
 const wft=` with Wasting Haste Feat`;
 
@@ -36,6 +38,14 @@ const gemFarmJson={
 		jump:3,
 		bf:1090715500149758n,
 		blurb:`${ll} ${bbb}`,
+		loop:true
+	},
+	pure3VL:{
+		name:`${nvl[0]}`,
+		sname:`${nvl[1]}`,
+		jump:3,
+		bf:1090715500142542n,
+		blurb:`${vl}`,
 		loop:true
 	},
 	pre4TT:{
