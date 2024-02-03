@@ -18,6 +18,11 @@ const stackRuns=document.getElementById(`stackRuns`);
 const stackResult=document.getElementById(`stackResult`);
 const metalLevel=170;
 const stackMult=[1/((100-3.2)/100),1/((100-4)/100)];
+const stackResetMin=15;
+const stackFavourMin=0;
+const stackStackMin=1;
+const stackBrivZoneMin=1;
+const stackRunsMin=1;
 
 function init() {
 	populateEventChoices();
@@ -357,6 +362,7 @@ function calculateStacks() {
 		stackResult.innerHTML=contents;
 		return
 	}
+	enforceTolerances();
 	if (window.location.hash.substring(1).split("_")[0]==st) {
 		setHash(st);
 	}
@@ -372,7 +378,7 @@ function calculateStacks() {
 	let nmj=0;
 	let stacks=50;
 	let z=t;
-	let route=[1,z];
+	let route=z>1?[1,z]:[1];
 	for (let i=0;i<runs;i++) {
 		z=t;
 		while (z<=r&&route.length<2000) {
@@ -391,7 +397,9 @@ function calculateStacks() {
 	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
 	result+=`<ul><li>${loop}</li>`;
 	let pBriv=(bz==1?`<li>This is because she might consume a Briv jump at the same time. Note that this can be unreliable. It is highly recommended that you level Briv at zone 2 or higher with the level up addon.`:``);
-	result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	if (f>0) {
+		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	}
 	if (bz>t) {
 		let diff=bz-t;
 		let pl=(diff>1?`s`:``);
@@ -427,4 +435,12 @@ function calculateStacks() {
 	contents+=addToDescRow(result);
 	contents+=addToDescRow(`&nbsp;`);
 	stackResult.innerHTML=contents;
+}
+
+function enforceTolerances() {
+	if (stackReset.value<stackResetMin) stackReset.value=stackResetMin;
+	if (stackFavour.value<stackFavourMin) stackFavour.value=stackFavourMin;
+	if (stackStack.value<stackStackMin) stackFavour.value=stackStackMin;
+	if (stackBrivZone.value<stackBrivZoneMin) stackBrivZone.value=stackBrivZoneMin;
+	if (stackRuns.value<stackRunsMin) stackRuns.value=stackRunsMin;
 }

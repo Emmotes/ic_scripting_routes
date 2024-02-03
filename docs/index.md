@@ -154,7 +154,10 @@
 				<label for="stackFavour">Favour Exponent:</label>
 			</span>
 			<span class="routesCol2">
-				<input type="number" name="stackFavour" id="stackFavour" value="100" min="1">
+				<input type="number" name="stackFavour" id="stackFavour" value="100" min="0">
+			</span>
+			<span class="routesCol4">
+				(Use 0 to disable Thellora)
 			</span>
 		</span>
 		<span class="routesRow">
