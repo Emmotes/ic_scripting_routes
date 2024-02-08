@@ -148,6 +148,9 @@
 			<span class="routesCol2">
 				<input type="number" name="stackReset" id="stackReset" value="500" min="15">
 			</span>
+			<span class="routesCol4" id="stackResetNote">
+				&nbsp;
+			</span>
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
@@ -156,7 +159,7 @@
 			<span class="routesCol2">
 				<input type="number" name="stackFavour" id="stackFavour" value="100" min="0">
 			</span>
-			<span class="routesCol4">
+			<span class="routesCol4" id="stackFavourNote">
 				(Use 0 to disable Thellora)
 			</span>
 		</span>

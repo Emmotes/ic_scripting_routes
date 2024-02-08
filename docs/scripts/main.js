@@ -16,13 +16,17 @@ const stackBrivZone=document.getElementById(`stackBrivZone`);
 const stackWithMetal=document.getElementById(`stackWithMetal`);
 const stackRuns=document.getElementById(`stackRuns`);
 const stackResult=document.getElementById(`stackResult`);
+const stackFavourNote=document.getElementById(`stackFavourNote`);
+const stackResetNote=document.getElementById(`stackResetNote`);
 const metalLevel=170;
 const stackMult=[1/((100-3.2)/100),1/((100-4)/100)];
-const stackResetMin=15;
-const stackFavourMin=0;
+const stackResetLimits=[15,2000];
+const stackFavourLimits=[0,308];
 const stackStackMin=1;
 const stackBrivZoneMin=1;
 const stackRunsMin=1;
+const resetLimitText=[`<span style="color:#DDCCEE">(Current reset limit is ${stackResetLimits[1]})</span>`,`&nbsp;`];
+const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`]
 
 function init() {
 	populateEventChoices();
@@ -438,9 +442,19 @@ function calculateStacks() {
 }
 
 function enforceTolerances() {
-	if (stackReset.value<stackResetMin) stackReset.value=stackResetMin;
-	if (stackFavour.value<stackFavourMin) stackFavour.value=stackFavourMin;
+	if (stackReset.value<stackResetLimits[0]) stackReset.value=stackResetLimits[0];
+	if (stackFavour.value<stackFavourLimits[0]) stackFavour.value=stackFavourLimits[0];
 	if (stackStack.value<stackStackMin) stackFavour.value=stackStackMin;
 	if (stackBrivZone.value<stackBrivZoneMin) stackBrivZone.value=stackBrivZoneMin;
 	if (stackRuns.value<stackRunsMin) stackRuns.value=stackRunsMin;
+	if (stackReset.value>stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[0]) {
+		stackResetNote.innerHTML=resetLimitText[0];
+	} else if (stackReset.value<=stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[1]) {
+		stackResetNote.innerHTML=resetLimitText[1];
+	}
+	if (stackFavour.value>stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[0]) {
+		stackFavourNote.innerHTML=favourLimitText[0];
+	} else if (stackFavour.value<=stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[1]) {
+		stackFavourNote.innerHTML=favourLimitText[1];
+	}
 }
