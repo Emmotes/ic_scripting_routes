@@ -25,7 +25,7 @@ const stackFavourLimits=[0,308];
 const stackStackMin=1;
 const stackBrivZoneMin=1;
 const stackRunsMin=1;
-const resetLimitText=[`<span style="color:#DDCCEE">(Current reset limit is ${stackResetLimits[1]})</span>`,`&nbsp;`];
+const resetLimitText=[`<span style="color:#DDCCEE">(Current reset cap is ${stackResetLimits[1]})</span>`,`&nbsp;`];
 const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`]
 
 function init() {
