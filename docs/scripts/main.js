@@ -381,7 +381,7 @@ function calculateStacks() {
 	let jsonRoute=gemFarmJson[stackRoute.value];
 	let s=Number(jsonRoute.jump)+1;
 	let w=jsonRoute.fs||false?5:1;
-	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s:0);
+	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s-1:0);
 	let swm=stackWithMetal.checked;
 	let mj=swm&&f==0&&bz<=1?1:0;
 	let nmj=!swm&&f==0&&bz<=1?1:0;
