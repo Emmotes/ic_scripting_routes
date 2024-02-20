@@ -27,6 +27,9 @@ const stackBrivZoneMin=1;
 const stackRunsMin=1;
 const resetLimitText=[`<span style="color:#DDCCEE">(Current reset cap is ${stackResetLimits[1]})</span>`,`&nbsp;`];
 const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`]
+const arrowQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
+const arrowNorm = arrowQT.replace(`QT`,`Norm`);
+const arrowReset = `<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
 
 function init() {
 	populateEventChoices();
@@ -383,6 +386,7 @@ function calculateStacks() {
 	let stacks=50;
 	let z=t;
 	let route=z>1?[1,z]:[1];
+	let nqts=0;
 	for (let i=0;i<runs;i++) {
 		z=t;
 		while (z<=r&&route.length<2000) {
@@ -390,6 +394,7 @@ function calculateStacks() {
 			let metal=!(!stackWithMetal.checked&&z<stackStack.value);
 			z+=checked?s:w;
 			if (i==0) route.push(z);
+			if (isQT(jsonRoute,route[route.length-2]%50,route[route.length-1]%50)) nqts++;
 			if ((checked||w>1)&&z<r&&z>=bz) {
 				stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
 				if (metal) mj++;
@@ -411,6 +416,7 @@ function calculateStacks() {
 	}
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}.</li>`;
+	result+=`<li>This route has ${nqts} QTs.</li>`;
 	if (nmj>0||runs>1) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
@@ -428,13 +434,12 @@ function calculateStacks() {
 	}
 	if (nmj>0||runs>1) result+=`</ul>`;
 	result+=`</ul><h3>Route</h3>`;
-	result+=`<table><tbody><tr>`;
+	result+=`<div class="stacksRoutesTable">`;
 	for (let i=0;i<route.length;i++) {
-		if (i%10==0&&i>0) result+=`</tr><tr>`;
-		result+=`<td>${route[i]}</td>`;
+		let icon = i==route.length-1?arrowReset:isQT(jsonRoute,route[i]%50,route[i+1]%50)?arrowQT:arrowNorm;
+		result+=`<span class="stacksRoutesTableItem">${route[i]} ${icon}</span>`;
 	}
-	for (let i=0;i<10-(route.length%10);i++) result+=`<td>&nbsp;</td>`;
-	result+=`</tr></tbody></table>`;
+	result+=`</div>`;
 	
 	contents+=addToDescRow(result);
 	contents+=addToDescRow(`&nbsp;`);
@@ -457,4 +462,11 @@ function enforceTolerances() {
 	} else if (stackFavour.value<=stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[1]) {
 		stackFavourNote.innerHTML=favourLimitText[1];
 	}
+}
+
+function isQT(route,area1,area2) {
+	if (route.qts==undefined||route.qts.length!=50) return false;
+	let qts = route.qts;
+	if (qts[area1-1]==qts[area2-1]) return true;
+	return false;
 }

@@ -214,3 +214,32 @@ input[type="checkbox"]:checked::before {
 .tabs code {
 	font-size: 1.1em;
 }
+.stacksRoutesTable {
+	display: grid;
+	grid-template-columns: repeat(auto-fill,60px);
+	column-gap: 2px;
+	row-gap: 2px;
+}
+.stacksRoutesTableItem {
+	text-align: right;
+}
+#svgdefs {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+.routeArrow {
+	width: 20px;
+	height: 20px;
+	transform: translate(0,6px);
+}
+.routeArrowQT {
+	fill: #55FF55;
+}
+.routeArrowNorm {
+	fill: #555555;
+}
+.routeArrowReset {
+	fill: currentColor;
+}
