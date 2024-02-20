@@ -214,6 +214,7 @@ function mapFromToRange(v,oldMin,oldMax,newMin,newMax) {
 }
 
 function addChecked(bf,br) {
+	if (bf==undefined) return addToDescRow(`&nbsp;`);
 	let comment=``;
 	if (br) comment+=addToDescRow(`&nbsp;`);
 	comment+=`<span class="routesRow">`;
