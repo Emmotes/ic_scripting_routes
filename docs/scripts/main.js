@@ -381,25 +381,26 @@ function calculateStacks() {
 	let s=Number(jsonRoute.jump)+1;
 	let w=jsonRoute.fs||false?5:1;
 	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s:0);
-	let mj=0;
-	let nmj=0;
+	let swm=stackWithMetal.checked;
+	let mj=swm&&f==0&&bz<=1?1:0;
+	let nmj=!swm&&f==0&&bz<=1?1:0;
 	let stacks=50;
 	let z=t;
 	let route=z>1?[1,z]:[1];
-	let nqts=0;
+	let nqts=f>0?1:0;
 	for (let i=0;i<runs;i++) {
 		z=t;
 		while (z<=r&&route.length<2000) {
 			let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
-			let metal=!(!stackWithMetal.checked&&z<stackStack.value);
+			let metal=!(!swm&&z<stackStack.value);
 			z+=checked?s:w;
 			if (i==0) route.push(z);
 			if (isQT(jsonRoute,route[route.length-2]%50,route[route.length-1]%50)) nqts++;
-			if ((checked||w>1)&&z<r&&z>=bz) {
-				stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
-				if (metal) mj++;
+			if (checked||w>1) {
+				if (metal) mj++
 				else nmj++;
 			}
+			if ((checked||w>1)&&z<r&&z>=bz) stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
 		}
 	}
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
@@ -416,7 +417,6 @@ function calculateStacks() {
 	}
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}.</li>`;
-	result+=`<li>This route has ${nqts} QTs.</li>`;
 	if (nmj>0||runs>1) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
@@ -433,6 +433,7 @@ function calculateStacks() {
 		result+=`<li>${nmj}x without Metalborn${perRun}.</li>`;
 	}
 	if (nmj>0||runs>1) result+=`</ul>`;
+	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>`;
 	result+=`</ul><h3>Route</h3>`;
 	result+=`<div class="stacksRoutesTable">`;
 	for (let i=0;i<route.length;i++) {
