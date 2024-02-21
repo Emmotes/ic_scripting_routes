@@ -383,14 +383,15 @@ function calculateStacks() {
 	let w=jsonRoute.fs||false?5:1;
 	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s-1:0);
 	let swm=stackWithMetal.checked;
-	let mj=swm&&bz<=1?1:0;
-	let nmj=!swm&&bz<=1?1:0;
+	let mj=swm&&f==0&&bz<=1?1:0;
+	let nmj=!swm&&f==0&&bz<=1?1:0;
 	let stacks=50;
 	let z=t;
 	let route=z>1?[1,z]:[1];
 	let nqts=f>0?1:0;
 	for (let i=0;i<runs;i++) {
 		z=t;
+		if (bz==1) stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
 		while (z<=r&&route.length<2000) {
 			let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
 			let metal=!(!swm&&z<stackStack.value);
