@@ -19,7 +19,7 @@ const stackResult=document.getElementById(`stackResult`);
 const stackFavourNote=document.getElementById(`stackFavourNote`);
 const stackResetNote=document.getElementById(`stackResetNote`);
 const metalLevel=170;
-const stackMult=[1/((100-3.2)/100),1/((100-4)/100)];
+const stackMult=[1/0.968,1/0.96];
 const stackResetLimits=[15,2000];
 const stackFavourLimits=[0,308];
 const stackStackMin=1;
@@ -27,9 +27,13 @@ const stackBrivZoneMin=1;
 const stackRunsMin=1;
 const resetLimitText=[`<span style="color:#DDCCEE">(Current reset cap is ${stackResetLimits[1]})</span>`,`&nbsp;`];
 const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`]
-const arrowQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
-const arrowNorm = arrowQT.replace(`QT`,`Norm`);
-const arrowReset = `<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
+const thelloraQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.6897 2.71002C21.6097 2.53002 21.4697 2.37999 21.2797 2.29999C21.1897 2.25999 21.0897 2.23999 20.9897 2.23999H11.9897C11.5797 2.23999 11.2397 2.57999 11.2397 2.98999C11.2397 3.39999 11.5797 3.73999 11.9897 3.73999H19.1797L2.45969 20.46C2.16969 20.75 2.16969 21.23 2.45969 21.52C2.60969 21.67 2.79966 21.74 2.98966 21.74C3.17966 21.74 3.36969 21.67 3.51969 21.52L20.2397 4.79999V12C20.2397 12.41 20.5797 12.75 20.9897 12.75C21.3997 12.75 21.7397 12.41 21.7397 12V3C21.7497 2.9 21.7297 2.81002 21.6897 2.71002Z"/><path opacity="0.4" d="M17.3991 18.1501C17.2091 18.1501 17.019 18.08 16.8691 17.93L6.06906 7.13004C5.77906 6.84004 5.77906 6.36004 6.06906 6.07004C6.35906 5.78004 6.83906 5.78004 7.12906 6.07004L17.929 16.87C18.219 17.16 18.219 17.64 17.929 17.93C17.779 18.08 17.5891 18.1501 17.3991 18.1501Z"/></svg>`;
+const thelloraNorm=thelloraQT.replace(`QT`,`Norm`);
+const arrowQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1.1"><g id="_x33_6_1_"><path d="M91.6 88.8 126.4 54l-4.5-4.5-28.2 28.2V54.6C93.7 28.7 72.8 7.8 47 7.8 21.2 7.8.3 28.8.3 54.6v65.6h6.2V54.6C6.4 32.2 24.6 14 46.9 14c22.4 0 40.5 18.2 40.5 40.6v22.9L59 49.2l-4.5 4.5 31.6 31.6 4.5 4.5 1-1z" id="icon_6_"/></g></svg>`;
+const arrowNorm=arrowQT.replace(`QT`,`Norm`);
+const walkQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
+const walkNorm=walkQT.replace(`QT`,`Norm`);
+const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
 
 function init() {
 	populateEventChoices();
@@ -381,29 +385,31 @@ function calculateStacks() {
 	let jsonRoute=gemFarmJson[stackRoute.value];
 	let s=Number(jsonRoute.jump)+1;
 	let w=jsonRoute.fs||false?5:1;
-	let t=Math.min(f,Math.floor(r/5))+1+(bz==1?s-1:0);
+	let t=Math.min(f,Math.floor(r/5))+1;
 	let swm=stackWithMetal.checked;
-	let mj=swm&&f==0&&bz<=1?1:0;
-	let nmj=!swm&&f==0&&bz<=1?1:0;
+	let mj=0;
+	let nmj=0;
+	if (bz==1) {
+		t+=(s-1);
+		if (swm) mj++;
+		else nmj++;
+	}
 	let stacks=50;
 	let z=t;
 	let route=z>1?[1,z]:[1];
-	let nqts=f>0?1:0;
-	for (let i=0;i<runs;i++) {
-		z=t;
-		while (z<=r&&route.length<2000) {
-			let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
-			let metal=!(!swm&&z<stackStack.value);
-			z+=checked?s:w;
-			if (i==0) route.push(z);
-			if (isQT(jsonRoute,route[route.length-2]%50,route[route.length-1]%50)) nqts++;
-			if (checked||w>1) {
-				if (metal) mj++
-				else nmj++;
-			}
-			if ((checked||w>1)&&z<r&&z>=bz) stacks=Math.ceil((stacks-0.5)*(metal?stackMult[0]:stackMult[1]));
+	if (route.length==2&&isQT(jsonRoute,route[0],route[1])) nqts++;
+	while (z<=r&&route.length<2000) {
+		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
+		metal=!(!swm&&z<stackStack.value);
+		z+=checked?s:w;
+		route.push(z);
+		if (checked||w>1) {
+			if (metal) mj++
+			else nmj++;
 		}
 	}
+	for (let i=0;i<((mj>0?nmj:nmj-1)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
+	for (let i=0;i<((mj>0?mj-1:mj)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
 	result+=`<ul><li>${loop}</li>`;
@@ -417,7 +423,8 @@ function calculateStacks() {
 		result+=`<li>The route will walk ${diff} zone${pl} before levelling Briv.</li>`;
 	}
 	let perRun=(runs>1)?` (per run)`:``;
-	result+=`<li>Briv will jump `+(mj+nmj)+` times${perRun}.</li>`;
+	result+=`<li>Briv will jump ${(mj+nmj)} times${perRun}.</li>`;
+	result+=`<li>Briv will walk ${route.length-1-(mj+nmj)} times${perRun}.</li>`;
 	if (nmj>0||runs>1) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
@@ -434,12 +441,38 @@ function calculateStacks() {
 		result+=`<li>${nmj}x without Metalborn${perRun}.</li>`;
 	}
 	if (nmj>0||runs>1) result+=`</ul>`;
-	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>`;
-	result+=`</ul><h3>Route</h3>`;
-	result+=`<div class="stacksRoutesTable">`;
+	let loopTable=`</ul><h3>Route</h3><div class="stacksRoutesTable">`;
+	let nqts=0;
 	for (let i=0;i<route.length;i++) {
-		let icon = i==route.length-1?arrowReset:isQT(jsonRoute,route[i]%50,route[i+1]%50)?arrowQT:arrowNorm;
-		result+=`<span class="stacksRoutesTableItem">${route[i]} ${icon}</span>`;
+		let icon=``;
+		let start=route[i]%50;
+		let end=route[i+1]%50;
+		let walk=(end-start)==1;
+		let qt=isQT(jsonRoute,start,end);
+		if (qt) nqts++;
+		if (i==route.length-1) icon=arrowReset;
+		else if (i==0&&f>0) {
+			icon=(qt?thelloraQT:thelloraNorm);
+			if (bz==1) icon+=(qt?arrowQT:arrowNorm);
+		} else {
+			icon=walk?(qt?walkQT:walkNorm):(qt?arrowQT:arrowNorm);
+		}
+		loopTable+=`<span class="stacksRoutesTableItem">${route[i]} ${icon}</span>`;
+	}
+	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
+	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
+	for (let i=0;i<7;i++) {
+		result+=`<span class="stackRoutesTableItem">`;
+		switch(i) {
+			case 0: result+=`${thelloraNorm} Thellora`; break;
+			case 1: result+=`${arrowNorm} Jump`; break;
+			case 2: result+=`${walkNorm} Walk`; break;
+			case 3: result+=`${thelloraQT} Thellora QT`; break;
+			case 4: result+=`${arrowQT} Jump QT`; break;
+			case 5: result+=`${walkQT} Walk QT`; break;
+			case 6: result+=`${arrowReset} Modron Reset`; break;
+		}
+		result+=`</span>`;
 	}
 	result+=`</div>`;
 	
