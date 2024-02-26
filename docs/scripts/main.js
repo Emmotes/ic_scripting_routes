@@ -397,7 +397,6 @@ function calculateStacks() {
 	let stacks=50;
 	let z=t;
 	let route=z>1?[1,z]:[1];
-	if (route.length==2&&isQT(jsonRoute,route[0],route[1])) nqts++;
 	while (z<=r&&route.length<2000) {
 		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
 		metal=!(!swm&&z<stackStack.value);
