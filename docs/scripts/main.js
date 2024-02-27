@@ -400,7 +400,7 @@ function calculateStacks() {
 	while (z<=r&&route.length<2000) {
 		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
 		metal=!(!swm&&z<stackStack.value);
-		z+=checked?s:w;
+		z+=z<bz?1:checked?s:w;
 		route.push(z);
 		if (checked||w>1) {
 			if (metal) mj++
