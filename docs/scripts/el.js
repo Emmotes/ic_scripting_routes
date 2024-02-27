@@ -172,7 +172,52 @@ const eventsJson=[
 	{
 		id: 12,
 		name: "Fleetswake",
-		bitfields: []
+		bitfields: [
+			{
+				name: "1j",
+				bitfield: 985157049647103n
+			},
+			{
+				name: "2j",
+				bitfield: 1055531160567807n
+			},
+			{
+				name: "3j",
+				bitfield: 1086317486014463n
+			},
+			{
+				name: "4j",
+				bitfield: 438137649364463n
+			},
+			{
+				name: "5j",
+				bitfield: 976366325465087n
+			},
+			{
+				name: "6j",
+				bitfield: 1086180049289215n
+			},
+			{
+				name: "7j",
+				bitfield: 1053332139409407n
+			},
+			{
+				name: "8j",
+				bitfield: 1087416999870447n
+			},
+			{
+				name: "9j",
+				bitfield: 544790277242351n
+			},
+			{
+				name: "10j",
+				bitfield: 1090440656846847n
+			},
+			{
+				name: "11j",
+				bitfield: 1125762467758075n
+			}
+		]
 	},
 	{
 		id: 16,
