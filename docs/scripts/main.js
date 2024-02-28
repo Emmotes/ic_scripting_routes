@@ -423,7 +423,9 @@ function calculateStacks() {
 	}
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump ${(mj+nmj)} times${perRun}.</li>`;
-	result+=`<li>Briv will walk ${route.length-1-(mj+nmj)} times${perRun}.</li>`;
+	let wz=route.length-1-(mj+nmj)-(f==0?0:1);
+	let wq=wz>1?`${wz} times`:`once`;
+	if (wz>0) result+=`<li>Briv will walk ${wq}${perRun}.</li>`;
 	if (nmj>0||runs>1) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
