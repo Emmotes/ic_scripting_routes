@@ -76,14 +76,6 @@
 			</span>
 		</span>
 		<span class="routesRow">
-			<span class="routesDesc">
-				This tab is currently a work in progress. I can't guarantee it works properly.
-			</span>
-			<span class="routesDesc">
-				&nbsp;
-			</span>
-		</span>
-		<span class="routesRow">
 			<span class="routesCol6">
 				<label for="stackRoute">Route:</label>
 			</span>
