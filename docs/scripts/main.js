@@ -365,7 +365,7 @@ function calculateStacks() {
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
 	result+=`<ul><li>${loop}</li>`;
-	let pBriv=(bz==1?`<li>This is because she can combine jumping with Briv to jump at the same time. Note that this can only be reliable if you enable the <code>Level up Briv/Shandie to MinLevel first</code> setting and set Briv's minimum level to at least 80 in the LevelUp addon.`:``);
+	let pBriv=(bz==1?`<li>This is because Briv can jump at the same time Thellora does. Note that this can only be reliable if you enable the <code>Level up Briv/Shandie to MinLevel first</code> setting and set Briv's minimum level to at least 80 in the LevelUp addon.`:``);
 	if (f>0) {
 		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	}
