@@ -220,11 +220,21 @@ input[type="checkbox"]:checked::before {
 	column-gap: 2px;
 	row-gap: 2px;
 }
+.stacksRoutesTableItem {
+	text-align: right;
+}
 .stacksRoutesKeyTable {
 	grid-template-columns: 160px 160px 160px;
 }
-.stacksRoutesTableItem {
-	text-align: right;
+.stacksRoutesKeyTableItem {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+}
+.stacksRoutesKeyTableItem svg {
+	transform: translate(0,0px);
+	padding-right: 5px;
 }
 #svgdefs {
 	position: absolute;
@@ -246,4 +256,10 @@ input[type="checkbox"]:checked::before {
 }
 .routeArrowReset {
 	fill: currentColor;
+}
+.armZone {
+	color: #FF3333;
+}
+.hitZone {
+	color: #FF8929;
 }

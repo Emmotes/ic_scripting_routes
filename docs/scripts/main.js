@@ -349,9 +349,17 @@ function calculateStacks() {
 	}
 	let stacks=50;
 	let z=t;
+	let modz=z%50||50;
 	let route=z>1?[1,z]:[1];
+	let mehs=[];
+	let bads=[];
 	while (z<=r&&route.length<2000) {
-		let checked=z>=bz&&isChecked(jsonRoute.bf,z%50||50);
+		modz=z%50||50;
+		if (badZones[jsonRoute.sname].hit.includes(modz))
+			mehs.push(z)
+		if (badZones[jsonRoute.sname].arm.includes(modz))
+			bads.push(z)
+		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
 		metal=!(!swm&&z<stackStack.value);
 		z+=z<bz?1:checked?s:w;
 		route.push(z);
@@ -360,6 +368,8 @@ function calculateStacks() {
 			else nmj++;
 		}
 	}
+	console.log(mehs);
+	console.log(bads);
 	for (let i=0;i<((mj>0?nmj:nmj-1)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	for (let i=0;i<((mj>0?mj-1:mj)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
@@ -411,22 +421,45 @@ function calculateStacks() {
 		} else {
 			icon=walk?(qt?walkQT:walkNorm):(qt?arrowQT:arrowNorm);
 		}
-		loopTable+=`<span class="stacksRoutesTableItem">${route[i]} ${icon}</span>`;
+		let style=``;
+		if (mehs.includes(route[i]))
+			style=` hitZone`;
+		else if (bads.includes(route[i]))
+			style=` armZone`;
+		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
-	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
-	for (let i=0;i<7;i++) {
-		result+=`<span class="stackRoutesTableItem">`;
-		switch(i) {
-			case 0: result+=`${thelloraNorm} Thellora`; break;
-			case 1: result+=`${arrowNorm} Jump`; break;
-			case 2: result+=`${walkNorm} Walk`; break;
-			case 3: result+=`${thelloraQT} Thellora QT`; break;
-			case 4: result+=`${arrowQT} Jump QT`; break;
-			case 5: result+=`${walkQT} Walk QT`; break;
-			case 6: result+=`${arrowReset} Modron Reset`; break;
+	let badSad=``;
+	if (mehs.length>0||bads.length>0) {
+		badSad+=`<ul>`;
+		let mlen=mehs.length;
+		let blen=bads.length;
+		if (mlen>0) {
+			let plural=mlen==1?``:`s`;
+			badSad+=`<li>This route will hit ${mlen} Hit-Based Boss zone${plural}.</li>`;
 		}
-		result+=`</span>`;
+		if (blen>0) {
+			let plural=blen==1?``:`s`;
+			badSad+=`<li>This route will hit ${blen} Armoured Boss zone${plural}. These are typically run killers so you should change some values to avoid them.</li>`;
+		}
+		badSad+=`</ul>`;
+	}
+	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${badSad}${loopTable}`;
+	for (let i=0;i<9;i++) {
+		let curr=``;
+		let style=``;
+		switch(i) {
+			case 0: curr=`${thelloraNorm} Thellora`; break;
+			case 1: curr=`${arrowNorm} Jump`; break;
+			case 2: curr=`${walkNorm} Walk`; break;
+			case 3: curr=`${thelloraQT} Thellora QT`; break;
+			case 4: curr=`${arrowQT} Jump QT`; break;
+			case 5: curr=`${walkQT} Walk QT`; break;
+			case 6: curr=`${arrowReset} Modron Reset`; break;
+			case 7: curr=`Armoured Boss Zone`; style=` armZone`; break;
+			case 8: curr=`Hit-Based Boss Zone`; style=` hitZone`; break;
+		}
+		result+=`<span class="stacksRoutesKeyTableItem${style}">${curr}</span>`;
 	}
 	result+=`</div>`;
 	

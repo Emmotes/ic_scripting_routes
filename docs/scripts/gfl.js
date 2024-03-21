@@ -213,6 +213,25 @@ const gemFarmJson={
 	}
 };
 
+const badZones = {
+	"TT":{
+		"hit":[20],
+		"arm":[30,35]
+	},
+	"LL":{
+		"hit":[15,25,50],
+		"arm":[]
+	},
+	"VL!":{
+		"hit":[18,50],
+		"arm":[25]
+	},
+	"RAC":{
+		"hit":[10,20,23,30,45],
+		"arm":[5,40]
+	}
+}
+
 function parseRoute(route) {
 	return addToDescRow(`<h3>`+parseName(route)+`</h3>${route.blurb}`+((route.loop||false)?addLoop(route.bf,(route.feat||false?route.feat:route.jump),route.fs||false):``))+addChecked(route.bf,true);
 }
