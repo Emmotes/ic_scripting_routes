@@ -368,8 +368,6 @@ function calculateStacks() {
 			else nmj++;
 		}
 	}
-	console.log(mehs);
-	console.log(bads);
 	for (let i=0;i<((mj>0?nmj:nmj-1)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	for (let i=0;i<((mj>0?mj-1:mj)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
@@ -389,7 +387,7 @@ function calculateStacks() {
 	let wz=route.length-1-(mj+nmj)-(f==0?0:1);
 	let wq=wz>1?`${wz} times`:`once`;
 	if (wz>0) result+=`<li>Briv will walk ${wq}${perRun}.</li>`;
-	if (nmj>0||runs>1) result+=`<ul>`;
+	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`<ul>`;
 	if (runs>1) {
 		let type=``;
 		switch (runs) {
@@ -404,7 +402,15 @@ function calculateStacks() {
 		result+=`<li>${mj}x with Metalborn${perRun}.</li>`;
 		result+=`<li>${nmj}x without Metalborn${perRun}.</li>`;
 	}
-	if (nmj>0||runs>1) result+=`</ul>`;
+	if (mehs.length>0) {
+		let plural=mehs.length==1?``:`s`;
+		result+=`<li>This route will hit ${mehs.length} Hit-Based Boss zone${plural}.</li>`;
+	}
+	if (bads.length>0) {
+		let plural=bads.length==1?``:`s`;
+		result+=`<li>This route will hit ${bads.length} Armoured Boss zone${plural}. These are typically run killers so you should change some values to avoid them.</li>`;
+	}
+	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`</ul>`;
 	let loopTable=`</ul><h3>Route</h3><div class="stacksRoutesTable">`;
 	let nqts=0;
 	for (let i=0;i<route.length;i++) {
@@ -429,22 +435,7 @@ function calculateStacks() {
 		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
-	let badSad=``;
-	if (mehs.length>0||bads.length>0) {
-		badSad+=`<ul>`;
-		let mlen=mehs.length;
-		let blen=bads.length;
-		if (mlen>0) {
-			let plural=mlen==1?``:`s`;
-			badSad+=`<li>This route will hit ${mlen} Hit-Based Boss zone${plural}.</li>`;
-		}
-		if (blen>0) {
-			let plural=blen==1?``:`s`;
-			badSad+=`<li>This route will hit ${blen} Armoured Boss zone${plural}. These are typically run killers so you should change some values to avoid them.</li>`;
-		}
-		badSad+=`</ul>`;
-	}
-	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${badSad}${loopTable}`;
+	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
 	for (let i=0;i<9;i++) {
 		let curr=``;
 		let style=``;
