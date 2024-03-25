@@ -3,7 +3,7 @@
 {::nomarkdown}
 <div class="tabs">
 	<input onClick="setHash('gemTab')" type="radio" class="tabsRadio" name="routesTabs" id="gemTab" checked>
-	<label for="gemTab" class="tabsLabel">Gem Farming</label>
+	<label for="gemTab" class="tabsLabel">Gem Farming Routes</label>
 	<div class="tabsContent">
 		<span class="routesRow">
 			<span class="routesDesc">
@@ -68,7 +68,7 @@
 		</span>
 	</div>
 	<input onClick="setHash('stacksTab')" type="radio" class="tabsRadio" name="routesTabs" id="stacksTab">
-	<label for="stacksTab" class="tabsLabel">Stacks</label>
+	<label for="stacksTab" class="tabsLabel">Stacks Calculator</label>
 	<div class="tabsContent">
 		<span class="routesRow">
 			<span class="routesDesc">
