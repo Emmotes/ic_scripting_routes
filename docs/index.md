@@ -17,8 +17,8 @@
 			<span class="routesCol2">
 				<input type="number" name="ilvl" id="ilvl" value="3626">
 			</span>
-			<span class="routesCol3">
-				<label for="presets">Specific Jumps:</label>
+			<span class="routesCol3" style="width:160px">
+				<label for="presets">Presets:</label>
 			</span>
 			<span class="routesCol4">
 				<select name="presets" id="presets">
@@ -46,6 +46,11 @@
 				<option value="rare">Rare</option>
 				<option value="epic" selected>Epic</option>
 				</select>
+			</span>
+			<span style="flex-grow:1">
+				<span class="routesCol5" style="display:flex;justify-content:center;padding-left:50px;">
+					Presets will quickly set various pure jumps.
+				</span>
 			</span>
 		</span>
 		<span class="routesRow">
