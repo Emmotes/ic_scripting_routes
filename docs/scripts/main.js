@@ -363,7 +363,7 @@ function calculateStacks() {
 		metal=!(!swm&&z<stackStack.value);
 		z+=z<bz?1:checked?s:w;
 		route.push(z);
-		if (checked||w>1) {
+		if ((checked||w>1)&&z>=bz) {
 			if (metal) mj++
 			else nmj++;
 		}
