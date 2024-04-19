@@ -1,4 +1,4 @@
-const v=1.0
+const v=1.1
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -143,6 +143,8 @@ function update() {
 		comment+=parseRoute(gemFarmJson.pure6TT);
 	} else if (jumps==7) {
 		comment+=parseRoute(gemFarmJson.pure7TT);
+		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.pure7TTS);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat74TT);
 	} else if (jumps==8) {
