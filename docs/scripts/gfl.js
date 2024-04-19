@@ -1,4 +1,4 @@
-const vg=1.1;
+const vg=1.2;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`)];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`)];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`)];
@@ -151,7 +151,8 @@ const gemFarmJson={
 		jump:7,
 		bf:1055462239761401n,
 		blurb:`${tt} ${bbb}<br>This route is designed to be safer for Shandie's Dash.`,
-		loop:true
+		loop:true,
+		special:`Safer Shandie`
 	},
 	feat74TT:{
 		name:ntt[0],
@@ -250,7 +251,10 @@ function parseName(route,s) {
 	let e=``;
 	if (route.jump!=undefined) {
 		if (typeof(route.jump)=="number") {
-			e=` (100% ${route.jump}`+(route.fs!=undefined&&route.fs?`j / 4j Feat Swap`:`j`)+`)`;
+			let p=``;
+			if (route.fs!=undefined&&route.fs) p+=` / 4j Feat Swap`;
+			if (route.special!=undefined&&route.special!="") p+=` ${route.special}`;
+			e=` (100% ${route.jump}j${p})`;
 		} else if (route.feat!=undefined) {
 			e=` (100% ${route.feat}j ${wft})`;
 		} else {
