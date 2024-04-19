@@ -5,7 +5,7 @@ const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`)];
 const nrac=[`Resolve Amongst Chaos`,`RAC`,parseQTs(`RAC`)];
 const nvl=[`Vecna Lives!`,`VL!`,parseQTs(`VL!`)];
 const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
-const fcsa=`<br>This will be faster with mouse clicks enabled.`;
+const fcsa=`<br>This can be faster with mouse clicks enabled.`;
 const tt=`${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
 const ll=`The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
 const cf=`${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign.`;
