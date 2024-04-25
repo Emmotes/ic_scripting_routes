@@ -1,4 +1,4 @@
-const v=1.1
+const v=1.2
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -435,23 +435,26 @@ function calculateStacks() {
 			style=` hitZone`;
 		else if (bads.includes(route[i]))
 			style=` armZone`;
+		else if (route[i]%5==0)
+			style=` bosZone`;
 		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
 	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
-	for (let i=0;i<9;i++) {
-		let curr=``;
+	for (let i=0;i<=11;i++) {
+		let curr=`&nbsp;`;
 		let style=``;
 		switch(i) {
-			case 0: curr=`${thelloraNorm} Thellora`; break;
-			case 1: curr=`${arrowNorm} Jump`; break;
-			case 2: curr=`${walkNorm} Walk`; break;
-			case 3: curr=`${thelloraQT} Thellora QT`; break;
-			case 4: curr=`${arrowQT} Jump QT`; break;
-			case 5: curr=`${walkQT} Walk QT`; break;
-			case 6: curr=`${arrowReset} Modron Reset`; break;
-			case 7: curr=`Armoured Boss Zone`; style=` armZone`; break;
-			case 8: curr=`Hit-Based Boss Zone`; style=` hitZone`; break;
+			case  0: curr=`${thelloraNorm} Thellora`; break;
+			case  1: curr=`${arrowNorm} Jump`; break;
+			case  2: curr=`${walkNorm} Walk`; break;
+			case  3: curr=`${thelloraQT} Thellora QT`; break;
+			case  4: curr=`${arrowQT} Jump QT`; break;
+			case  5: curr=`${walkQT} Walk QT`; break;
+			case  6: curr=`${arrowReset} Modron Reset`; break;
+			case  9: curr=`Normal Boss Zone`; style=` bosZone`; break;
+			case 10: curr=`Hit-Based Boss Zone`; style=` hitZone`; break;
+			case 11: curr=`Armoured Boss Zone`; style=` armZone`; break;
 		}
 		result+=`<span class="stacksRoutesKeyTableItem${style}">${curr}</span>`;
 	}
