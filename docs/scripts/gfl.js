@@ -1,4 +1,4 @@
-const vg=1.3;
+const vg=1.4;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`)];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`)];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`)];
@@ -32,7 +32,7 @@ const gemFarmJson={
 		qts:nll[2],
 		jump:2,
 		bf:1053332137310143n,
-		blurb:`${ll} ${bbb}`,
+		blurb:`${ll}`,
 		loop:true
 	},
 	pure3LL:{
@@ -41,7 +41,7 @@ const gemFarmJson={
 		qts:nll[2],
 		jump:3,
 		bf:1090715500149758n,
-		blurb:`${ll} ${bbb}`,
+		blurb:`${ll}`,
 		loop:true
 	},
 	pure3VL:{
@@ -63,7 +63,7 @@ const gemFarmJson={
 			minInc:true
 		},
 		bf:508470925670862n,
-		blurb:`${tt} ${bbb}`
+		blurb:`${tt}`
 	},
 	pure4TT:{
 		name:ntt[0],
@@ -71,7 +71,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:4,
 		bf:544309226487279n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	},
 	feat4TT:{
@@ -84,7 +84,7 @@ const gemFarmJson={
 			max:6
 		},
 		bf:544309226487279n,
-		blurb:`${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j. ${bbb}`,
+		blurb:`${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j.`,
 		loop:true
 	},
 	feat54TT:{
@@ -93,7 +93,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:5,
 		bf:498342527128532n,
-		blurb:`${tt} ${bbb}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}${fcsa}`,
 		loop:true,
 		fs:true
 	},
@@ -103,7 +103,7 @@ const gemFarmJson={
 		qts:nll[2],
 		jump:6,
 		bf:873863567932216n,
-		blurb:`${ll} ${bbb}`,
+		blurb:`${ll}`,
 		loop:true
 	},
 	feat64TT:{
@@ -112,7 +112,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:6,
 		bf:800122939009243n,
-		blurb:`${tt} ${bbb}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}${fcsa}`,
 		loop:true,
 		fs:true
 	},
@@ -132,7 +132,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:6,
 		bf:1086144474247034n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	},
 	pure7TT:{
@@ -141,7 +141,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:7,
 		bf:1108238796846077n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	},
 	pure7TTS:{
@@ -150,7 +150,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:7,
 		bf:1055462239761401n,
-		blurb:`${tt} ${bbb}<br>This route is designed to be safer for Shandie's Dash.`,
+		blurb:`${tt}<br>This route is designed to be safer for Shandie's Dash.`,
 		loop:true,
 		special:`Safer Shandie`
 	},
@@ -160,7 +160,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:7,
 		bf:380222613385436n,
-		blurb:`${tt} ${bbb}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}${fcsa}`,
 		loop:true,
 		fs:true
 	},
@@ -170,7 +170,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:8,
 		bf:57952963557919n,
-		blurb:`${tt} ${bbb}${fsa}`,
+		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -180,7 +180,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:8,
 		bf:985128007367679n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	},
 	mixed89TT:{
@@ -192,7 +192,7 @@ const gemFarmJson={
 			max:9
 		},
 		bf:16989228054990n,
-		blurb:`${tt} ${bbb}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump.`
+		blurb:`${tt}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump.`
 	},
 	feat94TT:{
 		name:ntt[0],
@@ -200,7 +200,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:9,
 		bf:35181131988031n,
-		blurb:`${tt} ${bbb}${fsa}`,
+		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -210,7 +210,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:9,
 		bf:17020252302587n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	},
 	pure11TT:{
@@ -219,7 +219,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:11,
 		bf:853162999544159n,
-		blurb:`${tt} ${bbb}`,
+		blurb:`${tt}`,
 		loop:true
 	}
 };
