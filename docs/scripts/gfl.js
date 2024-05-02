@@ -1,4 +1,4 @@
-const vg=1.4;
+const vg=1.5;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`)];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`)];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`)];
@@ -93,7 +93,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:5,
 		bf:498342527128532n,
-		blurb:`${tt}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -112,7 +112,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:6,
 		bf:800122939009243n,
-		blurb:`${tt}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -122,7 +122,7 @@ const gemFarmJson={
 		qts:nrac[2],
 		jump:6,
 		bf:948417617686362n,
-		blurb:`${rac} This does not benefit from any quest reduction blessings or perks.${fsa}${fcsa}`,
+		blurb:`${rac} This does not benefit from any quest reduction blessings or perks.${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -160,7 +160,7 @@ const gemFarmJson={
 		qts:ntt[2],
 		jump:7,
 		bf:380222613385436n,
-		blurb:`${tt}${fsa}${fcsa}`,
+		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
 	},
