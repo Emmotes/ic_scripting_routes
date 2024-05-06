@@ -222,6 +222,7 @@ input[type="checkbox"]:checked::before {
 }
 .stacksRoutesTableItem {
 	text-align: right;
+	position: relative;
 }
 .stacksRoutesKeyTable {
 	grid-template-columns: 160px 160px 160px;
@@ -257,6 +258,10 @@ input[type="checkbox"]:checked::before {
 .routeArrowReset {
 	fill: currentColor;
 }
+.stkZone {
+	text-decoration: underline;
+	text-underline-position: under;
+}
 .bosZone {
 	color: #F0C080;
 }
@@ -265,4 +270,40 @@ input[type="checkbox"]:checked::before {
 }
 .armZone {
 	color: #FF3333;
+}
+.ttc {
+	visibility: hidden;
+	padding: 25px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background-color: #202020;
+	
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	z-index: 1;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	transform: translate(0px, -40px);
+	color: #f0e7d5;
+	pointer-events: none;
+	font-size: 1.1em;
+}
+.ttcRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	text-wrap: nowrap;
+}
+.ttcLeft {
+	padding-left: 20px;
+}
+.ttcTop {
+	padding-top: 10px;
+}
+.stacksRoutesTableItem:hover .ttc {
+	visibility: visible;
 }

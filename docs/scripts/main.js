@@ -1,4 +1,4 @@
-const v=1.4
+const v=1.5
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -33,7 +33,7 @@ const walkQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000
 const walkNorm=walkQT.replace(`QT`,`Norm`);
 const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
 
-function init() {
+async function init() {
 	populateStackRoutes();
 	window.addEventListener('hashchange',() =>{swapTab();});
 	swapTab();
@@ -49,7 +49,7 @@ function init() {
 	stackWithMetal.addEventListener(`change`,calculateStacks);
 	stackRuns.addEventListener(`change`,calculateStacks);
 	update();
-	calculateStacks();
+	await calculateStacks();
 }
 
 function preset() {
@@ -322,7 +322,7 @@ function populateStackRoutes() {
 	stackRoute.value=`pure4TT`;
 }
 
-function calculateStacks() {
+async function calculateStacks() {
 	let contents=``;
 	if (stackRoute.value==""||stackFavour.value==""||stackReset.value==""||stackBrivZone.value=="") {
 		contents+=addToDescRow(`Need more data.`);
@@ -339,6 +339,7 @@ function calculateStacks() {
 	let bz=Number(stackBrivZone.value);
 	let runs=Number(stackRuns.value);
 	let jsonRoute=gemFarmJson[stackRoute.value];
+	let adv=await pullAdvJson(jsonRoute.adv);
 	let s=Number(jsonRoute.jump)+1;
 	let w=jsonRoute.fs||false?5:1;
 	let t=Math.min(f,Math.floor(r/5))+1;
@@ -363,7 +364,7 @@ function calculateStacks() {
 		if (badZones[jsonRoute.sname].arm.includes(modz))
 			bads.push(z)
 		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
-		metal=!(!swm&&z<stackStack.value);
+		metal=!(!swm&&z<=stackStack.value);
 		z+=z<bz?1:checked?s:w;
 		route.push(z);
 		if ((checked||w>1)&&z>=bz) {
@@ -416,6 +417,7 @@ function calculateStacks() {
 	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`</ul>`;
 	let loopTable=`</ul><h3>Route</h3><div class="stacksRoutesTable">`;
 	let nqts=0;
+	let eszFound=false;
 	for (let i=0;i<route.length;i++) {
 		let icon=``;
 		let start=route[i]%50;
@@ -437,7 +439,12 @@ function calculateStacks() {
 			style=` armZone`;
 		else if (route[i]%5==0)
 			style=` bosZone`;
-		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}</span>`;
+		if (!eszFound&&route[i]>stackStack.value) {
+			style+=` stkZone`;
+			eszFound=true;
+		}
+		let tooltip=createTooltipText(adv,route[i]);
+		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}${tooltip}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
 	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
@@ -451,7 +458,8 @@ function calculateStacks() {
 			case  3: curr=`${thelloraQT} Thellora QT`; break;
 			case  4: curr=`${arrowQT} Jump QT`; break;
 			case  5: curr=`${walkQT} Walk QT`; break;
-			case  6: curr=`${arrowReset} Modron Reset`; break;
+			case  6: curr=`Earliest Stack Zone`; style=` stkZone`; break;
+			case  7: curr=`${arrowReset} Modron Reset`; break;
 			case  9: curr=`Normal Boss Zone`; style=` bosZone`; break;
 			case 10: curr=`Hit-Based Boss Zone`; style=` hitZone`; break;
 			case 11: curr=`Armoured Boss Zone`; style=` armZone`; break;
@@ -488,4 +496,76 @@ function isQT(route,area1,area2) {
 	let qts = route.qts;
 	if (qts[area1-1]==qts[area2-1]) return true;
 	return false;
+}
+
+function createTooltipText(adv,zone) {
+	let boss=(zone%5==0?`Boss `:``);
+	let mod=zone%50||50;
+	let t=`<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
+	let mons=[];
+	let area=adv.areas[mod-1];
+	if (area.waves!=undefined)
+		for (let wave of area.waves)
+			for (let mon of wave)
+				mons.push(mon);
+	if (area.monsters!=undefined)
+		for (let mon of area.monsters)
+			mons.push(mon);
+	if (area.staticMonsters!=undefined)
+		for (let mon of area.staticMonsters)
+			mons.push(mon);
+	let monNames = [];
+	let monAtks = [];
+	let monTags = [];
+	for (let monId of mons) {
+		let mon="";
+		for (let monster of adv.monsters) {
+			if (monster.id == monId) {
+				mon = monster;
+				break;
+			}
+		}
+		if (mon=="") continue;
+		if (!monNames.includes(mon.name))
+			monNames.push(mon.name);
+		for (let tag of mon.tags) {
+			let isAtk = tag==`ranged`||tag==`melee`||tag==`magic`;
+			if (isAtk&&!monAtks.includes(tag))
+				monAtks.push(tag);
+			else if (!isAtk&&!monTags.includes(tag))
+				monTags.push(tag);
+		}
+	}
+	if (monNames.length>0) {
+		t+=`<span class="ttcRow ttcTop">Enemies:</span>`;
+		for (let monName of monNames)
+			t+=`<span class="ttcRow ttcLeft">${monName}</span>`;
+	}
+	if (monAtks.length>0) {
+		t+=`<span class="ttcRow ttcTop">Attack Types:</span>`;
+		for (let atk of monAtks)
+			t+=`<span class="ttcRow ttcLeft">${capitalize(atk)}</span>`;
+	}
+	if (monTags.length>0) {
+		t+=`<span class="ttcRow ttcTop">Other Tags:</span>`;
+		for (let tag of monTags)
+			t+=`<span class="ttcRow ttcLeft">${capitalize(tag)}</span>`;
+	}
+	t+=`</span>`;
+	return t;
+}
+
+async function pullAdvJson(id) {
+	var response = await fetch(`advData/${id}.json`)
+		.then(response => response.text())
+		.catch(err => console.log(err));
+	return await JSON.parse(response);
+}
+
+function capitalize(s) {
+	if (s==`armor_based`)
+		return `Armoured`;
+	if (s==`hits_based`)
+		return `Hits-Based`;
+    return s && s[0].toUpperCase() + s.slice(1);
 }

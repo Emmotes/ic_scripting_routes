@@ -1,9 +1,9 @@
-const vg=1.5;
-const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`)];
-const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`)];
-const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`)];
-const nrac=[`Resolve Amongst Chaos`,`RAC`,parseQTs(`RAC`)];
-const nvl=[`Vecna Lives!`,`VL!`,parseQTs(`VL!`)];
+const vg=1.6;
+const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
+const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
+const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
+const nrac=[`Resolve Amongst Chaos`,`RAC`,parseQTs(`RAC`),605];
+const nvl=[`Vecna Lives!`,`VL!`,parseQTs(`VL!`),1163];
 const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const fcsa=`<br>This can be faster with mouse clicks enabled.`;
 const tt=`${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
@@ -23,6 +23,7 @@ const gemFarmJson={
 		name:ncf[0],
 		sname:ncf[1],
 		qts:ncf[2],
+		adv:ncf[3],
 		bf:1125899906842623n,
 		blurb:`${cf} You won't want to be walking any areas as that will only slow you down.`
 	},
@@ -30,6 +31,7 @@ const gemFarmJson={
 		name:nll[0],
 		sname:nll[1],
 		qts:nll[2],
+		adv:nll[3],
 		jump:2,
 		bf:1053332137310143n,
 		blurb:`${ll}`,
@@ -39,6 +41,7 @@ const gemFarmJson={
 		name:nll[0],
 		sname:nll[1],
 		qts:nll[2],
+		adv:nll[3],
 		jump:3,
 		bf:1090715500149758n,
 		blurb:`${ll}`,
@@ -48,6 +51,7 @@ const gemFarmJson={
 		name:nvl[0],
 		sname:nvl[1],
 		qts:nvl[2],
+		adv:nvl[3],
 		jump:3,
 		bf:1090715500142542n,
 		blurb:`${vl}`,
@@ -57,6 +61,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:{
 			min:3.25,
 			max:4,
@@ -69,6 +74,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:4,
 		bf:544309226487279n,
 		blurb:`${tt}`,
@@ -78,6 +84,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		feat:4,
 		jump:{
 			min:4,
@@ -91,6 +98,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:5,
 		bf:498342527128532n,
 		blurb:`${tt}${fsa}`,
@@ -101,6 +109,7 @@ const gemFarmJson={
 		name:nll[0],
 		sname:nll[1],
 		qts:nll[2],
+		adv:nll[3],
 		jump:6,
 		bf:873863567932216n,
 		blurb:`${ll}`,
@@ -110,6 +119,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:6,
 		bf:800122939009243n,
 		blurb:`${tt}${fsa}`,
@@ -120,6 +130,7 @@ const gemFarmJson={
 		name:nrac[0],
 		sname:nrac[1],
 		qts:nrac[2],
+		adv:nrac[3],
 		jump:6,
 		bf:948417617686362n,
 		blurb:`${rac} This does not benefit from any quest reduction blessings or perks.${fsa}`,
@@ -130,6 +141,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:6,
 		bf:1086144474247034n,
 		blurb:`${tt}`,
@@ -139,6 +151,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:7,
 		bf:1108238796846077n,
 		blurb:`${tt}`,
@@ -148,6 +161,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:7,
 		bf:1055462239761401n,
 		blurb:`${tt}<br>This route is designed to be safer for Shandie's Dash.`,
@@ -158,6 +172,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:7,
 		bf:380222613385436n,
 		blurb:`${tt}${fsa}`,
@@ -168,6 +183,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:8,
 		bf:57952963557919n,
 		blurb:`${tt}${fsa}`,
@@ -178,6 +194,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:8,
 		bf:985128007367679n,
 		blurb:`${tt}`,
@@ -187,6 +204,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:{
 			min:8,
 			max:9
@@ -198,6 +216,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:9,
 		bf:35181131988031n,
 		blurb:`${tt}${fsa}`,
@@ -208,6 +227,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:9,
 		bf:17020252302587n,
 		blurb:`${tt}`,
@@ -217,6 +237,7 @@ const gemFarmJson={
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
+		adv:ntt[3],
 		jump:11,
 		bf:853162999544159n,
 		blurb:`${tt}`,
