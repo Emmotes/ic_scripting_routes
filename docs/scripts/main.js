@@ -1,4 +1,4 @@
-const v=1.5
+const v=1.6
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -504,6 +504,14 @@ function createTooltipText(adv,zone) {
 	let t=`<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
 	let mons=[];
 	let area=adv.areas[mod-1];
+	let quest=adv.quests[mod-1];
+	let questText=""
+	if (quest.type==1)
+		questText=`Collect`;
+	else
+		questText=`Kill`;
+	questText+=` ${quest.goal} ${quest.desc}`;
+	t+=`<span class="ttcRow">${questText}</span>`;
 	if (area.waves!=undefined)
 		for (let wave of area.waves)
 			for (let mon of wave)
