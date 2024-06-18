@@ -1,4 +1,4 @@
-const vg=1.6;
+const vg=1.7;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -189,6 +189,18 @@ const gemFarmJson={
 		blurb:`${tt}${fsa}`,
 		loop:true,
 		fs:true
+	},
+	feat84TTS:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:8,
+		bf:800143501327198n,
+		blurb:`${tt}${fsa}<br>This route is designed to be safer for Shandie's Dash.`,
+		loop:true,
+		fs:true,
+		special:`Safer Shandie`
 	},
 	pure8TT:{
 		name:ntt[0],
