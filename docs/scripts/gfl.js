@@ -1,4 +1,4 @@
-const vg=1.7;
+const vg=1.8;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -13,6 +13,8 @@ const rac=`${nrac[0]} (${nrac[1]}) is in the Descent into Avernus campaign.`;
 const vl=`${nvl[0]} (${nvl[1]}) is in the Grand Tour of the Sword Coast campaign.`;
 const bbb=`Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing.`;
 const wft=` with Wasting Haste Feat`;
+const sss=`Safer Shandie`;
+const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
 
 const gemFarmJson={
 	unknown:{
@@ -164,9 +166,9 @@ const gemFarmJson={
 		adv:ntt[3],
 		jump:7,
 		bf:1055462239761401n,
-		blurb:`${tt}<br>This route is designed to be safer for Shandie's Dash.`,
+		blurb:`${tt}{$ssb}`,
 		loop:true,
-		special:`Safer Shandie`
+		special:sss
 	},
 	feat74TT:{
 		name:ntt[0],
@@ -197,10 +199,10 @@ const gemFarmJson={
 		adv:ntt[3],
 		jump:8,
 		bf:800143501327198n,
-		blurb:`${tt}${fsa}<br>This route is designed to be safer for Shandie's Dash.`,
+		blurb:`${tt}${fsa}${ssb}`,
 		loop:true,
 		fs:true,
-		special:`Safer Shandie`
+		special:sss
 	},
 	pure8TT:{
 		name:ntt[0],
@@ -222,7 +224,7 @@ const gemFarmJson={
 			max:9
 		},
 		bf:16989228054990n,
-		blurb:`${tt}<br />This becomes better than pure 8j (without feat swap) at around 65% 9 jump.`
+		blurb:`${tt}`
 	},
 	feat94TT:{
 		name:ntt[0],
