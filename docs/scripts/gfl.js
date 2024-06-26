@@ -166,7 +166,7 @@ const gemFarmJson={
 		adv:ntt[3],
 		jump:7,
 		bf:1055462239761401n,
-		blurb:`${tt}{$ssb}`,
+		blurb:`${tt}${ssb}`,
 		loop:true,
 		special:sss
 	},
