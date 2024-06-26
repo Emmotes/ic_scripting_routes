@@ -15,6 +15,7 @@ const bbb=`Don't forget to enable Vajra patron to benefit from the Brisk Benefac
 const wft=` with Wasting Haste Feat`;
 const sss=`Safer Shandie`;
 const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
+const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG and Virgil as it always hits Fey enemies.`;
 
 const gemFarmJson={
 	unknown:{
@@ -188,7 +189,7 @@ const gemFarmJson={
 		adv:ntt[3],
 		jump:8,
 		bf:57952963557919n,
-		blurb:`${tt}${fsa}`,
+		blurb:`${tt}${fsa}${dyn}`,
 		loop:true,
 		fs:true
 	},
@@ -254,7 +255,7 @@ const gemFarmJson={
 		adv:ntt[3],
 		jump:11,
 		bf:853162999544159n,
-		blurb:`${tt}`,
+		blurb:`${tt}${dyn}`,
 		loop:true
 	}
 };
