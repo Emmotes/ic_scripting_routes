@@ -66,9 +66,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:{
-			min:3.25,
-			max:4,
-			minInc:true
+			min:3,
+			max:4
 		},
 		bf:508470925670862n,
 		blurb:`${tt}`
