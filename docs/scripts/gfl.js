@@ -1,4 +1,4 @@
-const vg=1.8;
+const vg=1.81;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
