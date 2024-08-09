@@ -25,6 +25,7 @@
 				<option value="1j">1j</option>
 				<option value="2j">2j</option>
 				<option value="3j">3j</option>
+				<option value="3.99951j">3-4j</option>
 				<option value="4j" selected>4j</option>
 				<option value="5j">5j</option>
 				<option value="6j">6j</option>
@@ -32,6 +33,7 @@
 				<option value="8j">8j</option>
 				<option value="9j">9j</option>
 				<option value="11j">11j</option>
+				<!--<option value="11.999998j">11.999998j</option>-->
 				</select>
 			</span>
 		</span>
@@ -49,7 +51,7 @@
 			</span>
 			<span style="flex-grow:1">
 				<span class="routesCol5" style="display:flex;justify-content:center;padding-left:50px;">
-					Presets will quickly set various pure jumps.
+					Presets will quickly set various common jumps.
 				</span>
 			</span>
 		</span>

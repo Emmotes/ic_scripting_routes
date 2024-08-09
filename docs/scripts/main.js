@@ -1,4 +1,4 @@
-const v=1.82
+const v=1.82;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -56,8 +56,10 @@ function preset() {
 	rarityInput.value=`epic`;
 	gildingInput.value=`golden`;
 	
-	let jumps=presetsInput.value.replace(/[^\d]/g,'');
+	let jumps=Math.round(presetsInput.value.replace(/[^0-9\.]+/g, ""));
 	ilvlInput.value=500*Math.pow(2,jumps-1)-374;
+	if (`${jumps}j`!=`${presetsInput.value}`)
+		ilvlInput.value-=1;
 	update();
 }
 
@@ -110,7 +112,7 @@ function update() {
 	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
-	if (skips[1]!=1&&jumps>4) {
+	if (skips[1]!=1&&jumps>4&&(jumps<11.9||jumps>12)) {
 		comment+=`<span class="routesRow"><span class="routesCol5" style="padding-left:10px;">Note: Please be aware that it is highly recommended to stay at 100% jumps as that allows for far more consistent runs.</span></span>`;
 	}
 	comment+=spacer;
@@ -169,6 +171,8 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>8&&jumps<9) {
 		comment+=parseRoute(gemFarmJson.mixed89TT);
+	} else if (jumps>11.9&&jumps<12) {
+		//comment+=parseRoute(gemFarmJson.short1211TT);
 	} else {
 		comment+=parseRoute(gemFarmJson.unknown);
 	}
@@ -227,9 +231,9 @@ function addChecked(bf,br) {
 	return comment;
 }
 
-function addLoop(bf,j,fs) {
-	let s=j+1;
-	let w=fs?5:1;
+function addLoop(bf,q,e) {
+	let s=q;
+	let w=e;
 	let z=1;
 	let route=[z];
 	while (z<=200) {
@@ -340,8 +344,8 @@ async function calculateStacks() {
 	let runs=Number(stackRuns.value);
 	let jsonRoute=gemFarmJson[stackRoute.value];
 	let adv=await pullAdvJson(jsonRoute.adv);
-	let s=Number(jsonRoute.jump)+1;
-	let w=jsonRoute.fs||false?5:1;
+	let s=Number(jsonRoute.q);
+	let w=Number(jsonRoute.e);
 	let t=Math.min(f,Math.floor(r/5))+1;
 	let swm=stackWithMetal.checked;
 	let mj=0;
@@ -357,8 +361,12 @@ async function calculateStacks() {
 	let route=z>1?[1,z]:[1];
 	let mehs=[];
 	let bads=[];
+	let feyOnly=true;
 	while (z<=r&&route.length<2000) {
 		modz=z%50||50;
+		if (z>1&&z%5!=0&&feyOnly)
+			if (!isZoneFeyOnly(adv,modz))
+				feyOnly=false;
 		if (badZones[jsonRoute.sname].hit.includes(modz))
 			mehs.push(z)
 		if (badZones[jsonRoute.sname].arm.includes(modz))
@@ -375,12 +383,14 @@ async function calculateStacks() {
 	for (let i=0;i<((mj>0?nmj:nmj-1)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	for (let i=0;i<((mj>0?mj-1:mj)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
-	let loop=addLoop(jsonRoute.bf,s-1,jsonRoute.fs||false).substring(4);
+	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
 	result+=`<ul><li>${loop}</li>`;
 	let pBriv=(bz==1?`<li>This is because Briv can jump at the same time Thellora does. Note that this can only be reliable if you enable the <code>Level up Briv/Shandie to MinLevel first</code> setting and set Briv's minimum level to at least 80 in the LevelUp addon.`:``);
 	if (f>0) {
 		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	}
+	if (feyOnly)
+		result+=`<li>${dyn.replace("<br>","")}</li>`;
 	if (bz>t) {
 		let diff=bz-t;
 		let pl=(diff>1?`s`:``);
@@ -561,6 +571,42 @@ function createTooltipText(adv,zone) {
 	}
 	t+=`</span>`;
 	return t;
+}
+
+function isZoneFeyOnly(adv,zone) {
+	let area=adv.areas[zone-1];
+	let mons=[];
+	if (area.waves!=undefined)
+		for (let wave of area.waves)
+			for (let mon of wave)
+				mons.push(mon);
+	if (area.monsters!=undefined)
+		for (let mon of area.monsters)
+			mons.push(mon);
+	if (area.staticMonsters!=undefined)
+		for (let mon of area.staticMonsters)
+			mons.push(mon);
+	let monTags = [];
+	for (let monId of mons) {
+		let mon="";
+		for (let monster of adv.monsters) {
+			if (monster.id == monId) {
+				mon = monster;
+				break;
+			}
+		}
+		if (mon=="") continue;
+		for (let tag of mon.tags) {
+			let isAtk = tag==`ranged`||tag==`melee`||tag==`magic`;
+			if (!isAtk&&!monTags.includes(tag))
+				monTags.push(tag);
+		}
+	}
+	for (let monTag of monTags) {
+		if (monTag!="fey"&&monTag!="humanoid"&&enemyTypes.includes(monTag))
+			return false;
+	}
+	return true;
 }
 
 async function pullAdvJson(id) {

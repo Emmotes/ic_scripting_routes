@@ -1,4 +1,4 @@
-const vg=1.81;
+const vg=1.82;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -12,10 +12,12 @@ const cf=`${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign
 const rac=`${nrac[0]} (${nrac[1]}) is in the Descent into Avernus campaign.`;
 const vl=`${nvl[0]} (${nvl[1]}) is in the Grand Tour of the Sword Coast campaign.`;
 const bbb=`Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing.`;
-const wft=` with Wasting Haste Feat`;
+const w4jf=` with Wasting Haste Feat`;
+const w9jf=` with 9j Lock Feat`;
+const wplf=` with Previous Pure Lock Feat`;
 const sss=`Safer Shandie`;
 const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
-const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG and Virgil as it always hits Fey enemies.`;
+const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG and Virgil as it always hits Fey or Humanoid enemies.`;
 
 const gemFarmJson={
 	unknown:{
@@ -36,6 +38,8 @@ const gemFarmJson={
 		qts:nll[2],
 		adv:nll[3],
 		jump:2,
+		q:3,
+		e:1,
 		bf:1053332137310143n,
 		blurb:`${ll}`,
 		loop:true
@@ -46,6 +50,8 @@ const gemFarmJson={
 		qts:nll[2],
 		adv:nll[3],
 		jump:3,
+		q:4,
+		e:1,
 		bf:1090715500149758n,
 		blurb:`${ll}`,
 		loop:true
@@ -56,6 +62,8 @@ const gemFarmJson={
 		qts:nvl[2],
 		adv:nvl[3],
 		jump:3,
+		q:4,
+		e:1,
 		bf:1090715500142542n,
 		blurb:`${vl}`,
 		loop:true
@@ -78,6 +86,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:4,
+		q:5,
+		e:1,
 		bf:544309226487279n,
 		blurb:`${tt}`,
 		loop:true
@@ -92,6 +102,8 @@ const gemFarmJson={
 			min:4,
 			max:6
 		},
+		q:5,
+		e:1,
 		bf:544309226487279n,
 		blurb:`${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j.`,
 		loop:true
@@ -102,6 +114,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:5,
+		q:6,
+		e:5,
 		bf:498342527128532n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
@@ -113,6 +127,8 @@ const gemFarmJson={
 		qts:nll[2],
 		adv:nll[3],
 		jump:6,
+		q:7,
+		e:1,
 		bf:873863567932216n,
 		blurb:`${ll}`,
 		loop:true
@@ -123,6 +139,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:6,
+		q:7,
+		e:5,
 		bf:800122939009243n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
@@ -134,6 +152,8 @@ const gemFarmJson={
 		qts:nrac[2],
 		adv:nrac[3],
 		jump:6,
+		q:7,
+		e:5,
 		bf:948417617686362n,
 		blurb:`${rac} This does not benefit from any quest reduction blessings or perks.${fsa}`,
 		loop:true,
@@ -145,6 +165,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:6,
+		q:7,
+		e:1,
 		bf:1086144474247034n,
 		blurb:`${tt}`,
 		loop:true
@@ -155,6 +177,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:7,
+		q:8,
+		e:1,
 		bf:1108238796846077n,
 		blurb:`${tt}`,
 		loop:true
@@ -165,6 +189,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:7,
+		q:8,
+		e:1,
 		bf:1055462239761401n,
 		blurb:`${tt}${ssb}`,
 		loop:true,
@@ -176,6 +202,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:7,
+		q:8,
+		e:5,
 		bf:380222613385436n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
@@ -187,6 +215,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:8,
+		q:9,
+		e:5,
 		bf:57952963557919n,
 		blurb:`${tt}${fsa}${dyn}`,
 		loop:true,
@@ -198,6 +228,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:8,
+		q:9,
+		e:5,
 		bf:800143501327198n,
 		blurb:`${tt}${fsa}${ssb}`,
 		loop:true,
@@ -210,6 +242,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:8,
+		q:9,
+		e:1,
 		bf:985128007367679n,
 		blurb:`${tt}`,
 		loop:true
@@ -232,6 +266,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:9,
+		q:10,
+		e:5,
 		bf:35181131988031n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
@@ -243,6 +279,8 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:9,
+		q:10,
+		e:1,
 		bf:17020252302587n,
 		blurb:`${tt}`,
 		loop:true
@@ -253,10 +291,27 @@ const gemFarmJson={
 		qts:ntt[2],
 		adv:ntt[3],
 		jump:11,
+		q:12,
+		e:1,
 		bf:853162999544159n,
 		blurb:`${tt}${dyn}`,
 		loop:true
-	}
+	}//,
+//	short1211TT:{
+//		name:ntt[0],
+//		sname:ntt[1],
+//		qts:ntt[2],
+//		adv:ntt[3],
+//		jump:11.999998066406249,
+//		disp:`0.0002% 11j 99.9998% 12j`,
+//		q:13,
+//		e:12,
+//		bf:844356158146492n,
+//		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.`,
+//		loop:true,
+//		fs:true,
+//		feat:11
+//	}
 };
 
 const badZones = {
@@ -278,8 +333,10 @@ const badZones = {
 	}
 }
 
+const enemyTypes = ["aberration","beast","celestial","construct","dragon","elemental","fey","fiend","giant","humanoid","monstrosity","ooze","plant","undead"]
+
 function parseRoute(route) {
-	return addToDescRow(`<h3>`+parseName(route)+`</h3>${route.blurb}`+((route.loop||false)?addLoop(route.bf,(route.feat||false?route.feat:route.jump),route.fs||false):``))+addChecked(route.bf,true);
+	return addToDescRow(`<h3>`+parseName(route)+`</h3>${route.blurb}`+((route.loop||false)?addLoop(route.bf,route.q,route.e):``))+addChecked(route.bf,true);
 }
 
 function parseName(route,s) {
@@ -287,11 +344,27 @@ function parseName(route,s) {
 	if (route.jump!=undefined) {
 		if (typeof(route.jump)=="number") {
 			let p=``;
-			if (route.fs!=undefined&&route.fs) p+=` / 4j Feat Swap`;
-			if (route.special!=undefined&&route.special!="") p+=` ${route.special}`;
-			e=` (100% ${route.jump}j${p})`;
-		} else if (route.feat!=undefined) {
-			e=` (100% ${route.feat}j ${wft})`;
+			if (route.e!=undefined&&route.e>1)
+				p+=` / ${route.e-1}j Feat Swap`;
+			else if (route.fs!=undefined&&route.fs)
+				p+=` / 4j Feat Swap`;
+			if (route.special!=undefined&&route.special!="")
+				p+=` ${route.special}`;
+			if (route.disp!=undefined)
+				e=` (${route.disp}${p}`;
+			else if (Math.round(route.jump)!=route.jump) {
+				let cj=route.jump-Math.floor(route.jump);
+				e=` (100% ${route.q-1}j${p})`;
+			} else
+				e=` (100% ${route.jump}j${p})`;
+		} else if (route.feat!=undefined&&(route.fs==undefined||!route.fs)) {
+			e=` (100% ${route.feat}j`;
+			switch (route.feat) {
+				case 4: e+=w4jf; break;
+				case 9: e+=w9jf; break;
+				default: e+=wplf;
+			}
+			e+=`)`;
 		} else {
 			e=` (Mixed ${route.jump.min}-${route.jump.max}j)`;
 		}
