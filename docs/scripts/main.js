@@ -1,4 +1,4 @@
-const v=1.82;
+const v=1.83;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -362,7 +362,7 @@ async function calculateStacks() {
 	let mehs=[];
 	let bads=[];
 	let feyOnly=true;
-	while (z<=r&&route.length<2000) {
+	while (z<r&&route.length<2000) {
 		modz=z%50||50;
 		if (z>1&&z%5!=0&&feyOnly)
 			if (!isZoneFeyOnly(adv,modz))
@@ -391,6 +391,10 @@ async function calculateStacks() {
 	}
 	if (feyOnly)
 		result+=`<li>${dyn.replace("<br>","")}</li>`;
+	if (route[route.length-1]==r) {
+		let rb=r%5==0;
+		result+=`<li>This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
+	}
 	if (bz>t) {
 		let diff=bz-t;
 		let pl=(diff>1?`s`:``);
