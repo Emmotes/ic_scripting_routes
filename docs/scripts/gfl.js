@@ -346,7 +346,7 @@ const gemFarmJson={
 		q:15,
 		e:10,
 		bf:36319318279201n,
-		blurb:`${tt}${dyn}${place}`,
+		blurb:`${tt}${place}`,
 		loop:true
 	},
 };
