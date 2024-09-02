@@ -1,4 +1,4 @@
-const v=1.83;
+const v=1.9;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -32,9 +32,11 @@ const arrowNorm=arrowQT.replace(`QT`,`Norm`);
 const walkQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
 const walkNorm=walkQT.replace(`QT`,`Norm`);
 const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
+var tester=false;
 
 async function init() {
 	populateStackRoutes();
+	dealWithTesters();
 	window.addEventListener('hashchange',() =>{swapTab();});
 	swapTab();
 	ilvlInput.addEventListener(`input`,update);
@@ -50,6 +52,21 @@ async function init() {
 	stackRuns.addEventListener(`change`,calculateStacks);
 	update();
 	await calculateStacks();
+}
+
+function dealWithTesters() {
+	if (localStorage.routesTester!=undefined&&localStorage.routesTester!=``)
+		tester=localStorage.routesTester==1?true:false;
+	if (tester)
+		return
+	let bannedPresets=[`11.999998j`,`14j`];
+	let bannedRoutes=[`short1211TT`,`pure14TT`,`feat144TT`,`feat149TT`];
+	for (let i=presetsInput.length-1; i>=0; i--)
+		if (bannedPresets.includes(presetsInput.options[i].value))
+			presetsInput.remove(i);
+	for (let i=stackRoute.length-1; i>=0; i--)
+		if (bannedRoutes.includes(stackRoute.options[i].value))
+			stackRoute.remove(i);
 }
 
 function preset() {
@@ -94,7 +111,7 @@ function update() {
 	let skips=determineJumps(ilvls,rarity,gilding);
 	let p=(skips[1]*100);
 	let np=((1-skips[1])*100);
-	let jumps=(skips[0]-1)+skips[1];
+	let jumps=Number((skips[0]-1)+skips[1]);
 	
 	let skipsL=determineJumps(ilvls-1,rarity,gilding);
 	let pL=(skipsL[1]*100);
@@ -161,6 +178,12 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat94TT);
 	} else if (jumps==11) {
 		comment+=parseRoute(gemFarmJson.pure11TT);
+	} else if (jumps==14&&tester) {
+		comment+=parseRoute(gemFarmJson.pure14TT);
+		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.feat144TT);
+		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.feat149TT);
 	} else if (jumps<3) {
 		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps<4) {
@@ -171,8 +194,8 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>8&&jumps<9) {
 		comment+=parseRoute(gemFarmJson.mixed89TT);
-	} else if (jumps>11.9&&jumps<12) {
-		//comment+=parseRoute(gemFarmJson.short1211TT);
+	} else if (jumps>11.9&&jumps<12&&tester) {
+		comment+=parseRoute(gemFarmJson.short1211TT);
 	} else {
 		comment+=parseRoute(gemFarmJson.unknown);
 	}

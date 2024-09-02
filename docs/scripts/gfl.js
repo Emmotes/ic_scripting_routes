@@ -1,4 +1,4 @@
-const vg=1.82;
+const vg=1.9;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -17,7 +17,8 @@ const w9jf=` with 9j Lock Feat`;
 const wplf=` with Previous Pure Lock Feat`;
 const sss=`Safer Shandie`;
 const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
-const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG and Virgil as it always hits Fey or Humanoid enemies.`;
+const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG as it always hits Fey or Humanoid enemies.`;
+const place=`<br><strong><em>This is a placeholder route meant for testing purposes only.</em></strong>`;
 
 const gemFarmJson={
 	unknown:{
@@ -296,22 +297,58 @@ const gemFarmJson={
 		bf:853162999544159n,
 		blurb:`${tt}${dyn}`,
 		loop:true
-	}//,
-//	short1211TT:{
-//		name:ntt[0],
-//		sname:ntt[1],
-//		qts:ntt[2],
-//		adv:ntt[3],
-//		jump:11.999998066406249,
-//		disp:`0.0002% 11j 99.9998% 12j`,
-//		q:13,
-//		e:12,
-//		bf:844356158146492n,
-//		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.`,
-//		loop:true,
-//		fs:true,
-//		feat:11
-//	}
+	},
+	short1211TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:11.999998066406249,
+		disp:`0.0002% 11j 99.9998% 12j`,
+		q:13,
+		e:12,
+		bf:844356158146492n,
+		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.${place}`,
+		loop:true,
+		fs:true,
+		feat:11
+	},
+	pure14TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:14,
+		q:15,
+		e:1,
+		bf:36319351833633n,
+		blurb:`${tt}${place}`,
+		loop:true
+	},
+	feat144TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:14,
+		q:15,
+		e:5,
+		bf:36319318279201n,
+		blurb:`${tt}${dyn}${place}`,
+		loop:true
+	},
+	feat149TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:14,
+		q:15,
+		e:10,
+		bf:36319318279201n,
+		blurb:`${tt}${dyn}${place}`,
+		loop:true
+	},
 };
 
 const badZones = {
@@ -351,7 +388,7 @@ function parseName(route,s) {
 			if (route.special!=undefined&&route.special!="")
 				p+=` ${route.special}`;
 			if (route.disp!=undefined)
-				e=` (${route.disp}${p}`;
+				e=` (${route.disp}${p})`;
 			else if (Math.round(route.jump)!=route.jump) {
 				let cj=route.jump-Math.floor(route.jump);
 				e=` (100% ${route.q-1}j${p})`;

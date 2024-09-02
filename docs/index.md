@@ -33,7 +33,8 @@
 				<option value="8j">8j</option>
 				<option value="9j">9j</option>
 				<option value="11j">11j</option>
-				<!--<option value="11.999998j">11.999998j</option>-->
+				<option value="11.999998j">11.999998j</option>
+				<option value="14j">14j</option>
 				</select>
 			</span>
 		</span>
