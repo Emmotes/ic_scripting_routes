@@ -1,4 +1,4 @@
-const v=1.9;
+const v=1.91;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -373,7 +373,7 @@ async function calculateStacks() {
 	let swm=stackWithMetal.checked;
 	let mj=0;
 	let nmj=0;
-	if (bz==1) {
+	if (bz==1&&f>0) {
 		t+=(s-1);
 		if (swm) mj++;
 		else nmj++;
