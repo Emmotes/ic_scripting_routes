@@ -133,6 +133,17 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
+				<label for="stackWithMetal">z1 Formation:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="stackz1Form" id="stackz1Form" style="min-width:60px">
+				<option value="q" selected>Q</option>
+				<option value="e">E</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
 				<label for="stackWithMetal">Stack With Metalborn:</label>
 			</span>
 			<span class="routesCol2">

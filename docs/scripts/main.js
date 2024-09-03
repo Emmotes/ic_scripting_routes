@@ -1,4 +1,4 @@
-const v=1.91;
+const v=1.92;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -11,6 +11,7 @@ const stackReset=document.getElementById(`stackReset`);
 const stackFavour=document.getElementById(`stackFavour`);
 const stackStack=document.getElementById(`stackStack`);
 const stackBrivZone=document.getElementById(`stackBrivZone`);
+const stackz1Form=document.getElementById(`stackz1Form`);
 const stackWithMetal=document.getElementById(`stackWithMetal`);
 const stackRuns=document.getElementById(`stackRuns`);
 const stackResult=document.getElementById(`stackResult`);
@@ -48,6 +49,7 @@ async function init() {
 	stackFavour.addEventListener(`change`,calculateStacks);
 	stackStack.addEventListener(`change`,calculateStacks);
 	stackBrivZone.addEventListener(`change`,calculateStacks);
+	stackz1Form.addEventListener(`change`,calculateStacks);
 	stackWithMetal.addEventListener(`change`,calculateStacks);
 	stackRuns.addEventListener(`change`,calculateStacks);
 	update();
@@ -317,8 +319,9 @@ function swapTab() {
 				stackFavour.value=hash[3];
 				stackStack.value=hash[4];
 				stackBrivZone.value=hash[5];
-				stackWithMetal.checked=hash[6]==`1`?true:false;
-				stackRuns.value=hash[7];
+				stackz1Form.value=hash[6];
+				stackWithMetal.checked=hash[7]==`1`?true:false;
+				stackRuns.value=hash[8];
 				break;
 		}
 	}
@@ -327,7 +330,7 @@ function swapTab() {
 function setHash(hash) {
 	if (hash==st) {
 		let swm=stackWithMetal.checked?1:0;
-		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${swm}_${stackRuns.value}`;
+		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${swm}_${stackRuns.value}`;
 	}
 	hash=`#`+hash;
 	if(history.replaceState) {
@@ -374,9 +377,20 @@ async function calculateStacks() {
 	let mj=0;
 	let nmj=0;
 	if (bz==1&&f>0) {
-		t+=(s-1);
-		if (swm) mj++;
-		else nmj++;
+		switch (stackz1Form.value) {
+			case "q":
+				t+=(s-1);
+				if (swm) mj++;
+				else nmj++;
+				break;
+			case "e":
+				t+=(w-1);
+				if (w>1) {
+					if (swm) mj++;
+					else nmj++;
+				}
+				break;
+		}
 	}
 	let stacks=50;
 	let z=t;
