@@ -133,7 +133,7 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackWithMetal">z1 Formation:</label>
+				<label for="stackz1Form">z1 Formation:</label>
 			</span>
 			<span class="routesCol2">
 				<select name="stackz1Form" id="stackz1Form" style="min-width:60px">
