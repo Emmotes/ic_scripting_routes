@@ -1,4 +1,4 @@
-const v=1.96;
+const v=1.97;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -398,12 +398,17 @@ async function calculateStacks() {
 	let route=z>1?[1,z]:[1];
 	let mehs=[];
 	let bads=[];
-	let feyOnly=true;
+	let dynaMinsc=true;
+	let MImoHeir=true;
 	while (z<r&&route.length<2000) {
 		modz=z%50||50;
-		if (z>1&&z%5!=0&&feyOnly)
-			if (!isZoneFeyOnly(adv,modz))
-				feyOnly=false;
+		let monTags=getZoneMonTags(adv,modz);
+		if (z>1&&z%5!=0) {
+			if (dynaMinsc&&!isDynaMinscOnly(monTags))
+				dynaMinsc=false;
+			if (MImoHeir&&!isMImoHeir(monTags))
+				MImoHeir=false;
+		}
 		if (badZones[jsonRoute.sname].hit.includes(modz))
 			mehs.push(z)
 		if (badZones[jsonRoute.sname].arm.includes(modz))
@@ -426,8 +431,10 @@ async function calculateStacks() {
 	if (f>0) {
 		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	}
-	if (feyOnly)
+	if (dynaMinsc)
 		result+=`<li>${dyn.replace("<br>","")}</li>`;
+	else if (MImoHeir)
+		result+=`<li>${mimo.replace("<br>","")}</li>`;
 	if (route[route.length-1]==r) {
 		let rb=r%5==0;
 		result+=`<li>This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
@@ -614,7 +621,7 @@ function createTooltipText(adv,zone) {
 	return t;
 }
 
-function isZoneFeyOnly(adv,zone) {
+function getZoneMonTags(adv,zone) {
 	let area=adv.areas[zone-1];
 	let mons=[];
 	if (area.waves!=undefined)
@@ -643,10 +650,20 @@ function isZoneFeyOnly(adv,zone) {
 				monTags.push(tag);
 		}
 	}
-	for (let monTag of monTags) {
+	return monTags;
+}
+
+function isDynaMinscOnly(monTags) {
+	for (let monTag of monTags)
 		if (monTag!="fey"&&monTag!="humanoid"&&enemyTypes.includes(monTag))
 			return false;
-	}
+	return true;
+}
+
+function isMImoHeir(monTags) {
+	for (let monTag of monTags)
+		if (monTag!="fey"&&monTag!="humanoid"&&monTag!="beast"&&enemyTypes.includes(monTag))
+			return false;
 	return true;
 }
 

@@ -1,4 +1,4 @@
-const vg=1.9;
+const vg=1.97;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -17,7 +17,8 @@ const w9jf=` with 9j Lock Feat`;
 const wplf=` with Previous Pure Lock Feat`;
 const sss=`Safer Shandie`;
 const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
-const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG as it always hits Fey or Humanoid enemies.`;
+const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG as it always hits Humanoid or Fey enemies only.`;
+const mimo=`<br>This route can use Dynaheir, Minsc and Imoen instead of BBEG as it always hits Humanoid or Fey or Beast enemies only.`;
 const place=`<br><strong><em>This is a placeholder route meant for testing purposes only.</em></strong>`;
 
 const gemFarmJson={
@@ -90,7 +91,7 @@ const gemFarmJson={
 		q:5,
 		e:1,
 		bf:544309226487279n,
-		blurb:`${tt}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	feat4TT:{
@@ -106,7 +107,7 @@ const gemFarmJson={
 		q:5,
 		e:1,
 		bf:544309226487279n,
-		blurb:`${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j.`,
+		blurb:`${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j.${mimo}`,
 		loop:true
 	},
 	feat54TT:{
@@ -169,7 +170,7 @@ const gemFarmJson={
 		q:7,
 		e:1,
 		bf:1086144474247034n,
-		blurb:`${tt}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	pure7TT:{
@@ -181,7 +182,7 @@ const gemFarmJson={
 		q:8,
 		e:1,
 		bf:1108238796846077n,
-		blurb:`${tt}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	pure7TTS:{
@@ -193,7 +194,7 @@ const gemFarmJson={
 		q:8,
 		e:1,
 		bf:1055462239761401n,
-		blurb:`${tt}${ssb}`,
+		blurb:`${tt}${mimo}${ssb}`,
 		loop:true,
 		special:sss
 	},
@@ -206,7 +207,7 @@ const gemFarmJson={
 		q:8,
 		e:5,
 		bf:380222613385436n,
-		blurb:`${tt}${fsa}`,
+		blurb:`${tt}${mimo}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -219,7 +220,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:57952963557919n,
-		blurb:`${tt}${fsa}${dyn}`,
+		blurb:`${tt}${dyn}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -232,7 +233,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:800143501327198n,
-		blurb:`${tt}${fsa}${ssb}`,
+		blurb:`${tt}${mimo}${fsa}${ssb}`,
 		loop:true,
 		fs:true,
 		special:sss
@@ -246,7 +247,7 @@ const gemFarmJson={
 		q:9,
 		e:1,
 		bf:985128007367679n,
-		blurb:`${tt}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	mixed89TT:{
@@ -270,7 +271,7 @@ const gemFarmJson={
 		q:10,
 		e:5,
 		bf:35181131988031n,
-		blurb:`${tt}${fsa}`,
+		blurb:`${tt}${mimo}${fsa}`,
 		loop:true,
 		fs:true
 	},
@@ -283,7 +284,7 @@ const gemFarmJson={
 		q:10,
 		e:1,
 		bf:17020252302587n,
-		blurb:`${tt}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	pure11TT:{
@@ -322,7 +323,7 @@ const gemFarmJson={
 		q:15,
 		e:1,
 		bf:36319351833633n,
-		blurb:`${tt}${place}`,
+		blurb:`${tt}${mimo}${place}`,
 		loop:true
 	},
 	feat144TT:{
@@ -346,7 +347,7 @@ const gemFarmJson={
 		q:15,
 		e:10,
 		bf:36319318279201n,
-		blurb:`${tt}${place}`,
+		blurb:`${tt}${mimo}${place}`,
 		loop:true
 	},
 };
