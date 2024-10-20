@@ -1,4 +1,4 @@
-const v=1.98;
+const v=20241020.0;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -480,8 +480,8 @@ async function calculateStacks() {
 		let icon=``;
 		let start=route[i]%50||50;
 		let end=route[i+1]%50||50;
-		let last=route[i+1]==undefined;
-		let walk=(end-start)==1&&!last;
+		let last=(i+1)>=route.length;
+		let walk=!last&&(route[i+1]-route[i])==1;
 		let qt=last?false:isQT(jsonRoute,start,end);
 		if (qt) nqts++;
 		if (i==route.length-1) icon=arrowReset;
