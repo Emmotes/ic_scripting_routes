@@ -1,4 +1,4 @@
-const v=20241020.0;
+const v=20241108.0;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -473,7 +473,7 @@ async function calculateStacks() {
 		result+=`<li>This route will hit ${bads.length} Armoured Boss zone${plural}. These are typically run killers so you should change some values to avoid them.</li>`;
 	}
 	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`</ul>`;
-	let loopTable=`</ul><h3>Route</h3><div class="stacksRoutesTable">`;
+	let loopTable=`</ul><h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
 	let nqts=0;
 	let eszFound=false;
 	for (let i=0;i<route.length;i++) {
