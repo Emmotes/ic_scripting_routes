@@ -62,7 +62,7 @@ function dealWithTesters() {
 	if (tester)
 		return
 	let bannedPresets=[`11.999998j`,`14j`];
-	let bannedRoutes=[`short1211TT`,`pure13TT`,pure14TT`,`feat144TT`,`feat149TT`];
+	let bannedRoutes=[`short1211TT`,`pure13TT`,`pure14TT`,`feat144TT`,`feat149TT`];
 	for (let i=presetsInput.length-1; i>=0; i--)
 		if (bannedPresets.includes(presetsInput.options[i].value))
 			presetsInput.remove(i);
