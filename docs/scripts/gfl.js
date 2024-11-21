@@ -323,7 +323,7 @@ const gemFarmJson={
 		q:14,
 		e:1,
 		bf:33483512969671n,
-		blurb:`${tt}${mimo}${place}`,
+		blurb:`${tt}${place}`,
 		loop:true
 	},
 	pure14TT:{
