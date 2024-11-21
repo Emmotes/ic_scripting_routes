@@ -1,4 +1,4 @@
-const v=20241108.0;
+const v=20241121.0;
 const st=`stacksTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
@@ -103,7 +103,7 @@ function update() {
 	} else if (gildingInput.value!=`shiny`&&shinyNote.style.display=='') {
 		shinyNote.style.display='none';
 	}
-	let ilvls=ilvlInput.value;
+	let ilvls=ilvlInput.value-1;
 	if (ilvls<1) {
 		document.getElementById(`ilvl`).value=1;
 		ilvls=1;
@@ -228,7 +228,7 @@ function determineGilding() {
 }
 
 function determineJumps(ilvls,rarity,gilding) {
-	let effect=0.25*(1+(0.004*gilding*ilvls*rarity+0.996*gilding*rarity));
+	let effect=0.25*(1+rarity*gilding*(1+ilvls/250));
 	let skips=1;
 	let skipChance=effect;
 	if (effect>1) {
