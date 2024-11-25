@@ -198,7 +198,7 @@ function update() {
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.cf);
 		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.pre4TT);
+		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>11.9&&jumps<12&&tester) {
 		comment+=parseRoute(gemFarmJson.short1211TT);
 	} else {
