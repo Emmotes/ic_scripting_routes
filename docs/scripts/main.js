@@ -187,6 +187,8 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat144TT);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat149TT);
+		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.feat149TT2);
 	} else if (jumps<3) {
 		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps<4) {

@@ -361,6 +361,18 @@ const gemFarmJson={
 		blurb:`${tt}${mimo}${place}`,
 		loop:true
 	},
+	feat149TT2:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:14,
+		q:15,
+		e:10,
+		bf:36319351833633n,
+		blurb:`${tt}${mimo}${place}<br><em>Alternate Version.</em>`,
+		loop:true
+	}
 };
 
 const badZones = {
