@@ -307,8 +307,8 @@ const gemFarmJson={
 		disp:`0.0002% 11j 99.9998% 12j`,
 		q:13,
 		e:12,
-		bf:844356158146492n,
-		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.${place}`,
+		bf:554221554247584n,
+		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.`,
 		loop:true,
 		fs:true,
 		feat:11
@@ -372,6 +372,21 @@ const gemFarmJson={
 		bf:36319351833633n,
 		blurb:`${tt}${mimo}${place}<br><em>Alternate Version.</em>`,
 		loop:true
+	},
+	short1615TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:15.9999998791503906,
+		disp:`0.000012% 15j 99.999988% 16j`,
+		q:17,
+		e:16,
+		bf:351912978030600n,
+		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 16j as possible without actually reaching 16j. You can't make use of the previous pure lock feat if you do reach 16j.${place}`,
+		loop:true,
+		fs:true,
+		feat:15
 	}
 };
 

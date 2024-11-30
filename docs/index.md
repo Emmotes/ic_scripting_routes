@@ -36,6 +36,7 @@
 				<option value="11.999998j">11.999998j</option>
 				<option value="13j">13j</option>
 				<option value="14j">14j</option>
+				<option value="15.99999988j">15.99999988j</option>
 				</select>
 			</span>
 		</span>

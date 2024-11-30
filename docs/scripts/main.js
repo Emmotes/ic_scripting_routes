@@ -60,8 +60,8 @@ function dealWithTesters() {
 		tester=localStorage.routesTester==1?true:false;
 	if (tester)
 		return
-	let bannedPresets=[`11.999998j`,`14j`];
-	let bannedRoutes=[`short1211TT`,`pure13TT`,`pure14TT`,`feat144TT`,`feat149TT`];
+	let bannedPresets=[`13j`,`14j`,`15.99999988j`];
+	let bannedRoutes=[`pure13TT`,`pure14TT`,`feat144TT`,`feat149TT`,`feat149TT2`,`short1615TT`];
 	for (let i=presetsInput.length-1; i>=0; i--)
 		if (bannedPresets.includes(presetsInput.options[i].value))
 			presetsInput.remove(i);
@@ -130,7 +130,7 @@ function update() {
 	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
-	if (skips[1]!=1&&jumps>4&&(jumps<11.9||jumps>12)) {
+	if (skips[1]!=1&&jumps>4&&(jumps<11.9||jumps>12)&&(jumps<15.9||jumps>16)) {
 		comment+=`<span class="routesRow"><span class="routesCol5" style="padding-left:10px;">Note: Please be aware that it is highly recommended to stay at 100% jumps as that allows for far more consistent runs.</span></span>`;
 	}
 	comment+=spacer;
@@ -179,7 +179,7 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat94TT);
 	} else if (jumps==11) {
 		comment+=parseRoute(gemFarmJson.pure11TT);
-	} else if (jumps==13) {
+	} else if (jumps==13&&tester) {
 		comment+=parseRoute(gemFarmJson.pure13TT);
 	} else if (jumps==14&&tester) {
 		comment+=parseRoute(gemFarmJson.pure14TT);
@@ -201,8 +201,10 @@ function update() {
 		comment+=parseRoute(gemFarmJson.cf);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat4TT);
-	} else if (jumps>11.9&&jumps<12&&tester) {
+	} else if (jumps>11.9&&jumps<12) {
 		comment+=parseRoute(gemFarmJson.short1211TT);
+	} else if (jumps>15.9&&jumps<16&&tester) {
+		comment+=parseRoute(gemFarmJson.short1615TT);
 	} else {
 		comment+=parseRoute(gemFarmJson.cf);
 		comment+=spacer;
