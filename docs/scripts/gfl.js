@@ -313,18 +313,6 @@ const gemFarmJson={
 		fs:true,
 		feat:11
 	},
-	pure13TT:{
-		name:ntt[0],
-		sname:ntt[1],
-		qts:ntt[2],
-		adv:ntt[3],
-		jump:13,
-		q:14,
-		e:1,
-		bf:33483512969671n,
-		blurb:`${tt}${place}`,
-		loop:true
-	},
 	pure14TT:{
 		name:ntt[0],
 		sname:ntt[1],
