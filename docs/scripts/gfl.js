@@ -308,7 +308,7 @@ const gemFarmJson={
 		q:13,
 		e:12,
 		bf:554221554247584n,
-		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the previous pure lock feat if you do reach 12j.`,
+		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the Accurate Acrobatics feat if you do reach 12j.`,
 		loop:true,
 		fs:true,
 		feat:11
@@ -359,7 +359,7 @@ const gemFarmJson={
 		q:17,
 		e:16,
 		bf:351912978030600n,
-		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 16j as possible without actually reaching 16j. You can't make use of the previous pure lock feat if you do reach 16j.${place}`,
+		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 16j as possible without actually reaching 16j. You can't make use of the Accurate Acrobatics feat if you do reach 16j.${place}`,
 		loop:true,
 		fs:true,
 		feat:15
