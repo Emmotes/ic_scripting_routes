@@ -210,6 +210,21 @@ const gemFarmJson={
 		loop:true,
 		fs:true
 	},
+	feat87TT:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:8,
+		disp:`0.0031% 7j 99.9969% 8j`,
+		q:9,
+		e:8,
+		bf:738457579146214n,
+		blurb:`${tt}${mimo}${fsa}${crdn(8)}${place}`,
+		loop:true,
+		fs:true,
+		feat:7
+	},
 	feat84TT:{
 		name:ntt[0],
 		sname:ntt[1],
@@ -308,7 +323,7 @@ const gemFarmJson={
 		q:13,
 		e:12,
 		bf:554221554247584n,
-		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 12j as possible without actually reaching 12j. You can't make use of the Accurate Acrobatics feat if you do reach 12j.`,
+		blurb:`${tt}${dyn}${fsa}${crdn(12)}`,
 		loop:true,
 		fs:true,
 		feat:11
@@ -359,7 +374,7 @@ const gemFarmJson={
 		q:17,
 		e:16,
 		bf:351912978030600n,
-		blurb:`${tt}${dyn}${fsa}<br>This run requires you to be as close to 16j as possible without actually reaching 16j. You can't make use of the Accurate Acrobatics feat if you do reach 16j.${place}`,
+		blurb:`${tt}${dyn}${fsa}${crdn(16)}${place}`,
 		loop:true,
 		fs:true,
 		feat:15
@@ -453,4 +468,9 @@ function parseQTs(name) {
 							5,5,5,5,5,5,5,5,5,6];
 		default: return [];
 	}
+}
+
+function crdn(jump) {
+	// Note for round down feat.
+	return `<br>This run requires you to be as close to ${jump}j as possible without actually reaching ${jump}j. You can't make use of the Accurate Acrobatics feat if you do reach ${jump}j.`
 }
