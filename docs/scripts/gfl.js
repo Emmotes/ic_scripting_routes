@@ -219,7 +219,7 @@ const gemFarmJson={
 		disp:`0.0031% 7j 99.9969% 8j`,
 		q:9,
 		e:8,
-		bf:738457579146214n,
+		bf:596067056847750n,
 		blurb:`${tt}${mimo}${fsa}${crdn(8)}${place}`,
 		loop:true,
 		fs:true,
@@ -336,7 +336,7 @@ const gemFarmJson={
 		jump:14,
 		q:15,
 		e:1,
-		bf:36319351833633n,
+		bf:36326465504417n,
 		blurb:`${tt}${mimo}${place}`,
 		loop:true
 	},
@@ -348,7 +348,7 @@ const gemFarmJson={
 		jump:14,
 		q:15,
 		e:5,
-		bf:36319318279201n,
+		bf:35219806651393n,
 		blurb:`${tt}${dyn}${place}`,
 		loop:true
 	},
@@ -360,7 +360,7 @@ const gemFarmJson={
 		jump:14,
 		q:15,
 		e:10,
-		bf:36319318279201n,
+		bf:36319351832609n,
 		blurb:`${tt}${mimo}${place}`,
 		loop:true
 	},
