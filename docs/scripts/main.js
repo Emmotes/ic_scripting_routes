@@ -61,7 +61,7 @@ function dealWithTesters() {
 	if (tester)
 		return
 	let bannedPresets=[`7.99997j`,`14j`,`15.99999988j`];
-	let bannedRoutes=[`feat87TT`,`pure14TT`,`feat144TT`,`feat149TT`,`short1615TT`];
+	let bannedRoutes=[`short87TT`,`pure14TT`,`feat144TT`,`feat149TT`,`short1615TT`];
 	for (let i=presetsInput.length-1; i>=0; i--)
 		if (bannedPresets.includes(presetsInput.options[i].value))
 			presetsInput.remove(i);
@@ -196,7 +196,7 @@ function update() {
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>7.99&&jumps<8) {
-		comment+=parseRoute(gemFarmJson.feat87TT);
+		comment+=parseRoute(gemFarmJson.short87TT);
 	} else if (jumps>11.99&&jumps<12) {
 		comment+=parseRoute(gemFarmJson.short1211TT);
 	} else if (jumps>15.99&&jumps<16) {

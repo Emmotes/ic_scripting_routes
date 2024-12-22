@@ -210,7 +210,7 @@ const gemFarmJson={
 		loop:true,
 		fs:true
 	},
-	feat87TT:{
+	short87TT:{
 		name:ntt[0],
 		sname:ntt[1],
 		qts:ntt[2],
@@ -349,7 +349,7 @@ const gemFarmJson={
 		q:15,
 		e:10,
 		bf:1125899805626349n,
-		blurb:`${tt}${mimo}`,
+		blurb:`${tt}${mimo}${fsa}`,
 		loop:true
 	},
 	short1615TT:{
