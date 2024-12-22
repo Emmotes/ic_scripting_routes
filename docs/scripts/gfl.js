@@ -219,8 +219,8 @@ const gemFarmJson={
 		disp:`0.0031% 7j 99.9969% 8j`,
 		q:9,
 		e:8,
-		bf:596067056847750n,
-		blurb:`${tt}${mimo}${fsa}${crdn(8)}${place}`,
+		bf:878610951932870n,
+		blurb:`${tt}${mimo}${fsa}${crdn(8)}`,
 		loop:true,
 		fs:true,
 		feat:7
@@ -322,7 +322,7 @@ const gemFarmJson={
 		disp:`0.0002% 11j 99.9998% 12j`,
 		q:13,
 		e:12,
-		bf:554221554247584n,
+		bf:554220480505760n,
 		blurb:`${tt}${dyn}${fsa}${crdn(12)}`,
 		loop:true,
 		fs:true,
@@ -337,19 +337,7 @@ const gemFarmJson={
 		q:15,
 		e:1,
 		bf:36326465504417n,
-		blurb:`${tt}${mimo}${place}`,
-		loop:true
-	},
-	feat144TT:{
-		name:ntt[0],
-		sname:ntt[1],
-		qts:ntt[2],
-		adv:ntt[3],
-		jump:14,
-		q:15,
-		e:5,
-		bf:35219806651393n,
-		blurb:`${tt}${dyn}${place}`,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	feat149TT:{
@@ -360,8 +348,8 @@ const gemFarmJson={
 		jump:14,
 		q:15,
 		e:10,
-		bf:36319351832609n,
-		blurb:`${tt}${mimo}${place}`,
+		bf:1125899805626349n,
+		blurb:`${tt}${mimo}`,
 		loop:true
 	},
 	short1615TT:{
@@ -373,8 +361,8 @@ const gemFarmJson={
 		disp:`0.000012% 15j 99.999988% 16j`,
 		q:17,
 		e:16,
-		bf:351912978030600n,
-		blurb:`${tt}${dyn}${fsa}${crdn(16)}${place}`,
+		bf:360709071052808n,
+		blurb:`${tt}${dyn}${fsa}${crdn(16)}`,
 		loop:true,
 		fs:true,
 		feat:15

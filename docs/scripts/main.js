@@ -36,7 +36,7 @@ var tester=false;
 
 async function init() {
 	populateStackRoutes();
-	dealWithTesters();
+	//dealWithTesters();
 	window.addEventListener('hashchange',() =>{swapTab();});
 	swapTab();
 	ilvlInput.addEventListener(`input`,update);
@@ -179,10 +179,8 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat94TT);
 	} else if (jumps==11) {
 		comment+=parseRoute(gemFarmJson.pure11TT);
-	} else if (jumps==14&&tester) {
+	} else if (jumps==14) {
 		comment+=parseRoute(gemFarmJson.pure14TT);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.feat144TT);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat149TT);
 	} else if (jumps<3) {
@@ -201,7 +199,7 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat87TT);
 	} else if (jumps>11.99&&jumps<12) {
 		comment+=parseRoute(gemFarmJson.short1211TT);
-	} else if (jumps>15.99&&jumps<16&&tester) {
+	} else if (jumps>15.99&&jumps<16) {
 		comment+=parseRoute(gemFarmJson.short1615TT);
 	} else {
 		comment+=parseRoute(gemFarmJson.cf);
