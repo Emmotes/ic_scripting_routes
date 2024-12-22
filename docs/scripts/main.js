@@ -202,15 +202,32 @@ function update() {
 	} else if (jumps>15.99&&jumps<16) {
 		comment+=parseRoute(gemFarmJson.short1615TT);
 	} else {
+		if (jumps > 4) {
+			let useApp=` and use applicable routes.`;
+			let c=`<h3>No Specialised Routes</h3><p>There aren't any specific routes for this particular jump value. You're going to have to try the options below and use whichever is fastest for you.</p>`;
+			c+=`<ul>`;
+			if (Math.round(jumps) != jumps) {
+				let rd=Math.floor(jumps);
+				if ((rd >= 5 && rd <= 8) || rd == 11 || rd == 14)
+					c+=equipFeatDesc(aaf,rd);
+			}
+			if (jumps > 9)
+				c+=equipFeatDesc(ssf,9);
+			c+=equipFeatDesc(whf,4);
+			c+=`<li>Use the Cursed Farmer route below.</li></ul>`;
+			comment+=addToDescRow(c);
+		}
 		comment+=parseRoute(gemFarmJson.cf);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.feat4TT);
 	}
 	document.getElementById('wrapper').innerHTML=comment;
 }
 
 function addToDescRow(content) {
 	return `<span class="routesRow"><span class="routesDesc">${content}</span></span>`;
+}
+
+function equipFeatDesc(feat,jump) {
+	return `<li>Equip the ${feat} feat to limit Briv to 100% ${jump}j and use applicable routes.</li>`;
 }
 
 function determineRarity() {
