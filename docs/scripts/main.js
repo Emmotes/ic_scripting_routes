@@ -414,7 +414,7 @@ async function calculateStacks() {
 				break;
 		}
 	}
-	let stacks=50;
+	let stacks=48;
 	let z=t;
 	let modz=z%50||50;
 	let route=z>1?[1,z]:[1];
@@ -444,8 +444,10 @@ async function calculateStacks() {
 			else nmj++;
 		}
 	}
-	for (let i=0;i<((mj>0?nmj:nmj-1)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
-	for (let i=0;i<((mj>0?mj-1:mj)*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
+	console.log(`Metalborn jumps: ${mj}`);
+	console.log(`Non-Metalborn jumps: ${nmj}`);
+	for (let i=0;i<(nmj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
+	for (let i=0;i<(mj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
 	result+=`<ul><li>${loop}</li>`;
