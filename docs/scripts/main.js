@@ -444,8 +444,6 @@ async function calculateStacks() {
 			else nmj++;
 		}
 	}
-	console.log(`Metalborn jumps: ${mj}`);
-	console.log(`Non-Metalborn jumps: ${nmj}`);
 	for (let i=0;i<(nmj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	for (let i=0;i<(mj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
