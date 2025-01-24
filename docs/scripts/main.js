@@ -411,12 +411,15 @@ async function calculateStacks() {
 					if (swm) mj++;
 					else nmj++;
 				}
+				if (w==1&&bz==1)
+					bz=2;
 				break;
 		}
 	}
 	let stacks=48;
 	let z=t;
 	let modz=z%50||50;
+	let bt=z%5==0;
 	let route=z>1?[1,z]:[1];
 	let mehs=[];
 	let bads=[];
@@ -449,10 +452,20 @@ async function calculateStacks() {
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
 	result+=`<ul><li>${loop}</li>`;
-	let pBriv=(bz==1?`<li>This is because Briv can jump at the same time Thellora does. Note that this can only be reliable if you enable the <code>Level up Briv/Shandie to MinLevel first</code> setting and set Briv's minimum level to at least 80 in the LevelUp addon.`:``);
-	if (f>0) {
-		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you may need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+	let pBriv=``;
+	if (bt) {
+		pBriv+=`<li>This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `
+		if (bz==1)
+			pBriv+=`You can fix this by levelling Briv on z2 instead of z${bz}.`;
+		else if (stackBrivZone.value==1&&bz==2)
+			pBriv+=`You can fix this by using Q formation on z1 instead of E.`;
+		else
+			pBriv+=`You can fix this by levelling Briv on z1 instead of z${bz}.`;
 	}
+	if (bz==1)
+		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
+	if (f>0)
+		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you might need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 	if (dynaMinsc)
 		result+=`<li>${dyn.replace("<br>","")}</li>`;
 	else if (MImoHeir)
