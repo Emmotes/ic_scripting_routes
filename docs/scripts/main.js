@@ -468,7 +468,7 @@ async function calculateStacks() {
 	}
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump ${(mj+nmj)} times${perRun}.</li>`;
-	let wz=route.length-1-(mj+nmj)-(f==0?0:1);
+	let wz=route.length-1-(mj+nmj);
 	let wq=wz>1?`${wz} times`:`once`;
 	if (wz>0) result+=`<li>Briv will walk ${wq}${perRun}.</li>`;
 	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`<ul>`;
