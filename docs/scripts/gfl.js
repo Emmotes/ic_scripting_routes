@@ -82,7 +82,7 @@ const gemFarmJson={
 			max:4
 		},
 		bf:508470925670862n,
-		blurb:`${tt}`
+		blurb:`${tt}<br>Good for any jump between pure 3j and pure 4j.<br>(You can calculate stack amounts for this jump by using the 'TT (100% 4j)' route in the stacks calculator.)`
 	},
 	pure4TT:{
 		name:ntt[0],

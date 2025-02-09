@@ -25,7 +25,7 @@
 				<option value="1j">1j</option>
 				<option value="2j">2j</option>
 				<option value="3j">3j</option>
-				<option value="3.99951j">3-4j</option>
+				<option value="3.50005j">3-4j</option>
 				<option value="4j" selected>4j</option>
 				<option value="5j">5j</option>
 				<option value="6j">6j</option>
