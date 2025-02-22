@@ -184,9 +184,9 @@ function update() {
 	} else if (jumps==11) {
 		comment+=parseRoute(gemFarmJson.pure11TT);
 	} else if (jumps==14) {
-		comment+=parseRoute(gemFarmJson.pure14TT);
-		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.feat149TT);
+		comment+=spacer;
+		comment+=parseRoute(gemFarmJson.pure14TT);
 	} else if (jumps<3) {
 		comment+=parseRoute(gemFarmJson.cf);
 	} else if (jumps<4) {
