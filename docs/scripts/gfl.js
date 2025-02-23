@@ -3,8 +3,7 @@ const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
 const nrac=[`Resolve Amongst Chaos`,`RAC`,parseQTs(`RAC`),605];
 const nvl=[`Vecna Lives!`,`VL!`,parseQTs(`VL!`),1163];
-const fsa=`<br>This requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
-const fcsa=`<br>This can be faster with mouse clicks enabled.`;
+const fsa=`<br>This route requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const tt=`${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
 const ll=`The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
 const cf=`${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign.`;
@@ -209,7 +208,7 @@ const gemFarmJson={
 		q:8,
 		e:5,
 		bf:380222613385436n,
-		blurb:`${tt}${mimo}${fsa}`,
+		blurb:`${tt}${fsa}${mimo}`,
 		loop:true,
 		fs:true
 	},
@@ -223,7 +222,7 @@ const gemFarmJson={
 		q:9,
 		e:8,
 		bf:878610951932870n,
-		blurb:`${tt}${mimo}${fsa}${crdn(8)}`,
+		blurb:`${tt}${fsa}${mimo}${crdn(8)}`,
 		loop:true,
 		fs:true,
 		feat:7
@@ -237,7 +236,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:57952963557919n,
-		blurb:`${tt}${dyn}${fsa}`,
+		blurb:`${tt}${fsa}${dyn}`,
 		loop:true,
 		fs:true
 	},
@@ -250,7 +249,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:800143501327198n,
-		blurb:`${tt}${mimo}${fsa}${ssb}`,
+		blurb:`${tt}${fsa}${mimo}${ssb}`,
 		loop:true,
 		fs:true,
 		special:sss
@@ -288,7 +287,7 @@ const gemFarmJson={
 		q:10,
 		e:5,
 		bf:35181131988031n,
-		blurb:`${tt}${mimo}${fsa}`,
+		blurb:`${tt}${fsa}${mimo}`,
 		loop:true,
 		fs:true
 	},
@@ -326,7 +325,7 @@ const gemFarmJson={
 		q:13,
 		e:12,
 		bf:554220480505760n,
-		blurb:`${tt}${dyn}${fsa}${crdn(12)}`,
+		blurb:`${tt}${fsa}${dyn}${crdn(12)}`,
 		loop:true,
 		fs:true,
 		feat:11
@@ -352,7 +351,7 @@ const gemFarmJson={
 		q:15,
 		e:10,
 		bf:1125899805626349n,
-		blurb:`${tt}${mimo}${fsa}`,
+		blurb:`${tt}${fsa}${mimo}`,
 		loop:true
 	},
 	short1615TT:{
@@ -365,7 +364,7 @@ const gemFarmJson={
 		q:17,
 		e:16,
 		bf:360709071052808n,
-		blurb:`${tt}${dyn}${fsa}${crdn(16)}`,
+		blurb:`${tt}${fsa}${dyn}${crdn(16)}`,
 		loop:true,
 		fs:true,
 		feat:15
