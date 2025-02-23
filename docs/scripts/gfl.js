@@ -18,8 +18,8 @@ const w9jf=` with ${ssf} Feat`;
 const wplf=` with ${aaf} Feat`;
 const sss=`Safer Shandie`;
 const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
-const dyn=`<br>This route can use Dynaheir and Minsc instead of BBEG as it always hits Humanoid or Fey enemies only.`;
-const mimo=`<br>This route can use Dynaheir, Minsc and Imoen instead of BBEG as it always hits Humanoid or Fey or Beast enemies only.`;
+const dyn=`<br>This route can optionally use Dynaheir and Minsc instead of BBEG as it always hits Humanoid or Fey enemies only.`;
+const mimo=`<br>This route can optionally use Dynaheir, Minsc and Imoen instead of BBEG as it always hits Humanoid or Fey or Beast enemies only.`;
 const place=`<br><strong><em>This is a placeholder route meant for testing purposes only.</em></strong>`;
 
 const gemFarmJson={
