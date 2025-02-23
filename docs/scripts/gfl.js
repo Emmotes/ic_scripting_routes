@@ -462,5 +462,5 @@ function parseQTs(name) {
 
 function crdn(jump) {
 	// Note for round down feat.
-	return `<br>This run requires you to be as close to ${jump}j as possible without actually reaching ${jump}j. You can't make use of the Accurate Acrobatics feat if you do reach ${jump}j.`
+	return `<br>This route requires you to be as close to ${jump}j as possible without actually reaching ${jump}j. You can't make use of the Accurate Acrobatics feat if you do reach ${jump}j.`
 }
