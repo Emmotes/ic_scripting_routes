@@ -207,7 +207,7 @@ function update() {
 		comment+=parseRoute(gemFarmJson.short1615TT);
 	} else {
 		if (jumps > 4) {
-			let useApp=` and use applicable routes.`;
+			let useApp=` and use an applicable preset route.`;
 			let c=`<h3>No Specialised Routes</h3><p>There aren't any specific routes for this particular jump value. You're going to have to try the options below and use whichever is fastest for you.</p>`;
 			c+=`<ul>`;
 			if (Math.round(jumps) != jumps) {
