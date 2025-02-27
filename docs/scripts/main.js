@@ -231,7 +231,7 @@ function addToDescRow(content) {
 }
 
 function equipFeatDesc(feat,jump) {
-	return `<li>Equip the ${feat} feat to limit Briv to 100% ${jump}j and use applicable routes.</li>`;
+	return `<li>Equip the ${feat} feat to limit Briv to 100% ${jump}j and use an applicable route from the ${jump}j preset.</li>`;
 }
 
 function determineRarity() {
