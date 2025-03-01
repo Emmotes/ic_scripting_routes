@@ -438,9 +438,9 @@ async function calculateStacks() {
 			if (MImoHeir&&!isMImoHeir(monTags))
 				MImoHeir=false;
 		}
-		if (badZones[jsonRoute.sname].hit.includes(modz))
+		if (monTags.includes(`hits_based`))
 			mehs.push(z)
-		if (badZones[jsonRoute.sname].arm.includes(modz))
+		if (monTags.includes(`armor_based`))
 			bads.push(z)
 		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
 		metal=!(!swm&&z<=stackStack.value);

@@ -371,25 +371,6 @@ const gemFarmJson={
 	}
 };
 
-const badZones = {
-	"TT":{
-		"hit":[20],
-		"arm":[30,35]
-	},
-	"LL":{
-		"hit":[15,25,50],
-		"arm":[]
-	},
-	"VL!":{
-		"hit":[18,50],
-		"arm":[25]
-	},
-	"RAC":{
-		"hit":[10,20,23,30,45],
-		"arm":[5,40]
-	}
-}
-
 const enemyTypes = ["aberration","beast","celestial","construct","dragon","elemental","fey","fiend","giant","humanoid","monstrosity","ooze","plant","undead"]
 
 function parseRoute(route) {
