@@ -222,7 +222,7 @@ const gemFarmJson={
 		q:9,
 		e:8,
 		bf:878610951932870n,
-		blurb:`${tt}${fsa}${crdn(8)}${mimo}`,
+		blurb:`${tt}${fsa}<br>This route is faster than anything 100% 8j can offer.${crdn(8)}${mimo}`,
 		loop:true,
 		fs:true,
 		feat:7
