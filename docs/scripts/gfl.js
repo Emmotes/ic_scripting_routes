@@ -4,6 +4,7 @@ const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
 const nrac=[`Resolve Amongst Chaos`,`RAC`,parseQTs(`RAC`),605];
 const nvl=[`Vecna Lives!`,`VL!`,parseQTs(`VL!`),1163];
 const fsa=`<br>This route requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
+const fsaaa=fsa.replace(`n.`, `n and the Accurate Acrobatics feat.`);
 const tt=`${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
 const ll=`The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
 const cf=`${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign.`;
@@ -222,7 +223,7 @@ const gemFarmJson={
 		q:9,
 		e:8,
 		bf:878610951932870n,
-		blurb:`${tt}${fsa}<br>This route is faster than anything 100% 8j can offer.${crdn(8)}${mimo}`,
+		blurb:`${tt}${fsaaa}<br>This route is faster than anything 100% 8j can offer.${crdn(8)}${mimo}`,
 		loop:true,
 		fs:true,
 		feat:7
@@ -325,7 +326,7 @@ const gemFarmJson={
 		q:13,
 		e:12,
 		bf:554220480505760n,
-		blurb:`${tt}${fsa}${crdn(12)}${dyn}`,
+		blurb:`${tt}${fsaaa}${crdn(12)}${dyn}`,
 		loop:true,
 		fs:true,
 		feat:11
@@ -364,7 +365,7 @@ const gemFarmJson={
 		q:17,
 		e:16,
 		bf:360709071052808n,
-		blurb:`${tt}${fsa}${crdn(16)}${dyn}`,
+		blurb:`${tt}${fsaaa}${crdn(16)}${dyn}`,
 		loop:true,
 		fs:true,
 		feat:15
