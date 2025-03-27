@@ -30,13 +30,13 @@
 				<option value="5j">5j</option>
 				<option value="6j">6j</option>
 				<option value="7j">7j</option>
-				<option value="7.99997j">7.99997j</option>
+				<option value="7.99997j">8–j (7.99997j)</option>
 				<option value="8j">8j</option>
 				<option value="9j">9j</option>
 				<option value="11j">11j</option>
-				<option value="11.999998j">11.999998j</option>
+				<option value="11.999998j">12–j (11.999998j)</option>
 				<option value="14j">14j</option>
-				<option value="15.99999988j">15.99999988j</option>
+				<option value="15.99999988j">16–j (15.99999988j)</option>
 				</select>
 			</span>
 		</span>
