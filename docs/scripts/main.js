@@ -193,12 +193,6 @@ function update() {
 		comment+=parseRoute(gemFarmJson.pre4TT);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.cf);
-	} else if (jumps>8&&jumps<9) {
-		comment+=parseRoute(gemFarmJson.mixed89TT);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.cf);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.feat4TT);
 	} else if (jumps>7.99&&jumps<8) {
 		comment+=parseRoute(gemFarmJson.short87TT);
 	} else if (jumps>11.99&&jumps<12) {
@@ -217,9 +211,15 @@ function update() {
 			}
 			if (jumps > 9)
 				c+=equipFeatDesc(ssf,9);
+			if (jumps > 8 && jumps < 9)
+				c+=`<li>Use the Tall Tales (Mixed 8-9j) route below.</li>`;
 			c+=equipFeatDesc(whf,4);
 			c+=`<li>Use the Cursed Farmer route below.</li></ul>`;
 			comment+=addToDescRow(c);
+		}
+		if (jumps > 8 && jumps < 9) {
+			comment+=parseRoute(gemFarmJson.mixed89TT);
+			comment+=spacer;
 		}
 		comment+=parseRoute(gemFarmJson.cf);
 	}
