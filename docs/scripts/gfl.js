@@ -277,7 +277,7 @@ const gemFarmJson={
 			max:9
 		},
 		bf:16989228054990n,
-		blurb:`${tt}`
+		blurb:`${tt}<br>This route is slower than anything pure 8j can offer so I suggest you equip Accurate Acrobatics and run an 8j preset.`
 	},
 	feat94TT:{
 		name:ntt[0],
