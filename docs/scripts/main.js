@@ -353,6 +353,7 @@ function swapTab() {
 				stackz1Form.value=hash[6];
 				stackWithMetal.checked=hash[7]==`1`?true:false;
 				stackRuns.value=hash[8];
+				stackThunderStep.checked=hash[9]==`1`?true:false;
 				break;
 		}
 	}
