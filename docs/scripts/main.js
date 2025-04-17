@@ -476,7 +476,7 @@ async function calculateStacks() {
 			pBriv+=`You can fix this by levelling Briv on z1 instead of z${bz}.`;
 	}
 	if (btsf)
-		result+=`<li>The ${stacks} stacks required will become ${btsfStacks} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li style="color:#FF7766">The increased stacks from this feat are only earned on a modron reset. If the script resets the adventure itself due to a failed run - you won't get them. This will make the next run fall short on stacks and the script will restart it. So the next one will fail for the same reason. And the next. And the next. etc.. A doomloop of failed runs. Use the Thunder Step feat at your own risk.</li></ul>`;
+		result+=`<li>The ${stacks} stacks required will become ${btsfStacks} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li style="color:#FF7766">The increased stacks from this feat are only earned on a modron reset. If the script resets the adventure itself due to a failed run - you won't get them. This will potentially make the next run fall short on stacks and the script will restart it. So the next one will fail for the same reason. And the next. And the next. etc.. A doomloop of failed runs. Use the Thunder Step feat at your own risk.</li></ul>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 	if (f>0)
