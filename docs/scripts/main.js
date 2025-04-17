@@ -14,6 +14,7 @@ const stackz1Form=document.getElementById(`stackz1Form`);
 const stackWithMetal=document.getElementById(`stackWithMetal`);
 const stackRuns=document.getElementById(`stackRuns`);
 const stackThunderStep=document.getElementById(`stackThunderStep`);
+const stackThunderStepNote=document.getElementById(`stackThunderStepNote`);
 const stackResult=document.getElementById(`stackResult`);
 const stackFavourNote=document.getElementById(`stackFavourNote`);
 const stackResetNote=document.getElementById(`stackResetNote`);
@@ -26,7 +27,8 @@ const stackBrivZoneMin=1;
 const stackRunsMin=1;
 const thunderStep=1.2;
 const resetLimitText=[`<span style="color:#DDCCEE">(Current reset cap is ${stackResetLimits[1]})</span>`,`&nbsp;`];
-const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`]
+const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`];
+const thunderStepWarning=[`<span style="color:#FF7766">(This can cause doomlooping on failed runs. See below.)</span>`,`&nbsp;`];
 const thelloraQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.6897 2.71002C21.6097 2.53002 21.4697 2.37999 21.2797 2.29999C21.1897 2.25999 21.0897 2.23999 20.9897 2.23999H11.9897C11.5797 2.23999 11.2397 2.57999 11.2397 2.98999C11.2397 3.39999 11.5797 3.73999 11.9897 3.73999H19.1797L2.45969 20.46C2.16969 20.75 2.16969 21.23 2.45969 21.52C2.60969 21.67 2.79966 21.74 2.98966 21.74C3.17966 21.74 3.36969 21.67 3.51969 21.52L20.2397 4.79999V12C20.2397 12.41 20.5797 12.75 20.9897 12.75C21.3997 12.75 21.7397 12.41 21.7397 12V3C21.7497 2.9 21.7297 2.81002 21.6897 2.71002Z"/><path opacity="0.4" d="M17.3991 18.1501C17.2091 18.1501 17.019 18.08 16.8691 17.93L6.06906 7.13004C5.77906 6.84004 5.77906 6.36004 6.06906 6.07004C6.35906 5.78004 6.83906 5.78004 7.12906 6.07004L17.929 16.87C18.219 17.16 18.219 17.64 17.929 17.93C17.779 18.08 17.5891 18.1501 17.3991 18.1501Z"/></svg>`;
 const thelloraNorm=thelloraQT.replace(`QT`,`Norm`);
 const arrowQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1.1"><g id="_x33_6_1_"><path d="M91.6 88.8 126.4 54l-4.5-4.5-28.2 28.2V54.6C93.7 28.7 72.8 7.8 47 7.8 21.2 7.8.3 28.8.3 54.6v65.6h6.2V54.6C6.4 32.2 24.6 14 46.9 14c22.4 0 40.5 18.2 40.5 40.6v22.9L59 49.2l-4.5 4.5 31.6 31.6 4.5 4.5 1-1z" id="icon_6_"/></g></svg>`;
@@ -359,7 +361,8 @@ function swapTab() {
 function setHash(hash) {
 	if (hash==st) {
 		let swm=stackWithMetal.checked?1:0;
-		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${swm}_${stackRuns.value}`;
+		let bts=stackThunderStep.checked?1:0;
+		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${swm}_${stackRuns.value}_${bts}`;
 	}
 	hash=`#`+hash;
 	if(history.replaceState) {
@@ -473,7 +476,7 @@ async function calculateStacks() {
 			pBriv+=`You can fix this by levelling Briv on z1 instead of z${bz}.`;
 	}
 	if (btsf)
-		result+=`<li>The ${stacks} stacks required will become ${btsfStacks} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
+		result+=`<li>The ${stacks} stacks required will become ${btsfStacks} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li style="color:#FF7766">The increased stacks from this feat are only earned on a modron reset. If the script resets the adventure itself due to a failed run - you won't get them. This will make the next run fall short on stacks and the script will restart it. So the next one will fail for the same reason. And the next. And the next. etc.. A doomloop of failed runs. Use the Thunder Step feat at your own risk.</li></ul>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 	if (f>0)
@@ -580,11 +583,16 @@ async function calculateStacks() {
 }
 
 function enforceTolerances() {
-	if (stackReset.value<stackResetLimits[0]) stackReset.value=stackResetLimits[0];
-	if (stackFavour.value<stackFavourLimits[0]) stackFavour.value=stackFavourLimits[0];
-	if (stackStack.value<stackStackMin) stackFavour.value=stackStackMin;
-	if (stackBrivZone.value<stackBrivZoneMin) stackBrivZone.value=stackBrivZoneMin;
-	if (stackRuns.value<stackRunsMin) stackRuns.value=stackRunsMin;
+	if (stackReset.value<stackResetLimits[0])
+		stackReset.value=stackResetLimits[0];
+	if (stackFavour.value<stackFavourLimits[0])
+		stackFavour.value=stackFavourLimits[0];
+	if (stackStack.value<stackStackMin)
+		stackFavour.value=stackStackMin;
+	if (stackBrivZone.value<stackBrivZoneMin)
+		stackBrivZone.value=stackBrivZoneMin;
+	if (stackRuns.value<stackRunsMin)
+		stackRuns.value=stackRunsMin;
 	if (stackReset.value>stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[0]) {
 		stackResetNote.innerHTML=resetLimitText[0];
 	} else if (stackReset.value<=stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[1]) {
@@ -595,6 +603,7 @@ function enforceTolerances() {
 	} else if (stackFavour.value<=stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[1]) {
 		stackFavourNote.innerHTML=favourLimitText[1];
 	}
+	stackThunderStepNote.innerHTML=thunderStepWarning[stackThunderStep.checked?0:1];
 }
 
 function isQT(route,area1,area2) {

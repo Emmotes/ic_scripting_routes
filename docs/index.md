@@ -164,8 +164,11 @@
 			<span class="routesCol6">
 				<label for="stackThunderStep">Briv's Thunder Step Feat:</label>
 			</span>
-			<span class="routesCol2">
+			<span class="routesCol2" style="width:max-content">
 				<input type="checkbox" name="stackThunderStep" id="stackThunderStep">
+			</span>
+			<span class="routesCol5" id="stackThunderStepNote">
+				&nbsp;
 			</span>
 		</span>
 		<span class="routesRow">
