@@ -225,7 +225,7 @@ input[type="checkbox"]:checked::before {
 	position: relative;
 }
 .stacksRoutesKeyTable {
-	grid-template-columns: 160px 160px 160px;
+	grid-template-columns: repeat(4,160px);
 }
 .stacksRoutesKeyTableItem {
 	display: flex;

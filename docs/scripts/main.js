@@ -33,6 +33,8 @@ const thelloraQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/
 const thelloraNorm=thelloraQT.replace(`QT`,`Norm`);
 const arrowQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1.1"><g id="_x33_6_1_"><path d="M91.6 88.8 126.4 54l-4.5-4.5-28.2 28.2V54.6C93.7 28.7 72.8 7.8 47 7.8 21.2 7.8.3 28.8.3 54.6v65.6h6.2V54.6C6.4 32.2 24.6 14 46.9 14c22.4 0 40.5 18.2 40.5 40.6v22.9L59 49.2l-4.5 4.5 31.6 31.6 4.5 4.5 1-1z" id="icon_6_"/></g></svg>`;
 const arrowNorm=arrowQT.replace(`QT`,`Norm`);
+const hopQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="16 13 110 43" version="1.1"><path d="m126 15.2 -5 -1.3 -9.4 35.2 -35.2 -9.5 -1.3 5.1L115.2 55.4h0.1z"/><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2C110.4 30.7 89.8 13.2 65.2 13.2c-23.7 0 -43.7 16.3 -49.3 38.3h5.3c5.5 -19.2 23.1 -33.2 44 -33.2"/></svg>`;
+const hopNorm=hopQT.replace(`QT`,`Norm`);
 const walkQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
 const walkNorm=walkQT.replace(`QT`,`Norm`);
 const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
@@ -533,14 +535,15 @@ async function calculateStacks() {
 		let end=route[i+1]%50||50;
 		let last=(i+1)>=route.length;
 		let walk=!last&&(route[i+1]-route[i])==1;
+		let shortJump=!last&&(route[i+1]-route[i])<s;
 		let qt=last?false:isQT(jsonRoute,start,end);
 		if (qt) nqts++;
 		if (i==route.length-1) icon=arrowReset;
 		else if (i==0&&f>0) {
 			icon=(qt?thelloraQT:thelloraNorm);
-			if (bz==1) icon+=(qt?arrowQT:arrowNorm);
+			if (bz==1) icon+=shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
 		} else {
-			icon=walk?(qt?walkQT:walkNorm):(qt?arrowQT:arrowNorm);
+			icon=walk?(qt?walkQT:walkNorm):shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
 		}
 		let style=``;
 		if (mehs.includes(route[i]))
@@ -558,23 +561,30 @@ async function calculateStacks() {
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
 	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
-	for (let i=0;i<=11;i++) {
+	for (let i=0;i<=14;i++) {
 		let curr=`&nbsp;`;
+		let extraClass=``;
 		let style=``;
 		switch(i) {
 			case  0: curr=`${thelloraNorm} Thellora`; break;
 			case  1: curr=`${arrowNorm} Jump`; break;
-			case  2: curr=`${walkNorm} Walk`; break;
-			case  3: curr=`${thelloraQT} Thellora QT`; break;
-			case  4: curr=`${arrowQT} Jump QT`; break;
-			case  5: curr=`${walkQT} Walk QT`; break;
-			case  6: curr=`Earliest Stack Zone`; style=` stkZone`; break;
-			case  7: curr=`${arrowReset} Modron Reset`; break;
-			case  9: curr=`Normal Boss Zone`; style=` bosZone`; break;
-			case 10: curr=`Hit-Based Boss Zone`; style=` hitZone`; break;
-			case 11: curr=`Armoured Boss Zone`; style=` armZone`; break;
+			case  2: curr=`${hopNorm} Hop`; break;
+			case  3: curr=`${walkNorm} Walk`; break;
+			case  4: curr=`${thelloraQT} Thellora QT`; break;
+			case  5: curr=`${arrowQT} Jump QT`; break;
+			case  6: curr=`${hopQT} Hop QT`; break;
+			case  7: curr=`${walkQT} Walk QT`; break;
+			case  8: curr=`Earliest Stack Zone`; extraClass=` stkZone`; break;
+			case  9: curr=`${arrowReset} Modron Reset`; break;
+			case 10: curr=`Normal Boss Zone`; extraClass=` bosZone`; style=`grid-column:1`; break;
+			case 11: curr=`Hit-Based Boss Zone`; extraClass=` hitZone`; break;
+			case 12: curr=`Armoured Boss Zone`; extraClass=` armZone`; break;
+			case 13: curr=`A 'QT' is a Quick Transition (the black swipe across the screen between areas).`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
+			case 14: curr=`A 'Hop' is the short jump performed by the E formation in a Feat Swap route.`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
 		}
-		result+=`<span class="stacksRoutesKeyTableItem${style}">${curr}</span>`;
+		if (style!=``)
+			style = ` style="${style}"`;
+		result+=`<span class="stacksRoutesKeyTableItem${extraClass}"${style}>${curr}</span>`;
 	}
 	result+=`</div>`;
 	
