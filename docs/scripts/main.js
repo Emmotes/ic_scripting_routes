@@ -534,8 +534,9 @@ async function calculateStacks() {
 		let start=route[i]%50||50;
 		let end=route[i+1]%50||50;
 		let last=(i+1)>=route.length;
-		let walk=!last&&(route[i+1]-route[i])==1;
-		let shortJump=!last&&(route[i+1]-route[i])<s;
+		let diff=route[i+1]-route[i];
+		let walk=!last&&diff==1;
+		let shortJump=!last&&(diff<s||(i==0&&diff+1<f+s));
 		let qt=last?false:isQT(jsonRoute,start,end);
 		if (qt) nqts++;
 		if (i==route.length-1) icon=arrowReset;
