@@ -22,21 +22,21 @@
 			</span>
 			<span class="routesCol4">
 				<select name="presets" id="presets">
-				<option value="1j">1j</option>
-				<option value="2j">2j</option>
-				<option value="3j">3j</option>
-				<option value="3.50005j">3-4j</option>
-				<option value="4j" selected>4j</option>
-				<option value="5j">5j</option>
-				<option value="6j">6j</option>
-				<option value="7j">7j</option>
-				<option value="7.99997j">8–j (7.99997j)</option>
-				<option value="8j">8j</option>
-				<option value="9j">9j</option>
-				<option value="11j">11j</option>
-				<option value="11.999998j">12–j (11.999998j)</option>
-				<option value="14j">14j</option>
-				<option value="15.99999988j">16–j (15.99999988j)</option>
+					<option value="1j">1j</option>
+					<option value="2j">2j</option>
+					<option value="3j">3j</option>
+					<option value="3.50005j">3-4j</option>
+					<option value="4j" selected>4j</option>
+					<option value="5j">5j</option>
+					<option value="6j">6j</option>
+					<option value="7j">7j</option>
+					<option value="7.99997j">8–j (7.99997j)</option>
+					<option value="8j">8j</option>
+					<option value="9j">9j</option>
+					<option value="11j">11j</option>
+					<option value="11.999998j">12–j (11.999998j)</option>
+					<option value="14j">14j</option>
+					<option value="15.99999988j">16–j (15.99999988j)</option>
 				</select>
 			</span>
 		</span>
@@ -46,10 +46,10 @@
 			</span>
 			<span class="routesCol2">
 				<select name="rarity" id="rarity">
-				<option value="common">Common</option>
-				<option value="uncommon">Uncommon</option>
-				<option value="rare">Rare</option>
-				<option value="epic" selected>Epic</option>
+					<option value="common">Common</option>
+					<option value="uncommon">Uncommon</option>
+					<option value="rare">Rare</option>
+					<option value="epic" selected>Epic</option>
 				</select>
 			</span>
 			<span style="flex-grow:1">
@@ -64,9 +64,9 @@
 			</span>
 			<span class="routesCol2">
 				<select name="gilding" id="gilding">
-				<option value="none">None</option>
-				<option value="shiny">Shiny</option>
-				<option value="golden" selected>Golden</option>
+					<option value="none">None</option>
+					<option value="shiny">Shiny</option>
+					<option value="golden" selected>Golden</option>
 				</select>
 			</span>
 			<span class="routesCol5" id="shinyNote" style="display:none">
@@ -91,7 +91,7 @@
 			</span>
 			<span class="routesCol2">
 				<select name="stackRoute" id="stackRoute">
-				<option value="" selected disabled style="display:none;">&nbsp;</option>
+					<option value="" selected disabled style="display:none;">&nbsp;</option>
 				</select>
 			</span>
 		</span>
@@ -139,9 +139,20 @@
 			</span>
 			<span class="routesCol2">
 				<select name="stackz1Form" id="stackz1Form" style="min-width:60px">
-				<option value="q" selected>Q</option>
-				<option value="e">E</option>
+					<option value="q" selected>Q</option>
+					<option value="e">E</option>
 				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="stackRNGWR">Using RNG Waiting Room:</label>
+			</span>
+			<span class="routesCol2" style="width:max-content">
+				<input type="checkbox" name="stackRNGWR" id="stackRNGWR" checked>
+			</span>
+			<span class="routesCol4" style="width:fit-content">
+				(EllyWaiting on Thellora's Landing Zone)
 			</span>
 		</span>
 		<span class="routesRow">

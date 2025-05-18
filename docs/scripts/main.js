@@ -11,6 +11,7 @@ const stackFavour=document.getElementById(`stackFavour`);
 const stackStack=document.getElementById(`stackStack`);
 const stackBrivZone=document.getElementById(`stackBrivZone`);
 const stackz1Form=document.getElementById(`stackz1Form`);
+const stackRNGWR=document.getElementById(`stackRNGWR`);
 const stackWithMetal=document.getElementById(`stackWithMetal`);
 const stackRuns=document.getElementById(`stackRuns`);
 const stackThunderStep=document.getElementById(`stackThunderStep`);
@@ -55,6 +56,7 @@ async function init() {
 	stackStack.addEventListener(`change`,calculateStacks);
 	stackBrivZone.addEventListener(`change`,calculateStacks);
 	stackz1Form.addEventListener(`change`,calculateStacks);
+	stackRNGWR.addEventListener(`change`,calculateStacks);
 	stackWithMetal.addEventListener(`change`,calculateStacks);
 	stackRuns.addEventListener(`change`,calculateStacks);
 	stackThunderStep.addEventListener(`change`,calculateStacks);
@@ -353,9 +355,10 @@ function swapTab() {
 				stackStack.value=hash[4];
 				stackBrivZone.value=hash[5];
 				stackz1Form.value=hash[6];
-				stackWithMetal.checked=hash[7]==`1`?true:false;
-				stackRuns.value=hash[8];
-				stackThunderStep.checked=hash[9]==`1`?true:false;
+				stackRNGWR.value=hash[7]==`1`?true:false;
+				stackWithMetal.checked=hash[8]==`1`?true:false;
+				stackRuns.value=hash[9];
+				stackThunderStep.checked=hash[10]==`1`?true:false;
 				break;
 		}
 	}
@@ -363,9 +366,10 @@ function swapTab() {
 
 function setHash(hash) {
 	if (hash==st) {
+		let rngwr=stackRNGWR.checked?1:0;
 		let swm=stackWithMetal.checked?1:0;
 		let bts=stackThunderStep.checked?1:0;
-		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${swm}_${stackRuns.value}_${bts}`;
+		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
 	}
 	hash=`#`+hash;
 	if(history.replaceState) {
@@ -404,11 +408,13 @@ async function calculateStacks() {
 	let bz=Number(stackBrivZone.value);
 	let runs=Number(stackRuns.value);
 	let jsonRoute=gemFarmJson[stackRoute.value];
+	let rngwr=stackRNGWR.checked;
 	let btsf=stackThunderStep.checked;
 	let adv=await pullAdvJson(jsonRoute.adv);
 	let s=Number(jsonRoute.q);
 	let w=Number(jsonRoute.e);
-	let t=Math.min(f,Math.floor(r/5))+1;
+	let tb=Math.min(f,Math.floor(r/5))+1;
+	let t=tb;
 	let swm=stackWithMetal.checked;
 	let mj=0;
 	let nmj=0;
@@ -439,6 +445,7 @@ async function calculateStacks() {
 	let bads=[];
 	let dynaMinsc=true;
 	let MImoHeir=true;
+	let rngwrJump=false;
 	while (z<r&&route.length<2000) {
 		modz=z%50||50;
 		let monTags=getZoneMonTags(adv,modz);
@@ -454,7 +461,10 @@ async function calculateStacks() {
 			bads.push(z)
 		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
 		metal=!(!swm&&z<=stackStack.value);
-		z+=z<bz?1:checked?s:w;
+		let rngwrApply=z==t&&rngwr&&f>0;
+		if (rngwrApply)
+			rngwrJump=true;
+		z+=rngwrApply?t-tb+1:z<bz?1:checked?s:w;
 		route.push(z);
 		if ((checked||w>1)&&z>=bz) {
 			if (metal) mj++
@@ -482,8 +492,11 @@ async function calculateStacks() {
 		result+=`<li>The ${stacks} stacks required will become ${btsfStacks} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li style="color:#FF7766">The increased stacks from this feat are only earned on a modron reset. If the script resets the adventure itself due to a failed run - you won't get them. This will potentially make the next run fall short on stacks and the script will restart it. So the next one will fail for the same reason. And the next. And the next. etc.. A doomloop of failed runs. Use the Thunder Step feat at your own risk.</li></ul>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
-	if (f>0)
+	if (f>0) {
 		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you might need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+		if (rngwrJump)
+			result+=`<li>The RNG Waiting Room addon will cause your Thellora landing zone to be completed by the modron formation - and consequently jump with a distance of whatever feat he may or may not have saved in that formation.</li>`;
+	}
 	if (dynaMinsc)
 		result+=`<li>${dyn.replace("<br>","")}</li>`;
 	else if (MImoHeir)
