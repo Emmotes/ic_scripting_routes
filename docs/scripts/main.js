@@ -463,11 +463,9 @@ async function calculateStacks() {
 		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
 		metal=!(!swm&&z<=stackStack.value);
 		let rngwrApply=z==t&&rngwr&&f>0;
-		let rngwrDist=0;
 		if (rngwrApply) {
 			rngwrJump=true;
-			rngwrDist=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:0;
-			z+=rngwrDist;
+			z+=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:1;
 		} else 
 			z+=z<bz?1:checked?s:w;
 		route.push(z);
