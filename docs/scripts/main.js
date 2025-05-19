@@ -408,6 +408,7 @@ async function calculateStacks() {
 	let bz=Number(stackBrivZone.value);
 	let runs=Number(stackRuns.value);
 	let jsonRoute=gemFarmJson[stackRoute.value];
+	let z1f=stackz1Form.value;
 	let rngwr=stackRNGWR.checked;
 	let btsf=stackThunderStep.checked;
 	let adv=await pullAdvJson(jsonRoute.adv);
@@ -419,7 +420,7 @@ async function calculateStacks() {
 	let mj=0;
 	let nmj=0;
 	if (bz==1&&f>0) {
-		switch (stackz1Form.value) {
+		switch (z1f) {
 			case "q":
 				t+=(s-1);
 				if (swm) mj++;
@@ -462,9 +463,13 @@ async function calculateStacks() {
 		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
 		metal=!(!swm&&z<=stackStack.value);
 		let rngwrApply=z==t&&rngwr&&f>0;
-		if (rngwrApply)
+		let rngwrDist=0;
+		if (rngwrApply) {
 			rngwrJump=true;
-		z+=rngwrApply?t-tb+1:z<bz?1:checked?s:w;
+			rngwrDist=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:0;
+			z+=rngwrDist;
+		} else 
+			z+=z<bz?1:checked?s:w;
 		route.push(z);
 		if ((checked||w>1)&&z>=bz) {
 			if (metal) mj++
