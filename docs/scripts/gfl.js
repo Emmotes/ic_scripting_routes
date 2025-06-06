@@ -36,6 +36,41 @@ const gemFarmJson={
 		bf:1125899906842623n,
 		blurb:`${cf} You won't want to be walking any areas as that will only slow you down.`
 	},
+	mixed01LL:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:{
+			min:0,
+			max:1
+		},
+		bf:1125899906842623n,
+		blurb:`${ll}`
+	},
+	pure1LL:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:1,
+		q:2,
+		e:1,
+		bf:1125899906842623n,
+		blurb:`${ll}`
+	},
+	mixed12LL:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:{
+			min:1,
+			max:2
+		},
+		bf:914793668012031n,
+		blurb:`${ll}`
+	},
 	pure2LL:{
 		name:nll[0],
 		sname:nll[1],
@@ -47,6 +82,18 @@ const gemFarmJson={
 		bf:1053332137310143n,
 		blurb:`${ll}`,
 		loop:true
+	},
+	mixed23LL:{
+		name:ntt[0],
+		sname:ntt[1],
+		qts:ntt[2],
+		adv:ntt[3],
+		jump:{
+			min:2,
+			max:3
+		},
+		bf:1020346787427327n,
+		blurb:`${ll}`
 	},
 	pure3LL:{
 		name:nll[0],
