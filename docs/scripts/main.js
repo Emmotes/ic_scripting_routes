@@ -491,8 +491,8 @@ async function calculateStacks() {
 			else nmj++;
 		}
 	}
-	for (let i=0;i<(nmj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	for (let i=0;i<(mj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[0]);
+	for (let i=0;i<(nmj*runs);i++) stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	let btsfStacks=stacks;
 	if (btsf) stacks=Math.ceil(stacks/thunderStep);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
