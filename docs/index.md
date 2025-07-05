@@ -142,7 +142,7 @@
 					<option value="q" selected>Q</option>
 					<option value="e">E</option>
 					<option value="4">Wasting Haste (4j)</option>
-					<option value="9">Stategic Stride (9j)</option>
+					<option value="9">Strategic Stride (9j)</option>
 				</select>
 			</span>
 		</span>
