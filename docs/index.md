@@ -135,12 +135,14 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackz1Form">z1 Formation:</label>
+				<label for="stackz1Form">z1 Formation (or Modron with RNGWR):</label>
 			</span>
 			<span class="routesCol2">
-				<select name="stackz1Form" id="stackz1Form" style="min-width:60px">
+				<select name="stackz1Form" id="stackz1Form" style="min-width:60px;max-width:200px">
 					<option value="q" selected>Q</option>
 					<option value="e">E</option>
+					<option value="4">Wasting Haste (4j)</option>
+					<option value="9">Stategic Stride (9j)</option>
 				</select>
 			</span>
 		</span>

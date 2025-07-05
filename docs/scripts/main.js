@@ -452,6 +452,12 @@ async function calculateStacks() {
 				if (w==1&&bz==1)
 					bz=2;
 				break;
+			case "4":
+			case "9":
+				t+=Number(z1f)+1;
+				if (swm) mj++;
+				else nmj++;
+				break;
 		}
 	}
 	let stacks=48;
@@ -482,7 +488,7 @@ async function calculateStacks() {
 		let rngwrApply=z==t&&rngwr&&f>0;
 		if (rngwrApply) {
 			rngwrJump=true;
-			z+=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:1;
+			z+=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:z1f=="4"||z1f=="9"?Number(z1f)+1:1;
 		} else 
 			z+=z<bz?1:checked?s:w;
 		route.push(z);
