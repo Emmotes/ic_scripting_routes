@@ -454,7 +454,7 @@ async function calculateStacks() {
 				break;
 			case "4":
 			case "9":
-				t+=Number(z1f)+1;
+				t+=Number(z1f);
 				if (swm) mj++;
 				else nmj++;
 				break;
