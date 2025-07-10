@@ -372,7 +372,7 @@ function swapTab() {
 				stackStack.value=hash[4];
 				stackBrivZone.value=hash[5];
 				stackz1Form.value=hash[6];
-				stackRNGWR.value=hash[7]==`1`?true:false;
+				stackRNGWR.checked=hash[7]==`1`?true:false;
 				stackWithMetal.checked=hash[8]==`1`?true:false;
 				stackRuns.value=hash[9];
 				stackThunderStep.checked=hash[10]==`1`?true:false;
@@ -473,12 +473,6 @@ async function calculateStacks() {
 	while (z<r&&route.length<2000) {
 		modz=z%50||50;
 		let monTags=getZoneMonTags(adv,modz);
-		if (monTags.includes(`hits_based`))
-			mehs.push(z)
-		if (monTags.includes(`armor_based`))
-			bads.push(z)
-		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
-		metal=!(!swm&&z<=stackStack.value);
 		let rngwrApply=z==t&&rngwr&&f>0;
 		if (z>1&&z%5!=0&&!rngwrApply) {
 			if (dynaMinsc&&!isDynaMinscOnly(monTags))
@@ -486,6 +480,12 @@ async function calculateStacks() {
 			if (MImoHeir&&!isMImoHeir(monTags))
 				MImoHeir=false;
 		}
+		if (monTags.includes(`hits_based`))
+			mehs.push(z)
+		if (monTags.includes(`armor_based`))
+			bads.push(z)
+		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
+		metal=!(!swm&&z<=stackStack.value);
 		if (rngwrApply) {
 			rngwrJump=true;
 			z+=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:z1f=="4"||z1f=="9"?Number(z1f)+1:1;
