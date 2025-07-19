@@ -180,9 +180,6 @@
 			<span class="routesCol2" style="width:max-content">
 				<input type="checkbox" name="stackThunderStep" id="stackThunderStep">
 			</span>
-			<span class="routesCol5" id="stackThunderStepNote">
-				&nbsp;
-			</span>
 		</span>
 		<span class="routesRow">
 			<span class="routesDesc">
