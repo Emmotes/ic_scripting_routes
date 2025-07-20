@@ -25,6 +25,7 @@ const stackFavourLimits=[0,308];
 const stackStackMin=1;
 const stackBrivZoneMin=1;
 const stackRunsMin=1;
+const minHaste=48;
 const thunderStep=1.2;
 const resetLimitText=[`<span style="color:#DDCCEE">(Current reset cap is ${stackResetLimits[1]})</span>`,`&nbsp;`];
 const favourLimitText=[`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,`(Use 0 to disable Thellora)`];
@@ -458,7 +459,7 @@ async function calculateStacks() {
 				break;
 		}
 	}
-	let stacks=48;
+	let stacks=minHaste;
 	let z=t;
 	let modz=z%50||50;
 	let bt=z%5==0;
@@ -502,7 +503,7 @@ async function calculateStacks() {
 			stacks=Math.ceil((stacks-0.5)*stackMult[1]);
 	}
 	let btsfStacks=stacks;
-	if (btsf) stacks=Math.ceil(stacks/thunderStep);
+	if (btsf) stacks=minHaste+Math.ceil((stacks-minHaste)/thunderStep);
 	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
 	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
 	result+=`<ul><li>${loop}</li>`;
