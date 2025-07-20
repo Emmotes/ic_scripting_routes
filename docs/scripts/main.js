@@ -38,6 +38,7 @@ const hopNorm=hopQT.replace(`QT`,`Norm`);
 const walkQT=`<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
 const walkNorm=walkQT.replace(`QT`,`Norm`);
 const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
+const NUMFORM = new Intl.NumberFormat("en",{useGrouping:true,maximumFractionDigits:2});
 var tester=false;
 
 async function init() {
@@ -504,7 +505,7 @@ async function calculateStacks() {
 	}
 	let btsfStacks=stacks;
 	if (btsf) stacks=minHaste+Math.ceil((stacks-minHaste)/thunderStep);
-	let result=`<h2>Stacks Required: ${stacks.toLocaleString()}</h2>`;
+	let result=`<h2>Stacks Required: ${nf(stacks)}</h2>`;
 	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
 	result+=`<ul><li>${loop}</li>`;
 	let pBriv=``;
@@ -790,4 +791,8 @@ function capitalize(s) {
 	if (s==`hits_based`)
 		return `Hits-Based`;
     return s && s[0].toUpperCase() + s.slice(1);
+}
+
+function nf(number) {
+	return NUMFORM.format(number);
 }
