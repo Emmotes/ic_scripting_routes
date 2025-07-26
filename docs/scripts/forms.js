@@ -149,6 +149,21 @@ const forms = {
 		}
 	}
 };
+const champNamesById={
+	  "7":"Minsc",
+	 "58":"Briv",
+	 "59":"Melf",
+	 "75":"Hew Maan",
+	 "83":"Ellywick",
+	 "91":"Widdle",
+	 "97":"Tatyana",
+	 "99":"Dungeon Master",
+	"117":"Imoen",
+	"125":"BBEG",
+	"139":"Thellora",
+	"145":"Dynaheir",
+	"148":"Diana"
+}
 
 /* ================================= *
  * ===== Select Box Population ===== *
@@ -240,17 +255,18 @@ async function formsUpdateShow() {
 	let currForms = {"Q (Fav: 1)":q,"W (Fav: 2)":w,"E (Fav: 3)":e,"M (Modron)":m};
 	
 	txt += `<h1>${f.name}</h1>`;
-	txt += `<p style="padding-left:10px">The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. This is why it gets all the specialisations and none of the others do.</p>`;
-	txt += `<span style="display:flex;flex-direction:column;width:100%">`;
+	txt += `<p style="padding-left:10px">The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>`;
+	txt += `<span style="display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:1fr">`;
 	for (let name of Object.keys(currForms)) {
 		let currForm = currForms[name];
-		txt += `<span style="display:flex;align-items:flex-start;padding:20px 0">`;
-		txt += `<span style="display:flex;flex-direction:column;align-items:center;padding:0 20px">`;
+		txt += `<span style="display:flex;flex-direction:column;align-items:center;padding:20px">`;
 		txt += `<h2>${name}</h2>`;
 		txt += createSVG(f.slots,f.cols,currForm);
-		txt += `</span>`;
-		if (name == "M (Modron)")
+		if (name == "M (Modron)") {
+			txt += `</span>`;
+			txt += `<span style="grid-column:span 2;display:flex;justify-content:center;padding:20px">`;
 			txt += addSpecInfo(f.forms[type].specs[mType]);
+		}
 		txt += `</span>`;
 	}
 	txt += `</span>`;
@@ -314,8 +330,16 @@ function createSVG(slots,cols,ids) {
 	let formHeight = maxY + circleDiameter;
 	
 	let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${formWidth}" height="${formHeight}">`;
-	for (let i=0; i<slots.length; i++)
-		svg += `<image x="${slots[i].x}" y="${slots[i].y}" width="${circleDiameter}" height="${circleDiameter}" href="https://emmotes.github.io/ic_servercalls/images/portraits/${ids[i]}.png" />`;
+	for (let i=0; i<slots.length; i++) {
+		let champName = champNamesById[ids[i]];
+		if (champName == undefined && ids[i] > 0)
+			console.log(`Unknown champion id: ${ids[i]}`);
+		svg += `<image x="${slots[i].x}" y="${slots[i].y}" width="${circleDiameter}" height="${circleDiameter}" href="https://emmotes.github.io/ic_servercalls/images/portraits/${ids[i]}.png"`;
+		if (champName != undefined)
+			svg += `><title>${champName}</title></image>`;
+		else
+			svg += ` />`;
+	}
 	svg += `</svg>`;
 	return svg;
 }
