@@ -1,4 +1,5 @@
 const st=`stacksTab`;
+const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
 const presetsInput=document.getElementById(`presets`);
 const rarityInput=document.getElementById(`rarity`);
@@ -20,7 +21,9 @@ const stackFavourNote=document.getElementById(`stackFavourNote`);
 const stackResetNote=document.getElementById(`stackResetNote`);
 const formCampaign=document.getElementById(`formCampaign`);
 const formType=document.getElementById(`formType`);
+const formFeatSwapLabel=document.getElementById(`formFeatSwapLabel`);
 const formFeatSwap=document.getElementById(`formFeatSwap`);
+const formHybridLabel=document.getElementById(`formHybridLabel`);
 const formHybrid=document.getElementById(`formHybrid`);
 const formShow=document.getElementById(`formShow`);
 const formResult=document.getElementById(`formResult`);
@@ -108,12 +111,10 @@ function preset() {
 
 function update() {
 	if (rarityInput.value!=`epic`) {
-		if (gildingInput.value==`golden`) {
+		if (gildingInput.value==`golden`)
 			gildingInput.value=`shiny`;
-		}
-		if (gildingInput.options.length==3) {
+		if (gildingInput.options.length==3)
 			gildingInput.options.remove(2);
-		}
 	} else {
 		if (gildingInput.options.length==2) {
 			let opt=document.createElement(`option`);
@@ -122,11 +123,10 @@ function update() {
 			gildingInput.options.add(opt);
 		}
 	}
-	if (gildingInput.value==`shiny`&&shinyNote.style.display=='none') {
+	if (gildingInput.value==`shiny`&&shinyNote.style.display=='none')
 		shinyNote.style.display='';
-	} else if (gildingInput.value!=`shiny`&&shinyNote.style.display=='') {
+	else if (gildingInput.value!=`shiny`&&shinyNote.style.display=='')
 		shinyNote.style.display='none';
-	}
 	let ilvls=ilvlInput.value-1;
 	if (ilvls<1) {
 		document.getElementById(`ilvl`).value=1;
@@ -150,9 +150,8 @@ function update() {
 	let comment=``;
 	let spacer=addToDescRow(`&nbsp;`)
 	let skipBlurb=`${p}% chance to skip ${skips[0]} areas.`;
-	if (np>0) {
+	if (np>0)
 		skipBlurb+=`<br>${np}% chance to skip ${skips[0]-1} areas.`;
-	}
 	comment+=spacer;
 	comment+=addToDescRow(skipBlurb,true,true);
 	if (skips[1]!=1&&jumps>4&&(jumps<7.99||jumps>8)&&(jumps<11.99||jumps>12)&&(jumps<15.99||jumps>16)) {
@@ -308,9 +307,11 @@ function mapFromToRange(v,oldMin,oldMax,newMin,newMax) {
 }
 
 function addChecked(bf,br) {
-	if (bf==undefined) return addToDescRow(`&nbsp;`);
+	if (bf==undefined)
+		return addToDescRow(`&nbsp;`);
 	let comment=``;
-	if (br) comment+=addToDescRow(`&nbsp;`);
+	if (br)
+		comment+=addToDescRow(`&nbsp;`);
 	comment+=`<span class="routesRow">`;
 	for (let i=1;i<=50;i++) {
 		let checked=isChecked(bf,i)?` checked`:``;
@@ -338,9 +339,8 @@ function addLoop(bf,q,e) {
 		}
 	}
 	let loop=[];
-	for (let i=loopStartIndex;i<route.length-1;i++) {
+	for (let i=loopStartIndex;i<route.length-1;i++)
 		loop.push(route[i]%50||50);
-	}
 	if (loop[0]==50) {
 		loop.splice(0,1);
 		loop.push(50);
@@ -348,7 +348,8 @@ function addLoop(bf,q,e) {
 	let spacer=` - `;
 	let comment=`<br>Preferred Loop: `;
 	for (let i=0;i<loop.length;i++) {
-		if (i > 0) comment+=spacer;
+		if (i > 0)
+			comment+=spacer;
 		comment+=loop[i];
 	}
 	comment+=`${spacer} repeat`;
@@ -356,25 +357,22 @@ function addLoop(bf,q,e) {
 }
 
 function isChecked(bf,i) {
-	return (bf & BigInt(Math.pow(2,i-1)))!=0?true:false;
+	return (bf & BigInt(Math.pow(2,i-1)))!=0;
 }
 
 function vSigFig(n,nDif) {
 	let p=2;
-	if (n==100) {
+	if (n==100)
 		return p;
-	}
-	while (parseFloat(nDif.toFixed(p)) == 0) {
+	while (parseFloat(nDif.toFixed(p)) == 0)
 		p++;
-	}
 	return p+1;
 }
 
 function swapTab() {
 	let hash=window.location.hash.substring(1).split("_");
-	if (hash[0]!=""&&document.getElementById(hash[0])!=undefined) {
+	if (hash[0]!=""&&document.getElementById(hash[0])!=undefined)
 		document.getElementById(hash[0]).click();
-	}
 	if (hash.length>1) {
 		switch (hash[0]) {
 			case `${st}`:
@@ -384,10 +382,19 @@ function swapTab() {
 				stackStack.value=hash[4];
 				stackBrivZone.value=hash[5];
 				stackz1Form.value=hash[6];
-				stackRNGWR.checked=hash[7]==`1`?true:false;
-				stackWithMetal.checked=hash[8]==`1`?true:false;
+				stackRNGWR.checked=hash[7]==1;
+				stackWithMetal.checked=hash[8]==1;
 				stackRuns.value=hash[9];
-				stackThunderStep.checked=hash[10]==`1`?true:false;
+				stackThunderStep.checked=hash[10]==1;
+				break;
+			case `${ft}`:
+				formCampaign.value=hash[1];
+				populateFormTypes();
+				formType.value=hash[2];
+				formFeatSwap.checked=hash[3]==1;
+				formHybrid.checked=hash[4]==1;
+				decideFormsShowStatus();
+				formsUpdateShow();
 				break;
 		}
 	}
@@ -399,13 +406,16 @@ function setHash(hash) {
 		let swm=stackWithMetal.checked?1:0;
 		let bts=stackThunderStep.checked?1:0;
 		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
+	} else if (hash==ft) {
+		let featSwap=formFeatSwap.checked?1:0;
+		let hybrid=formHybrid.checked?1:0;
+		hash=`${ft}_${formCampaign.value}_${formType.value}_${featSwap}_${hybrid}`;
 	}
 	hash=`#`+hash;
-	if(history.replaceState) {
+	if(history.replaceState)
 		history.replaceState(null,null,hash);
-	} else {
+	else
 		window.location.hash=hash;
-	}
 }
 
 function populateStackRoutes() {
@@ -429,9 +439,8 @@ async function calculateStacks() {
 		return
 	}
 	enforceTolerances();
-	if (window.location.hash.substring(1).split("_")[0]==st) {
+	if (window.location.hash.substring(1).split("_")[0]==st)
 		setHash(st);
-	}
 	let f=Number(stackFavour.value);
 	let r=Number(stackReset.value);
 	let bz=Number(stackBrivZone.value);

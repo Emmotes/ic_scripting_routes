@@ -35,7 +35,8 @@ const forms = {
 				}
 			}
 		},
-		
+		"ignoreFeatSwap":1,
+		"ignoreHybrid":1
 	},
 	"WL":{
 		"name":"Witchlight",
@@ -154,6 +155,7 @@ const forms = {
  * ================================= */
  
 async function populateFormCampaigns() {
+	disableElements(true,true,true);
 	let inner = `<option value="" selected>-</option>`;
 	for (let formId of Object.keys(forms)) {
 		let form = forms[formId];
@@ -166,7 +168,6 @@ async function populateFormTypes() {
 	let campaign = formCampaign.value;
 	let inner = `<option value="" selected>-</option>`;
 	if (campaign != "") {
-		inner = ``;
 		let form = forms[campaign];
 		for (let typeId of Object.keys(form.forms)) {
 			let type = form.forms[typeId];
@@ -193,7 +194,6 @@ async function populateFormTypes() {
  * ============================== */
 
 async function formsUpdateCampaign() {
-	let campaign = formCampaign.value;
 	populateFormTypes();
 	decideFormsShowStatus();
 }
@@ -212,20 +212,29 @@ async function formsUpdateShow() {
 	let featSwap = formFeatSwap.checked;
 	let hybrid = formHybrid.checked;
 	
+	
 	if (formShow.disabled)
 		return;
 	
 	let f = forms[campaign];
+	let isGT = campaign == 'GT';
+	if (featSwap && f.ignoreFeatSwap == 1)
+		featSwap = false;
+	if (hybrid && f.ignoreHybrid == 1)
+		hybrid = false;
 	
 	let q = f.forms[type].Q;
-	let w = hybrid ? f.forms[type].WH : campaign == `GT` ? [58,0,0,0,0,0,0,0,0] : [58,0,0,0,0,0,0,0,0,0];
+	let w = hybrid ? f.forms[type].WH : [58,0,0,0,0,0,0,0,0];
+	if (!isGT)
+		w.push(0);
 	let e = [...q];
 	if (!featSwap) {
 		let index = e.indexOf(58);
-		if (index !== -1)
+		if (index != -1)
 			e[index] = 0;
 	}
-	let m = f.forms[type][hybrid ? 'MH' : 'M'];
+	let mType = hybrid ? 'MH' : 'M';
+	let m = f.forms[type][mType];
 	
 	let txt = ``;
 	let currForms = {"Q (Fav: 1)":q,"W (Fav: 2)":w,"E (Fav: 3)":e,"M (Modron)":m};
@@ -238,44 +247,57 @@ async function formsUpdateShow() {
 		txt += `<span style="display:flex;align-items:flex-start;padding:20px 0">`;
 		txt += `<span style="display:flex;flex-direction:column;align-items:center;padding:0 20px">`;
 		txt += `<h2>${name}</h2>`;
-		txt += `${createSVG(f.slots,f.cols,currForm)}`;
+		txt += createSVG(f.slots,f.cols,currForm);
 		txt += `</span>`;
 		if (name == "M (Modron)")
-			txt += addSpecInfo(f.forms[type].specs[hybrid?'MH':'M']);
+			txt += addSpecInfo(f.forms[type].specs[mType]);
 		txt += `</span>`;
 	}
 	txt += `</span>`;
 	formResult.innerHTML = txt;
 }
 
-/* ========================== *
- * ===== Misc Functions ===== *
- * ========================== */
+/* ==================================== *
+ * ===== Disable/Show UI Elements ===== *
+ * ==================================== */
  
 function decideFormsShowStatus() {
+	if (window.location.hash.substring(1).split("_")[0]==ft)
+		setHash(ft);
+	
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	
 	if (campaign == "" || type == "") {
-		formShow.disabled = true;
-		formShow.style = `min-width:250px;color:#444;cursor:default`;
+		disableElements(true,true,true);
 		return;
 	}
-	formShow.disabled = false;
-	formShow.style = `min-width:250px`;
-	
 	if (campaign == "GT") {
-		formFeatSwap.disabled = true;
-		formFeatSwap.style = `color:#444;cursor:default`;
-		formHybrid.disabled = true;
-		formHybrid.style = `color:#444;cursor:default`;
+		disableElements(false,true,true);
 		return;
 	}
-	formFeatSwap.disabled = false;
-	formFeatSwap.style = ``;
-	formHybrid.disabled = false;
-	formHybrid.style = ``;
+	disableElements(false,false,false);
 }
+ 
+function disableElements(show,featSwap,hybrid) {
+	let grey = `color:#444`;
+	let noCur = `;cursor:default;pointer-events:none`;
+	// formShow
+	formShow.disabled = show;
+	formShow.style = show ? `min-width:250px;` + grey + noCur : `min-width:250px`;
+	// formFeatSwap
+	formFeatSwap.disabled = featSwap;
+	formFeatSwap.style = featSwap ? grey + noCur : ``;
+	formFeatSwapLabel.style = featSwap ? grey : ``;
+	// formHybrid
+	formHybrid.disabled = hybrid;
+	formHybrid.style = hybrid ? grey + noCur : ``;
+	formHybridLabel.style = hybrid ? grey : ``;
+}
+
+/* ========================== *
+ * ===== Misc Functions ===== *
+ * ========================== */
  
 function createSVG(slots,cols,ids) {
 	let circleDiameter = 50;

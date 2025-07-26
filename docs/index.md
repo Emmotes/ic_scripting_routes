@@ -220,7 +220,7 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="formFeatSwap">Feat Swapping:</label>
+				<label for="formFeatSwap" id="formFeatSwapLabel">Feat Swapping:</label>
 			</span>
 			<span class="routesCol2">
 				<input type="checkbox" name="formFeatSwap" id="formFeatSwap">
@@ -228,7 +228,7 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="formHybrid">Hybrid Stacking:</label>
+				<label for="formHybrid" id="formHybridLabel">Hybrid Stacking:</label>
 			</span>
 			<span class="routesCol2">
 				<input type="checkbox" name="formHybrid" id="formHybrid">
@@ -239,7 +239,7 @@
 				<label for="formShow">&nbsp;</label>
 			</span>
 			<span class="routesCol2">
-				<input type="button" name="formShow" id="formShow" value="Show Formations" style="min-width:250px;color:#444;cursor:default" disabled>
+				<input class="formButton" type="button" name="formShow" id="formShow" value="Show Formations" style="min-width:250px">
 			</span>
 		</span>
 		<span class="routesRow">

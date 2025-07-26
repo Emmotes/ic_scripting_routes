@@ -306,3 +306,7 @@ input[type="checkbox"]:checked::before {
 .stacksRoutesTableItem:hover .ttc {
 	visibility: visible;
 }
+.formButton:active {
+	position: relative;
+	top: 1px;
+}
