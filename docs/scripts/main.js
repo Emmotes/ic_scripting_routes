@@ -18,6 +18,12 @@ const stackThunderStep=document.getElementById(`stackThunderStep`);
 const stackResult=document.getElementById(`stackResult`);
 const stackFavourNote=document.getElementById(`stackFavourNote`);
 const stackResetNote=document.getElementById(`stackResetNote`);
+const formCampaign=document.getElementById(`formCampaign`);
+const formType=document.getElementById(`formType`);
+const formFeatSwap=document.getElementById(`formFeatSwap`);
+const formHybrid=document.getElementById(`formHybrid`);
+const formShow=document.getElementById(`formShow`);
+const formResult=document.getElementById(`formResult`);
 const metalLevel=170;
 const stackMult=[1/0.968,1/0.96];
 const stackResetLimits=[15,2500];
@@ -43,6 +49,7 @@ var tester=false;
 
 async function init() {
 	populateStackRoutes();
+	populateFormCampaigns();
 	//dealWithTesters();
 	window.addEventListener('hashchange',() =>{swapTab();});
 	swapTab();
@@ -60,6 +67,11 @@ async function init() {
 	stackWithMetal.addEventListener(`change`,calculateStacks);
 	stackRuns.addEventListener(`change`,calculateStacks);
 	stackThunderStep.addEventListener(`change`,calculateStacks);
+	formCampaign.addEventListener(`input`,formsUpdateCampaign);
+	formType.addEventListener(`input`,formsUpdateType);
+	formFeatSwap.addEventListener(`change`,formsUpdateCheckboxes);
+	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
+	formShow.addEventListener(`click`,formsUpdateShow);
 	update();
 	await calculateStacks();
 }

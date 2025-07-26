@@ -190,5 +190,66 @@
 			&nbsp;
 		</span>
 	</div>
+	<input onClick="setHash('formsTab')" type="radio" class="tabsRadio" name="routesTabs" id="formsTab">
+	<label for="formsTab" class="tabsLabel">Example Formations</label>
+	<div class="tabsContent">
+		<span class="routesRow">
+			<span class="routesDesc">
+				<h3 id="eventInput">Fill out all the information below.</h3>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="formCampaign">Campaign:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="formCampaign" id="formCampaign" style="min-width:250px">
+					<option value="" selected>-</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="formType">Quest Champions:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="formType" id="formType" style="min-width:250px">
+					<option value="" selected>-</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="formFeatSwap">Feat Swapping:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="checkbox" name="formFeatSwap" id="formFeatSwap">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="formHybrid">Hybrid Stacking:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="checkbox" name="formHybrid" id="formHybrid">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
+				<label for="formShow">&nbsp;</label>
+			</span>
+			<span class="routesCol2">
+				<input type="button" name="formShow" id="formShow" value="Show Formations" style="min-width:250px;color:#444;cursor:default" disabled>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesDesc" id="formResult" style="display:flex;flex-direction:column;text-wrap-style:balance">
+				&nbsp;
+			</span>
+		</span>
+		<span class="routesRow">
+			&nbsp;
+		</span>
+	</div>
 </div>
 {:/nomarkdown}
