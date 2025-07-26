@@ -39,7 +39,7 @@ const forms = {
 		"ignoreHybrid":1
 	},
 	"WL":{
-		"name":"Witchlight",
+		"name":"Wild Beyond the Witchlight",
 		"cols":4,
 		"slots":[
 			{"x":180,"y": 30},
