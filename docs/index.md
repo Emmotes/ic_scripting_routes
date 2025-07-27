@@ -237,10 +237,6 @@
 		<span class="routesRow">
 			<span class="routesCol6">
 				<label for="formShow">&nbsp;</label>
-			</span>
-			<span class="routesCol2">
-				<input class="formButton" type="button" name="formShow" id="formShow" value="Show Formations" style="min-width:250px">
-			</span>
 		</span>
 		<span class="routesRow">
 			<span class="routesDesc" id="formResult" style="display:flex;flex-direction:column;text-wrap-style:balance">

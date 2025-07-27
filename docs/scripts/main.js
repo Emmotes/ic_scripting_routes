@@ -25,7 +25,6 @@ const formFeatSwapLabel=document.getElementById(`formFeatSwapLabel`);
 const formFeatSwap=document.getElementById(`formFeatSwap`);
 const formHybridLabel=document.getElementById(`formHybridLabel`);
 const formHybrid=document.getElementById(`formHybrid`);
-const formShow=document.getElementById(`formShow`);
 const formResult=document.getElementById(`formResult`);
 const metalLevel=170;
 const stackMult=[1/0.968,1/0.96];
@@ -74,7 +73,6 @@ async function init() {
 	formType.addEventListener(`input`,formsUpdateType);
 	formFeatSwap.addEventListener(`change`,formsUpdateCheckboxes);
 	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
-	formShow.addEventListener(`click`,formsUpdateShow);
 	update();
 	await calculateStacks();
 }

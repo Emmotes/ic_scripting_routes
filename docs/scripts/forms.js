@@ -118,7 +118,7 @@ const forms = {
 				"Q":[75,139,117,148,145,0,91,58,7,83],
 				"M":[75,139,117,148,145,99,91,58,7,83],
 				"WH":[58,0,97,0,0,0,0,59,0,83],
-				"MH":[75,139,117,148,99,59,91,58,7,83],
+				"MH":[75,139,117,148,59,99,91,58,7,83],
 				"specs":{
 					"M":{
 						"Hew Maan":"Hello, Fellow Mercenaries!",
@@ -227,8 +227,7 @@ async function formsUpdateShow() {
 	let featSwap = formFeatSwap.checked;
 	let hybrid = formHybrid.checked;
 	
-	
-	if (formShow.disabled)
+	if (campaign == "" || type == "")
 		return;
 	
 	let f = forms[campaign];
@@ -284,23 +283,18 @@ function decideFormsShowStatus() {
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	
-	if (campaign == "" || type == "") {
+	if (campaign == "" || type == "")
 		disableElements(true,true,true);
-		return;
-	}
-	if (campaign == "GT") {
+	else if (campaign == "GT")
 		disableElements(false,true,true);
-		return;
-	}
-	disableElements(false,false,false);
+	else
+		disableElements(false,false,false);
+	formsUpdateShow();
 }
  
 function disableElements(show,featSwap,hybrid) {
 	let grey = `color:#444`;
 	let noCur = `;cursor:default;pointer-events:none`;
-	// formShow
-	formShow.disabled = show;
-	formShow.style = show ? `min-width:250px;` + grey + noCur : `min-width:250px`;
 	// formFeatSwap
 	formFeatSwap.disabled = featSwap;
 	formFeatSwap.style = featSwap ? grey + noCur : ``;
