@@ -227,7 +227,7 @@ function createSpecTxt(champId,specIds) {
 	for (let i=0; i<specIds.length; i++) {
 		if (i > 0)
 			specText += ` + `;
-		specText = champData.specs[specIds[i]];
+		specText += champData.specs[specIds[i]];
 	}
 	return `<strong>${champData.name}:</strong><span>${specText}</span>`;
 }
