@@ -220,6 +220,16 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
+				<label for="formWiddle">Widdle Adjacencies:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="formWiddle" id="formWiddle" style="min-width:250px">
+					<option value="" selected>-</option>
+				</select>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
 				<label for="formFeatSwap" id="formFeatSwapLabel">Feat Swapping:</label>
 			</span>
 			<span class="routesCol2">

@@ -21,6 +21,7 @@ const stackFavourNote=document.getElementById(`stackFavourNote`);
 const stackResetNote=document.getElementById(`stackResetNote`);
 const formCampaign=document.getElementById(`formCampaign`);
 const formType=document.getElementById(`formType`);
+const formWiddle=document.getElementById(`formWiddle`);
 const formFeatSwapLabel=document.getElementById(`formFeatSwapLabel`);
 const formFeatSwap=document.getElementById(`formFeatSwap`);
 const formHybridLabel=document.getElementById(`formHybridLabel`);
@@ -71,6 +72,7 @@ async function init() {
 	stackThunderStep.addEventListener(`change`,calculateStacks);
 	formCampaign.addEventListener(`input`,formsUpdateCampaign);
 	formType.addEventListener(`input`,formsUpdateType);
+	formWiddle.addEventListener(`input`,formsUpdateWiddle);
 	formFeatSwap.addEventListener(`change`,formsUpdateCheckboxes);
 	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
 	update();
@@ -389,8 +391,10 @@ function swapTab() {
 				formCampaign.value=hash[1];
 				populateFormTypes();
 				formType.value=hash[2];
-				formFeatSwap.checked=hash[3]==1;
-				formHybrid.checked=hash[4]==1;
+				populateFormWiddles();
+				formWiddle.value=hash[3];
+				formFeatSwap.checked=hash[4]==1;
+				formHybrid.checked=hash[5]==1;
 				decideFormsShowStatus();
 				formsUpdateShow();
 				break;
@@ -407,7 +411,7 @@ function setHash(hash) {
 	} else if (hash==ft) {
 		let featSwap=formFeatSwap.checked?1:0;
 		let hybrid=formHybrid.checked?1:0;
-		hash=`${ft}_${formCampaign.value}_${formType.value}_${featSwap}_${hybrid}`;
+		hash=`${ft}_${formCampaign.value}_${formType.value}_${formWiddle.value}_${featSwap}_${hybrid}`;
 	}
 	hash=`#`+hash;
 	if(history.replaceState)
