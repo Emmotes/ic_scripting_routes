@@ -245,8 +245,13 @@
 			</span>
 		</span>
 		<span class="routesRow">
-			<span class="routesCol6">
-				<label for="formShow">&nbsp;</label>
+			&nbsp;
+		</span>
+		<span class="routesRow">
+			<span style="padding:0 40px 0 20px;text-wrap-style:pretty">
+				<p>The formations listed here are designed to be examples - nothing more. They aren't necessarily meant to be copied exactly - but are to be learned from and modified to fit your needs.</p>
+				<p>The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>
+			</span>
 		</span>
 		<span class="routesRow">
 			<span class="routesDesc" id="formResult" style="display:flex;flex-direction:column;text-wrap-style:balance">

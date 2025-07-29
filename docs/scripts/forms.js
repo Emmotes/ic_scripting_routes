@@ -111,7 +111,6 @@ async function formsUpdateShow() {
 	let currForms = {"Q (Fav: 1)":q,"W (Fav: 2)":w,"E (Fav: 3)":e,"M (Modron)":m};
 	
 	txt += `<h1>${f.name}</h1>`;
-	txt += `<p style="padding-left:10px">The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>`;
 	txt += `<span style="display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:1fr">`;
 	for (let name of Object.keys(currForms)) {
 		let currForm = currForms[name];
