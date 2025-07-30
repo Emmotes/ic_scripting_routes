@@ -310,3 +310,10 @@ input[type="checkbox"]:checked::before {
 	position: relative;
 	top: 1px;
 }
+.bigRedWarning {
+    background-color: #330000;
+    border: 1px solid #551111;
+    border-radius: 5px;
+    color: currentColor;
+    padding: 2px 5px;
+}

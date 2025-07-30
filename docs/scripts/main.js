@@ -533,7 +533,7 @@ async function calculateStacks() {
 	result+=`<ul><li>${loop}</li>`;
 	let pBriv=``;
 	if (bt) {
-		pBriv+=`<li>This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `
+		pBriv+=`<li class="bigRedWarning">This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `
 		if (bz==1)
 			pBriv+=`You can fix this by levelling Briv on z2 instead of z${bz}.`;
 		else if (stackBrivZone.value==1&&bz==2)
@@ -556,7 +556,7 @@ async function calculateStacks() {
 		result+=`<li>${mimo.replace("<br>","")}</li>`;
 	if (route[route.length-1]==r) {
 		let rb=r%5==0;
-		result+=`<li>This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
+		result+=`<li class="bigRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
 	}
 	if (bz>t) {
 		let diff=bz-t;
