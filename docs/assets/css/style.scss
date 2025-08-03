@@ -11,7 +11,7 @@ section {
 }
 h1,h2,h3 {
 	line-height: 2.0em;
-	color: #F2F2F2;
+	color: var(--Concrete);
 }
 h4,h5 {
 	line-height: 1.7em;
@@ -20,15 +20,15 @@ h6 {
 	line-height: 1.4em;
 }
 h3 {
-	color: #CCCCCC;
+	color: var(--Silver);
 }
 summary {
 	cursor: pointer;
-	color: #FFCC00;
+	color: var(--TangerineYellow);
 }
 summary:hover {
 	cursor: pointer;
-	color: #FFEB9B;
+	color: var(--Flavescent);
 }
 section #title .credits.right {
 	text-align: right;
@@ -42,8 +42,8 @@ code{
 	flex-direction: column;
 	max-width: 848px;
 	min-width: 548px;
-	background-color: #1a1a1a;
-	border: 1px solid black;
+	background-color: var(--CodGrey);
+	border: 1px solid var(--Black);
 	border-radius: 10px;
 	padding: 15px;
 }
@@ -63,7 +63,7 @@ code{
 	cursor: pointer;
 }
 .routesDesc a:hover {
-	color: #EEEEEE;
+	color: var(--SuperSilver);
 }
 .routesDesc table td {
 	text-align: end;
@@ -86,17 +86,17 @@ code{
 	font-size: 0.9em;
 	justify-content: flex-start;
 	align-items: center;
-	color: #DDCCEE;
+	color: var(--Soap);
 }
 .routesCol6 {
 	width: 300px;
 }
 .routesCol2 input,.routesCol2 select,.routesCol4 input,.routesCol4 select {
 	min-width: 200px;
-	background-color: #101010;
+	background-color: var(--Onyx);
 	border: 1px solid currentColor;
 	border-radius: 6px;
-	color: #F0E7D5;
+	color: var(--Eggshell);
 	padding: 3px;
 	font-size: 0.95em;
 }
@@ -127,7 +127,7 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 input[type="checkbox"] {
 	-webkit-appearance: none;
 	appearance: none;
-	background-color: #101010;
+	background-color: var(--Onyx);
 	margin: 4px;
 	font: inherit;
 	color: currentColor;
@@ -183,10 +183,10 @@ input[type="checkbox"]:checked::before {
 .tabsLabel {
 	padding: 8px 10px;
 	cursor: pointer;
-	border: 1px solid black;
-	border-bottom: 3px ridge black;
+	border: 1px solid var(--Black);
+	border-bottom: 3px ridge var(--Black);
 	border-radius: 10px 10px 0 0;
-	background-color: #141414;
+	background-color: var(--Sooty);
 	margin-right: -1px;
 	font-size: 1.4em;
 }
@@ -194,19 +194,19 @@ input[type="checkbox"]:checked::before {
 	order: 1;
 	width: 100%;
 	display: none;
-	border: 1px solid black;
-	background-color: #1a1a1a;
+	border: 1px solid var(--Black);
+	background-color: var(--CodGrey);
 	padding: 12px 20px 0 20px;
 	border-radius: 0 10px 10px 10px;
 }
 .tabsRadio:checked+.tabsLabel {
-	color: #efefef;
-	background-color: #1a1a1a;
-	border-bottom: 3px ridge #bbbbaa;
+	color: var(--CrystalBell);
+	background-color: var(--CodGrey);
+	border-bottom: 3px ridge var(--Eagle);
 }
 .tabsRadio:focus+.tabsLabel {
-	color: #fafafa;
-	background-color: #2a2a2a;
+	color: var(--DrWhite);
+	background-color: var(--TheEnd);
 }
 .tabsRadio:checked+.tabsLabel+.tabsContent {
 	display: initial;
@@ -250,10 +250,10 @@ input[type="checkbox"]:checked::before {
 	transform: translate(0,6px);
 }
 .routeArrowQT {
-	fill: #55FF55;
+	fill: var(--ScreaminGreen);
 }
 .routeArrowNorm {
-	fill: #555555;
+	fill: var(--Emperor);
 }
 .routeArrowReset {
 	fill: currentColor;
@@ -263,20 +263,20 @@ input[type="checkbox"]:checked::before {
 	text-underline-position: under;
 }
 .bosZone {
-	color: #F0C080;
+	color: var(--Sand);
 }
 .hitZone {
-	color: #FF8929;
+	color: var(--Carrot);
 }
 .armZone {
-	color: #FF3333;
+	color: var(--RedOrange);
 }
 .ttc {
 	visibility: hidden;
 	padding: 25px;
 	border-radius: 5px;
-	border: 1px solid black;
-	background-color: #202020;
+	border: 1px solid var(--Black);
+	background-color: var(--Lead);
 	
 	display: flex;
 	justify-content: center;
@@ -287,7 +287,7 @@ input[type="checkbox"]:checked::before {
 	left: 0px;
 	bottom: 0px;
 	transform: translate(0px, -40px);
-	color: #f0e7d5;
+	color: var(--Eggshell);
 	pointer-events: none;
 }
 .ttcRow {
@@ -311,8 +311,8 @@ input[type="checkbox"]:checked::before {
 	top: 1px;
 }
 .bigRedWarning {
-    background-color: #330000;
-    border: 1px solid #551111;
+    background-color: var(--Chocolate);
+    border: 1px solid var(--MamaAfrica);
     border-radius: 5px;
     color: currentColor;
     padding: 2px 5px;
