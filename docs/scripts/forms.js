@@ -1,3 +1,4 @@
+const vf=1.000;
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -9,7 +10,7 @@ const formsData={"GT":{"name":"Grand Tour of the Sword Coast","cols":5,"slots":[
  * ===== Select Box Population ===== *
  * ================================= */
  
-async function populateFormCampaigns() {
+function populateFormCampaigns() {
 	disableElements(true,true,true);
 	let inner = `<option value="" selected>-</option>`;
 	for (let formId of Object.keys(formsData)) {
@@ -19,7 +20,7 @@ async function populateFormCampaigns() {
 	formCampaign.innerHTML = inner;
 }
 
-async function populateFormTypes() {
+function populateFormTypes() {
 	let campaign = formCampaign.value;
 	let inner = `<option value="" selected>-</option>`;
 	if (campaign != "") {
@@ -46,7 +47,7 @@ async function populateFormTypes() {
 	formType.innerHTML = inner;
 }
 
-async function populateFormWiddles() {
+function populateFormWiddles() {
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	let inner = `<option value="" selected>-</option>`;
@@ -60,26 +61,26 @@ async function populateFormWiddles() {
  * ===== Input Update Calls ===== *
  * ============================== */
 
-async function formsUpdateCampaign() {
+function formsUpdateCampaign() {
 	populateFormTypes();
 	populateFormWiddles();
 	decideFormsShowStatus();
 }
 
-async function formsUpdateType() {
+function formsUpdateType() {
 	populateFormWiddles();
 	decideFormsShowStatus();
 }
 
-async function formsUpdateWiddle() {
+function formsUpdateWiddle() {
 	decideFormsShowStatus();
 }
 
-async function formsUpdateCheckboxes() {
+function formsUpdateCheckboxes() {
 	decideFormsShowStatus();
 }
 
-async function formsUpdateShow() {
+function formsUpdateShow() {
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	let widdle = formWiddle.value;

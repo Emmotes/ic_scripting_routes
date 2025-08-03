@@ -1,3 +1,4 @@
+const vm=1.000;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -49,6 +50,7 @@ const walkNorm=walkQT.replace(`QT`,`Norm`);
 const arrowReset=`<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
 const NUMFORM = new Intl.NumberFormat("en",{useGrouping:true,maximumFractionDigits:2});
 var tester=false;
+var updateInterval;
 
 async function init() {
 	populateStackRoutes();
@@ -77,6 +79,7 @@ async function init() {
 	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
 	update();
 	await calculateStacks();
+	startUpdateCheckInterval(7200000); // 2 hours
 }
 
 function dealWithTesters() {
@@ -388,13 +391,19 @@ function swapTab() {
 				stackThunderStep.checked=hash[10]==1;
 				break;
 			case `${ft}`:
-				formCampaign.value=hash[1];
-				populateFormTypes();
-				formType.value=hash[2];
-				populateFormWiddles();
-				formWiddle.value=hash[3];
-				formFeatSwap.checked=hash[4]==1;
-				formHybrid.checked=hash[5]==1;
+				if ((hash[1]||``)!=``) {
+					formCampaign.value=hash[1];
+					populateFormTypes();
+					if ((hash[2]||``)!=``) {
+						formType.value=hash[2];
+						populateFormWiddles();
+						if ((hash[3]||``)!=``) {
+							formWiddle.value=hash[3];
+							formFeatSwap.checked=hash[4]==1;
+							formHybrid.checked=hash[5]==1;
+						}
+					}
+				}
 				decideFormsShowStatus();
 				formsUpdateShow();
 				break;
@@ -411,7 +420,15 @@ function setHash(hash) {
 	} else if (hash==ft) {
 		let featSwap=formFeatSwap.checked?1:0;
 		let hybrid=formHybrid.checked?1:0;
-		hash=`${ft}_${formCampaign.value}_${formType.value}_${formWiddle.value}_${featSwap}_${hybrid}`;
+		hash=`${ft}`;
+		if (formCampaign.value!=``) {
+			hash+=`_${formCampaign.value}`;
+			if (formType.value!=``) {
+				hash+=`_${formType.value}`
+				if (formWiddle.value!=``)
+					hash+=`_${formWiddle.value}_${featSwap}_${hybrid}`;
+			}
+		}
 	}
 	hash=`#`+hash;
 	if(history.replaceState)
@@ -818,4 +835,28 @@ function capitalize(s) {
 
 function nf(number) {
 	return NUMFORM.format(number);
+}
+
+async function startUpdateCheckInterval(delay) {
+	await sleep(delay);
+	updateInterval = setAsyncInterval(async () => {await checkUpdatedScriptsAvailable();},delay);
+}
+
+async function checkUpdatedScriptsAvailable() {
+	for (let ele of [...document.querySelectorAll("script[type='text/javascript']")].reverse()) {
+		let filename = ele.src;
+		if (filename.includes("lz-string"))
+			continue;
+		let curr = Number(ele.src.replace(/^.*?\?v.*?=/g, '').match(/\d|\./g).join(''));
+		let latest = Number(getFirstLine(await (await fetch(filename,{headers:{'Cache-Control':'no-cache'}})).text()).replace(/[^\d.-]/g, ''));
+		if (curr < latest) {
+			enableVersionUpdate();
+			return;
+		}
+	}
+}
+
+function enableVersionUpdate() {
+	updateContainer.style.display = '';
+	clearAsyncInterval(updateInterval);
 }

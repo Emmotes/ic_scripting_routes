@@ -37,6 +37,9 @@ code{
     padding: 0px;
     border-radius: 0px;
 }
+@-moz-keyframes spin180 { 0% { -moz-transform: rotate(0); } 100% { -moz-transform: rotate(180deg); } }
+@-webkit-keyframes spin180 { 0% { -webkit-transform: rotate(0); } 100% { -webkit-transform: rotate(180deg); } }
+@keyframes spin180 { 0% { transform: rotate(0); } 100% { transform: rotate(180deg); } }
 .routes {
 	display: flex;
 	flex-direction: column;
@@ -316,4 +319,40 @@ input[type="checkbox"]:checked::before {
     border-radius: 5px;
     color: currentColor;
     padding: 2px 5px;
+}
+.updateContainer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	position: absolute;
+	padding: 4px;
+	top: 12px;
+	left: 10px;
+	width: max-content;
+	height: max-content;
+}
+.update {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	border-radius: 100%;
+	overflow: hidden;
+	min-width: 44px;
+	min-height: 44px;
+}
+.update svg {
+	fill: var(--AlienArmpit);
+	-webkit-animation: spin180 1200ms ease-out infinite;
+	-moz-animation: spin180 1200ms ease-out infinite;
+	animation: spin180 1200ms ease-out infinite;
+}
+.updateContainer:hover div {
+	background-color: var(--ShipGrey);
+	transition: background-color 0.5s ease;
+	cursor: pointer;
+}
+.updateContainer:hover label {
+	transition: color 0.5s ease;
+	color: var(--AlienArmpit);
 }
