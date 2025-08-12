@@ -1,4 +1,4 @@
-const vm=1.001;
+const vm=1.002;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -874,4 +874,11 @@ function enableVersionUpdate() {
 
 async function sleep(ms) {
 	await new Promise(r => setTimeout(r, ms));
+}
+
+function getFirstLine(text) {
+	var index = text.indexOf("\n")
+    if (index === -1)
+        index = undefined;
+    return text.substring(0, index);
 }
