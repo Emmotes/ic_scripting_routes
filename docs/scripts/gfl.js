@@ -1,4 +1,4 @@
-const vg=1.000;
+const vg=1.001;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -106,7 +106,8 @@ const gemFarmJson={
 		e:1,
 		bf:1090715500149758n,
 		blurb:`${ll}`,
-		loop:true
+		loop:true,
+		order:1
 	},
 	pure3VL:{
 		name:nvl[0],
@@ -118,7 +119,8 @@ const gemFarmJson={
 		e:1,
 		bf:1090715500142542n,
 		blurb:`${vl}`,
-		loop:true
+		loop:true,
+		order:2
 	},
 	pre4TT:{
 		name:ntt[0],
@@ -171,7 +173,8 @@ const gemFarmJson={
 		bf:498342527128532n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:1
 	},
 	pure6LL:{
 		name:nll[0],
@@ -183,7 +186,8 @@ const gemFarmJson={
 		e:1,
 		bf:873863567932216n,
 		blurb:`${ll}`,
-		loop:true
+		loop:true,
+		order:3
 	},
 	feat64TT:{
 		name:ntt[0],
@@ -196,7 +200,8 @@ const gemFarmJson={
 		bf:800122939009243n,
 		blurb:`${tt}${fsa}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:1
 	},
 	feat64RAC:{
 		name:nrac[0],
@@ -209,7 +214,8 @@ const gemFarmJson={
 		bf:948417617686362n,
 		blurb:`${rac} This does not benefit from any quest reduction blessings or perks.${fsa}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:4
 	},
 	pure6TT:{
 		name:ntt[0],
@@ -221,7 +227,8 @@ const gemFarmJson={
 		e:1,
 		bf:1086144474247034n,
 		blurb:`${tt}${mimo}`,
-		loop:true
+		loop:true,
+		order:2
 	},
 	pure7TT:{
 		name:ntt[0],
@@ -233,7 +240,8 @@ const gemFarmJson={
 		e:1,
 		bf:1108238796846077n,
 		blurb:`${tt}${mimo}`,
-		loop:true
+		loop:true,
+		order:2
 	},
 	pure7TTS:{
 		name:ntt[0],
@@ -246,7 +254,8 @@ const gemFarmJson={
 		bf:1055462239761401n,
 		blurb:`${tt}${mimo}${ssb}`,
 		loop:true,
-		special:sss
+		special:sss,
+		order:3
 	},
 	feat74TT:{
 		name:ntt[0],
@@ -259,7 +268,8 @@ const gemFarmJson={
 		bf:380222613385436n,
 		blurb:`${tt}${fsa}${mimo}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:1
 	},
 	short87TT:{
 		name:ntt[0],
@@ -274,7 +284,8 @@ const gemFarmJson={
 		blurb:`${tt}${fsaaa}<br>This route is faster than anything 100% 8j can offer.${crdn(8)}${mimo}`,
 		loop:true,
 		fs:true,
-		feat:7
+		feat:7,
+		order:1
 	},
 	feat84TT:{
 		name:ntt[0],
@@ -285,9 +296,10 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:57952963557919n,
-		blurb:`${tt}${fsa}${dyn}`,
+		blurb:`${tt}${fsa}<br>This route is slower than 7.99997j (8-/7j).${dyn}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:2
 	},
 	feat84TTS:{
 		name:ntt[0],
@@ -298,10 +310,11 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:800143501327198n,
-		blurb:`${tt}${fsa}${mimo}${ssb}`,
+		blurb:`${tt}${fsa}<br>This route is slower than 7.99997j (8-/7j).${mimo}${ssb}`,
 		loop:true,
 		fs:true,
-		special:sss
+		special:sss,
+		order:4
 	},
 	pure8TT:{
 		name:ntt[0],
@@ -312,8 +325,9 @@ const gemFarmJson={
 		q:9,
 		e:1,
 		bf:985128007367679n,
-		blurb:`${tt}${mimo}`,
-		loop:true
+		blurb:`${tt}<br>This route is slower than 7.99997j (8-/7j).${mimo}`,
+		loop:true,
+		order:3
 	},
 	mixed89TT:{
 		name:ntt[0],
@@ -338,7 +352,8 @@ const gemFarmJson={
 		bf:35181131988031n,
 		blurb:`${tt}${fsa}${mimo}`,
 		loop:true,
-		fs:true
+		fs:true,
+		order:2
 	},
 	pure9TT:{
 		name:ntt[0],
@@ -350,7 +365,8 @@ const gemFarmJson={
 		e:1,
 		bf:17020252302587n,
 		blurb:`${tt}${mimo}`,
-		loop:true
+		loop:true,
+		order:1
 	},
 	pure11TT:{
 		name:ntt[0],
@@ -389,7 +405,8 @@ const gemFarmJson={
 		e:1,
 		bf:36326465504417n,
 		blurb:`${tt}${mimo}`,
-		loop:true
+		loop:true,
+		order:2
 	},
 	feat149TT:{
 		name:ntt[0],
@@ -401,7 +418,8 @@ const gemFarmJson={
 		e:10,
 		bf:1125899805626349n,
 		blurb:`${tt}${fsa}${mimo}`,
-		loop:true
+		loop:true,
+		order:1
 	},
 	short1615TT:{
 		name:ntt[0],

@@ -1,4 +1,4 @@
-const vm=1.000;
+const vm=1.001;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -439,6 +439,17 @@ function setHash(hash) {
 
 function populateStackRoutes() {
 	let keyset=Object.keys(gemFarmJson);
+	keyset.sort((a, b) => {
+		let obja = gemFarmJson[a];
+		let objb = gemFarmJson[b];
+		if (typeof(obja.jump)!="number"||typeof(objb.jump)!="number")
+			return 1;
+		if (obja.jump != objb.jump)
+			return obja.jump - objb.jump;
+		if (typeof(obja.order)!="number"||typeof(objb.order)!="number")
+			return 1;
+		return objb.order - obja.order;
+	});
 	for (let key of keyset) {
 		if (typeof(gemFarmJson[key].jump)!="number") continue;
 		let opt=document.createElement("option");
@@ -859,4 +870,8 @@ async function checkUpdatedScriptsAvailable() {
 function enableVersionUpdate() {
 	updateContainer.style.display = '';
 	clearAsyncInterval(updateInterval);
+}
+
+async function sleep(ms) {
+	await new Promise(r => setTimeout(r, ms));
 }
