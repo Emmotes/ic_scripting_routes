@@ -320,6 +320,13 @@ input[type="checkbox"]:checked::before {
     color: currentColor;
     padding: 2px 5px;
 }
+.littleRedWarning {
+    background-color: var(--RootBeer);
+    border: 1px solid var(--MorrocoBrown);
+    border-radius: 5px;
+    color: currentColor;
+    padding: 2px 5px;
+}
 .updateContainer {
 	display: flex;
 	align-items: center;

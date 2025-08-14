@@ -1,4 +1,4 @@
-const vm=1.002;
+const vm=1.003;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -584,7 +584,7 @@ async function calculateStacks() {
 		result+=`<li>${mimo.replace("<br>","")}</li>`;
 	if (route[route.length-1]==r) {
 		let rb=r%5==0;
-		result+=`<li class="bigRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
+		result+=`<li class="littleRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
 	}
 	if (bz>t) {
 		let diff=bz-t;
@@ -613,11 +613,11 @@ async function calculateStacks() {
 	}
 	if (mehs.length>0) {
 		let plural=mehs.length==1?``:`s`;
-		result+=`<li>This route will hit ${mehs.length} Hit-Based Boss zone${plural}.</li>`;
+		result+=`<li class="littleRedWarning">This route will hit ${mehs.length} Hit-Based Boss zone${plural}. These are slow and should be avoided.</li>`;
 	}
 	if (bads.length>0) {
 		let plural=bads.length==1?``:`s`;
-		result+=`<li>This route will hit ${bads.length} Armoured Boss zone${plural}. These are typically run killers so you should change some values to avoid them.</li>`;
+		result+=`<li class="bigRedWarning">This route will hit ${bads.length} Armoured Boss zone${plural}. These can be run killers so you should change some values to avoid them.</li>`;
 	}
 	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`</ul>`;
 	let loopTable=`</ul><h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
