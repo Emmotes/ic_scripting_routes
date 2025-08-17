@@ -1,17 +1,17 @@
-const vf=1.000;
+const vf=1.001;
 /* ================ *
  * ===== Data ===== *
  * ================ */
  
-const championData={"7":{"name":"Minsc","specs":{"108":"Favored Enemy: Humanoids","109":"Favored Enemy: Beasts","110":"Favored Enemy: Undead","111":"Favored Enemy: Fey","112":"Favored Enemy: Monstrosities"}},"58":{"name":"Briv","specs":{"3455":"Metalborn","3456":"Tempered Steel","3457":"Go With The Phlo"}},"59":{"name":"Melf","specs":{"3513":"Bonus Adaption","3514":"Extra Supplements","3515":"Absolute Righteousness"}},"75":{"name":"Hew Maan","specs":{"10653":"Did We Say Humans? We Meant...","10654":"Law Maan","10655":"Hello, Fellow Mercenaries!"}},"83":{"name":"Ellywick","specs":{"15231":"For The Fans","15232":"Faster Tempo","15233":"All That Sparkles"}},"91":{"name":"Widdle","specs":{"6909":"Strong and Steady","6910":"Mind and Body","6911":"Wisdom and Confidence"}},"97":{"name":"Tatyana","specs":{"7387":"Your Friends are My Friends","7388":"By My Side","7389":"Best Friend Forever"}},"99":{"name":"Dungeon Master","specs":{"7848":"Special Guest Star","7849":"Where Did He Go This Time?","7850":"Fear Not, Champions!","16144":"Special Guest Stars"}},"117":{"name":"Imoen","specs":{"9643":"Beast Slaying Arrows","9644":"Dragon Slaying Arrows","9645":"Monstrosity Slaying Arrows","9646":"Aberration Slaying Arrows"}},"125":{"name":"BBEG","specs":{"11544":"Powergaming","11545":"Min-Maxing","11546":"Rules Lawyering"}},"139":{"name":"Thellora","specs":{"12982":"Defender of the Meek","12983":"Vanguard of the Quick","12984":"Callessa's Blessed"}},"145":{"name":"Dynaheir","specs":{"13879":"Circle Magic","13880":"Iron Lord's Justice","13881":"Loyal Bodyguard"}},"148":{"name":"Diana","specs":{"14791":"Inspire: Acrobatic Assault","14792":"Inspire: Modest Might","14793":"Inspire: Fledgling Fury","14796":"Ensemble Cast","14797":"Spotlight Episode"}},"-1":{"name":"Others","specs":{"-1":"Shouldn't be leveled enough to get one."}}};
-const formsData={"GT":{"name":"Grand Tour of the Sword Coast","cols":5,"slots":[{"x":240,"y":60},{"x":180,"y":30},{"x":180,"y":90},{"x":120,"y":0},{"x":120,"y":60},{"x":120,"y":120},{"x":60,"y":30},{"x":60,"y":90},{"x":0,"y":60}],"forms":{"BBEG":{"2":{"Q":[139,75,148,91,83,125,0,0,58],"specs":{"139":[],"75":[10653],"148":[14793,14796],"91":[6910],"83":[15233],"125":[11544],"58":[3455]},"M":[139,75,148,91,83,125,0,99,58]},"3":{"Q":[139,75,91,148,125,0,58,0,83],"specs":{"139":[],"75":[10653],"91":[6910],"148":[14793,14796],"125":[11544],"58":[3455],"83":[15233]},"M":[139,75,91,148,125,0,58,99,83]},"4":{"Q":[139,75,148,125,91,83,0,0,58],"specs":{"139":[],"75":[10653],"148":[14793,14796],"125":[11544],"91":[6910],"83":[15233],"58":[3455]},"M":[139,75,148,125,91,83,0,99,58]}}},"ignoreFeatSwap":1,"ignoreHybrid":1},"WL":{"name":"Wild Beyond the Witchlight","cols":4,"slots":[{"x":180,"y":30},{"x":180,"y":90},{"x":120,"y":0},{"x":120,"y":60},{"x":120,"y":120},{"x":60,"y":30},{"x":60,"y":90},{"x":0,"y":0},{"x":0,"y":60},{"x":0,"y":120}],"forms":{"dynaMinsc":{"2":{"Q":[75,139,148,145,91,7,0,0,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"145":[],"91":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,145,91,7,0,99,58,83],"MH":[75,139,148,145,91,7,59,99,58,83]},"3":{"Q":[75,139,148,145,91,0,7,0,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"145":[],"91":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,145,91,0,7,99,58,83],"MH":[75,139,148,145,91,59,7,99,58,83]},"4":{"Q":[75,139,148,91,145,0,0,7,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"91":[],"145":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,91,145,99,0,7,58,83],"MH":[75,139,148,91,145,99,59,7,58,83]}},"MImoHeir":{"2":{"Q":[75,139,148,7,91,145,0,58,83,117],"specs":{"75":[10655],"139":[],"148":[14793,14796],"7":[111],"91":[],"145":[],"58":[3455],"83":[15233],"117":[9643]},"M":[75,139,148,7,91,145,99,58,83,117],"MH":[75,139,148,7,91,59,99,58,83,117]},"3":{"Q":[75,139,148,7,91,0,145,117,83,58],"specs":{"75":[10655],"139":[],"148":[14793,14796],"7":[111],"91":[],"145":[],"117":[9643],"83":[15233],"58":[3455]},"M":[75,139,148,7,91,99,145,117,83,58],"MH":[75,139,148,7,91,99,59,117,83,58]},"4":{"Q":[75,139,117,148,145,0,91,58,7,83],"specs":{"75":[10655],"139":[],"117":[9643],"148":[14793,14796],"145":[],"91":[],"58":[3455],"7":[111],"83":[15233]},"M":[75,139,117,148,145,99,91,58,7,83],"MH":[75,139,117,148,59,99,91,58,7,83]}},"BBEG":{"2":{"Q":[75,139,148,125,91,0,0,0,58,83],"specs":{"75":[10653],"139":[],"148":[14793,14796],"125":[11544],"91":[],"58":[3455],"83":[15233]},"M":[75,139,148,125,91,99,0,0,58,83],"MH":[75,139,148,125,91,99,0,59,58,83]},"3":{"Q":[75,139,91,148,0,125,0,0,58,83],"specs":{"75":[10653],"139":[],"91":[],"148":[14793,14796],"125":[11544],"58":[3455],"83":[15233]},"M":[75,139,91,148,99,125,0,0,58,83],"MH":[75,139,91,148,99,125,0,59,58,83]},"4":{"Q":[75,139,148,91,125,0,0,0,58,83],"specs":{"75":[10653],"139":[],"148":[14793,14796],"91":[],"125":[11544],"58":[3455],"83":[15233]},"M":[75,139,148,91,125,0,0,99,58,83],"MH":[75,139,148,91,125,0,99,59,58,83]}}}}};
+const championData={"7":{"name":"Minsc","specs":{"108":"Favored Enemy: Humanoids","109":"Favored Enemy: Beasts","110":"Favored Enemy: Undead","111":"Favored Enemy: Fey","112":"Favored Enemy: Monstrosities"}},"58":{"name":"Briv","specs":{"3455":"Metalborn","3456":"Tempered Steel","3457":"Go With The Phlo"}},"59":{"name":"Melf","specs":{"3513":"Bonus Adaption","3514":"Extra Supplements","3515":"Absolute Righteousness"}},"75":{"name":"Hew Maan","specs":{"10653":"Did We Say Humans? We Meant...","10654":"Law Maan","10655":"Hello, Fellow Mercenaries!"}},"83":{"name":"Ellywick","specs":{"15231":"For The Fans","15232":"Faster Tempo","15233":"All That Sparkles"}},"91":{"name":"Widdle","specs":{"6909":"Strong and Steady","6910":"Mind and Body","6911":"Wisdom and Confidence"}},"97":{"name":"Tatyana","specs":{"7387":"Your Friends are My Friends","7388":"By My Side","7389":"Best Friend Forever"}},"99":{"name":"Dungeon Master","specs":{"7848":"Special Guest Star","7849":"Where Did He Go This Time?","7850":"Fear Not, Champions!","16144":"Special Guest Stars"}},"117":{"name":"Imoen","specs":{"9643":"Beast Slaying Arrows","9644":"Dragon Slaying Arrows","9645":"Monstrosity Slaying Arrows","9646":"Aberration Slaying Arrows"}},"125":{"name":"BBEG","specs":{"11544":"Powergaming","11545":"Min-Maxing","11546":"Rules Lawyering"}},"139":{"name":"Thellora","specs":{"12982":"Defender of the Meek","12983":"Vanguard of the Quick","12984":"Callessa's Blessed"}},"145":{"name":"Dynaheir","specs":{"13879":"Circle Magic","13880":"Iron Lord's Justice","13881":"Loyal Bodyguard"}},"148":{"name":"Diana","specs":{"14791":"Inspire: Acrobatic Assault","14792":"Inspire: Modest Might","14793":"Inspire: Fledgling Fury","14796":"Ensemble Cast","14797":"Spotlight Episode"}},"165":{"name":"Baldric","specs":{"17491":"Bargain With Tyr","17492":"Bargain With Moradin","17493":"Bargain With Tymora","17494":"Bargain With Mystra","17495":"Bargain With Eldath","17496":"Dark Bargain"}},"-1":{"name":"Others","specs":{"-1":"Shouldn't be leveled enough to get one."}}};
+const formsData={"GT":{"name":"Grand Tour of the Sword Coast","cols":5,"slots":[{"x":240,"y":60},{"x":180,"y":30},{"x":180,"y":90},{"x":120,"y":0},{"x":120,"y":60},{"x":120,"y":120},{"x":60,"y":30},{"x":60,"y":90},{"x":0,"y":60}],"forms":{"BBEG":{"2":{"NB":{"Q":[139,75,148,91,83,125,0,0,58],"specs":{"139":[],"75":[10653],"148":[14793,14796],"91":[6910],"83":[15233],"125":[11544],"58":[3455]},"M":[139,75,148,91,83,125,0,99,58]}},"3":{"NB":{"Q":[139,75,91,148,125,0,58,0,83],"specs":{"139":[],"75":[10653],"91":[6910],"148":[14793,14796],"125":[11544],"58":[3455],"83":[15233]},"M":[139,75,91,148,125,0,58,99,83]}},"4":{"NB":{"Q":[139,75,148,125,91,83,0,0,58],"specs":{"139":[],"75":[10653],"148":[14793,14796],"125":[11544],"91":[6910],"83":[15233],"58":[3455]},"M":[139,75,148,125,91,83,0,99,58]}}}},"ignoreFeatSwap":1,"ignoreHybrid":1},"WL":{"name":"Wild Beyond the Witchlight","cols":4,"slots":[{"x":180,"y":30},{"x":180,"y":90},{"x":120,"y":0},{"x":120,"y":60},{"x":120,"y":120},{"x":60,"y":30},{"x":60,"y":90},{"x":0,"y":0},{"x":0,"y":60},{"x":0,"y":120}],"forms":{"dynaMinsc":{"2":{"NB":{"Q":[75,139,148,145,91,7,0,0,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"145":[],"91":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,145,91,7,0,99,58,83],"MH":[75,139,148,145,91,7,59,99,58,83]},"B":{"Q":[75,165,139,148,91,7,0,145,58,83],"specs":{"75":[10655],"165":[17493,17496],"139":[],"148":[14793,14796],"91":[],"7":[111],"145":[],"58":[3455],"83":[15233]},"M":[75,165,139,148,91,7,99,145,58,83]}},"3":{"NB":{"Q":[75,139,148,145,91,0,7,0,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"145":[],"91":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,145,91,0,7,99,58,83],"MH":[75,139,148,145,91,59,7,99,58,83]},"B":{"Q":[75,165,139,148,91,145,7,0,58,83],"specs":{"75":[10655],"165":[17493,17496],"139":[],"148":[14793,14796],"91":[],"145":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,165,139,148,91,145,7,99,58,83]}},"4":{"NB":{"Q":[75,139,148,91,145,0,0,7,58,83],"specs":{"75":[10655],"139":[],"148":[14793,14796],"91":[],"145":[],"7":[111],"58":[3455],"83":[15233]},"M":[75,139,148,91,145,99,0,7,58,83],"MH":[75,139,148,91,145,99,59,7,58,83]},"B":{"Q":[75,165,145,139,148,0,91,58,7,83],"specs":{"75":[10655],"165":[17493,17496],"145":[],"139":[],"148":[14793,14796],"91":[],"58":[3455],"7":[111],"83":[15233]},"M":[75,165,145,139,148,99,91,58,7,83]}}},"MImoHeir":{"2":{"NB":{"Q":[75,139,148,7,91,145,0,58,83,117],"specs":{"75":[10655],"139":[],"148":[14793,14796],"7":[111],"91":[],"145":[],"58":[3455],"83":[15233],"117":[9643]},"M":[75,139,148,7,91,145,99,58,83,117],"MH":[75,139,148,7,91,59,99,58,83,117]},"B":{"Q":[75,165,139,148,58,7,145,91,83,117],"specs":{"75":[10655],"165":[17493,17496],"139":[],"148":[14793,14796],"58":[3455],"7":[111],"145":[],"91":[],"83":[15233],"117":[9643]},"M":[75,165,139,148,58,7,99,91,83,117]}},"3":{"NB":{"Q":[75,139,148,7,91,0,145,117,83,58],"specs":{"75":[10655],"139":[],"148":[14793,14796],"7":[111],"91":[],"145":[],"117":[9643],"83":[15233],"58":[3455]},"M":[75,139,148,7,91,99,145,117,83,58],"MH":[75,139,148,7,91,99,59,117,83,58]},"B":{"Q":[75,165,139,148,91,7,145,117,83,58],"specs":{"75":[10655],"165":[17493,17496],"139":[],"148":[14793,14796],"91":[],"7":[111],"145":[],"117":[9643],"83":[15233],"58":[3455]},"M":[75,165,139,148,91,7,99,117,83,58]}},"4":{"NB":{"Q":[75,139,117,148,145,0,91,58,7,83],"specs":{"75":[10655],"139":[],"117":[9643],"148":[14793,14796],"145":[],"91":[],"58":[3455],"7":[111],"83":[15233]},"M":[75,139,117,148,145,99,91,58,7,83],"MH":[75,139,117,148,59,99,91,58,7,83]},"B":{"Q":[75,165,139,148,58,7,145,117,91,83],"specs":{"75":[10655],"165":[17493,17496],"139":[],"148":[14793,14796],"58":[3455],"7":[111],"145":[],"117":[9643],"91":[],"83":[15233]},"M":[75,165,139,148,58,7,99,117,91,83]}}},"BBEG":{"2":{"NB":{"Q":[75,139,148,125,91,0,0,0,58,83],"specs":{"75":[10653],"139":[],"148":[14793,14796],"125":[11544],"91":[],"58":[3455],"83":[15233]},"M":[75,139,148,125,91,99,0,0,58,83],"MH":[75,139,148,125,91,99,0,59,58,83]}},"3":{"NB":{"Q":[75,139,91,148,0,125,0,0,58,83],"specs":{"75":[10653],"139":[],"91":[],"148":[14793,14796],"125":[11544],"58":[3455],"83":[15233]},"M":[75,139,91,148,99,125,0,0,58,83],"MH":[75,139,91,148,99,125,0,59,58,83]}},"4":{"NB":{"Q":[75,139,148,91,125,0,0,0,58,83],"specs":{"75":[10653],"139":[],"148":[14793,14796],"91":[],"125":[11544],"58":[3455],"83":[15233]},"M":[75,139,148,91,125,0,0,99,58,83],"MH":[75,139,148,91,125,0,99,59,58,83]}}}}}};
 
 /* ================================= *
  * ===== Select Box Population ===== *
  * ================================= */
  
 function populateFormCampaigns() {
-	disableElements(true,true,true);
+	disableElements(true,true,true,true);
 	let inner = `<option value="" selected>-</option>`;
 	for (let formId of Object.keys(formsData)) {
 		let form = formsData[formId];
@@ -84,6 +84,7 @@ function formsUpdateShow() {
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	let widdle = formWiddle.value;
+	let baldric = formBaldric.checked;
 	let featSwap = formFeatSwap.checked;
 	let hybrid = formHybrid.checked;
 	
@@ -97,7 +98,12 @@ function formsUpdateShow() {
 	if (hybrid && f.ignoreHybrid == 1)
 		hybrid = false;
 	
-	let q = f.forms[type][widdle].Q;
+	let baseForm = f.forms[type][widdle];
+	if (!Object.keys(baseForm).includes("B"))
+		baldric = false;
+	baseForm = baseForm[baldric?"B":"NB"];
+	
+	let q = baseForm.Q;
 	let w = hybrid ? [58,0,97,0,0,0,0,59,0,83] : [58,0,0,0,0,0,0,0,0,0];
 	let e = [...q];
 	if (!featSwap) {
@@ -105,8 +111,10 @@ function formsUpdateShow() {
 		if (index != -1)
 			e[index] = 0;
 	}
-	let mType = hybrid ? 'MH' : 'M';
-	let m = f.forms[type][widdle][mType];
+	let mType = "M";
+	if (hybrid && Object.keys(baseForm).includes("MH"))
+		mType = "MH";
+	let m = baseForm[mType];
 	
 	let txt = ``;
 	let currForms = {"Q (Fav: 1)":q,"W (Fav: 2)":w,"E (Fav: 3)":e,"M (Modron)":m};
@@ -121,7 +129,7 @@ function formsUpdateShow() {
 		if (name == "M (Modron)") {
 			txt += `</span>`;
 			txt += `<span style="grid-column:span 2;display:flex;justify-content:center;padding:20px">`;
-			txt += addSpecInfo(f.forms[type][widdle].specs,currForms);
+			txt += addSpecInfo(baseForm.specs,currForms);
 		}
 		txt += `</span>`;
 	}
@@ -142,17 +150,24 @@ function decideFormsShowStatus() {
 	let widdle = formWiddle.value;
 	
 	if (campaign == "" || type == "" || widdle == "")
-		disableElements(true,true,true);
-	else if (campaign == "GT")
-		disableElements(false,true,true);
-	else
-		disableElements(false,false,false);
+		disableElements(true,true,true,true);
+	else {
+		let disableBaldric = formsData[campaign].forms[type][widdle]==undefined||!Object.keys(formsData[campaign].forms[type][widdle]).includes("B");
+		if (campaign == "GT")
+			disableElements(false,disableBaldric,true,true);
+		else
+			disableElements(false,disableBaldric,false,false);
+	}
 	formsUpdateShow();
 }
  
-function disableElements(show,featSwap,hybrid) {
+function disableElements(show,baldric,featSwap,hybrid) {
 	let grey = `color:#444`;
 	let noCur = `;cursor:default;pointer-events:none`;
+	// formBaldric
+	formBaldric.disabled = baldric;
+	formBaldric.style = baldric ? grey + noCur : ``;
+	formBaldricLabel.style = baldric ? grey : ``;
 	// formFeatSwap
 	formFeatSwap.disabled = featSwap;
 	formFeatSwap.style = featSwap ? grey + noCur : ``;

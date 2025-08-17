@@ -230,6 +230,14 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
+				<label for="formBaldric" id="formBaldricLabel">Baldric:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="checkbox" name="formBaldric" id="formBaldric">
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
 				<label for="formFeatSwap" id="formFeatSwapLabel">Feat Swapping:</label>
 			</span>
 			<span class="routesCol2">
