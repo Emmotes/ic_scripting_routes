@@ -1,4 +1,4 @@
-const vm=1.003;
+const vm=1.004;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -79,7 +79,7 @@ async function init() {
 	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
 	update();
 	await calculateStacks();
-	startUpdateCheckInterval(7200000); // 2 hours
+	startUpdateCheckInterval(1800000); // 30 mins
 }
 
 function dealWithTesters() {
@@ -854,17 +854,12 @@ async function startUpdateCheckInterval(delay) {
 }
 
 async function checkUpdatedScriptsAvailable() {
-	for (let ele of [...document.querySelectorAll("script[type='text/javascript']")].reverse()) {
-		let filename = ele.src;
-		if (filename.includes("lz-string"))
-			continue;
-		let curr = Number(ele.src.replace(/^.*?\?v.*?=/g, '').match(/\d|\./g).join(''));
-		let latest = Number(getFirstLine(await (await fetch(filename,{headers:{'Cache-Control':'no-cache'}})).text()).replace(/[^\d.-]/g, ''));
-		if (curr < latest) {
-			enableVersionUpdate();
-			return;
-		}
-	}
+	let newDocum = new DOMParser().parseFromString(await (await fetch(window.location.href,{headers:{'Cache-Control':'no-cache'}})).text(), "text/html");
+	let oldList = [...document.querySelectorAll("script[type='text/javascript']")].map(ele=>ele.src);
+	let newList = [...newDocum.querySelectorAll("script[type='text/javascript']")].map(ele=>ele.src);
+	if (oldList.length === newList.length && oldList.every((value, index) => value === newList[index]))
+		return;
+	enableVersionUpdate();
 }
 
 function enableVersionUpdate() {
