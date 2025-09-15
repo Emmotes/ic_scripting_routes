@@ -330,13 +330,16 @@ input[type="checkbox"]:checked::before {
 .updateContainer {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
 	position: absolute;
-	padding: 4px;
+	padding: 4px 10px;
 	top: 12px;
 	left: 10px;
 	width: max-content;
 	height: max-content;
+	border-radius: 10px;
+	z-index: 1;
+	background-color: var(--EerieBlack);
+	box-shadow: 2px 2px 10px var(--GoshawkGrey), -2px -2px 10px var(--GoshawkGrey), -2px 2px 10px var(--GoshawkGrey), 2px -2px 10px var(--GoshawkGrey);
 }
 .update {
 	display: flex;

@@ -1,4 +1,4 @@
-const vm=1.005;
+const vm=1.006;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -868,7 +868,7 @@ async function checkUpdatedScriptsAvailable() {
 }
 
 function enableVersionUpdate() {
-	updateContainer.style.display = '';
+	document.getElementById('updateContainer').style = 'position:fixed';
 	clearAsyncInterval(updateInterval);
 }
 
