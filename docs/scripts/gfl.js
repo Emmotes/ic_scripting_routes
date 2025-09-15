@@ -1,4 +1,4 @@
-const vg=1.001;
+const vg=1.002;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -281,7 +281,7 @@ const gemFarmJson={
 		q:9,
 		e:8,
 		bf:878610951932870n,
-		blurb:`${tt}${fsaaa}<br>This route is faster than anything 100% 8j can offer.${crdn(8)}${mimo}`,
+		blurb:`${tt}${fsaaa}${crdn(8)}${mimo}`,
 		loop:true,
 		fs:true,
 		feat:7,
@@ -296,7 +296,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:57952963557919n,
-		blurb:`${tt}${fsa}<br>This route is slower than 7.99997j (8-/7j).${dyn}`,
+		blurb:`${tt}${fsa}${dyn}`,
 		loop:true,
 		fs:true,
 		order:2
@@ -310,7 +310,7 @@ const gemFarmJson={
 		q:9,
 		e:5,
 		bf:800143501327198n,
-		blurb:`${tt}${fsa}<br>This route is slower than 7.99997j (8-/7j).${mimo}${ssb}`,
+		blurb:`${tt}${fsa}${mimo}${ssb}`,
 		loop:true,
 		fs:true,
 		special:sss,
@@ -325,7 +325,7 @@ const gemFarmJson={
 		q:9,
 		e:1,
 		bf:985128007367679n,
-		blurb:`${tt}<br>This route is slower than 7.99997j (8-/7j).${mimo}`,
+		blurb:`${tt}${mimo}`,
 		loop:true,
 		order:3
 	},
