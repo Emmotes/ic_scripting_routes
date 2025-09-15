@@ -31,7 +31,6 @@
 					<option value="6j">6j</option>
 					<option value="7j">7j</option>
 					<option value="7.99997j">8–j (7.99997j)</option>
-					<option value="8j">8j</option>
 					<option value="9j">9j</option>
 					<option value="11j">11j</option>
 					<option value="11.999998j">12–j (11.999998j)</option>
