@@ -107,10 +107,22 @@ function preset() {
 	let jumps=Math.round(presetsInput.value.replace(/[^0-9\.]+/g, ""));
 	ilvlInput.value=500*Math.pow(2,jumps-1)-374;
 	if (`${jumps}j`!=`${presetsInput.value}`) {
-		if (presetsInput.value==`3.50005j`)
-			ilvlInput.value=2616;
-		else
-			ilvlInput.value-=1;
+		switch(presetsInput.value) {
+			case `0.5j`:
+				ilvlInput.value=1;
+				break;
+			case `1.5j`:
+				ilvlInput.value=374;
+				break;
+			case `2.5j`:
+				ilvlInput.value=1121;
+				break;
+			case `3.5j`:
+				ilvlInput.value=2616;
+				break;
+			default:
+				ilvlInput.value-=1;
+		}
 	}
 	update();
 }
