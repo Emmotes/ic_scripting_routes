@@ -1,4 +1,4 @@
-const vg=1.002;
+const vg=1.003;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -19,7 +19,6 @@ const w4jf=` with ${whf} Feat`;
 const w9jf=` with ${ssf} Feat`;
 const wplf=` with ${aaf} Feat`;
 const sss=`Safer Shandie`;
-const ssb=`<br>This route is designed to be safer for Shandie's Dash.`;
 const dyn=`<br>This route can optionally use Dynaheir and Minsc instead of BBEG as it always hits Humanoid or Fey enemies only.`;
 const mimo=`<br>This route can optionally use Dynaheir, Minsc and Imoen instead of BBEG as it always hits Humanoid or Fey or Beast enemies only.`;
 const place=`<br><strong><em>This is a placeholder route meant for testing purposes only.</em></strong>`;
@@ -243,20 +242,6 @@ const gemFarmJson={
 		loop:true,
 		order:2
 	},
-	pure7TTS:{
-		name:ntt[0],
-		sname:ntt[1],
-		qts:ntt[2],
-		adv:ntt[3],
-		jump:7,
-		q:8,
-		e:1,
-		bf:1055462239761401n,
-		blurb:`${tt}${mimo}${ssb}`,
-		loop:true,
-		special:sss,
-		order:3
-	},
 	feat74TT:{
 		name:ntt[0],
 		sname:ntt[1],
@@ -300,21 +285,6 @@ const gemFarmJson={
 		loop:true,
 		fs:true,
 		order:2
-	},
-	feat84TTS:{
-		name:ntt[0],
-		sname:ntt[1],
-		qts:ntt[2],
-		adv:ntt[3],
-		jump:8,
-		q:9,
-		e:5,
-		bf:800143501327198n,
-		blurb:`${tt}${fsa}${mimo}${ssb}`,
-		loop:true,
-		fs:true,
-		special:sss,
-		order:4
 	},
 	pure8TT:{
 		name:ntt[0],

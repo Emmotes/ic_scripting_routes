@@ -1,4 +1,4 @@
-const vm=1.006;
+const vm=1.007;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -212,14 +212,10 @@ function update() {
 		comment+=parseRoute(gemFarmJson.feat74TT);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.pure7TT);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.pure7TTS);
 	} else if (jumps==8) {
 		comment+=parseRoute(gemFarmJson.feat84TT);
 		comment+=spacer;
 		comment+=parseRoute(gemFarmJson.pure8TT);
-		comment+=spacer;
-		comment+=parseRoute(gemFarmJson.feat84TTS);
 	} else if (jumps==9) {
 		comment+=parseRoute(gemFarmJson.pure9TT);
 		comment+=spacer;
