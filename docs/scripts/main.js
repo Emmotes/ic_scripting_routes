@@ -1,4 +1,4 @@
-const vm=1.007;
+const vm=1.008;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -410,7 +410,7 @@ function swapTab() {
 						populateFormWiddles();
 						if ((hash[3]||``)!=``) {
 							formWiddle.value=hash[3];
-							formBaldric.value=hash[4]==1;
+							formBaldric.checked=hash[4]==1;
 							formFeatSwap.checked=hash[5]==1;
 							formHybrid.checked=hash[6]==1;
 						}
