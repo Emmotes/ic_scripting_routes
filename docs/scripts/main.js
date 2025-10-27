@@ -1,4 +1,4 @@
-const vm=1.008;
+const vm=1.009;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -456,11 +456,11 @@ function populateStackRoutes() {
 		let obja = gemFarmJson[a];
 		let objb = gemFarmJson[b];
 		if (typeof(obja.jump)!="number"||typeof(objb.jump)!="number")
-			return 1;
+			return 0;
 		if (obja.jump != objb.jump)
 			return obja.jump - objb.jump;
 		if (typeof(obja.order)!="number"||typeof(objb.order)!="number")
-			return 1;
+			return 0;
 		return objb.order - obja.order;
 	});
 	for (let key of keyset) {
