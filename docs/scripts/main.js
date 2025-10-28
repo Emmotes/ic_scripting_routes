@@ -1,4 +1,4 @@
-const vm=1.009;
+const vm=1.010;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -29,6 +29,7 @@ const formBaldricLabel=document.getElementById(`formBaldricLabel`);
 const formBaldric=document.getElementById(`formBaldric`);
 const formHybridLabel=document.getElementById(`formHybridLabel`);
 const formHybrid=document.getElementById(`formHybrid`);
+const formTatyana=document.getElementById(`formTatyana`);
 const formResult=document.getElementById(`formResult`);
 const metalLevel=170;
 const stackMult=[1/0.968,1/0.96];
@@ -77,6 +78,7 @@ async function init() {
 	formCampaign.addEventListener(`input`,formsUpdateCampaign);
 	formType.addEventListener(`input`,formsUpdateType);
 	formWiddle.addEventListener(`input`,formsUpdateWiddle);
+	formTatyana.addEventListener(`change`,formsUpdateCheckboxes);
 	formBaldric.addEventListener(`change`,formsUpdateCheckboxes);
 	formFeatSwap.addEventListener(`change`,formsUpdateCheckboxes);
 	formHybrid.addEventListener(`change`,formsUpdateCheckboxes);
@@ -410,9 +412,10 @@ function swapTab() {
 						populateFormWiddles();
 						if ((hash[3]||``)!=``) {
 							formWiddle.value=hash[3];
-							formBaldric.checked=hash[4]==1;
-							formFeatSwap.checked=hash[5]==1;
-							formHybrid.checked=hash[6]==1;
+							formTatyana.checked=hash[4]==1;
+							formBaldric.checked=hash[5]==1;
+							formFeatSwap.checked=hash[6]==1;
+							formHybrid.checked=hash[7]==1;
 						}
 					}
 				}
@@ -430,6 +433,7 @@ function setHash(hash) {
 		let bts=stackThunderStep.checked?1:0;
 		hash=`${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
 	} else if (hash==ft) {
+		let tatyana=formTatyana.checked?1:0;
 		let baldric=formBaldric.checked?1:0;
 		let featSwap=formFeatSwap.checked?1:0;
 		let hybrid=formHybrid.checked?1:0;
@@ -439,7 +443,7 @@ function setHash(hash) {
 			if (formType.value!=``) {
 				hash+=`_${formType.value}`
 				if (formWiddle.value!=``)
-					hash+=`_${formWiddle.value}_${baldric}_${featSwap}_${hybrid}`;
+					hash+=`_${formWiddle.value}_${tatyana}_${baldric}_${featSwap}_${hybrid}`;
 			}
 		}
 	}

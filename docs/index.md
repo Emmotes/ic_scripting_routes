@@ -232,6 +232,15 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
+				<label for="formTatyana" id="formTatyanaLabel">Tatyana in M:</label>
+			</span>
+			<span class="routesCol2" style="display:flex">
+				<input type="checkbox" name="formTatyana" id="formTatyana">
+				<span>(Can speed up EllyWait)</span>
+			</span>
+		</span>
+		<span class="routesRow">
+			<span class="routesCol6">
 				<label for="formBaldric" id="formBaldricLabel">Baldric:</label>
 			</span>
 			<span class="routesCol2">
