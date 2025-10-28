@@ -1,4 +1,4 @@
-const vf=1.004;
+const vf=1.005;
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -11,7 +11,7 @@ const formsData={"GT":{"name":"Grand Tour of the Sword Coast","cols":5,"slots":[
  * ================================= */
  
 function populateFormCampaigns() {
-	disableElements(true,true,true,true);
+	disableElements(true,true,true,true,true);
 	let inner = `<option value="" selected>-</option>`;
 	for (let formId of Object.keys(formsData)) {
 		let form = formsData[formId];
