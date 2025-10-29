@@ -313,7 +313,7 @@ input[type="checkbox"]:checked::before {
 	position: relative;
 	top: 1px;
 }
-.bigRedWarning,.littleRedWarning {
+.bigRedWarning,.littleRedWarning,.tinyRedWarning {
 	background-color: var(--Black);
 	border: 1px solid;
 	border-radius: 5px;
@@ -327,6 +327,10 @@ input[type="checkbox"]:checked::before {
 .littleRedWarning {
 	border-color: var(--Carrot);
 	color: var(--Carrot);
+}
+.tinyRedWarning {
+	border-color: var(--CarolinaBlue);
+	color: var(--CarolinaBlue);
 }
 .updateContainer {
 	display: flex;
