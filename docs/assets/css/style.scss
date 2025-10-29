@@ -34,8 +34,8 @@ section #title .credits.right {
 	text-align: right;
 }
 code{
-    padding: 0px;
-    border-radius: 0px;
+	padding: 0px;
+	border-radius: 0px;
 }
 @-moz-keyframes spin180 { 0% { -moz-transform: rotate(0); } 100% { -moz-transform: rotate(180deg); } }
 @-webkit-keyframes spin180 { 0% { -webkit-transform: rotate(0); } 100% { -webkit-transform: rotate(180deg); } }
@@ -313,19 +313,20 @@ input[type="checkbox"]:checked::before {
 	position: relative;
 	top: 1px;
 }
+.bigRedWarning,.littleRedWarning {
+	background-color: var(--Black);
+	border: 1px solid;
+	border-radius: 5px;
+	padding: 2px 5px;
+	margin: 1px;
+}
 .bigRedWarning {
-    background-color: var(--Chocolate);
-    border: 1px solid var(--MamaAfrica);
-    border-radius: 5px;
-    color: currentColor;
-    padding: 2px 5px;
+	border-color: var(--CarminePink);
+	color: var(--CarminePink);
 }
 .littleRedWarning {
-    background-color: var(--RootBeer);
-    border: 1px solid var(--MorrocoBrown);
-    border-radius: 5px;
-    color: currentColor;
-    padding: 2px 5px;
+	border-color: var(--Carrot);
+	color: var(--Carrot);
 }
 .updateContainer {
 	display: flex;

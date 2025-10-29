@@ -1,4 +1,4 @@
-const vm=1.010;
+const vm=1.011;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -587,7 +587,7 @@ async function calculateStacks() {
 			pBriv+=`You can fix this by levelling Briv on z1 instead of z${bz}.`;
 	}
 	if (btsf)
-		result+=`<li>The ${nf(stacks)} stacks required will become ${nf(btsfStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
+		result+=`<li>The ${nf(stacks)} stacks required will become ${nf(btsfStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li class="littleRedWarning">If you are running hybrid with the TurboHybridStacks addon - use ${nf(btsfStacks)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(stacks)}.</li></ul>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 	if (f>0) {
