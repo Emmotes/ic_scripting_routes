@@ -1,4 +1,4 @@
-const vm=1.012;
+const vm=1.013;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -538,7 +538,7 @@ async function calculateStacks() {
 	let dynaMinsc=true;
 	let MImoHeir=true;
 	let rngwrJump=false;
-	while (z<r&&route.length<2000) {
+	while (z<r&&route.length<2500) {
 		modz=z%50||50;
 		let monTags=getZoneMonTags(adv,modz);
 		let rngwrApply=z==t&&rngwr&&f>0;
@@ -560,7 +560,7 @@ async function calculateStacks() {
 		} else 
 			z+=z<bz?1:checked?s:w;
 		route.push(z);
-		if ((checked||w>1)&&z>=bz) {
+		if ((checked||w>1||(rngwrApply&&(z1f!="e"||w>1)))&&z>=bz) {
 			if (metal) mj++
 			else nmj++;
 		}
@@ -611,7 +611,7 @@ async function calculateStacks() {
 	let perRun=(runs>1)?` (per run)`:``;
 	result+=`<li>Briv will jump ${(mj+nmj)} times${perRun}.</li>`;
 	let wz=route.length-1-(mj+nmj)-(bz==1?0:1);
-	let wq=wz>1?`${wz} times`:`once`;
+	let wq=wz!=1?`${wz} times`:`once`;
 	if (wz>0) result+=`<li>Briv will walk ${wq}${perRun}.</li>`;
 	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`<ul>`;
 	if (runs>1) {
@@ -650,12 +650,18 @@ async function calculateStacks() {
 		let shortJump=!last&&(diff<s||(i==0&&diff+1<f+s));
 		let qt=last?false:isQT(jsonRoute,start,end);
 		if (qt) nqts++;
-		if (i==route.length-1) icon=arrowReset;
+		let type = "";
+		if (i==route.length-1)
+			icon=arrowReset;
 		else if (i==0&&f>0) {
 			icon=(qt?thelloraQT:thelloraNorm);
-			if (bz==1) icon+=shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
+			if (bz==1) {
+				icon+=shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
+				type="jump";
+			}
 		} else {
 			icon=walk?(qt?walkQT:walkNorm):shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
+			type=walk?"walk":"jump";
 		}
 		let style=``;
 		if (mehs.includes(route[i]))
@@ -669,7 +675,7 @@ async function calculateStacks() {
 			eszFound=true;
 		}
 		let tooltip=createTooltipText(adv,route[i]);
-		loopTable+=`<span class="stacksRoutesTableItem${style}">${route[i]} ${icon}${tooltip}</span>`;
+		loopTable+=`<span class="stacksRoutesTableItem${style}" data-type="${type}">${route[i]} ${icon}${tooltip}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
 	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
@@ -703,6 +709,17 @@ async function calculateStacks() {
 	contents+=addToDescRow(result);
 	contents+=addToDescRow(`&nbsp;`);
 	stackResult.innerHTML=contents;
+	
+	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
+	let jumpCount = document.querySelectorAll("span[data-type='jump']").length;
+	
+	let calcJumps = (mj+nmj);
+	let calcWalks = wz;
+	
+	if (walkCount != calcWalks)
+		console.log(`walkCount[${walkCount}] != calcWalks[${calcWalks}]`);
+	if (jumpCount != calcJumps)
+		console.log(`jumpCount[${jumpCount}] != calcJumps[${calcJumps}]`);
 }
 
 function enforceTolerances() {
