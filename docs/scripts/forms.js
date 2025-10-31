@@ -1,4 +1,4 @@
-const vf=1.006;
+const vf=1.007;
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -149,7 +149,7 @@ function formsUpdateShow() {
 		if (name == "M (Modron)") {
 			txt += `</span>`;
 			txt += `<span style="grid-column:span 2;display:flex;justify-content:center;padding:20px">`;
-			txt += addSpecInfo(tatyana,baseForm.specs,currForms);
+			txt += addSpecInfo(baldric,hybrid,tatyana,baseForm.specs,currForms);
 		}
 		txt += `</span>`;
 	}
@@ -235,13 +235,19 @@ function createSVG(slots,cols,ids) {
 	return svg;
 }
 
-function addSpecInfo(tatyana,specsData,ids) {
+function addSpecInfo(baldric,hybrid,tatyana,specsData,ids) {
 	txt = ``;
 	txt += `<span style="display:flex;flex-direction:column;align-items:flex-start">`;
+	if (baldric&&hybrid) {
+		txt += `<span style="display:flex;flex-direction:column">`;
+		txt += `<h3>Using Melf and Baldric</h3>Requires:`;
+		txt += `<ul style="margin-left:-10px"><li>Melf to be set to 0/75 in the Level Up addon.</li><li>The x25 level up hotkey set to <code>Ctrl</code>.<br>You can use the Game Settings Fix addon to do this automatically.</li></ul>`;
+		txt += `</span>`;
+	}
 	if (tatyana) {
 		txt += `<span style="display:flex;flex-direction:column">`;
 		txt += `<h3>Tatyana in M</h3>Requires:`;
-		txt += `<ul style="margin-left:-10px"><li>Hew Maan to be set to 0/225 in the Level Up addon.</li><li>The x25 level up hotkey set to <code>Ctrl</code>.<br>You can use the Game Settings Fix addon to do this automatically.</li><li><em>Note: I don't recommend investing iLvls in Tatyana until at least 7j.</em></ul>`;
+		txt += `<ul style="margin-left:-10px"><li>Hew Maan to be set to 0/225 in the Level Up addon.</li><li>The x25 level up hotkey set to <code>Ctrl</code>.<br>You can use the Game Settings Fix addon to do this automatically.</li><li><em>Note: I don't recommend investing iLvls in Tatyana until at least 7j.</em></li></ul>`;
 		txt += `</span>`;
 	}
 	txt += `<h3>Specialisations</h3>`;
