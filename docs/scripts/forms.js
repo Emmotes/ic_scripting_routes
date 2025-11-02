@@ -1,4 +1,4 @@
-const vf=1.007;
+const vf=1.008;
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -127,10 +127,10 @@ function formsUpdateShow() {
 				m[baldricIndex] = 117;
 				m[imoenIndex] = 165;
 			} else {
-				let thelloraIndex = m.indexOf(139);
-				if (thelloraIndex >= 0) {
-					m[baldricIndex] = 139;
-					m[thelloraIndex] = 165;
+				let dynaheirIndex = m.indexOf(145);
+				if (dynaheirIndex >= 0) {
+					m[baldricIndex] = 145;
+					m[dynaheirIndex] = 165;
 				}
 			}
 		}
