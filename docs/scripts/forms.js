@@ -120,20 +120,8 @@ function formsUpdateShow() {
 		let hewIndex = m.indexOf(75);
 		if (hewIndex >= 0)
 			m[hewIndex] = 97;
-		if (baldric) {
-			let baldricIndex = m.indexOf(165);
-			let imoenIndex = m.indexOf(117);
-			if (imoenIndex >= 0) {
-				m[baldricIndex] = 117;
-				m[imoenIndex] = 165;
-			} else {
-				let dynaheirIndex = m.indexOf(145);
-				if (dynaheirIndex >= 0) {
-					m[baldricIndex] = 145;
-					m[dynaheirIndex] = 165;
-				}
-			}
-		}
+		if (baldric)
+			swapBaldricsPlace(m,165,[117,145,139]);
 	}
 	
 	let txt = ``;
@@ -205,6 +193,22 @@ function disableElements(show,tatyana,baldric,featSwap,hybrid) {
 /* ========================== *
  * ===== Misc Functions ===== *
  * ========================== */
+
+function swapBaldricsPlace(m,baldricId,swapIds,baldricIndex) {
+	if (swapIds.length==0)
+		return;
+	if (baldricIndex==undefined)
+		baldricIndex = m.indexOf(baldricId);
+	if (baldricIndex<0)
+		return;
+	let swapIndex = m.indexOf(swapIds[0]);
+	if (swapIndex >= 0) {
+		m[baldricIndex] = swapIds[0];
+		m[swapIndex] = baldricId;
+		return;
+	}
+	swapBaldricsPlace(m,baldricId,swapIds.slice(1),baldricIndex);
+}
  
 function createSVG(slots,cols,ids) {
 	let circleDiameter = 50;
