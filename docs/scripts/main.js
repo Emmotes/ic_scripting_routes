@@ -1,4 +1,4 @@
-const vm=1.013;
+const vm=1.014;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -588,6 +588,8 @@ async function calculateStacks() {
 	}
 	if (btsf)
 		result+=`<li>The ${nf(stacks)} stacks required will become ${nf(btsfStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon - use ${nf(btsfStacks)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(stacks)}.</li></ul>`;
+	if (route[route.length-1]<f*5)
+		result+=`<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${f*5}.</li>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 	if (f>0) {
