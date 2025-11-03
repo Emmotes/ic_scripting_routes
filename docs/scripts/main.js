@@ -1,4 +1,4 @@
-const vm=1.014;
+const vm=1.015;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -489,6 +489,7 @@ async function calculateStacks() {
 	if (window.location.hash.substring(1).split("_")[0]==st)
 		setHash(st);
 	let f=Number(stackFavour.value);
+	let trc=f*5;
 	let r=Number(stackReset.value);
 	let bz=Number(stackBrivZone.value);
 	let runs=Number(stackRuns.value);
@@ -588,8 +589,8 @@ async function calculateStacks() {
 	}
 	if (btsf)
 		result+=`<li>The ${nf(stacks)} stacks required will become ${nf(btsfStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li><ul><li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon - use ${nf(btsfStacks)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(stacks)}.</li></ul>`;
-	if (route[route.length-1]<f*5)
-		result+=`<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${f*5}.</li>`;
+	if (route[route.length-1]<trc)
+		result+=`<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${trc}.</li>`;
 	if (bz==1)
 		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 	if (f>0) {
@@ -642,6 +643,7 @@ async function calculateStacks() {
 	let loopTable=`</ul><h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
 	let nqts=0;
 	let eszFound=false;
+	let trcFound=false;
 	for (let i=0;i<route.length;i++) {
 		let icon=``;
 		let start=route[i]%50||50;
@@ -665,23 +667,30 @@ async function calculateStacks() {
 			icon=walk?(qt?walkQT:walkNorm):shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
 			type=walk?"walk":"jump";
 		}
+		let trcOverline=``;
 		let style=``;
+		if (route[i]>=trc) {
+			style+=` trcZone`;
+			if (!trcFound)
+				trcOverline=`<span class="firstTrcZone">&nbsp;</span>`;
+			trcFound=true;
+		}
 		if (mehs.includes(route[i]))
-			style=` hitZone`;
+			style+=` hitZone`;
 		else if (bads.includes(route[i]))
-			style=` armZone`;
+			style+=` armZone`;
 		else if (route[i]%5==0)
-			style=` bosZone`;
+			style+=` bosZone`;
 		if (!eszFound&&route[i]>stackStack.value) {
 			style+=` stkZone`;
 			eszFound=true;
 		}
 		let tooltip=createTooltipText(adv,route[i]);
-		loopTable+=`<span class="stacksRoutesTableItem${style}" data-type="${type}">${route[i]} ${icon}${tooltip}</span>`;
+		loopTable+=`<span class="stacksRoutesTableItem${style}" data-type="${type}">${route[i]} ${icon}${tooltip}${trcOverline}</span>`;
 	}
 	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
 	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
-	for (let i=0;i<=14;i++) {
+	for (let i=0;i<=16;i++) {
 		let curr=`&nbsp;`;
 		let extraClass=``;
 		let style=``;
@@ -695,12 +704,14 @@ async function calculateStacks() {
 			case  6: curr=`${hopQT} Hop QT`; break;
 			case  7: curr=`${walkQT} Walk QT`; break;
 			case  8: curr=`Earliest Stack Zone`; extraClass=` stkZone`; break;
-			case  9: curr=`${arrowReset} Modron Reset`; break;
-			case 10: curr=`Normal Boss Zone`; extraClass=` bosZone`; style=`grid-column:1`; break;
-			case 11: curr=`Hit-Based Boss Zone`; extraClass=` hitZone`; break;
-			case 12: curr=`Armoured Boss Zone`; extraClass=` armZone`; break;
-			case 13: curr=`A 'QT' is a Quick Transition (the black swipe across the screen between areas).`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
-			case 14: curr=`A 'Hop' is the short jump performed by the E formation in a Feat Swap route.`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
+			case  9: curr=`<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" style="top:1px">&nbsp;</span></span>`; extraClass=` trcZone`; break;
+			case 10: curr=`Rush Capped Zone`; extraClass=` trcZone`; break;
+			case 11: curr=`${arrowReset} Modron Reset`; break;
+			case 12: curr=`Normal Boss Zone`; extraClass=` bosZone`; break;
+			case 13: curr=`Hit-Based Boss Zone`; extraClass=` hitZone`; break;
+			case 14: curr=`Armoured Boss Zone`; extraClass=` armZone`; break;
+			case 15: curr=`A 'QT' is a Quick Transition (the black swipe across the screen between areas).`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
+			case 16: curr=`A 'Hop' is the short jump performed by the E formation in a Feat Swap route.`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
 		}
 		if (style!=``)
 			style = ` style="${style}"`;

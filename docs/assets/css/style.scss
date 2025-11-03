@@ -217,7 +217,7 @@ input[type="checkbox"]:checked::before {
 .tabs code {
 	font-size: 1.1em;
 }
-.stacksRoutesTable,.stacksRoutesKeyTable {
+.stacksRoutesTable {
 	display: grid;
 	grid-template-columns: repeat(auto-fill,60px);
 	column-gap: 2px;
@@ -228,7 +228,11 @@ input[type="checkbox"]:checked::before {
 	position: relative;
 }
 .stacksRoutesKeyTable {
-	grid-template-columns: repeat(4,160px);
+	display: grid;
+	grid-template-columns: repeat(4,165px);
+	column-gap: 4px;
+	row-gap: 6px;
+	
 }
 .stacksRoutesKeyTableItem {
 	display: flex;
@@ -264,6 +268,16 @@ input[type="checkbox"]:checked::before {
 .stkZone {
 	text-decoration: underline;
 	text-underline-position: under;
+}
+.firstTrcZone {
+	position: absolute;
+	top: 3px;
+	left: 0;
+	border-top: 1px solid var(--CarolinaBlue);
+	width: 100%;
+}
+.trcZone {
+	color: var(--CarolinaBlue);
 }
 .bosZone {
 	color: var(--Sand);
