@@ -1,4 +1,4 @@
-const vg=1.003;
+const vg=1.004;
 const ncf=[`Cursed Farmer`,`CF`,parseQTs(`CF`),3];
 const ntt=[`Tall Tales`,`TT`,parseQTs(`TT`),1050];
 const nll=[`Roots of Loomlurch`,`LL`,parseQTs(`LL`),1137];
@@ -56,7 +56,7 @@ const gemFarmJson={
 		jump:1,
 		q:2,
 		e:1,
-		bf:1125899906842623n,
+		bf:985162414288895n,
 		blurb:`${ll}`
 	},
 	mixed12LL:{
