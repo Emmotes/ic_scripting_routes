@@ -1,4 +1,4 @@
-const vm=1.016;
+const vm=2.000;
 const st=`stacksTab`;
 const ft=`formsTab`;
 const ilvlInput=document.getElementById(`ilvl`);
@@ -478,387 +478,463 @@ function populateStackRoutes() {
 }
 
 async function calculateStacks() {
-	let contents=``;
-	if (stackRoute.value==""||stackFavour.value==""||stackReset.value==""||stackBrivZone.value=="") {
-		contents+=addToDescRow(`Need more data.`);
-		contents+=addToDescRow(`&nbsp;`);
-		stackResult.innerHTML=contents;
-		return
+    let inputs = getRouteInputs();
+    if (!inputs) {
+		let contents = addToDescRow(`Need more data.`);
+		contents += addToDescRow(`&nbsp;`);
+		stackResult.innerHTML = contents;
+		return;
 	}
-	enforceTolerances();
-	if (window.location.hash.substring(1).split("_")[0]==st)
+
+    enforceTolerances();
+    if (window.location.hash.substring(1).split("_")[0] === st)
 		setHash(st);
-	let f=Number(stackFavour.value);
-	let trc=f*5;
-	let r=Number(stackReset.value);
-	let bz=Number(stackBrivZone.value);
-	let runs=Number(stackRuns.value);
-	let jsonRoute=gemFarmJson[stackRoute.value];
-	let z1f=stackz1Form.value;
-	let rngwr=stackRNGWR.checked;
-	let btsf=stackThunderStep.checked;
-	let adv=await pullAdvJson(jsonRoute.adv);
-	let s=Number(jsonRoute.q);
-	let w=Number(jsonRoute.e);
-	let tb=Math.min(f,Math.floor(r/5))+1;
-	let t=tb;
-	let swm=stackWithMetal.checked;
-	let mj=0;
-	let nmj=0;
-	if (bz==1&&f>0) {
-		switch (z1f) {
-			case "q":
-				t+=(s-1);
-				if (swm) mj++;
-				else nmj++;
-				break;
-			case "e":
-				t+=(w-1);
-				if (w>1) {
-					if (swm) mj++;
-					else nmj++;
-				}
-				if (w==1&&bz==1)
-					bz=2;
-				break;
-			case "4":
-			case "9":
-				t+=Number(z1f);
-				if (swm) mj++;
-				else nmj++;
-				break;
-		}
-	}
-	let stacks=minHaste;
-	let z=t;
-	let modz=z%50||50;
-	let bt=z%5==0;
-	let route=z>1?[1,z]:[1];
-	let mehs=[];
-	let bads=[];
-	let dynaMinsc=true;
-	let MImoHeir=true;
-	let rngwrJump=false;
-	while (z<r&&route.length<2500) {
-		modz=z%50||50;
-		let monTags=getZoneMonTags(adv,modz);
-		let rngwrApply=z==t&&rngwr&&f>0;
-		if (z>1&&z%5!=0&&!rngwrApply) {
-			if (dynaMinsc&&!isDynaMinscOnly(monTags))
-				dynaMinsc=false;
-			if (MImoHeir&&!isMImoHeir(monTags))
-				MImoHeir=false;
-		}
-		if (monTags.includes(`hits_based`))
-			mehs.push(z)
-		if (monTags.includes(`armor_based`))
-			bads.push(z)
-		let checked=z>=bz&&isChecked(jsonRoute.bf,modz);
-		metal=!(!swm&&z<=stackStack.value);
-		if (rngwrApply) {
-			rngwrJump=true;
-			z+=bz==1?t-tb+1:z1f=="q"?s:z1f=="e"?w:z1f=="4"||z1f=="9"?Number(z1f)+1:1;
-		} else 
-			z+=z<bz?1:checked?s:w;
-		route.push(z);
-		if ((checked||w>1||(rngwrApply&&(z1f!="e"||w>1)))&&z>=bz) {
-			if (metal) mj++
-			else nmj++;
-		}
-	}
-	for (let run=0; run<runs; run++) {
-		for (let i=0;i<(mj);i++)
-			stacks=Math.ceil((stacks-0.5)*stackMult[0]);
-		for (let i=0;i<(nmj);i++)
-			stacks=Math.ceil((stacks-0.5)*stackMult[1]);
-	}
-	let btsfStacks=stacks;
-	if (btsf) stacks=minHaste+Math.ceil((stacks-minHaste)/thunderStep);
-	let result=`<h2>Stacks Required: ${nf(stacks)}</h2>`;
-	let loop=addLoop(jsonRoute.bf,jsonRoute.q,jsonRoute.e).substring(4);
-	result+=`<ul><li>${loop}</li>`;
-	let pBriv=``;
-	if (bt) {
-		pBriv+=`<li class="bigRedWarning">This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `
-		if (bz==1)
-			pBriv+=`You can fix this by levelling Briv on z2 instead of z${bz}.`;
-		else if (stackBrivZone.value==1&&bz==2)
-			pBriv+=`You can fix this by using Q formation on z1 instead of E.`;
-		else
-			pBriv+=`You can fix this by levelling Briv on z1 instead of z${bz}.`;
-	}
-	if (btsf) {
-		result+=`<li>The ${nf(stacks)} stacks required will become ${nf(btsfStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
-		if (runs==1)
-			result+=`<ul><li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon - use ${nf(btsfStacks)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(stacks)}.</li></ul>`
-	}
-	if (route[route.length-1]<trc)
-		result+=`<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${trc}.</li>`;
-	if (bz==1)
-		pBriv+=`<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
-	if (f>0) {
-		result+=`<li>Thellora will land you on z${t}.</li><ul>${pBriv}<li>If this is not on the preferred loop then you might need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
-		if (rngwrJump)
-			result+=`<li>The RNG Waiting Room addon will cause your Thellora landing zone to be completed by the modron formation - and consequently jump with a distance of whatever feat he may or may not have saved in that formation.</li>`;
-	}
-	if (dynaMinsc)
-		result+=`<li>${dyn.replace("<br>","")}</li>`;
-	else if (MImoHeir)
-		result+=`<li>${mimo.replace("<br>","")}</li>`;
-	if (route[route.length-1]==r) {
-		let rb=r%5==0;
-		result+=`<li class="littleRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. ${rb?"In this case it's a boss zone so you will get the gems from that - however - c":"C"}ompleting your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for ${rb?"very little":"no"} benefit.</li>`;
-	}
-	if (bz>t) {
-		let diff=bz-t;
-		let pl=(diff>1?`s`:``);
-		result+=`<li>The route will walk ${diff} zone${pl} before levelling Briv.</li>`;
-	}
-	let perRun=(runs>1)?` (per run)`:``;
-	result+=`<li>Briv will jump ${(mj+nmj)} times${perRun}.</li>`;
-	let wz=route.length-1-(mj+nmj)-(bz==1?0:1);
-	let wq=wz!=1?`${wz} times`:`once`;
-	if (wz>0) result+=`<li>Briv will walk ${wq}${perRun}.</li>`;
-	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`<ul>`;
-	if (runs>1) {
-		let type=``;
-		switch (runs) {
-			case 2: type=`Doubles`; break;
-			case 3: type=`Triples`; break;
-			case 4: type=`Quadruples`; break;
-			default: type=`${runs} Times`;
-		}
-		result+=`<li>Running ${type}.</li>`;
-	}
-	if (nmj>0) {
-		result+=`<li>${mj}x with Metalborn${perRun}.</li>`;
-		result+=`<li>${nmj}x without Metalborn${perRun}.</li>`;
-	}
-	if (mehs.length>0) {
-		let plural=mehs.length==1?``:`s`;
-		result+=`<li class="littleRedWarning">This route will hit ${mehs.length} Hit-Based zone${plural}. These are slow and should be avoided.</li>`;
-	}
-	if (bads.length>0) {
-		let plural=bads.length==1?``:`s`;
-		result+=`<li class="bigRedWarning">This route will hit ${bads.length} Armoured zone${plural}. These can be run killers so you should change some values to avoid them.</li>`;
-	}
-	if (nmj>0||runs>1||mehs.length>0||bads.length>0) result+=`</ul>`;
-	let loopTable=`</ul><h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
-	let nqts=0;
-	let eszFound=false;
-	let trcFound=false;
-	for (let i=0;i<route.length;i++) {
-		let icon=``;
-		let start=route[i]%50||50;
-		let end=route[i+1]%50||50;
-		let last=(i+1)>=route.length;
-		let diff=route[i+1]-route[i];
-		let walk=!last&&diff==1;
-		let shortJump=!last&&(diff<s||(i==0&&diff+1<f+s));
-		let qt=last?false:isQT(jsonRoute,start,end);
-		if (qt) nqts++;
-		let type = "";
-		if (i==route.length-1)
-			icon=arrowReset;
-		else if (i==0&&f>0) {
-			icon=(qt?thelloraQT:thelloraNorm);
-			if (bz==1) {
-				icon+=shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
-				type="jump";
-			}
-		} else {
-			icon=walk?(qt?walkQT:walkNorm):shortJump?(qt?hopQT:hopNorm):(qt?arrowQT:arrowNorm);
-			type=walk?"walk":"jump";
-		}
-		let trcOverline=``;
-		let style=``;
-		if (route[i]>=trc) {
-			style+=` trcZone`;
-			if (!trcFound)
-				trcOverline=`<span class="firstTrcZone">&nbsp;</span>`;
-			trcFound=true;
-		}
-		if (mehs.includes(route[i]))
-			style+=` hitZone`;
-		else if (bads.includes(route[i]))
-			style+=` armZone`;
-		else if (route[i]%5==0)
-			style+=` bosZone`;
-		if (!eszFound&&route[i]>stackStack.value) {
-			style+=` stkZone`;
-			eszFound=true;
-		}
-		let tooltip=createTooltipText(adv,route[i]);
-		loopTable+=`<span class="stacksRoutesTableItem${style}" data-type="${type}">${route[i]} ${icon}${tooltip}${trcOverline}</span>`;
-	}
-	loopTable+=`</div><br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
-	result+=`<li>This route has ${nqts} QTs out of ${route.length-1} transitions.</li>${loopTable}`;
-	for (let i=0;i<=16;i++) {
-		let curr=`&nbsp;`;
-		let extraClass=``;
-		let style=``;
-		switch(i) {
-			case  0: curr=`${thelloraNorm} Thellora`; break;
-			case  1: curr=`${arrowNorm} Jump`; break;
-			case  2: curr=`${hopNorm} Hop`; break;
-			case  3: curr=`${walkNorm} Walk`; break;
-			case  4: curr=`${thelloraQT} Thellora QT`; break;
-			case  5: curr=`${arrowQT} Jump QT`; break;
-			case  6: curr=`${hopQT} Hop QT`; break;
-			case  7: curr=`${walkQT} Walk QT`; break;
-			case  8: curr=`Earliest Stack Zone`; extraClass=` stkZone`; break;
-			case  9: curr=`<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" style="top:1px">&nbsp;</span></span>`; extraClass=` trcZone`; break;
-			case 10: curr=`Rush Capped Zone`; extraClass=` trcZone`; break;
-			case 11: curr=`${arrowReset} Modron Reset`; break;
-			case 12: curr=`Normal Boss Zone`; extraClass=` bosZone`; break;
-			case 13: curr=`Hit-Based Boss Zone`; extraClass=` hitZone`; break;
-			case 14: curr=`Armoured Boss Zone`; extraClass=` armZone`; break;
-			case 15: curr=`A 'QT' is a Quick Transition (the black swipe across the screen between areas).`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
-			case 16: curr=`A 'Hop' is the short jump performed by the E formation in a Feat Swap route.`; style=`color:#DDCCEE;grid-column:1 / span 4`; break;
-		}
-		if (style!=``)
-			style = ` style="${style}"`;
-		result+=`<span class="stacksRoutesKeyTableItem${extraClass}"${style}>${curr}</span>`;
-	}
-	result+=`</div>`;
+
+    let adv = await pullAdvJson(inputs.routeJson.adv);
+    let brivData = setupBriv(inputs);
+    let routeData = generateRoute(inputs, brivData, adv);
+    let stackData = calculateStacksForRoute(brivData, inputs);
+    renderResults(inputs, brivData, routeData, stackData, adv);
+}
+
+function getRouteInputs() {
+    if (!stackRoute.value || !stackFavour.value || !stackReset.value || !stackBrivZone.value)
+		return null;
+
+    return {
+        favour: Number(stackFavour.value),
+        resetZone: Number(stackReset.value),
+        brivZone: Number(stackBrivZone.value),
+        numRuns: Number(stackRuns.value),
+        routeJson: gemFarmJson[stackRoute.value],
+        z1Formation: stackz1Form.value,
+        rngWaitingRoom: stackRNGWR.checked,
+        thunderStep: stackThunderStep.checked,
+        withMetal: stackWithMetal.checked
+    };
+}
+
+function setupBriv(inputs) {
+    let thelloraDist = Math.min(inputs.favour, Math.floor(inputs.resetZone / 5)) + 1;
+    let brivStack = thelloraDist;
+    let jumpsWithMetal = 0;
+    let jumpsWithoutMetal = 0;
+
+    if (inputs.brivZone === 1 && inputs.favour > 0) {
+        switch (inputs.z1Formation) {
+            case "q":
+                brivStack += inputs.routeJson.q - 1;
+                inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+                break;
+            case "e":
+                brivStack += inputs.routeJson.e - 1;
+                if (inputs.routeJson.e > 1)
+					inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+                if (inputs.routeJson.e === 1)
+					inputs.brivZone = 2;
+                break;
+            case "4":
+            case "9":
+                brivStack += Number(inputs.z1Formation);
+                inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+                break;
+        }
+    }
+
+    return { thelloraDist, brivStack, jumpsWithMetal, jumpsWithoutMetal };
+}
+
+function generateRoute(inputs, brivData, adv) {
+    let currentZone = brivData.brivStack;
+    let route = currentZone > 1 ? [1, currentZone] : [1];
+    let hitZones = [];
+    let armouredZones = [];
+    let dynaMinscActive = true;
+    let mimoActive = true;
+    let rngJumpApplied = false;
+	let qtCount = 0;
+
+    while (currentZone < inputs.resetZone && route.length < 2500) {
+        let modZone = currentZone % 50 || 50;
+        let monTags = getZoneMonTags(adv, modZone);
+        let applyRngwr = currentZone === brivData.brivStack && inputs.rngWaitingRoom && inputs.favour > 0;
+
+        if (currentZone > 1 && currentZone % 5 !== 0 && !applyRngwr) {
+            if (dynaMinscActive && !isDynaMinscOnly(monTags))
+				dynaMinscActive = false;
+            if (mimoActive && !isMImoHeir(monTags))
+				mimoActive = false;
+        }
+
+        if (monTags.includes("hits_based"))
+			hitZones.push(currentZone);
+        if (monTags.includes("armor_based"))
+			armouredZones.push(currentZone);
+
+        let checked = currentZone >= inputs.brivZone && isChecked(inputs.routeJson.bf, modZone);
+        let metalApplicable = inputs.withMetal || currentZone > stackStack.value;
+		let diff;
+        if (applyRngwr) {
+            rngJumpApplied = true;
+            diff = inputs.brivZone === 1 ? brivData.brivStack - brivData.thelloraDist + 1
+                : inputs.z1Formation === "q" ? inputs.routeJson.q
+                : inputs.z1Formation === "e" ? inputs.routeJson.e
+                : inputs.z1Formation === "4" || inputs.z1Formation === "9" ? Number(inputs.z1Formation) + 1
+                : 1;
+        } else
+            diff = currentZone < inputs.brivZone ? 1
+				: checked ? inputs.routeJson.q
+				: inputs.routeJson.e;
+		currentZone += diff;
+
+        route.push(currentZone);
+
+        if ((checked || inputs.routeJson.e > 1 || (applyRngwr && (inputs.z1Formation !== "e" || inputs.routeJson.e > 1))) && currentZone >= inputs.brivZone)
+            metalApplicable ? brivData.jumpsWithMetal++ : brivData.jumpsWithoutMetal++;
+    }
 	
-	contents+=addToDescRow(result);
-	contents+=addToDescRow(`&nbsp;`);
-	stackResult.innerHTML=contents;
+    route.forEach((zone, index) => {
+        let nextZone = route[index + 1] || zone;
+        let isLastZone = index === route.length - 1;
+        let qt = !isLastZone && isQT(inputs.routeJson, zone % 50 || 50, nextZone % 50 || 50);
+		if (qt)
+			qtCount++;
+	});
 	
-	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
-	let jumpCount = document.querySelectorAll("span[data-type='jump']").length;
+	let numJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
+
+    return { route, hitZones, armouredZones, dynaMinscActive, mimoActive, rngJumpApplied, numJumps, qtCount };
+}
+
+function calculateStacksForRoute(brivData, inputs) {
+    let stacks = minHaste;
+    for (let run = 0; run < inputs.numRuns; run++) {
+        for (let i = 0; i < brivData.jumpsWithMetal; i++)
+			stacks = Math.ceil((stacks - 0.5) * stackMult[0]);
+        for (let i = 0; i < brivData.jumpsWithoutMetal; i++)
+			stacks = Math.ceil((stacks - 0.5) * stackMult[1]);
+    }
+
+    let thunderStepStacks = stacks;
+    if (inputs.thunderStep)
+		stacks = minHaste + Math.ceil((stacks - minHaste) / thunderStep);
+
+    return { stacks, thunderStepStacks };
+}
+
+function renderResults(inputs, brivData, routeData, stackData, adv) {
+    let contents = ``;
+    let resultHtml = `<h2>Stacks Required: ${nf(stackData.stacks)}</h2>`;
+
+    // Loop info
+    let loopHtml = addLoop(inputs.routeJson.bf, inputs.routeJson.q, inputs.routeJson.e).substring(4);
+    resultHtml += `<ul><li>${loopHtml}</li>`;
+
+    // Briv warnings
+    let brivWarningHtml = ``;
+    let currentZone = brivData.brivStack;
+    let isBadTravelling = currentZone % 5 === 0;
+	let routeLength = routeData.route.length - 1;
+    if (isBadTravelling) {
+        brivWarningHtml += `<li class="bigRedWarning">This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `;
+        if (inputs.brivZone === 1)
+			brivWarningHtml += `You can fix this by levelling Briv on z2 instead of z${inputs.brivZone}.`;
+        else if (inputs.brivZone === 2 && inputs.z1Formation !== "q")
+			brivWarningHtml += `You can fix this by using Q formation on z1 instead of ${inputs.z1Formation.toUpperCase()}.`;
+        else
+			brivWarningHtml += `You can fix this by levelling Briv on z1 instead of z${inputs.brivZone}.`;
+		brivWarningHtml += `</li>`;
+    }
+
+	// Thunder Step
+    if (inputs.thunderStep) {
+        resultHtml += `<li>The ${nf(stackData.stacks)} stacks required will become ${nf(stackData.thunderStepStacks)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
+        if (inputs.numRuns === 1)
+			resultHtml += `<ul><li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon - use ${nf(stackData.thunderStepStacks)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(stackData.stacks)}.</li></ul>`;
+    }
+
+    // Thellora landing
+    if (inputs.favour > 0) {
+		// Rush capped check
+		if (inputs.resetZone < inputs.favour * 5)
+			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z225.</li>`;
+		
+		// General Thellora info
+		resultHtml += `<li>Thellora will land you on z${currentZone}.</li><ul>${brivWarningHtml}`;
+		if (inputs.brivZone == 1)
+			resultHtml += `<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
+        resultHtml += `<li>If this is not on the preferred loop then you might need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
+        if (routeData.rngJumpApplied)
+			resultHtml += `<li>The RNG Waiting Room addon will cause your Thellora landing zone to be completed by the modron formation - and consequently jump with a distance of whatever feat he may or may not have saved in that formation.</li>`;
+    }
+
+    // Dynaheir+Co
+    if (routeData.dynaMinscActive)
+		resultHtml += `<li>${dyn.replace("<br>", "")}</li>`;
+    else if (routeData.mimoActive)
+		resultHtml += `<li>${mimo.replace("<br>", "")}</li>`;
 	
-	let calcJumps = (mj+nmj);
-	let calcWalks = wz;
+	// Landing on Reset
+	if (inputs.resetZone == routeData.route[routeData.route.length - 1])
+		resultHtml += `<li class="littleRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. Completing your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for no benefit.</li>`;
 	
-	if (walkCount != calcWalks)
+	let perRun = inputs.numRuns > 1 ? ` (per run)` : ``;
+	let numWalks = routeData.route.length - 1 - routeData.numJumps - (inputs.brivZone === 1 ? 0 : 1);
+	resultHtml += `<li>Briv will jump ${nf(routeData.numJumps)} time${routeData.numJumps==1?'':'s'}${perRun}.</li>`;
+	if (numWalks > 0)
+		resultHtml += `<li>Briv will walk ${nf(numWalks)} time${numWalks==1?'':'s'}${perRun}.</li>`;
+	
+	let numArmoured = routeData.armouredZones.length;
+	let numHits = routeData.hitZones.length;
+	if (inputs.numRuns > 1 || numArmoured > 0 || numHits > 0) {
+		resultHtml += `<ul>`;
+		
+		// Doubes/Triples/etc..
+		if (inputs.numRuns > 1) {
+			let type = inputs.numRuns == 2 ? `Doubles`
+				: inputs.numRuns == 3 ? `Triples`
+				: inputs.numRuns == 4 ? `Quadrupes`
+				: `${nf(inputs.numRuns)} Times`;
+			resultHtml += `<li>Running ${type}.</li>`;
+		}
+		// Bad zones
+		if (numArmoured > 0)
+			resultHtml += `<li class="bigRedWarning">This route will hit ${nf(numArmoured)} Armoured zone${numArmoured==1?'':'s'}. These can be run killers so you need to change some values to avoid them.</li>`;
+		if (numHits > 0)
+			resultHtml += `<li class="littleRedWarning">This route will hit ${nf(numHits)} Hit-Based zone${numHits==1?'':'s'}. These are slow and should be avoided.</li>`;
+		
+		resultHtml += `</ul>`;
+	}
+    resultHtml += `<li>This route has ${nf(routeData.qtCount)} QTs out of ${nf(routeLength)} transitions.</li>`;
+	
+	resultHtml += `</ul>`;
+
+    // Stack route table
+    resultHtml += renderRouteTable(inputs, routeData, adv, stackData);
+
+    contents += addToDescRow(resultHtml);
+    contents += addToDescRow(`&nbsp;`);
+    stackResult.innerHTML = contents;
+
+    // Debug consistency check
+    let walkCount = document.querySelectorAll("span[data-type='walk']").length;
+    let jumpCount = document.querySelectorAll("span[data-type='jump']").length;
+	let qtsCount = document.querySelectorAll("span[data-qt='1']").length;
+    let calcJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
+    let calcWalks = routeData.route.length - 1 - calcJumps - (inputs.brivZone === 1 ? 0 : 1);
+	let calcQts = routeData.qtCount;
+    if (walkCount !== calcWalks)
 		console.log(`walkCount[${walkCount}] != calcWalks[${calcWalks}]`);
-	if (jumpCount != calcJumps)
+    if (jumpCount !== calcJumps)
 		console.log(`jumpCount[${jumpCount}] != calcJumps[${calcJumps}]`);
+    if (qtsCount !== calcQts)
+		console.log(`qtsCount[${qtsCount}] != calcQts[${calcQts}]`);
+}
+
+function renderRouteTable(inputs, routeData, adv) {
+    let tableHtml = `<h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
+
+    let earliestStackFound = false;
+    let rushCapFound = false;
+    let qtCount = routeData.qtCount;
+
+    routeData.route.forEach((zone, index) => {
+        let nextZone = routeData.route[index + 1] || zone;
+        let isLastZone = index === routeData.route.length - 1;
+        let qt = !isLastZone && isQT(inputs.routeJson, zone % 50 || 50, nextZone % 50 || 50);
+        let diff = nextZone - zone;
+
+        let walk = !isLastZone && diff === 1;
+        let shortJump = !isLastZone && (diff < inputs.routeJson.q || (index === 0 && diff + 1 < inputs.favour + inputs.routeJson.q));
+
+        // Determine zone type for styling
+        let zoneType = "";
+        let icon = "";
+        if (isLastZone)
+			icon = arrowReset;
+        else if (index === 0 && inputs.favour > 0) {
+            icon = qt ? thelloraQT : thelloraNorm;
+            if (inputs.brivZone === 1) {
+                icon += shortJump ? (qt ? hopQT : hopNorm) : (qt ? arrowQT : arrowNorm);
+                zoneType = "jump";
+            }
+        } else {
+            icon = walk ? (qt ? walkQT : walkNorm) : shortJump ? (qt ? hopQT : hopNorm) : (qt ? arrowQT : arrowNorm);
+            zoneType = walk ? "walk" : "jump";
+        }
+
+        // Styling classes
+        let styleClass = "";
+        let rushCapOverline = "";
+
+        if (zone >= inputs.favour * 5) {
+            styleClass += " trcZone";
+            if (!rushCapFound) rushCapOverline = `<span class="firstTrcZone">&nbsp;</span>`;
+            rushCapFound = true;
+        }
+        if (routeData.hitZones.includes(zone))
+			styleClass += " hitZone";
+        else if (routeData.armouredZones.includes(zone))
+			styleClass += " armZone";
+        else if (zone % 5 === 0)
+			styleClass += " bosZone";
+        if (!earliestStackFound && zone > stackStack.value) {
+            styleClass += " stkZone";
+            earliestStackFound = true;
+        }
+
+        let tooltipText = createTooltipText(adv, zone);
+        tableHtml += `<span class="stacksRoutesTableItem${styleClass}" data-type="${zoneType}" data-qt="${qt?1:0}">${zone} ${icon}${tooltipText}${rushCapOverline}</span>`;
+    });
+
+    tableHtml += `</div>`;
+
+    // Key legend
+    let keyEntries = [
+        {text: `${thelloraNorm} Thellora`}, {text: `${arrowNorm} Jump`}, {text: `${hopNorm} Hop`}, {text: `${walkNorm} Walk`},
+        {text: `${thelloraQT} Thellora QT`}, {text: `${arrowQT} Jump QT`}, {text: `${hopQT} Hop QT`}, {text: `${walkQT} Walk QT`},
+        {text: "Earliest Stack Zone", cls: " stkZone"}, 
+        {text: `<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" style="top:1px">&nbsp;</span></span>`, cls: " trcZone"},
+        {text: "Rush Capped Zone", cls: " trcZone"}, {text: arrowReset + " Modron Reset"}, {text: "Normal Boss Zone", cls: " bosZone"},
+        {text: "Hit-Based Boss Zone", cls: " hitZone"}, {text: "Armoured Boss Zone", cls: " armZone"},
+        {text: "A 'QT' is a Quick Transition (the black swipe across the screen between areas).", style: "color:var(--Soap);grid-column:1 / span 4"},
+        {text: "A 'Hop' is the short jump performed by the E formation in a Feat Swap route.", style: "color:var(--Soap);grid-column:1 / span 4"}
+    ];
+
+    tableHtml += `<br><h4>Key</h4><div class="stacksRoutesKeyTable">`;
+    keyEntries.forEach(entry => {
+        let styleAttr = entry.style ? ` style="${entry.style}"` : "";
+        let cls = entry.cls ? ` ${entry.cls}` : "";
+        tableHtml += `<span class="stacksRoutesKeyTableItem${cls}"${styleAttr}>${entry.text}</span>`;
+    });
+    tableHtml += `</div>`;
+	
+    return tableHtml;
 }
 
 function enforceTolerances() {
-	if (stackReset.value<stackResetLimits[0])
-		stackReset.value=stackResetLimits[0];
-	if (stackFavour.value<stackFavourLimits[0])
-		stackFavour.value=stackFavourLimits[0];
-	if (stackStack.value<stackStackMin)
-		stackFavour.value=stackStackMin;
-	if (stackBrivZone.value<stackBrivZoneMin)
-		stackBrivZone.value=stackBrivZoneMin;
-	if (stackRuns.value<stackRunsMin)
-		stackRuns.value=stackRunsMin;
-	if (stackReset.value>stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[0]) {
-		stackResetNote.innerHTML=resetLimitText[0];
-	} else if (stackReset.value<=stackResetLimits[1]&&stackResetNote.innerHTML!=resetLimitText[1]) {
-		stackResetNote.innerHTML=resetLimitText[1];
-	}
-	if (stackFavour.value>stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[0]) {
-		stackFavourNote.innerHTML=favourLimitText[0];
-	} else if (stackFavour.value<=stackFavourLimits[1]&&stackFavourNote.innerHTML!=favourLimitText[1]) {
-		stackFavourNote.innerHTML=favourLimitText[1];
-	}
+	if (stackReset.value < stackResetLimits[0])
+		stackReset.value = stackResetLimits[0];
+	
+	if (stackFavour.value < stackFavourLimits[0])
+		stackFavour.value = stackFavourLimits[0];
+	
+	if (stackStack.value < stackStackMin)
+		stackFavour.value = stackStackMin;
+	
+	if (stackBrivZone.value < stackBrivZoneMin)
+		stackBrivZone.value = stackBrivZoneMin;
+	
+	if (stackRuns.value < stackRunsMin)
+		stackRuns.value = stackRunsMin;
+	
+	if (stackReset.value > stackResetLimits[1] && stackResetNote.innerHTML != resetLimitText[0])
+		stackResetNote.innerHTML = resetLimitText[0];
+	else if (stackReset.value <= stackResetLimits[1] && stackResetNote.innerHTML != resetLimitText[1])
+		stackResetNote.innerHTML = resetLimitText[1];
+	
+	if (stackFavour.value > stackFavourLimits[1] && stackFavourNote.innerHTML != favourLimitText[0])
+		stackFavourNote.innerHTML = favourLimitText[0];
+	else if (stackFavour.value <= stackFavourLimits[1] && stackFavourNote.innerHTML != favourLimitText[1])
+		stackFavourNote.innerHTML = favourLimitText[1];
 }
 
 function isQT(route,area1,area2) {
-	if (route.qts==undefined||route.qts.length!=50) return false;
+	if (route.qts==undefined||route.qts.length!=50)
+		return false;
 	let qts = route.qts;
-	if (qts[area1-1]==qts[area2-1]) return true;
-	return false;
+	return qts[area1-1] == qts[area2-1];
 }
 
 function createTooltipText(adv,zone) {
-	let boss=(zone%5==0?`Boss `:``);
-	let mod=zone%50||50;
-	let t=`<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
-	let mons=[];
-	let area=adv.areas[mod-1];
-	let quest=adv.quests[mod-1];
-	let questText=""
-	if (quest.type==1)
-		questText=`Collect`;
-	else
-		questText=`Kill`;
-	questText+=` ${quest.goal} ${quest.desc}`;
-	t+=`<span class="ttcRow">${questText}</span>`;
-	if (area.waves!=undefined)
+	let boss = zone % 5 == 0 ? `Boss ` : ``;
+	let mod = zone % 50 || 50;
+	let t = `<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
+	let mons = [];
+	let area = adv.areas[mod-1];
+	let quest = adv.quests[mod-1];
+	let questText = quest.type == 1 ? `Collect` : `Kill`;
+	questText += ` ${quest.goal} ${quest.desc}`;
+	t += `<span class="ttcRow">${questText}</span>`;
+	if (area.waves != undefined)
 		for (let wave of area.waves)
 			for (let mon of wave)
 				mons.push(mon);
-	if (area.monsters!=undefined)
+	if (area.monsters != undefined)
 		for (let mon of area.monsters)
 			mons.push(mon);
-	if (area.staticMonsters!=undefined)
+	if (area.staticMonsters != undefined)
 		for (let mon of area.staticMonsters)
 			mons.push(mon);
 	let monNames = [];
 	let monAtks = [];
 	let monTags = [];
 	for (let monId of mons) {
-		let mon="";
+		let mon = "";
 		for (let monster of adv.monsters) {
 			if (monster.id == monId) {
 				mon = monster;
 				break;
 			}
 		}
-		if (mon=="") continue;
+		if (mon == "")
+			continue;
 		if (!monNames.includes(mon.name))
 			monNames.push(mon.name);
 		for (let tag of mon.tags) {
-			let isAtk = tag==`ranged`||tag==`melee`||tag==`magic`;
-			if (isAtk&&!monAtks.includes(tag))
+			let isAtk = tag == `ranged` || tag == `melee` || tag == `magic`;
+			if (isAtk && !monAtks.includes(tag))
 				monAtks.push(tag);
-			else if (!isAtk&&!monTags.includes(tag))
+			else if (!isAtk && !monTags.includes(tag))
 				monTags.push(tag);
 		}
 	}
-	if (monNames.length>0) {
-		t+=`<span class="ttcRow ttcTop">Enemies:</span>`;
+	if (monNames.length > 0) {
+		t += `<span class="ttcRow ttcTop">Enemies:</span>`;
 		for (let monName of monNames)
-			t+=`<span class="ttcRow ttcLeft">${monName}</span>`;
+			t += `<span class="ttcRow ttcLeft">${monName}</span>`;
 	}
 	if (monAtks.length>0) {
-		t+=`<span class="ttcRow ttcTop">Attack Types:</span>`;
+		t += `<span class="ttcRow ttcTop">Attack Types:</span>`;
 		for (let atk of monAtks)
-			t+=`<span class="ttcRow ttcLeft">${capitalize(atk)}</span>`;
+			t += `<span class="ttcRow ttcLeft">${capitalize(atk)}</span>`;
 	}
 	if (monTags.length>0) {
-		t+=`<span class="ttcRow ttcTop">Other Tags:</span>`;
+		t += `<span class="ttcRow ttcTop">Other Tags:</span>`;
 		for (let tag of monTags)
-			t+=`<span class="ttcRow ttcLeft">${capitalize(tag)}</span>`;
+			t += `<span class="ttcRow ttcLeft">${capitalize(tag)}</span>`;
 	}
-	t+=`</span>`;
+	t += `</span>`;
 	return t;
 }
 
 function getZoneMonTags(adv,zone) {
-	let area=adv.areas[zone-1];
-	let mons=[];
-	if (area.waves!=undefined)
+	let area = adv.areas[zone-1];
+	let mons = [];
+	if (area.waves != undefined)
 		for (let wave of area.waves)
 			for (let mon of wave)
 				mons.push(mon);
-	if (area.monsters!=undefined)
+	if (area.monsters != undefined)
 		for (let mon of area.monsters)
 			mons.push(mon);
-	if (area.staticMonsters!=undefined)
+	if (area.staticMonsters != undefined)
 		for (let mon of area.staticMonsters)
 			mons.push(mon);
 	let monTags = [];
 	for (let monId of mons) {
-		let mon="";
+		let mon = "";
 		for (let monster of adv.monsters) {
 			if (monster.id == monId) {
 				mon = monster;
 				break;
 			}
 		}
-		if (mon=="") continue;
+		if (mon == "")
+			continue;
 		for (let tag of mon.tags) {
-			let isAtk = tag==`ranged`||tag==`melee`||tag==`magic`;
-			if (!isAtk&&!monTags.includes(tag))
+			let isAtk = tag == `ranged` || tag == `melee` || tag == `magic`;
+			if (!isAtk && !monTags.includes(tag))
 				monTags.push(tag);
 		}
 	}
@@ -867,14 +943,14 @@ function getZoneMonTags(adv,zone) {
 
 function isDynaMinscOnly(monTags) {
 	for (let monTag of monTags)
-		if (monTag!="fey"&&monTag!="humanoid"&&enemyTypes.includes(monTag))
+		if (monTag != "fey" && monTag != "humanoid" && enemyTypes.includes(monTag))
 			return false;
 	return true;
 }
 
 function isMImoHeir(monTags) {
 	for (let monTag of monTags)
-		if (monTag!="fey"&&monTag!="humanoid"&&monTag!="beast"&&enemyTypes.includes(monTag))
+		if (monTag != "fey" && monTag != "humanoid" && monTag != "beast" && enemyTypes.includes(monTag))
 			return false;
 	return true;
 }
@@ -887,9 +963,9 @@ async function pullAdvJson(id) {
 }
 
 function capitalize(s) {
-	if (s==`armor_based`)
+	if (s == `armor_based`)
 		return `Armoured`;
-	if (s==`hits_based`)
+	if (s == `hits_based`)
 		return `Hits-Based`;
     return s && s[0].toUpperCase() + s.slice(1);
 }
