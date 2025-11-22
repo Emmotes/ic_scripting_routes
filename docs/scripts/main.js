@@ -1,4 +1,4 @@
-const vm = 2.001; // prettier-ignore
+const vm = 2.002; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const ilvlInput = document.getElementById(`ilvl`);
@@ -61,8 +61,9 @@ const NUMFORM = new Intl.NumberFormat("en", {
 	useGrouping: true,
 	maximumFractionDigits: 2,
 });
+const advJsonCache = {};
+let calculateStacksToken = 0;
 let tester = false;
-let calculateStacksRunning = false;
 let updateInterval;
 
 async function init() {
@@ -495,9 +496,7 @@ function populateStackRoutes() {
 }
 
 async function calculateStacks() {
-	if (calculateStacksRunning) return;
-	calculateStacksRunning = true;
-
+	const currToken = ++calculateStacksToken;
 	let inputs = getRouteInputs();
 	if (!inputs) {
 		let contents = addToDescRow(`Need more data.`);
@@ -509,13 +508,16 @@ async function calculateStacks() {
 	enforceTolerances();
 	if (window.location.hash.substring(1).split("_")[0] === st) setHash(st);
 
+	if (currToken !== calculateStacksToken) return;
 	let adv = await pullAdvJson(inputs.routeJson.adv);
+	if (currToken !== calculateStacksToken) return;
 	let brivData = setupBriv(inputs);
-	let routeData = generateRoute(inputs, brivData, adv);
+	if (currToken !== calculateStacksToken) return;
+	let routeData = generateRoute(inputs, brivData, adv, currToken);
+	if (currToken !== calculateStacksToken) return;
 	let stackData = calculateStacksForRoute(brivData, inputs);
+	if (currToken !== calculateStacksToken) return;
 	renderResults(inputs, brivData, routeData, stackData, adv);
-
-	calculateStacksRunning = false;
 }
 
 function getRouteInputs() {
@@ -575,7 +577,7 @@ function setupBriv(inputs) {
 	};
 }
 
-function generateRoute(inputs, brivData, adv) {
+function generateRoute(inputs, brivData, adv, currToken) {
 	let currentZone = brivData.brivStack;
 	let route = [1];
 	let qtCount = 0;
@@ -590,6 +592,7 @@ function generateRoute(inputs, brivData, adv) {
 	let rngJumpApplied = false;
 
 	while (currentZone < inputs.resetZone && route.length < 2500) {
+		if (currToken !== calculateStacksToken) return null;
 		let modZone = currentZone % 50 || 50;
 		let monTags = getZoneMonTags(adv, modZone);
 		let applyRngwr =
@@ -1095,10 +1098,13 @@ function isMImoHeir(monTags) {
 }
 
 async function pullAdvJson(id) {
+	if (advJsonCache[id]) return advJsonCache[id];
 	var response = await fetch(`advData/${id}.json`)
 		.then((response) => response.text())
 		.catch((err) => console.log(err));
-	return await JSON.parse(response);
+	const parsed = await JSON.parse(response);
+	advJsonCache[id] = parsed;
+	return parsed;
 }
 
 function capitalize(s) {
