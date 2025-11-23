@@ -1,4 +1,4 @@
-const vm = 2.003; // prettier-ignore
+const vm = 2.004; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const ilvlInput = document.getElementById(`ilvl`);
@@ -419,10 +419,10 @@ function swapTab() {
 				stackStack.value = hash[4];
 				stackBrivZone.value = hash[5];
 				stackz1Form.value = hash[6];
-				stackRNGWR.checked = hash[7] === 1;
-				stackWithMetal.checked = hash[8] === 1;
+				stackRNGWR.checked = hash[7] === "1";
+				stackWithMetal.checked = hash[8] === "1";
 				stackRuns.value = hash[9];
-				stackThunderStep.checked = hash[10] === 1;
+				stackThunderStep.checked = hash[10] === "1";
 				break;
 			case `${ft}`:
 				if ((hash[1] || ``) !== ``) {
@@ -433,10 +433,10 @@ function swapTab() {
 						populateFormWiddles();
 						if ((hash[3] || ``) !== ``) {
 							formWiddle.value = hash[3];
-							formTatyana.checked = hash[4] === 1;
-							formBaldric.checked = hash[5] === 1;
-							formFeatSwap.checked = hash[6] === 1;
-							formHybrid.checked = hash[7] === 1;
+							formTatyana.checked = hash[4] === "1";
+							formBaldric.checked = hash[5] === "1";
+							formFeatSwap.checked = hash[6] === "1";
+							formHybrid.checked = hash[7] === "1";
 						}
 					}
 				}
