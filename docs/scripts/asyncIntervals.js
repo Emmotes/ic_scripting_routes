@@ -1,4 +1,4 @@
-const va = 1.001; // prettier-ignore
+const va = 1.002; // prettier-ignore
 const asyncIntervals = [];
 
 const runAsyncInterval = async (cb, interval, intervalIndex) => {

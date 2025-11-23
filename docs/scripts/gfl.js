@@ -1,4 +1,4 @@
-const vg = 1.005; // prettier-ignore
+const vg = 1.006; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, parseQTs(`CF`), 3];
 const ntt = [`Tall Tales`, `TT`, parseQTs(`TT`), 1050];
 const nll = [`Roots of Loomlurch`, `LL`, parseQTs(`LL`), 1137];
@@ -437,22 +437,19 @@ function parseRoute(route) {
 
 function parseName(route, s) {
 	let e = ``;
-	if (route.jump != undefined) {
-		if (typeof route.jump == "number") {
+	if (route.jump != null) {
+		if (typeof route.jump === "number") {
 			let p = ``;
-			if (route.e != undefined && route.e > 1)
+			if (route.e != null && route.e > 1)
 				p += ` / ${route.e - 1}j Feat Swap`;
-			else if (route.fs != undefined && route.fs) p += ` / 4j Feat Swap`;
-			if (route.special != undefined && route.special != "")
+			else if (route.fs != null && route.fs) p += ` / 4j Feat Swap`;
+			if (route.special != null && route.special !== "")
 				p += ` ${route.special}`;
-			if (route.disp != undefined) e = ` (${route.disp}${p})`;
-			else if (Math.round(route.jump) != route.jump)
+			if (route.disp != null) e = ` (${route.disp}${p})`;
+			else if (Math.round(route.jump) !== route.jump)
 				e = ` (100% ${route.q - 1}j${p})`;
 			else e = ` (100% ${route.jump}j${p})`;
-		} else if (
-			route.feat != undefined &&
-			(route.fs == undefined || !route.fs)
-		) {
+		} else if (route.feat != null && (route.fs == null || !route.fs)) {
 			e = ` (100% ${route.feat}j`;
 			switch (route.feat) {
 				case 4:

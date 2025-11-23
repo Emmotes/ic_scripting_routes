@@ -1,4 +1,4 @@
-const vm = 2.002; // prettier-ignore
+const vm = 2.003; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const ilvlInput = document.getElementById(`ilvl`);
@@ -103,7 +103,7 @@ async function init() {
 function dealWithTesters() {
 	const routesTester = localStorage.getItem("routesTester");
 	if (routesTester !== null && routesTester !== "")
-		tester = routesTester == "1" ? true : false;
+		tester = routesTester === "1" ? true : false;
 	if (tester) return;
 	let bannedPresets = [`7.99997j`, `14j`, `15.99999988j`];
 	let bannedRoutes = [
@@ -125,9 +125,9 @@ function preset() {
 	rarityInput.value = `epic`;
 	gildingInput.value = `golden`;
 
-	let jumps = Math.round(presetsInput.value.replace(/[^0-9\.]+/g, ""));
+	let jumps = Math.round(presetsInput.value.replace(/[^0-9.]+/g, ""));
 	ilvlInput.value = 500 * Math.pow(2, jumps - 1) - 374;
-	if (`${jumps}j` != `${presetsInput.value}`) {
+	if (`${jumps}j` !== `${presetsInput.value}`) {
 		switch (presetsInput.value) {
 			case `0.5j`:
 				ilvlInput.value = 1;
@@ -149,20 +149,20 @@ function preset() {
 }
 
 function update() {
-	if (rarityInput.value != `epic`) {
-		if (gildingInput.value == `golden`) gildingInput.value = `shiny`;
-		if (gildingInput.options.length == 3) gildingInput.options.remove(2);
+	if (rarityInput.value !== `epic`) {
+		if (gildingInput.value === `golden`) gildingInput.value = `shiny`;
+		if (gildingInput.options.length === 3) gildingInput.options.remove(2);
 	} else {
-		if (gildingInput.options.length == 2) {
+		if (gildingInput.options.length === 2) {
 			let opt = document.createElement(`option`);
 			opt.text = `Golden`;
 			opt.value = `golden`;
 			gildingInput.options.add(opt);
 		}
 	}
-	if (gildingInput.value == `shiny` && shinyNote.style.display == "none")
+	if (gildingInput.value === `shiny` && shinyNote.style.display === "none")
 		shinyNote.style.display = "";
-	else if (gildingInput.value != `shiny` && shinyNote.style.display == "")
+	else if (gildingInput.value !== `shiny` && shinyNote.style.display === "")
 		shinyNote.style.display = "none";
 	let ilvls = ilvlInput.value - 1;
 	if (ilvls < 1) {
@@ -191,7 +191,7 @@ function update() {
 	comment += spacer;
 	comment += addToDescRow(skipBlurb, true, true);
 	if (
-		skips[1] != 1 &&
+		skips[1] !== 1 &&
 		jumps > 4 &&
 		(jumps < 7.99 || jumps > 8) &&
 		(jumps < 11.99 || jumps > 12) &&
@@ -203,27 +203,27 @@ function update() {
 	comment += spacer;
 
 	// Pure Jumps.
-	if (jumps == 1) {
+	if (jumps === 1) {
 		comment += parseRoute(gemFarmJson.pure1LL);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.cf);
-	} else if (jumps == 2) {
+	} else if (jumps === 2) {
 		comment += parseRoute(gemFarmJson.pure2LL);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.cf);
-	} else if (jumps == 3) {
+	} else if (jumps === 3) {
 		comment += parseRoute(gemFarmJson.pure3LL);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.pure3VL);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.cf);
-	} else if (jumps == 4) {
+	} else if (jumps === 4) {
 		comment += parseRoute(gemFarmJson.pure4TT);
-	} else if (jumps == 5) {
+	} else if (jumps === 5) {
 		comment += parseRoute(gemFarmJson.feat54TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.feat4TT);
-	} else if (jumps == 6) {
+	} else if (jumps === 6) {
 		comment += parseRoute(gemFarmJson.feat64TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.pure6TT);
@@ -231,21 +231,21 @@ function update() {
 		comment += parseRoute(gemFarmJson.pure6LL);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.feat64RAC);
-	} else if (jumps == 7) {
+	} else if (jumps === 7) {
 		comment += parseRoute(gemFarmJson.feat74TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.pure7TT);
-	} else if (jumps == 8) {
+	} else if (jumps === 8) {
 		comment += parseRoute(gemFarmJson.feat84TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.pure8TT);
-	} else if (jumps == 9) {
+	} else if (jumps === 9) {
 		comment += parseRoute(gemFarmJson.pure9TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.feat94TT);
-	} else if (jumps == 11) {
+	} else if (jumps === 11) {
 		comment += parseRoute(gemFarmJson.pure11TT);
-	} else if (jumps == 14) {
+	} else if (jumps === 14) {
 		comment += parseRoute(gemFarmJson.feat149TT);
 		comment += spacer;
 		comment += parseRoute(gemFarmJson.pure14TT);
@@ -283,9 +283,9 @@ function update() {
 		if (jumps > 4) {
 			let c = `<h3>No Specialised Routes</h3><p>There aren't any specific routes for this particular jump value. You're going to have to try the options below and use whichever is fastest for you.</p>`;
 			c += `<ul>`;
-			if (Math.round(jumps) != jumps) {
+			if (Math.round(jumps) !== jumps) {
 				let rd = Math.floor(jumps);
-				if ((rd >= 5 && rd <= 8) || rd == 11 || rd == 14)
+				if ((rd >= 5 && rd <= 8) || rd === 11 || rd === 14)
 					c += equipFeatDesc(aaf, rd);
 			}
 			if (jumps > 9) c += equipFeatDesc(ssf, 9);
@@ -349,7 +349,7 @@ function mapFromToRange(v, oldMin, oldMax, newMin, newMax) {
 }
 
 function addChecked(bf, br) {
-	if (bf == undefined) return addToDescRow(`&nbsp;`);
+	if (bf == null) return addToDescRow(`&nbsp;`);
 	let comment = ``;
 	if (br) comment += addToDescRow(`&nbsp;`);
 	comment += `<span class="routesRow">`;
@@ -373,7 +373,7 @@ function addLoop(bf, q, e) {
 	let lastOfLoop = route[route.length - 1] % 50;
 	let loopStartIndex = 0;
 	for (let i = route.length - 2; i >= 0; i--) {
-		if (route[i] % 50 == lastOfLoop) {
+		if (route[i] % 50 === lastOfLoop) {
 			loopStartIndex = i;
 			break;
 		}
@@ -381,7 +381,7 @@ function addLoop(bf, q, e) {
 	let loop = [];
 	for (let i = loopStartIndex; i < route.length - 1; i++)
 		loop.push(route[i] % 50 || 50);
-	if (loop[0] == 50) {
+	if (loop[0] === 50) {
 		loop.splice(0, 1);
 		loop.push(50);
 	}
@@ -396,19 +396,19 @@ function addLoop(bf, q, e) {
 }
 
 function isChecked(bf, i) {
-	return (bf & BigInt(Math.pow(2, i - 1))) != 0;
+	return (bf & BigInt(Math.pow(2, i - 1))) !== 0;
 }
 
 function vSigFig(n, nDif) {
 	let p = 2;
-	if (n == 100) return p;
-	while (parseFloat(nDif.toFixed(p)) == 0) p++;
+	if (n === 100) return p;
+	while (parseFloat(nDif.toFixed(p)) === 0) p++;
 	return p + 1;
 }
 
 function swapTab() {
 	let hash = window.location.hash.substring(1).split("_");
-	if (hash[0] != "" && document.getElementById(hash[0]) != undefined)
+	if (hash[0] !== "" && document.getElementById(hash[0]) != null)
 		document.getElementById(hash[0]).click();
 	if (hash.length > 1) {
 		switch (hash[0]) {
@@ -419,24 +419,24 @@ function swapTab() {
 				stackStack.value = hash[4];
 				stackBrivZone.value = hash[5];
 				stackz1Form.value = hash[6];
-				stackRNGWR.checked = hash[7] == 1;
-				stackWithMetal.checked = hash[8] == 1;
+				stackRNGWR.checked = hash[7] === 1;
+				stackWithMetal.checked = hash[8] === 1;
 				stackRuns.value = hash[9];
-				stackThunderStep.checked = hash[10] == 1;
+				stackThunderStep.checked = hash[10] === 1;
 				break;
 			case `${ft}`:
-				if ((hash[1] || ``) != ``) {
+				if ((hash[1] || ``) !== ``) {
 					formCampaign.value = hash[1];
 					populateFormTypes();
-					if ((hash[2] || ``) != ``) {
+					if ((hash[2] || ``) !== ``) {
 						formType.value = hash[2];
 						populateFormWiddles();
-						if ((hash[3] || ``) != ``) {
+						if ((hash[3] || ``) !== ``) {
 							formWiddle.value = hash[3];
-							formTatyana.checked = hash[4] == 1;
-							formBaldric.checked = hash[5] == 1;
-							formFeatSwap.checked = hash[6] == 1;
-							formHybrid.checked = hash[7] == 1;
+							formTatyana.checked = hash[4] === 1;
+							formBaldric.checked = hash[5] === 1;
+							formFeatSwap.checked = hash[6] === 1;
+							formHybrid.checked = hash[7] === 1;
 						}
 					}
 				}
@@ -448,22 +448,22 @@ function swapTab() {
 }
 
 function setHash(hash) {
-	if (hash == st) {
+	if (hash === st) {
 		let rngwr = stackRNGWR.checked ? 1 : 0;
 		let swm = stackWithMetal.checked ? 1 : 0;
 		let bts = stackThunderStep.checked ? 1 : 0;
 		hash = `${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
-	} else if (hash == ft) {
+	} else if (hash === ft) {
 		let tatyana = formTatyana.checked ? 1 : 0;
 		let baldric = formBaldric.checked ? 1 : 0;
 		let featSwap = formFeatSwap.checked ? 1 : 0;
 		let hybrid = formHybrid.checked ? 1 : 0;
 		hash = `${ft}`;
-		if (formCampaign.value != ``) {
+		if (formCampaign.value !== ``) {
 			hash += `_${formCampaign.value}`;
-			if (formType.value != ``) {
+			if (formType.value !== ``) {
 				hash += `_${formType.value}`;
-				if (formWiddle.value != ``)
+				if (formWiddle.value !== ``)
 					hash += `_${formWiddle.value}_${tatyana}_${baldric}_${featSwap}_${hybrid}`;
 			}
 		}
@@ -478,15 +478,15 @@ function populateStackRoutes() {
 	keyset.sort((a, b) => {
 		let obja = gemFarmJson[a];
 		let objb = gemFarmJson[b];
-		if (typeof obja.jump != "number" || typeof objb.jump != "number")
+		if (typeof obja.jump !== "number" || typeof objb.jump !== "number")
 			return 0;
-		if (obja.jump != objb.jump) return obja.jump - objb.jump;
-		if (typeof obja.order != "number" || typeof objb.order != "number")
+		if (obja.jump !== objb.jump) return obja.jump - objb.jump;
+		if (typeof obja.order !== "number" || typeof objb.order !== "number")
 			return 0;
 		return objb.order - obja.order;
 	});
 	for (let key of keyset) {
-		if (typeof gemFarmJson[key].jump != "number") continue;
+		if (typeof gemFarmJson[key].jump !== "number") continue;
 		let opt = document.createElement("option");
 		opt.value = key;
 		opt.text = parseName(gemFarmJson[key], true);
@@ -735,7 +735,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 
 		// General Thellora info
 		resultHtml += `<li>Thellora will land you on z${currentZone}.</li><ul>${brivWarningHtml}`;
-		if (inputs.brivZone == 1)
+		if (inputs.brivZone === 1)
 			resultHtml += `<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1.</li>`;
 		resultHtml += `<li>If this is not on the preferred loop then you might need to either tweak your favour or delay levelling Briv until you're on a loop zone.</li></ul>`;
 		if (routeData.rngJumpApplied)
@@ -749,7 +749,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		resultHtml += `<li>${mimo.replace("<br>", "")}</li>`;
 
 	// Landing on Reset
-	if (inputs.resetZone == routeData.route[routeData.route.length - 1])
+	if (inputs.resetZone === routeData.route[routeData.route.length - 1])
 		resultHtml += `<li class="littleRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. Completing your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for no benefit.</li>`;
 
 	let perRun = inputs.numRuns > 1 ? ` (per run)` : ``;
@@ -759,11 +759,11 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		routeData.numJumps -
 		(inputs.brivZone === 1 ? 0 : 1);
 	resultHtml += `<li>Briv will jump ${nf(routeData.numJumps)} time${
-		routeData.numJumps == 1 ? "" : "s"
+		routeData.numJumps === 1 ? "" : "s"
 	}${perRun}.</li>`;
 	if (numWalks > 0)
 		resultHtml += `<li>Briv will walk ${nf(numWalks)} time${
-			numWalks == 1 ? "" : "s"
+			numWalks === 1 ? "" : "s"
 		}${perRun}.</li>`;
 
 	let numArmoured = routeData.armouredZones.length;
@@ -774,11 +774,11 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		// Doubes/Triples/etc..
 		if (inputs.numRuns > 1) {
 			let type =
-				inputs.numRuns == 2
+				inputs.numRuns === 2
 					? `Doubles`
-					: inputs.numRuns == 3
+					: inputs.numRuns === 3
 					? `Triples`
-					: inputs.numRuns == 4
+					: inputs.numRuns === 4
 					? `Quadrupes`
 					: `${nf(inputs.numRuns)} Times`;
 			resultHtml += `<li>Running ${type}.</li>`;
@@ -788,13 +788,13 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 			resultHtml += `<li class="bigRedWarning">This route will hit ${nf(
 				numArmoured
 			)} Armoured zone${
-				numArmoured == 1 ? "" : "s"
+				numArmoured === 1 ? "" : "s"
 			}. These can be run killers so you need to change some values to avoid them.</li>`;
 		if (numHits > 0)
 			resultHtml += `<li class="littleRedWarning">This route will hit ${nf(
 				numHits
 			)} Hit-Based zone${
-				numHits == 1 ? "" : "s"
+				numHits === 1 ? "" : "s"
 			}. These are slow and should be avoided.</li>`;
 
 		resultHtml += `</ul>`;
@@ -966,48 +966,47 @@ function enforceTolerances() {
 
 	if (
 		stackReset.value > stackResetLimits[1] &&
-		stackResetNote.innerHTML != resetLimitText[0]
+		stackResetNote.innerHTML !== resetLimitText[0]
 	)
 		stackResetNote.innerHTML = resetLimitText[0];
 	else if (
 		stackReset.value <= stackResetLimits[1] &&
-		stackResetNote.innerHTML != resetLimitText[1]
+		stackResetNote.innerHTML !== resetLimitText[1]
 	)
 		stackResetNote.innerHTML = resetLimitText[1];
 
 	if (
 		stackFavour.value > stackFavourLimits[1] &&
-		stackFavourNote.innerHTML != favourLimitText[0]
+		stackFavourNote.innerHTML !== favourLimitText[0]
 	)
 		stackFavourNote.innerHTML = favourLimitText[0];
 	else if (
 		stackFavour.value <= stackFavourLimits[1] &&
-		stackFavourNote.innerHTML != favourLimitText[1]
+		stackFavourNote.innerHTML !== favourLimitText[1]
 	)
 		stackFavourNote.innerHTML = favourLimitText[1];
 }
 
 function isQT(route, area1, area2) {
-	if (route.qts == undefined || route.qts.length != 50) return false;
+	if (route.qts == null || route.qts.length !== 50) return false;
 	let qts = route.qts;
-	return qts[area1 - 1] == qts[area2 - 1];
+	return qts[area1 - 1] === qts[area2 - 1];
 }
 
 function createTooltipText(adv, zone) {
-	let boss = zone % 5 == 0 ? `Boss ` : ``;
+	let boss = zone % 5 === 0 ? `Boss ` : ``;
 	let mod = zone % 50 || 50;
 	let t = `<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
 	let mons = [];
 	let area = adv.areas[mod - 1];
 	let quest = adv.quests[mod - 1];
-	let questText = quest.type == 1 ? `Collect` : `Kill`;
+	let questText = quest.type === 1 ? `Collect` : `Kill`;
 	questText += ` ${quest.goal} ${quest.desc}`;
 	t += `<span class="ttcRow">${questText}</span>`;
-	if (area.waves != undefined)
+	if (area.waves != null)
 		for (let wave of area.waves) for (let mon of wave) mons.push(mon);
-	if (area.monsters != undefined)
-		for (let mon of area.monsters) mons.push(mon);
-	if (area.staticMonsters != undefined)
+	if (area.monsters != null) for (let mon of area.monsters) mons.push(mon);
+	if (area.staticMonsters != null)
 		for (let mon of area.staticMonsters) mons.push(mon);
 	let monNames = [];
 	let monAtks = [];
@@ -1015,15 +1014,15 @@ function createTooltipText(adv, zone) {
 	for (let monId of mons) {
 		let mon = "";
 		for (let monster of adv.monsters) {
-			if (monster.id == monId) {
+			if (monster.id === monId) {
 				mon = monster;
 				break;
 			}
 		}
-		if (mon == "") continue;
+		if (mon === "") continue;
 		if (!monNames.includes(mon.name)) monNames.push(mon.name);
 		for (let tag of mon.tags) {
-			let isAtk = tag == `ranged` || tag == `melee` || tag == `magic`;
+			let isAtk = tag === `ranged` || tag === `melee` || tag === `magic`;
 			if (isAtk && !monAtks.includes(tag)) monAtks.push(tag);
 			else if (!isAtk && !monTags.includes(tag)) monTags.push(tag);
 		}
@@ -1050,24 +1049,23 @@ function createTooltipText(adv, zone) {
 function getZoneMonTags(adv, zone) {
 	let area = adv.areas[zone - 1];
 	let mons = [];
-	if (area.waves != undefined)
+	if (area.waves != null)
 		for (let wave of area.waves) for (let mon of wave) mons.push(mon);
-	if (area.monsters != undefined)
-		for (let mon of area.monsters) mons.push(mon);
-	if (area.staticMonsters != undefined)
+	if (area.monsters != null) for (let mon of area.monsters) mons.push(mon);
+	if (area.staticMonsters != null)
 		for (let mon of area.staticMonsters) mons.push(mon);
 	let monTags = [];
 	for (let monId of mons) {
 		let mon = "";
 		for (let monster of adv.monsters) {
-			if (monster.id == monId) {
+			if (monster.id === monId) {
 				mon = monster;
 				break;
 			}
 		}
-		if (mon == "") continue;
+		if (mon === "") continue;
 		for (let tag of mon.tags) {
-			let isAtk = tag == `ranged` || tag == `melee` || tag == `magic`;
+			let isAtk = tag === `ranged` || tag === `melee` || tag === `magic`;
 			if (!isAtk && !monTags.includes(tag)) monTags.push(tag);
 		}
 	}
@@ -1077,8 +1075,8 @@ function getZoneMonTags(adv, zone) {
 function isDynaMinscOnly(monTags) {
 	for (let monTag of monTags)
 		if (
-			monTag != "fey" &&
-			monTag != "humanoid" &&
+			monTag !== "fey" &&
+			monTag !== "humanoid" &&
 			enemyTypes.includes(monTag)
 		)
 			return false;
@@ -1088,9 +1086,9 @@ function isDynaMinscOnly(monTags) {
 function isMImoHeir(monTags) {
 	for (let monTag of monTags)
 		if (
-			monTag != "fey" &&
-			monTag != "humanoid" &&
-			monTag != "beast" &&
+			monTag !== "fey" &&
+			monTag !== "humanoid" &&
+			monTag !== "beast" &&
 			enemyTypes.includes(monTag)
 		)
 			return false;
@@ -1108,8 +1106,8 @@ async function pullAdvJson(id) {
 }
 
 function capitalize(s) {
-	if (s == `armor_based`) return `Armoured`;
-	if (s == `hits_based`) return `Hits-Based`;
+	if (s === `armor_based`) return `Armoured`;
+	if (s === `hits_based`) return `Hits-Based`;
 	return s && s[0].toUpperCase() + s.slice(1);
 }
 

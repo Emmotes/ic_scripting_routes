@@ -1,4 +1,4 @@
-const vf = 1.009; // prettier-ignore
+const vf = 1.010; // prettier-ignore
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -23,16 +23,16 @@ function populateFormCampaigns() {
 function populateFormTypes() {
 	let campaign = formCampaign.value;
 	let inner = `<option value="" selected>-</option>`;
-	if (campaign != "") {
+	if (campaign !== "") {
 		let form = formsData[campaign];
 		let types = Object.keys(form.forms);
 		types.sort(typeSort);
 		for (let typeId of types) {
 			let type = form.forms[typeId];
 			let name;
-			if (typeId == "BBEG") name = "BBEG";
-			else if (typeId == "dynaMinsc") name = "Dynaheir and Minsc";
-			else if (typeId == "MImoHeir") name = "Dynaheir Minsc and Imoen";
+			if (typeId === "BBEG") name = "BBEG";
+			else if (typeId === "dynaMinsc") name = "Dynaheir and Minsc";
+			else if (typeId === "MImoHeir") name = "Dynaheir Minsc and Imoen";
 			else {
 				console.log(
 					`Error: Unknown formation type: ${JSON.stringify(type)}.`
@@ -50,7 +50,7 @@ function populateFormWiddles() {
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	let inner = `<option value="" selected>-</option>`;
-	if (campaign != "" && type != "")
+	if (campaign !== "" && type !== "")
 		for (let numWiddleAdj of Object.keys(formsData[campaign].forms[type]))
 			inner += `<option value="${numWiddleAdj}">${numWiddleAdj}</option>`;
 	formWiddle.innerHTML = inner;
@@ -88,11 +88,11 @@ function formsUpdateShow() {
 	let featSwap = formFeatSwap.checked;
 	let hybrid = formHybrid.checked;
 
-	if (campaign == "" || type == "" || widdle == "") return;
+	if (campaign === "" || type === "" || widdle === "") return;
 
 	let f = formsData[campaign];
-	if (featSwap && f.ignoreFeatSwap == 1) featSwap = false;
-	if (hybrid && f.ignoreHybrid == 1) hybrid = false;
+	if (featSwap && f.ignoreFeatSwap === 1) featSwap = false;
+	if (hybrid && f.ignoreHybrid === 1) hybrid = false;
 
 	let baseForm = f.forms[type][widdle];
 	if (!Object.keys(baseForm).includes("B")) baldric = false;
@@ -105,7 +105,7 @@ function formsUpdateShow() {
 	let e = [...q];
 	if (!featSwap) {
 		let index = e.indexOf(58);
-		if (index != -1) e[index] = 0;
+		if (index !== -1) e[index] = 0;
 	}
 	let mType = "M";
 	if (hybrid && Object.keys(baseForm).includes("MH")) mType = "MH";
@@ -131,7 +131,7 @@ function formsUpdateShow() {
 		txt += `<span style="display:flex;flex-direction:column;align-items:center;padding:20px">`;
 		txt += `<h2>${name}</h2>`;
 		txt += createSVG(f.slots, currForm);
-		if (name == "M (Modron)") {
+		if (name === "M (Modron)") {
 			txt += `</span>`;
 			txt += `<span style="grid-column:span 2;display:flex;justify-content:center;padding:20px">`;
 			txt += addSpecInfo(baldric, hybrid, tatyana, baseForm.specs);
@@ -147,19 +147,19 @@ function formsUpdateShow() {
  * ==================================== */
 
 function decideFormsShowStatus() {
-	if (window.location.hash.substring(1).split("_")[0] == ft) setHash(ft);
+	if (window.location.hash.substring(1).split("_")[0] === ft) setHash(ft);
 
 	let campaign = formCampaign.value;
 	let type = formType.value;
 	let widdle = formWiddle.value;
 
-	if (campaign == "" || type == "" || widdle == "")
+	if (campaign === "" || type === "" || widdle === "")
 		disableElements(true, true, true, true);
 	else {
 		let disableBaldric =
-			formsData[campaign].forms[type][widdle] == undefined ||
+			formsData[campaign].forms[type][widdle] == null ||
 			!Object.keys(formsData[campaign].forms[type][widdle]).includes("B");
-		if (campaign == "GT")
+		if (campaign === "GT")
 			disableElements(false, disableBaldric, true, true);
 		else disableElements(false, disableBaldric, false, false);
 	}
@@ -192,8 +192,8 @@ function disableElements(tatyana, baldric, featSwap, hybrid) {
  * ========================== */
 
 function swapBaldricsPlace(m, baldricId, swapIds, baldricIndex) {
-	if (swapIds.length == 0) return;
-	if (baldricIndex == undefined) baldricIndex = m.indexOf(baldricId);
+	if (swapIds.length === 0) return;
+	if (baldricIndex == null) baldricIndex = m.indexOf(baldricId);
 	if (baldricIndex < 0) return;
 	let swapIndex = m.indexOf(swapIds[0]);
 	if (swapIndex >= 0) {
@@ -219,10 +219,10 @@ function createSVG(slots, ids) {
 	let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${formWidth}" height="${formHeight}">`;
 	for (let i = 0; i < slots.length; i++) {
 		let champ = championData[ids[i]];
-		if (champ == undefined && ids[i] > 0)
+		if (champ == null && ids[i] > 0)
 			console.log(`Unknown champion id: ${ids[i]}`);
 		svg += `<image x="${slots[i].x}" y="${slots[i].y}" width="${circleDiameter}" height="${circleDiameter}" href="https://emmotes.github.io/ic_servercalls/images/portraits/${ids[i]}.png"`;
-		if (champ != undefined) svg += `><title>${champ.name}</title></image>`;
+		if (champ != null) svg += `><title>${champ.name}</title></image>`;
 		else svg += ` />`;
 	}
 	svg += `</svg>`;
@@ -249,9 +249,9 @@ function addSpecInfo(baldric, hybrid, tatyana, specsData) {
 	let addNoneMsg = false;
 	let specTexts = [];
 	for (let champId of Object.keys(specsData)) {
-		if (tatyana && champId == 75) continue;
+		if (tatyana && champId === 75) continue;
 		let len = specsData[champId].length;
-		if (len == 0) addNoneMsg = true;
+		if (len === 0) addNoneMsg = true;
 		else specTexts.push(createSpecTxt(champId, specsData[champId]));
 	}
 	specTexts.sort();
@@ -276,6 +276,6 @@ function createSpecTxt(champId, specIds) {
 function typeSort(a, b) {
 	let al = a.toLowerCase();
 	let bl = b.toLowerCase();
-	if (al == bl) return 0;
+	if (al === bl) return 0;
 	return al < bl ? -1 : 1;
 }
