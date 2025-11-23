@@ -1,4 +1,4 @@
-const vm = 2.005; // prettier-ignore
+const vm = 3.000; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const ilvlInput = document.getElementById(`ilvl`);
@@ -48,15 +48,15 @@ const favourLimitText = [
 	`<span style="color:#DDCCEE">(Current favour cap is e${stackFavourLimits[1]})</span>`,
 	`(Use 0 to disable Thellora)`,
 ];
-const thelloraQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.6897 2.71002C21.6097 2.53002 21.4697 2.37999 21.2797 2.29999C21.1897 2.25999 21.0897 2.23999 20.9897 2.23999H11.9897C11.5797 2.23999 11.2397 2.57999 11.2397 2.98999C11.2397 3.39999 11.5797 3.73999 11.9897 3.73999H19.1797L2.45969 20.46C2.16969 20.75 2.16969 21.23 2.45969 21.52C2.60969 21.67 2.79966 21.74 2.98966 21.74C3.17966 21.74 3.36969 21.67 3.51969 21.52L20.2397 4.79999V12C20.2397 12.41 20.5797 12.75 20.9897 12.75C21.3997 12.75 21.7397 12.41 21.7397 12V3C21.7497 2.9 21.7297 2.81002 21.6897 2.71002Z"/><path opacity="0.4" d="M17.3991 18.1501C17.2091 18.1501 17.019 18.08 16.8691 17.93L6.06906 7.13004C5.77906 6.84004 5.77906 6.36004 6.06906 6.07004C6.35906 5.78004 6.83906 5.78004 7.12906 6.07004L17.929 16.87C18.219 17.16 18.219 17.64 17.929 17.93C17.779 18.08 17.5891 18.1501 17.3991 18.1501Z"/></svg>`;
-const thelloraNorm = thelloraQT.replace(`QT`, `Norm`);
-const arrowQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1.1"><g id="_x33_6_1_"><path d="M91.6 88.8 126.4 54l-4.5-4.5-28.2 28.2V54.6C93.7 28.7 72.8 7.8 47 7.8 21.2 7.8.3 28.8.3 54.6v65.6h6.2V54.6C6.4 32.2 24.6 14 46.9 14c22.4 0 40.5 18.2 40.5 40.6v22.9L59 49.2l-4.5 4.5 31.6 31.6 4.5 4.5 1-1z" id="icon_6_"/></g></svg>`;
-const arrowNorm = arrowQT.replace(`QT`, `Norm`);
-const hopQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="16 13 110 43" version="1.1"><path d="m126 15.2 -5 -1.3 -9.4 35.2 -35.2 -9.5 -1.3 5.1L115.2 55.4h0.1z"/><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2C110.4 30.7 89.8 13.2 65.2 13.2c-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2"/></svg>`;
-const hopNorm = hopQT.replace(`QT`, `Norm`);
-const walkQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
-const walkNorm = walkQT.replace(`QT`, `Norm`);
-const arrowReset = `<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
+const SVG_thelloraQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.6897 2.71002C21.6097 2.53002 21.4697 2.37999 21.2797 2.29999C21.1897 2.25999 21.0897 2.23999 20.9897 2.23999H11.9897C11.5797 2.23999 11.2397 2.57999 11.2397 2.98999C11.2397 3.39999 11.5797 3.73999 11.9897 3.73999H19.1797L2.45969 20.46C2.16969 20.75 2.16969 21.23 2.45969 21.52C2.60969 21.67 2.79966 21.74 2.98966 21.74C3.17966 21.74 3.36969 21.67 3.51969 21.52L20.2397 4.79999V12C20.2397 12.41 20.5797 12.75 20.9897 12.75C21.3997 12.75 21.7397 12.41 21.7397 12V3C21.7497 2.9 21.7297 2.81002 21.6897 2.71002Z"/><path opacity="0.4" d="M17.3991 18.1501C17.2091 18.1501 17.019 18.08 16.8691 17.93L6.06906 7.13004C5.77906 6.84004 5.77906 6.36004 6.06906 6.07004C6.35906 5.78004 6.83906 5.78004 7.12906 6.07004L17.929 16.87C18.219 17.16 18.219 17.64 17.929 17.93C17.779 18.08 17.5891 18.1501 17.3991 18.1501Z"/></svg>`;
+const SVG_thelloraNorm = SVG_thelloraQT.replace(`QT`, `Norm`);
+const SVG_arrowQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1.1"><g id="_x33_6_1_"><path d="M91.6 88.8 126.4 54l-4.5-4.5-28.2 28.2V54.6C93.7 28.7 72.8 7.8 47 7.8 21.2 7.8.3 28.8.3 54.6v65.6h6.2V54.6C6.4 32.2 24.6 14 46.9 14c22.4 0 40.5 18.2 40.5 40.6v22.9L59 49.2l-4.5 4.5 31.6 31.6 4.5 4.5 1-1z" id="icon_6_"/></g></svg>`;
+const SVG_arrowNorm = SVG_arrowQT.replace(`QT`, `Norm`);
+const SVG_hopQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="16 13 110 43" version="1.1"><path d="m126 15.2 -5 -1.3 -9.4 35.2 -35.2 -9.5 -1.3 5.1L115.2 55.4h0.1z"/><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2C110.4 30.7 89.8 13.2 65.2 13.2c-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2"/></svg>`;
+const SVG_hopNorm = SVG_hopQT.replace(`QT`, `Norm`);
+const SVG_walkQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
+const SVG_walkNorm = SVG_walkQT.replace(`QT`, `Norm`);
+const SVG_arrowReset = `<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
 const NUMFORM = new Intl.NumberFormat("en", {
 	useGrouping: true,
 	maximumFractionDigits: 2,
@@ -548,6 +548,7 @@ function setupBriv(inputs) {
 	let brivStack = thelloraDist;
 	let jumpsWithMetal = 0;
 	let jumpsWithoutMetal = 0;
+	let combined = false;
 
 	if (inputs.brivZone === 1 && inputs.favour > 0) {
 		switch (inputs.z1Formation) {
@@ -567,6 +568,7 @@ function setupBriv(inputs) {
 				inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
 				break;
 		}
+		combined = true;
 	}
 
 	return {
@@ -574,22 +576,32 @@ function setupBriv(inputs) {
 		brivStack,
 		jumpsWithMetal,
 		jumpsWithoutMetal,
+		combined,
 	};
 }
 
 function generateRoute(inputs, brivData, adv, currToken) {
 	let currentZone = brivData.brivStack;
-	let route = [1];
+	const dist = currentZone - brivData.thelloraDist + 1;
+	const route = [{zone: 1}];
 	let qtCount = 0;
+	if (brivData.thelloraDist > 1) route[route.length - 1].thellora = true;
+	if (brivData.combined)
+		route[route.length - 1].type =
+			dist === inputs.routeJson.q ? "jump" : "hop";
 	if (currentZone > 1) {
-		route.push(currentZone);
-		if (isQT(inputs.routeJson, 1, currentZone % 50 || 50)) qtCount++;
+		if (isQT(inputs.routeJson, 1, currentZone % 50 || 50)) {
+			route[route.length - 1].qt = true;
+			qtCount++;
+		}
+		route.push({zone: currentZone});
 	}
 	let hitZones = [];
 	let armouredZones = [];
 	let dynaMinscActive = true;
 	let mimoActive = true;
 	let rngJumpApplied = false;
+	const rushCap = inputs.favour * 5;
 
 	while (currentZone < inputs.resetZone && route.length < 2500) {
 		if (currToken !== calculateStacksToken) return null;
@@ -606,8 +618,14 @@ function generateRoute(inputs, brivData, adv, currToken) {
 			if (mimoActive && !isMImoHeir(monTags)) mimoActive = false;
 		}
 
-		if (monTags.includes("hits_based")) hitZones.push(currentZone);
-		if (monTags.includes("armor_based")) armouredZones.push(currentZone);
+		if (monTags.includes("hits_based")) {
+			route[route.length - 1].hitZone = true;
+			hitZones.push(currentZone);
+		}
+		if (monTags.includes("armor_based")) {
+			route[route.length - 1].armouredZone = true;
+			armouredZones.push(currentZone);
+		}
 
 		let checked =
 			currentZone >= inputs.brivZone &&
@@ -637,10 +655,16 @@ function generateRoute(inputs, brivData, adv, currToken) {
 		let prevZone = currentZone;
 		currentZone += diff;
 
-		if (isQT(inputs.routeJson, prevZone % 50 || 50, currentZone % 50 || 50))
+		route[route.length - 1].type =
+			diff === 1 ? "walk" : diff === inputs.routeJson.q ? "jump" : "hop";
+		if (prevZone > rushCap) route[route.length - 1].rush = true;
+		if (
+			isQT(inputs.routeJson, prevZone % 50 || 50, currentZone % 50 || 50)
+		) {
+			route[route.length - 1].qt = true;
 			qtCount++;
-
-		route.push(currentZone);
+		}
+		route.push({zone: currentZone});
 
 		if (
 			(checked ||
@@ -653,6 +677,8 @@ function generateRoute(inputs, brivData, adv, currToken) {
 				? brivData.jumpsWithMetal++
 				: brivData.jumpsWithoutMetal++;
 	}
+	route[route.length - 1].reset = true;
+	if (currentZone > rushCap) route[route.length - 1].rush = true;
 
 	let numJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
 
@@ -749,7 +775,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		resultHtml += `<li>${mimo.replace("<br>", "")}</li>`;
 
 	// Landing on Reset
-	if (inputs.resetZone === routeData.route[routeData.route.length - 1])
+	if (inputs.resetZone === routeData.route[routeData.route.length - 1].zone)
 		resultHtml += `<li class="littleRedWarning">This route lands on your reset zone. It is highly recommended that you avoid doing this. Completing your reset zone immediately starts the modron reset which means any bosses you could have jumped afterwards will be ignored. So you're essentially wasting time completing a zone for no benefit.</li>`;
 
 	let perRun = inputs.numRuns > 1 ? ` (per run)` : ``;
@@ -806,7 +832,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 	resultHtml += `</ul>`;
 
 	// Stack route table
-	resultHtml += renderRouteTable(inputs, routeData, adv, stackData);
+	resultHtml += renderRouteTable(routeData, adv, stackData);
 
 	contents += addToDescRow(resultHtml);
 	contents += addToDescRow(`&nbsp;`);
@@ -814,7 +840,9 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 
 	// Debug consistency check
 	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
-	let jumpCount = document.querySelectorAll("span[data-type='jump']").length;
+	let jumpCount = document.querySelectorAll(
+		"span:is([data-type='jump'],[data-type='hop'])"
+	).length;
 	let qtsCount = document.querySelectorAll("span[data-qt='1']").length;
 	let calcJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
 	let calcWalks =
@@ -831,101 +859,86 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		console.log(`qtsCount[${qtsCount}] != calcQts[${calcQts}]`);
 }
 
-function renderRouteTable(inputs, routeData, adv) {
+function renderRouteTable(routeData, adv) {
 	let tableHtml = `<h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
 	let rushCapFound = false;
+	//console.log(routeData.route);
 
-	routeData.route.forEach((zone, index) => {
-		let nextZone = routeData.route[index + 1] || zone;
-		let isLastZone = index === routeData.route.length - 1;
-		let qt =
-			!isLastZone &&
-			isQT(inputs.routeJson, zone % 50 || 50, nextZone % 50 || 50);
-		let diff = nextZone - zone;
-
-		let walk = !isLastZone && diff === 1;
-		let shortJump =
-			!isLastZone &&
-			(diff < inputs.routeJson.q ||
-				(index === 0 && diff + 1 < inputs.favour + inputs.routeJson.q));
-
+	routeData.route.forEach((currZone) => {
 		// Determine zone type for styling
-		let zoneType = "";
+		let zoneType = currZone.type || null;
 		let icon = "";
-		if (isLastZone) icon = arrowReset;
-		else if (index === 0 && inputs.favour > 0) {
-			icon = qt ? thelloraQT : thelloraNorm;
-			if (inputs.brivZone === 1) {
-				icon += shortJump
-					? qt
-						? hopQT
-						: hopNorm
-					: qt
-					? arrowQT
-					: arrowNorm;
-				zoneType = "jump";
-			}
+		if (currZone.reset) icon = SVG_arrowReset;
+		else if (currZone.thellora) {
+			icon = currZone.qt ? SVG_thelloraQT : SVG_thelloraNorm;
+			icon +=
+				currZone.type === "hop"
+					? currZone.qt
+						? SVG_hopQT
+						: SVG_hopNorm
+					: currZone.qt
+					? SVG_arrowQT
+					: SVG_arrowNorm;
 		} else {
-			icon = walk
-				? qt
-					? walkQT
-					: walkNorm
-				: shortJump
-				? qt
-					? hopQT
-					: hopNorm
-				: qt
-				? arrowQT
-				: arrowNorm;
-			zoneType = walk ? "walk" : "jump";
+			icon =
+				currZone.type === "walk"
+					? currZone.qt
+						? SVG_walkQT
+						: SVG_walkNorm
+					: currZone.type === "hop"
+					? currZone.qt
+						? SVG_hopQT
+						: SVG_hopNorm
+					: currZone.qt
+					? SVG_arrowQT
+					: SVG_arrowNorm;
 		}
 
 		// Styling classes
 		let styleClass = "";
 		let rushCapOverline = "";
 
-		if (zone >= inputs.favour * 5) {
+		if (currZone.rush) {
 			styleClass += " trcZone";
 			if (!rushCapFound)
 				rushCapOverline = `<span class="firstTrcZone">&nbsp;</span>`;
 			rushCapFound = true;
 		}
-		if (routeData.hitZones.includes(zone)) styleClass += " hitZone";
-		else if (routeData.armouredZones.includes(zone))
-			styleClass += " armZone";
-		else if (zone % 5 === 0) styleClass += " bosZone";
-		if (!earliestStackFound && zone > stackStack.value) {
+		if (currZone.hitZone) styleClass += " hitZone";
+		else if (currZone.armouredZone) styleClass += " armZone";
+		else if (currZone.zone % 5 === 0) styleClass += " bosZone";
+		if (!earliestStackFound && currZone.zone > stackStack.value) {
 			styleClass += " stkZone";
 			earliestStackFound = true;
 		}
 
-		let tooltipText = createTooltipText(adv, zone);
+		let tooltipText = createTooltipText(adv, currZone.zone);
 		tableHtml += `<span class="stacksRoutesTableItem${styleClass}" data-type="${zoneType}" data-qt="${
-			qt ? 1 : 0
-		}">${zone} ${icon}${tooltipText}${rushCapOverline}</span>`;
+			currZone.qt ? 1 : 0
+		}">${currZone.zone} ${icon}${tooltipText}${rushCapOverline}</span>`;
 	});
 
 	tableHtml += `</div>`;
 
 	// Key legend
 	let keyEntries = [
-		{text: `${thelloraNorm} Thellora`},
-		{text: `${arrowNorm} Jump`},
-		{text: `${hopNorm} Hop`},
-		{text: `${walkNorm} Walk`},
-		{text: `${thelloraQT} Thellora QT`},
-		{text: `${arrowQT} Jump QT`},
-		{text: `${hopQT} Hop QT`},
-		{text: `${walkQT} Walk QT`},
+		{text: `${SVG_thelloraNorm} Thellora`},
+		{text: `${SVG_arrowNorm} Jump`},
+		{text: `${SVG_hopNorm} Hop`},
+		{text: `${SVG_walkNorm} Walk`},
+		{text: `${SVG_thelloraQT} Thellora QT`},
+		{text: `${SVG_arrowQT} Jump QT`},
+		{text: `${SVG_hopQT} Hop QT`},
+		{text: `${SVG_walkQT} Walk QT`},
 		{text: "Earliest Stack Zone", cls: " stkZone"},
 		{
 			text: `<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" style="top:1px">&nbsp;</span></span>`,
 			cls: " trcZone",
 		},
 		{text: "Rush Capped Zone", cls: " trcZone"},
-		{text: arrowReset + " Modron Reset"},
+		{text: SVG_arrowReset + " Modron Reset"},
 		{text: "Normal Boss Zone", cls: " bosZone"},
 		{text: "Hit-Based Boss Zone", cls: " hitZone"},
 		{text: "Armoured Boss Zone", cls: " armZone"},
