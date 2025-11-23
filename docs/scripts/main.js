@@ -1,4 +1,4 @@
-const vm = 2.004; // prettier-ignore
+const vm = 2.005; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const ilvlInput = document.getElementById(`ilvl`);
@@ -396,7 +396,7 @@ function addLoop(bf, q, e) {
 }
 
 function isChecked(bf, i) {
-	return (bf & BigInt(Math.pow(2, i - 1))) !== 0;
+	return (bf & (1n << BigInt(i - 1))) !== 0n;
 }
 
 function vSigFig(n, nDif) {
