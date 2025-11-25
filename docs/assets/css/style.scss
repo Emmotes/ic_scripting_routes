@@ -385,3 +385,6 @@ input[type="checkbox"]:checked::before {
 	transition: color 0.5s ease;
 	color: var(--AlienArmpit);
 }
+.hidden {
+	display: none;
+}

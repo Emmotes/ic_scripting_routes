@@ -1,36 +1,29 @@
-const vm = 3.000; // prettier-ignore
+const vm = 4.000; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
-const ilvlInput = document.getElementById(`ilvl`);
-const presetsInput = document.getElementById(`presets`);
-const rarityInput = document.getElementById(`rarity`);
-const gildingInput = document.getElementById(`gilding`);
-const shinyNote = document.getElementById(`shinyNote`);
 const jump = ` checked`;
-const stackRoute = document.getElementById(`stackRoute`);
-const stackReset = document.getElementById(`stackReset`);
-const stackFavour = document.getElementById(`stackFavour`);
-const stackStack = document.getElementById(`stackStack`);
-const stackBrivZone = document.getElementById(`stackBrivZone`);
-const stackz1Form = document.getElementById(`stackz1Form`);
-const stackRNGWR = document.getElementById(`stackRNGWR`);
-const stackWithMetal = document.getElementById(`stackWithMetal`);
-const stackRuns = document.getElementById(`stackRuns`);
-const stackThunderStep = document.getElementById(`stackThunderStep`);
-const stackResult = document.getElementById(`stackResult`);
-const stackFavourNote = document.getElementById(`stackFavourNote`);
-const stackResetNote = document.getElementById(`stackResetNote`);
-const formCampaign = document.getElementById(`formCampaign`);
-const formType = document.getElementById(`formType`);
-const formWiddle = document.getElementById(`formWiddle`);
-const formFeatSwapLabel = document.getElementById(`formFeatSwapLabel`);
-const formFeatSwap = document.getElementById(`formFeatSwap`);
-const formBaldricLabel = document.getElementById(`formBaldricLabel`);
-const formBaldric = document.getElementById(`formBaldric`);
-const formHybridLabel = document.getElementById(`formHybridLabel`);
-const formHybrid = document.getElementById(`formHybrid`);
-const formTatyana = document.getElementById(`formTatyana`);
-const formResult = document.getElementById(`formResult`);
+// prettier-ignore
+const {
+	ilvlInput, presetsInput, rarityInput, gildingInput, shinyNote,
+	stackRoute, stackMixediLvl, stackiLvl, stackMixedRarity, stackRarity,
+	stackRarityNote, stackMixedGilding, stackGilding, stackGildingNote, stackReset,
+	stackFavour, stackStack, stackBrivZone, stackz1Form, stackRNGWR,
+	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
+	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
+	formFeatSwap, formBaldricLabel, formBaldric, formHybridLabel, formHybrid,
+	formTatyana, formResult,
+} = Object.fromEntries(
+	[
+		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
+		"stackRoute", "stackMixediLvl", "stackiLvl", "stackMixedRarity", "stackRarity",
+		"stackRarityNote", "stackMixedGilding", "stackGilding", "stackGildingNote", "stackReset",
+		"stackFavour", "stackStack", "stackBrivZone", "stackz1Form", "stackRNGWR",
+		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
+		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
+		"formFeatSwap", "formBaldricLabel", "formBaldric", "formHybridLabel", "formHybrid",
+		"formTatyana", "formResult",
+	].map((id) => [id, document.getElementById(id)])
+);
 const metalLevel = 170;
 const stackMult = [1 / 0.968, 1 / 0.96];
 const stackResetLimits = [15, 2500];
@@ -63,62 +56,50 @@ const NUMFORM = new Intl.NumberFormat("en", {
 });
 const advJsonCache = {};
 let calculateStacksToken = 0;
-let tester = false;
 let updateInterval;
 
 async function init() {
 	populateStackRoutes();
 	populateFormCampaigns();
-	//dealWithTesters();
+	Array.from(rarityInput.options).forEach((opt) => {
+		stackRarity.appendChild(opt.cloneNode(true));
+	});
+	stackRarity.value = "";
+	Array.from(gildingInput.options).forEach((opt) => {
+		stackGilding.appendChild(opt.cloneNode(true));
+	});
+	stackGilding.value = "";
 	window.addEventListener("hashchange", () => {
 		swapTab();
 	});
 	swapTab();
-	ilvlInput.addEventListener(`input`, update);
-	presetsInput.addEventListener(`change`, preset);
-	rarityInput.addEventListener(`change`, update);
-	gildingInput.addEventListener(`change`, update);
-	stackRoute.addEventListener(`change`, calculateStacks);
-	stackReset.addEventListener(`change`, calculateStacks);
-	stackFavour.addEventListener(`change`, calculateStacks);
-	stackStack.addEventListener(`change`, calculateStacks);
-	stackBrivZone.addEventListener(`change`, calculateStacks);
-	stackz1Form.addEventListener(`change`, calculateStacks);
-	stackRNGWR.addEventListener(`change`, calculateStacks);
-	stackWithMetal.addEventListener(`change`, calculateStacks);
-	stackRuns.addEventListener(`change`, calculateStacks);
-	stackThunderStep.addEventListener(`change`, calculateStacks);
-	formCampaign.addEventListener(`input`, formsUpdateCampaign);
-	formType.addEventListener(`input`, formsUpdateType);
-	formWiddle.addEventListener(`input`, formsUpdateWiddle);
-	formTatyana.addEventListener(`change`, formsUpdateCheckboxes);
-	formBaldric.addEventListener(`change`, formsUpdateCheckboxes);
-	formFeatSwap.addEventListener(`change`, formsUpdateCheckboxes);
-	formHybrid.addEventListener(`change`, formsUpdateCheckboxes);
+	bind(ilvlInput, `input`, update);
+	bind(presetsInput, `change`, preset);
+	bind(rarityInput, `change`, update);
+	bind(gildingInput, `change`, update);
+	bind(stackRoute, `change`, calculateStacks);
+	bind(stackiLvl, `input`, calculateStacks);
+	bind(stackRarity, `change`, calculateStacks);
+	bind(stackGilding, `change`, calculateStacks);
+	bind(stackReset, `change`, calculateStacks);
+	bind(stackFavour, `change`, calculateStacks);
+	bind(stackStack, `change`, calculateStacks);
+	bind(stackBrivZone, `change`, calculateStacks);
+	bind(stackz1Form, `change`, calculateStacks);
+	bind(stackRNGWR, `change`, calculateStacks);
+	bind(stackWithMetal, `change`, calculateStacks);
+	bind(stackRuns, `change`, calculateStacks);
+	bind(stackThunderStep, `change`, calculateStacks);
+	bind(formCampaign, `input`, formsUpdateCampaign);
+	bind(formType, `input`, formsUpdateType);
+	bind(formWiddle, `input`, formsUpdateWiddle);
+	bind(formTatyana, `change`, formsUpdateCheckboxes);
+	bind(formBaldric, `change`, formsUpdateCheckboxes);
+	bind(formFeatSwap, `change`, formsUpdateCheckboxes);
+	bind(formHybrid, `change`, formsUpdateCheckboxes);
 	update();
 	await calculateStacks();
 	startUpdateCheckInterval(1800000); // 30 mins
-}
-
-function dealWithTesters() {
-	const routesTester = localStorage.getItem("routesTester");
-	if (routesTester !== null && routesTester !== "")
-		tester = routesTester === "1" ? true : false;
-	if (tester) return;
-	let bannedPresets = [`7.99997j`, `14j`, `15.99999988j`];
-	let bannedRoutes = [
-		`short87TT`,
-		`pure14TT`,
-		`feat144TT`,
-		`feat149TT`,
-		`short1615TT`,
-	];
-	for (let i = presetsInput.length - 1; i >= 0; i--)
-		if (bannedPresets.includes(presetsInput.options[i].value))
-			presetsInput.remove(i);
-	for (let i = stackRoute.length - 1; i >= 0; i--)
-		if (bannedRoutes.includes(stackRoute.options[i].value))
-			stackRoute.remove(i);
 }
 
 function preset() {
@@ -164,30 +145,9 @@ function update() {
 		shinyNote.style.display = "";
 	else if (gildingInput.value !== `shiny` && shinyNote.style.display === "")
 		shinyNote.style.display = "none";
-	let ilvls = ilvlInput.value - 1;
-	if (ilvls < 1) {
-		document.getElementById(`ilvl`).value = 1;
-		ilvls = 1;
-	}
-	let rarity = determineRarity();
-	let gilding = determineGilding();
-	let skips = determineJumps(ilvls, rarity, gilding);
-	let p = skips[1] * 100;
-	let np = (1 - skips[1]) * 100;
-	let jumps = Number(skips[0] - 1 + skips[1]);
-
-	let skipsL = determineJumps(ilvls - 1, rarity, gilding);
-	let pL = skipsL[1] * 100;
-	let pDiff = p - pL;
-
-	let fix = vSigFig(p, pDiff);
-	p = p.toFixed(fix);
-	np = np.toFixed(fix);
-
+	let {skipBlurb, skips, jumps} = generateSkipInfo(ilvlInput.value);
 	let comment = ``;
 	let spacer = addToDescRow(`&nbsp;`);
-	let skipBlurb = `${p}% chance to skip ${skips[0]} areas.`;
-	if (np > 0) skipBlurb += `<br>${np}% chance to skip ${skips[0] - 1} areas.`;
 	comment += spacer;
 	comment += addToDescRow(skipBlurb, true, true);
 	if (
@@ -298,6 +258,32 @@ function update() {
 	document.getElementById("wrapper").innerHTML = comment;
 }
 
+function generateSkipInfo(ilvlIn) {
+	let ilvls = ilvlIn - 1;
+	if (ilvls < 1) {
+		$("ilvl").value = 1;
+		ilvls = 1;
+	}
+	let rarity = determineRarity();
+	let gilding = determineGilding();
+	let skips = determineJumps(ilvls, rarity, gilding);
+	let p = skips[1] * 100;
+	let np = (1 - skips[1]) * 100;
+	let jumps = Number(skips[0] - 1 + skips[1]);
+
+	let skipsL = determineJumps(ilvls - 1, rarity, gilding);
+	let pL = skipsL[1] * 100;
+	let pDiff = p - pL;
+
+	let fix = vSigFig(p, pDiff);
+	p = p.toFixed(fix);
+	np = np.toFixed(fix);
+
+	let skipBlurb = `${p}% chance to skip ${skips[0]} areas.`;
+	if (np > 0) skipBlurb += `<br>${np}% chance to skip ${skips[0] - 1} areas.`;
+	return {skipBlurb, skips, jumps};
+}
+
 function addToDescRow(content) {
 	return `<span class="routesRow"><span class="routesDesc">${content}</span></span>`;
 }
@@ -306,8 +292,9 @@ function equipFeatDesc(feat, jump) {
 	return `<li>Equip the ${feat} feat to limit Briv to 100% ${jump}j and use an applicable route from the ${jump}j preset.</li>`;
 }
 
-function determineRarity() {
-	switch (rarityInput.value) {
+function determineRarity(val) {
+	if (val == null) val = rarityInput.value;
+	switch (val) {
 		case `common`:
 			return 0.1;
 		case `uncommon`:
@@ -319,8 +306,9 @@ function determineRarity() {
 	}
 }
 
-function determineGilding() {
-	switch (gildingInput.value) {
+function determineGilding(val) {
+	if (val == null) val = gildingInput.value;
+	switch (val) {
 		case `shiny`:
 			return 1.5;
 		case `golden`:
@@ -411,53 +399,63 @@ function swapTab() {
 	if (hash[0] !== "" && document.getElementById(hash[0]) != null)
 		document.getElementById(hash[0]).click();
 	if (hash.length > 1) {
-		switch (hash[0]) {
-			case `${st}`:
-				stackRoute.value = hash[1];
-				stackReset.value = hash[2];
-				stackFavour.value = hash[3];
-				stackStack.value = hash[4];
-				stackBrivZone.value = hash[5];
-				stackz1Form.value = hash[6];
-				stackRNGWR.checked = hash[7] === "1";
-				stackWithMetal.checked = hash[8] === "1";
-				stackRuns.value = hash[9];
-				stackThunderStep.checked = hash[10] === "1";
-				break;
-			case `${ft}`:
-				if ((hash[1] || ``) !== ``) {
-					formCampaign.value = hash[1];
-					populateFormTypes();
-					if ((hash[2] || ``) !== ``) {
-						formType.value = hash[2];
-						populateFormWiddles();
-						if ((hash[3] || ``) !== ``) {
-							formWiddle.value = hash[3];
-							formTatyana.checked = hash[4] === "1";
-							formBaldric.checked = hash[5] === "1";
-							formFeatSwap.checked = hash[6] === "1";
-							formHybrid.checked = hash[7] === "1";
-						}
+		if (hash[0] === st) {
+			let c = 1;
+			stackRoute.value = hash[c++];
+			if (hash.length >= 14) {
+				stackiLvl.value = hash[c++];
+				stackRarity.value = hash[c++];
+				stackGilding.value = hash[c++];
+			}
+			stackReset.value = hash[c++];
+			stackFavour.value = hash[c++];
+			stackStack.value = hash[c++];
+			stackBrivZone.value = hash[c++];
+			stackz1Form.value = hash[c++];
+			stackRNGWR.checked = hash[c++] === "1";
+			stackWithMetal.checked = hash[c++] === "1";
+			stackRuns.value = hash[c++];
+			stackThunderStep.checked = hash[c++] === "1";
+		} else if (hash[0] === ft) {
+			if ((hash[1] || ``) !== ``) {
+				formCampaign.value = hash[1];
+				populateFormTypes();
+				if ((hash[2] || ``) !== ``) {
+					formType.value = hash[2];
+					populateFormWiddles();
+					if ((hash[3] || ``) !== ``) {
+						formWiddle.value = hash[3];
+						formTatyana.checked = hash[4] === "1";
+						formBaldric.checked = hash[5] === "1";
+						formFeatSwap.checked = hash[6] === "1";
+						formHybrid.checked = hash[7] === "1";
 					}
 				}
-				decideFormsShowStatus();
-				formsUpdateShow();
-				break;
+			}
+			decideFormsShowStatus();
+			formsUpdateShow();
 		}
 	}
 }
 
 function setHash(hash) {
 	if (hash === st) {
-		let rngwr = stackRNGWR.checked ? 1 : 0;
-		let swm = stackWithMetal.checked ? 1 : 0;
-		let bts = stackThunderStep.checked ? 1 : 0;
-		hash = `${st}_${stackRoute.value}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
+		const rngwr = stackRNGWR.checked ? 1 : 0;
+		const swm = stackWithMetal.checked ? 1 : 0;
+		const bts = stackThunderStep.checked ? 1 : 0;
+		let mixedExtras = ``;
+		if (
+			!stackMixediLvl.classList.contains("hidden") ||
+			!stackMixedRarity.classList.contains("hidden") ||
+			!stackMixedGilding.classList.contains("hidden")
+		)
+			mixedExtras = `_${stackiLvl.value}_${stackRarity.value}_${stackGilding.value}`;
+		hash = `${st}_${stackRoute.value}${mixedExtras}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
 	} else if (hash === ft) {
-		let tatyana = formTatyana.checked ? 1 : 0;
-		let baldric = formBaldric.checked ? 1 : 0;
-		let featSwap = formFeatSwap.checked ? 1 : 0;
-		let hybrid = formHybrid.checked ? 1 : 0;
+		const tatyana = formTatyana.checked ? 1 : 0;
+		const baldric = formBaldric.checked ? 1 : 0;
+		const featSwap = formFeatSwap.checked ? 1 : 0;
+		const hybrid = formHybrid.checked ? 1 : 0;
 		hash = `${ft}`;
 		if (formCampaign.value !== ``) {
 			hash += `_${formCampaign.value}`;
@@ -474,20 +472,16 @@ function setHash(hash) {
 }
 
 function populateStackRoutes() {
-	let keyset = Object.keys(gemFarmJson);
-	keyset.sort((a, b) => {
-		let obja = gemFarmJson[a];
-		let objb = gemFarmJson[b];
-		if (typeof obja.jump !== "number" || typeof objb.jump !== "number")
-			return 0;
-		if (obja.jump !== objb.jump) return obja.jump - objb.jump;
-		if (typeof obja.order !== "number" || typeof objb.order !== "number")
-			return 0;
-		return objb.order - obja.order;
-	});
+	const keyset = Object.keys(gemFarmJson);
+	keyset.sort(compareRoutes);
 	for (let key of keyset) {
-		if (typeof gemFarmJson[key].jump !== "number") continue;
-		let opt = document.createElement("option");
+		if (key === `feat4TT`) continue; // Basically duplicates pure4TT.
+		const obj = gemFarmJson[key];
+		if (key !== `cf`) {
+			if (obj == null || obj.jump == null) continue;
+			if (typeof obj.jump === "object" && obj.jump.max > 4) continue; // Not showing mixed above 4j.
+		}
+		const opt = document.createElement("option");
 		opt.value = key;
 		opt.text = parseName(gemFarmJson[key], true);
 		stackRoute.add(opt);
@@ -495,9 +489,35 @@ function populateStackRoutes() {
 	stackRoute.value = `pure4TT`;
 }
 
+function compareRoutes(a, b) {
+	const obja = gemFarmJson[a];
+	const objb = gemFarmJson[b];
+	const ja = getJumpValue(obja);
+	const jb = getJumpValue(objb);
+	// Sort primarily by jump
+	if (ja !== jb) return ja - jb;
+	// Secondary sort: order (descending)
+	const oa = obja.order;
+	const ob = objb.order;
+	if (typeof oa === "number" && typeof ob === "number") return ob - oa;
+	return 0;
+}
+
+function getJumpValue(obj) {
+	if (typeof obj.jump === "number") return obj.jump;
+	if (
+		obj.jump &&
+		typeof obj.jump.min === "number" &&
+		typeof obj.jump.max === "number"
+	)
+		return (obj.jump.min + obj.jump.max) / 2;
+	return -1;
+}
+
 async function calculateStacks() {
 	const currToken = ++calculateStacksToken;
-	let inputs = getRouteInputs();
+	const inputs = await getRouteInputs();
+	assertToken(calculateStacksToken);
 	if (!inputs) {
 		let contents = addToDescRow(`Need more data.`);
 		contents += addToDescRow(`&nbsp;`);
@@ -508,19 +528,160 @@ async function calculateStacks() {
 	enforceTolerances();
 	if (window.location.hash.substring(1).split("_")[0] === st) setHash(st);
 
-	if (currToken !== calculateStacksToken) return;
-	let adv = await pullAdvJson(inputs.routeJson.adv);
-	if (currToken !== calculateStacksToken) return;
-	let brivData = setupBriv(inputs);
-	if (currToken !== calculateStacksToken) return;
-	let routeData = generateRoute(inputs, brivData, adv, currToken);
-	if (currToken !== calculateStacksToken) return;
-	let stackData = calculateStacksForRoute(brivData, inputs);
-	if (currToken !== calculateStacksToken) return;
-	renderResults(inputs, brivData, routeData, stackData, adv);
+	function assertToken(token) {
+		if (currToken !== token) throw new Error("Aborted");
+	}
+
+	try {
+		assertToken(calculateStacksToken);
+		if (inputs.isFixedJump) {
+			stackRarityNote.innerHTML = `&nbsp;`;
+			stackGildingNote.innerHTML = `&nbsp;`;
+			const brivData = setupBriv(
+				inputs,
+				inputs.routeJson.q,
+				inputs.routeJson.e
+			);
+			assertToken(calculateStacksToken);
+			const routeData = generateRoute(inputs, brivData, currToken);
+			assertToken(calculateStacksToken);
+			const stackData = calculateStacksForRoute(brivData, inputs);
+			assertToken(calculateStacksToken);
+			renderResults(inputs, brivData, routeData, stackData);
+		} else {
+			const jumpMaxChance = inputs.jumps[1];
+			const jumpMinChance = 1 - jumpMaxChance;
+			const jumpMin = inputs.jumps[0] - 1;
+			const jumpMax = jumpMin + 1;
+			const jumpObj = {jumpMin, jumpMinChance, jumpMax};
+			stackRarityNote.innerHTML = `(${(jumpMinChance * 100).toFixed(
+				3
+			)}% chance ${jumpMin}j)`;
+			stackGildingNote.innerHTML = `(${(jumpMaxChance * 100).toFixed(
+				3
+			)}% chance ${jumpMax}j)`;
+			if (
+				Object.prototype.hasOwnProperty.call(
+					inputs.routeJson,
+					"jump"
+				) &&
+				Object.prototype.hasOwnProperty.call(
+					inputs.routeJson.jump,
+					"min"
+				) &&
+				Object.prototype.hasOwnProperty.call(
+					inputs.routeJson.jump,
+					"max"
+				) &&
+				(jumpMin !== inputs.routeJson.jump.min ||
+					jumpMax !== inputs.routeJson.jump.max)
+			) {
+				let contents = addToDescRow(
+					`<span style="color:var(--)">Your Briv jump of ${jumpMin}.${jumpMaxChance
+						.toFixed(3)
+						.replace("0.", "")}j is out of range for the expected ${
+						inputs.routeJson.jump.min
+					}-${
+						inputs.routeJson.jump.max
+					}j of your chosen route. The results of the stack calculation will therefore be useless.</span>`
+				);
+				contents += addToDescRow(`&nbsp;`);
+				stackResult.innerHTML = contents;
+				return;
+			}
+
+			const simulations = 2000; // Optimal is to be determined.
+
+			const resultData = [];
+			const resultStacks = [];
+			for (let s = 0; s < simulations; s++) {
+				assertToken(calculateStacksToken);
+				const mcRoute = generateMCVariableRoute(inputs, jumpObj);
+				const finalStacks = computeMCStacks(inputs, mcRoute);
+				resultData.push(mcRoute);
+				resultStacks.push(
+					finalStacks.thunderStepStacks ?? finalStacks.stacks
+				);
+			}
+
+			const finalStacks = parseStackResults(resultStacks);
+			const finalData = parseResultData(resultData);
+
+			renderVariableResults(
+				inputs,
+				jumpObj,
+				simulations,
+				finalStacks,
+				finalData
+			);
+		}
+	} catch (e) {
+		if (e.message === "Aborted") return;
+		console.error(e);
+		let contents = addToDescRow(
+			`An error occurred while calculating the route.`
+		);
+		contents += addToDescRow(`&nbsp;`);
+		stackResult.innerHTML = contents;
+	}
 }
 
-function getRouteInputs() {
+function parseStackResults(resultStacks) {
+	resultStacks.sort((a, b) => a - b);
+	const avg = Math.ceil(
+		resultStacks.reduce((a, b) => a + b, 0) / resultStacks.length
+	);
+	const p95 = percentile(resultStacks, 0.95);
+	const p99 = percentile(resultStacks, 0.99);
+	const worst = resultStacks[resultStacks.length - 1];
+	return {avg, p95, p99, worst};
+}
+
+function parseResultData(resultData) {
+	let thelloraLandings = [];
+	let thelloraBadLanding = false;
+	let avgBosses = 0;
+	let avgJumps = 0;
+	let avgWalks = 0;
+	let avgQTs = 0;
+	let minQTs = -1;
+	let maxQTs = -1;
+	let hitArmoured = false;
+	let hitHitsBased = false;
+	for (let result of resultData) {
+		if (!thelloraLandings.includes(result.thelloraLanding))
+			thelloraLandings.push(result.thelloraLanding);
+		if (!thelloraBadLanding && result.thelloraBadLanding)
+			thelloraBadLanding = true;
+		avgJumps += result.jumps;
+		avgBosses += result.bosses;
+		avgWalks += result.walks;
+		avgQTs += result.qtCount;
+		if (minQTs === -1 || result.qtCount < minQTs) minQTs = result.qtCount;
+		if (maxQTs === -1 || result.qtCount > maxQTs) maxQTs = result.qtCount;
+		if (!hitArmoured && result.hitArmoured) hitArmoured = true;
+		if (!hitHitsBased && result.hitHitsBased) hitHitsBased = true;
+	}
+	avgJumps /= resultData.length;
+	avgBosses /= resultData.length;
+	avgWalks /= resultData.length;
+	avgQTs /= resultData.length;
+
+	return {
+		thelloraLandings,
+		thelloraBadLanding,
+		avgBosses,
+		avgJumps,
+		avgWalks,
+		avgQTs,
+		minQTs,
+		maxQTs,
+		hitArmoured,
+		hitHitsBased,
+	};
+}
+
+async function getRouteInputs() {
 	if (
 		!stackRoute.value ||
 		!stackFavour.value ||
@@ -529,12 +690,64 @@ function getRouteInputs() {
 	)
 		return null;
 
+	let routeObj = gemFarmJson[stackRoute.value];
+	let isFixedJump = typeof routeObj.jump === "number";
+	if (isFixedJump) {
+		if (!stackMixediLvl.classList.contains("hidden"))
+			stackMixediLvl.classList.add("hidden");
+		if (!stackMixedRarity.classList.contains("hidden"))
+			stackMixedRarity.classList.add("hidden");
+		if (!stackMixedGilding.classList.contains("hidden"))
+			stackMixedGilding.classList.add("hidden");
+	} else {
+		if (stackMixediLvl.classList.contains("hidden"))
+			stackMixediLvl.classList.remove("hidden");
+		if (stackMixedRarity.classList.contains("hidden"))
+			stackMixedRarity.classList.remove("hidden");
+		if (stackMixedGilding.classList.contains("hidden"))
+			stackMixedGilding.classList.remove("hidden");
+		if (!stackiLvl.value || !stackRarity.value || !stackGilding.value)
+			return null;
+	}
+
+	const jumps = determineJumps(
+		Number(stackiLvl.value) - 1,
+		determineRarity(stackRarity.value),
+		determineGilding(stackGilding.value)
+	);
+
+	let advData = await pullAdvJson(routeObj.adv);
+
+	if (!routeObj.checkedByZone) {
+		let checkedByZone = [];
+		let monTagsByZone = [];
+		let armouredByZone = [];
+		let hitsByZone = [];
+		for (let i = 1; i <= 50; i++) {
+			const tags = getZoneMonTags(advData, i);
+			checkedByZone[i] = isChecked(routeObj.bf, i);
+			monTagsByZone[i] = tags;
+			armouredByZone[i] = tags.includes("armor_based");
+			hitsByZone[i] = tags.includes("hits_based");
+		}
+		Object.assign(routeObj, {
+			checkedByZone,
+			monTagsByZone,
+			armouredByZone,
+			hitsByZone,
+		});
+	}
+
 	return {
 		favour: Number(stackFavour.value),
 		resetZone: Number(stackReset.value),
+		stackiLvl: Number(stackiLvl.value),
 		brivZone: Number(stackBrivZone.value),
 		numRuns: Number(stackRuns.value),
-		routeJson: gemFarmJson[stackRoute.value],
+		adv: advData,
+		routeJson: routeObj,
+		isFixedJump: isFixedJump,
+		jumps: jumps,
 		z1Formation: stackz1Form.value,
 		rngWaitingRoom: stackRNGWR.checked,
 		thunderStep: stackThunderStep.checked,
@@ -542,7 +755,7 @@ function getRouteInputs() {
 	};
 }
 
-function setupBriv(inputs) {
+function setupBriv(inputs, Q, E) {
 	let thelloraDist =
 		Math.min(inputs.favour, Math.floor(inputs.resetZone / 5)) + 1;
 	let brivStack = thelloraDist;
@@ -553,14 +766,14 @@ function setupBriv(inputs) {
 	if (inputs.brivZone === 1 && inputs.favour > 0) {
 		switch (inputs.z1Formation) {
 			case "q":
-				brivStack += inputs.routeJson.q - 1;
+				brivStack += Q - 1;
 				inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
 				break;
 			case "e":
-				brivStack += inputs.routeJson.e - 1;
-				if (inputs.routeJson.e > 1)
+				brivStack += E - 1;
+				if (E > 1)
 					inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
-				if (inputs.routeJson.e === 1) inputs.brivZone = 2;
+				if (E === 1) inputs.brivZone = 2;
 				break;
 			case "4":
 			case "9":
@@ -580,7 +793,7 @@ function setupBriv(inputs) {
 	};
 }
 
-function generateRoute(inputs, brivData, adv, currToken) {
+function generateRoute(inputs, brivData, currToken) {
 	let currentZone = brivData.brivStack;
 	const dist = currentZone - brivData.thelloraDist + 1;
 	const route = [{zone: 1}];
@@ -606,7 +819,7 @@ function generateRoute(inputs, brivData, adv, currToken) {
 	while (currentZone < inputs.resetZone && route.length < 2500) {
 		if (currToken !== calculateStacksToken) return null;
 		let modZone = currentZone % 50 || 50;
-		let monTags = getZoneMonTags(adv, modZone);
+		let monTags = inputs.routeJson.monTagsByZone[modZone];
 		let applyRngwr =
 			currentZone === brivData.brivStack &&
 			inputs.rngWaitingRoom &&
@@ -629,7 +842,7 @@ function generateRoute(inputs, brivData, adv, currToken) {
 
 		let checked =
 			currentZone >= inputs.brivZone &&
-			isChecked(inputs.routeJson.bf, modZone);
+			inputs.routeJson.checkedByZone[modZone];
 		let metalApplicable =
 			inputs.withMetal || currentZone > stackStack.value;
 		let diff;
@@ -710,7 +923,7 @@ function calculateStacksForRoute(brivData, inputs) {
 	return {stacks, thunderStepStacks};
 }
 
-function renderResults(inputs, brivData, routeData, stackData, adv) {
+function renderResults(inputs, brivData, routeData, stackData) {
 	let contents = ``;
 	let resultHtml = `<h2>Stacks Required: ${nf(stackData.stacks)}</h2>`;
 
@@ -727,16 +940,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 	let currentZone = brivData.brivStack;
 	let isBadTravelling = currentZone % 5 === 0;
 	let routeLength = routeData.route.length - 1;
-	if (isBadTravelling) {
-		brivWarningHtml += `<li class="bigRedWarning">This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `;
-		if (inputs.brivZone === 1)
-			brivWarningHtml += `You can fix this by levelling Briv on z2 instead of z${inputs.brivZone}.`;
-		else if (inputs.brivZone === 2 && inputs.z1Formation !== "q")
-			brivWarningHtml += `You can fix this by using Q formation on z1 instead of ${inputs.z1Formation.toUpperCase()}.`;
-		else
-			brivWarningHtml += `You can fix this by levelling Briv on z1 instead of z${inputs.brivZone}.`;
-		brivWarningHtml += `</li>`;
-	}
+	if (isBadTravelling) brivWarningHtml = createBadTravellingWarning(inputs);
 
 	// Thunder Step
 	if (inputs.thunderStep) {
@@ -757,7 +961,9 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 	if (inputs.favour > 0) {
 		// Rush capped check
 		if (inputs.resetZone < inputs.favour * 5)
-			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z225.</li>`;
+			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${
+				inputs.favour * 5
+			}.</li>`;
 
 		// General Thellora info
 		resultHtml += `<li>Thellora will land you on z${currentZone}.</li><ul>${brivWarningHtml}`;
@@ -832,7 +1038,7 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 	resultHtml += `</ul>`;
 
 	// Stack route table
-	resultHtml += renderRouteTable(routeData, adv, stackData);
+	resultHtml += renderRouteTable(routeData, inputs.adv, stackData);
 
 	contents += addToDescRow(resultHtml);
 	contents += addToDescRow(`&nbsp;`);
@@ -859,12 +1065,101 @@ function renderResults(inputs, brivData, routeData, stackData, adv) {
 		console.log(`qtsCount[${qtsCount}] != calcQts[${calcQts}]`);
 }
 
+function createBadTravellingWarning(inputs) {
+	let txt = `<li class="bigRedWarning">This is a Bad Travelling. You do not want Thellora to be landing on a boss zone under any circumstances. `;
+	if (inputs.brivZone === 1)
+		txt += `You can fix this by levelling Briv on z2 instead of z${inputs.brivZone}.`;
+	else if (inputs.brivZone === 2 && inputs.z1Formation !== "q")
+		txt += `You can fix this by using Q formation on z1 instead of ${inputs.z1Formation.toUpperCase()}.`;
+	else
+		txt += `You can fix this by levelling Briv on z1 instead of z${inputs.brivZone}.`;
+	txt += `</li>`;
+	return txt;
+}
+
+function renderVariableResults(
+	inputs,
+	jumpObj,
+	simulations,
+	finalStacks,
+	finalData
+) {
+	let contents = ``;
+	contents += generateSkipInfo(stackiLvl.value).skipBlurb;
+	contents += `<h2>Stacks Required: ${nf(finalStacks.p95)}</h2>`;
+
+	let resultHtml = `<ul>`;
+	resultHtml += `<li>Stacks used after ${nf(simulations)} simulations:`;
+	resultHtml +=
+		`<ul>` +
+		`<li>Average: ${nf(finalStacks.avg)}</li>` +
+		`<li>Safe: ${nf(finalStacks.p95)} (recommended)</li>` +
+		`<li>Ultra-safe: ${nf(finalStacks.p99)}</li>` +
+		`<li>Worst-case: ${nf(finalStacks.worst)}</li>` +
+		`</ul>`;
+	// Thellora Info
+	const tLands = finalData.thelloraLandings;
+	tLands.sort();
+	if (tLands.length > 0 && tLands[0] > 1) {
+		let landings =
+			tLands.length === 1
+				? tLands[0]
+				: `${tLands.slice(0, -1).join(", z")} or z${tLands.at(-1)}`;
+		if (inputs.resetZone < inputs.favour * 5)
+			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${
+				inputs.favour * 5
+			}.</li>`;
+		resultHtml += `<li>Thellora will land you on z${landings}.`;
+		let thelloraExtras = ``;
+		if (inputs.brivZone === 1)
+			thelloraExtras += `<li>This is because you've set Briv to combine his jump with Thellora's by levelling him on z1 and his jump distance is variable.</li>`;
+		if (finalData.thelloraBadLanding)
+			thelloraExtras += `${createBadTravellingWarning(inputs)}`;
+		if (thelloraExtras !== ``) resultHtml += `<ul>${thelloraExtras}</ul>`;
+	}
+
+	// Bosses
+	const bosses = finalData.avgBosses;
+	const jumps = finalData.avgJumps;
+	const walks = finalData.avgWalks;
+	const hits = finalData.hitHitsBased;
+	const armoured = finalData.hitArmoured;
+	resultHtml += `<li>Briv will jump on average ${nf(jumps)} time${
+		jumps === 1 ? "" : "s"
+	}</li>`;
+	if (walks > 0)
+		resultHtml += `<li>Briv will walk on average ${nf(walks)} time${
+			walks === 1 ? "" : "s"
+		}</li>`;
+	if (bosses > 0) {
+		resultHtml += `<li>Briv will hit on average ${nf(
+			bosses
+		)} normal bosses.`;
+		let badness = ``;
+		if (hits && jumpObj.jumpMin >= 1)
+			badness += `<li class="littleRedWarning">This route will hit Hits-Based zones. These are slow and should be avoided.</li>`;
+		if (armoured && jumpObj.jumpMin >= 1)
+			badness += `<li class="bigRedWarning">This route will hit Armoured zones. These can be run killers so you need to change some values to avoid them.</li>`;
+		if (badness !== ``) resultHtml += `<ul>${badness}</ul>`;
+	}
+
+	// QTs/Transitions
+	let qts = finalData.avgQTs;
+	let transitions = jumps + walks;
+	resultHtml += `<li>This route has on average ${nf(qts)} QTs out of ${nf(
+		transitions
+	)} transitions.`;
+
+	contents += addToDescRow(resultHtml);
+	contents += addToDescRow(`&nbsp;`);
+	stackResult.innerHTML = contents;
+}
+
 function renderRouteTable(routeData, adv) {
 	let tableHtml = `<h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
 	let rushCapFound = false;
-	//console.log(routeData.route);
 
 	routeData.route.forEach((currZone) => {
 		// Determine zone type for styling
@@ -961,6 +1256,92 @@ function renderRouteTable(routeData, adv) {
 	tableHtml += `</div>`;
 
 	return tableHtml;
+}
+
+function generateMCVariableRoute(inputs, jumps) {
+	const result = {
+		jumps: 0,
+		jumpsWithMetal: 0,
+		jumpsWithoutMetal: 0,
+		walks: 0,
+		qtCount: 0,
+		bosses: 0,
+		hitArmoured: false,
+		hitHitsBased: false,
+		thelloraLanding: 0,
+		thelloraBadLanding: false,
+	};
+
+	let brivData = setupBriv(inputs, randomJumpDistance(jumps), 1);
+	let prevModZone = 1;
+	let zone = brivData.brivStack;
+	let modZone = zone % 50 || 50;
+	let metal = inputs.withMetal;
+
+	result.jumpsWithMetal += brivData.jumpsWithMetal;
+	result.jumpsWithoutMetal += brivData.jumpsWithoutMetal;
+	if (isQT(inputs.routeJson, prevModZone, modZone)) result.qtCount++;
+
+	result.thelloraLanding = zone;
+	if (zone % 5 === 0) result.thelloraBadLanding = true;
+
+	while (true) {
+		if (zone >= inputs.resetZone) break;
+
+		const canJump =
+			zone >= inputs.brivZone &&
+			inputs.routeJson.checkedByZone[zone % 50 || 50];
+
+		if (canJump) {
+			const diff = randomJumpDistance(jumps);
+			zone += diff;
+			result.jumps++;
+			if (metal) result.jumpsWithMetal++;
+			else result.jumpsWithoutMetal++;
+		} else {
+			zone += 1;
+			result.walks++;
+		}
+		if (!metal && zone > inputs.resetZone) metal = true;
+
+		prevModZone = modZone;
+		modZone = zone % 50 || 50;
+
+		if (isQT(inputs.routeJson, prevModZone, modZone)) result.qtCount++;
+
+		if (zone % 5 === 0) result.bosses++;
+		if (!result.hitArmoured && inputs.routeJson.armouredByZone[modZone])
+			result.hitArmoured = true;
+		if (!result.hitHitsBased && inputs.routeJson.hitsByZone[modZone])
+			result.hitHitsBased = true;
+	}
+
+	return result;
+}
+
+function randomJumpDistance(jumps) {
+	return (
+		(Math.random() < jumps.jumpMinChance ? jumps.jumpMin : jumps.jumpMax) +
+		1
+	);
+}
+
+function computeMCStacks(inputs, mc) {
+	let stacks = minHaste;
+	let thunderStepStacks;
+
+	for (let run = 0; run < inputs.numRuns; run++) {
+		for (let i = 0; i < mc.jumpsWithMetal; i++)
+			stacks = Math.ceil((stacks - 0.5) * stackMult[0]);
+		for (let i = 0; i < mc.jumpsWithoutMetal; i++)
+			stacks = Math.ceil((stacks - 0.5) * stackMult[1]);
+	}
+
+	if (inputs.thunderStep)
+		thunderStepStacks =
+			minHaste + Math.ceil((stacks - minHaste) / thunderStep);
+
+	return {stacks, thunderStepStacks};
 }
 
 function enforceTolerances() {
@@ -1171,4 +1552,15 @@ function getFirstLine(text) {
 	var index = text.indexOf("\n");
 	if (index === -1) index = undefined;
 	return text.substring(0, index);
+}
+
+function bind(ele, event, ...handlers) {
+	ele.addEventListener(event, (e) => {
+		for (const h of handlers) h(e);
+	});
+}
+
+function percentile(arr, p) {
+	const idx = Math.floor(p * (arr.length - 1));
+	return arr[idx];
 }

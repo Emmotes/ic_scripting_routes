@@ -12,16 +12,16 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol1">
-				<label for="ilvl">Item Level:</label>
+				<label for="ilvlInput">Item Level:</label>
 			</span>
 			<span class="routesCol2">
-				<input type="number" name="ilvl" id="ilvl" value="3626">
+				<input type="number" name="ilvlInput" id="ilvlInput" value="3626">
 			</span>
 			<span class="routesCol3" style="width:160px">
-				<label for="presets">Presets:</label>
+				<label for="presetsInput">Presets:</label>
 			</span>
 			<span class="routesCol4">
-				<select name="presets" id="presets">
+				<select name="presetsInput" id="presetsInput">
 					<option value="0.5j">0-1j</option>
 					<option value="1j">1j</option>
 					<option value="1.5j">1-2j</option>
@@ -44,10 +44,10 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol1">
-				<label for="rarity">Rarity:</label>
+				<label for="rarityInput">Rarity:</label>
 			</span>
 			<span class="routesCol2">
-				<select name="rarity" id="rarity">
+				<select name="rarityInput" id="rarityInput">
 					<option value="common">Common</option>
 					<option value="uncommon">Uncommon</option>
 					<option value="rare">Rare</option>
@@ -62,10 +62,10 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol1">
-				<label for="gilding">Gilding:</label>
+				<label for="gildingInput">Gilding:</label>
 			</span>
 			<span class="routesCol2">
-				<select name="gilding" id="gilding">
+				<select name="gildingInput" id="gildingInput">
 					<option value="none">None</option>
 					<option value="shiny">Shiny</option>
 					<option value="golden" selected>Golden</option>
@@ -95,6 +95,36 @@
 				<select name="stackRoute" id="stackRoute">
 					<option value="" selected disabled style="display:none;">&nbsp;</option>
 				</select>
+			</span>
+		</span>
+		<span class="routesRow hidden" id="stackMixediLvl">
+			<span class="routesCol6">
+				<label for="stackiLvl">Briv Slot 4 Item Level:</label>
+			</span>
+			<span class="routesCol2">
+				<input type="number" name="stackiLvl" id="stackiLvl" value="">
+			</span>
+		</span>
+		<span class="routesRow hidden" id="stackMixedRarity">
+			<span class="routesCol6">
+				<label for="stackRarity">Briv Slot 4 Rarity:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="stackRarity" id="stackRarity"></select>
+			</span>
+			<span class="routesCol4" id="stackRarityNote">
+				&nbsp;
+			</span>
+		</span>
+		<span class="routesRow hidden" id="stackMixedGilding">
+			<span class="routesCol6">
+				<label for="stackGilding">Briv Slot 4 Gilding:</label>
+			</span>
+			<span class="routesCol2">
+				<select name="stackGilding" id="stackGilding"></select>
+			</span>
+			<span class="routesCol4" id="stackGildingNote">
+				&nbsp;
 			</span>
 		</span>
 		<span class="routesRow">
