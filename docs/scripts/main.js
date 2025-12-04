@@ -1,4 +1,4 @@
-const vm = 4.000; // prettier-ignore
+const vm = 4.001; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1173,9 +1173,11 @@ function renderRouteTable(routeData, adv) {
 					? currZone.qt
 						? SVG_hopQT
 						: SVG_hopNorm
-					: currZone.qt
-					? SVG_arrowQT
-					: SVG_arrowNorm;
+					: currZone.type === "jump"
+					? currZone.qt
+						? SVG_arrowQT
+						: SVG_arrowNorm
+					: "";
 		} else {
 			icon =
 				currZone.type === "walk"
