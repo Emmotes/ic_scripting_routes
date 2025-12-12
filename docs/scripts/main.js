@@ -1,4 +1,4 @@
-const vm = 4.001; // prettier-ignore
+const vm = 4.002; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -750,6 +750,7 @@ async function getRouteInputs() {
 		jumps: jumps,
 		z1Formation: stackz1Form.value,
 		rngWaitingRoom: stackRNGWR.checked,
+		stackZone: stackStack.value,
 		thunderStep: stackThunderStep.checked,
 		withMetal: stackWithMetal.checked,
 	};
@@ -844,7 +845,7 @@ function generateRoute(inputs, brivData, currToken) {
 			currentZone >= inputs.brivZone &&
 			inputs.routeJson.checkedByZone[modZone];
 		let metalApplicable =
-			inputs.withMetal || currentZone > stackStack.value;
+			inputs.withMetal || currentZone > inputs.stackZone;
 		let diff;
 		if (applyRngwr) {
 			rngJumpApplied = true;
@@ -957,6 +958,16 @@ function renderResults(inputs, brivData, routeData, stackData) {
 			)}.</li></ul>`;
 	}
 
+	// Bad Stack Zone
+	const maxSafeStackZone = (routeData.route[routeData.route.length-3].zone ?? 1) - 1;
+	if (inputs.stackZone > maxSafeStackZone) {
+		if (inputs.stackZone > inputs.resetZone)
+			resultHtml += `<li class="bigRedWarning">Your stack zone is higher than your reset zone. Briv will never be able to stack in this situation.</li>`;
+		else
+			resultHtml += `<li class="littleRedWarning">Your stack zone is too close to your reset zone. You risk the script sometimes not stacking Briv.</li>`;
+		resultHtml += `<ul><li class="tinyRedWarning">Your "<em>Farm Steelbones stacks AFTER this zone</em>" setting should be no higher than ${maxSafeStackZone}.</li></ul>`;
+	}
+
 	// Thellora landing
 	if (inputs.favour > 0) {
 		// Rush capped check
@@ -1038,7 +1049,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	resultHtml += `</ul>`;
 
 	// Stack route table
-	resultHtml += renderRouteTable(routeData, inputs.adv, stackData);
+	resultHtml += renderRouteTable(routeData, inputs);
 
 	contents += addToDescRow(resultHtml);
 	contents += addToDescRow(`&nbsp;`);
@@ -1155,7 +1166,7 @@ function renderVariableResults(
 	stackResult.innerHTML = contents;
 }
 
-function renderRouteTable(routeData, adv) {
+function renderRouteTable(routeData, inputs) {
 	let tableHtml = `<h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
@@ -1206,12 +1217,12 @@ function renderRouteTable(routeData, adv) {
 		if (currZone.hitZone) styleClass += " hitZone";
 		else if (currZone.armouredZone) styleClass += " armZone";
 		else if (currZone.zone % 5 === 0) styleClass += " bosZone";
-		if (!earliestStackFound && currZone.zone > stackStack.value) {
+		if (!earliestStackFound && currZone.zone > inputs.stackZone) {
 			styleClass += " stkZone";
 			earliestStackFound = true;
 		}
 
-		let tooltipText = createTooltipText(adv, currZone.zone);
+		let tooltipText = createTooltipText(inputs.adv, currZone.zone);
 		tableHtml += `<span class="stacksRoutesTableItem${styleClass}" data-type="${zoneType}" data-qt="${
 			currZone.qt ? 1 : 0
 		}">${currZone.zone} ${icon}${tooltipText}${rushCapOverline}</span>`;
