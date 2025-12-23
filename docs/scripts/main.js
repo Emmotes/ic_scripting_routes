@@ -1,4 +1,4 @@
-const vm = 4.003; // prettier-ignore
+const vm = 4.004; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -145,7 +145,11 @@ function update() {
 		shinyNote.style.display = "";
 	else if (gildingInput.value !== `shiny` && shinyNote.style.display === "")
 		shinyNote.style.display = "none";
-	let {skipBlurb, skips, jumps} = generateSkipInfo(ilvlInput.value);
+	let {skipBlurb, skips, jumps} = generateSkipInfo(
+		ilvlInput,
+		rarityInput,
+		gildingInput
+	);
 	let comment = ``;
 	let spacer = addToDescRow(`&nbsp;`);
 	comment += spacer;
@@ -258,14 +262,15 @@ function update() {
 	document.getElementById("wrapper").innerHTML = comment;
 }
 
-function generateSkipInfo(ilvlIn) {
-	let ilvls = ilvlIn - 1;
+function generateSkipInfo(iLvlEle, rarityEle, gildingEle) {
+	console.log([iLvlEle.id, rarityEle.id, gildingEle.id]);
+	let ilvls = iLvlEle.value - 1;
 	if (ilvls < 1) {
-		$("ilvl").value = 1;
+		iLvlEle.value = 1;
 		ilvls = 1;
 	}
-	let rarity = determineRarity();
-	let gilding = determineGilding();
+	let rarity = determineRarity(rarityEle.value);
+	let gilding = determineGilding(gildingEle.value);
 	let skips = determineJumps(ilvls, rarity, gilding);
 	let p = skips[1] * 100;
 	let np = (1 - skips[1]) * 100;
@@ -281,6 +286,7 @@ function generateSkipInfo(ilvlIn) {
 
 	let skipBlurb = `${p}% chance to skip ${skips[0]} areas.`;
 	if (np > 0) skipBlurb += `<br>${np}% chance to skip ${skips[0] - 1} areas.`;
+	console.log(["  ", skipBlurb, skips, jumps]);
 	return {skipBlurb, skips, jumps};
 }
 
@@ -293,7 +299,9 @@ function equipFeatDesc(feat, jump) {
 }
 
 function determineRarity(val) {
+	console.log([`before`, val]);
 	if (val == null) val = rarityInput.value;
+	console.log([`after`, val]);
 	switch (val) {
 		case `common`:
 			return 0.1;
@@ -1097,7 +1105,11 @@ function renderVariableResults(
 	finalData
 ) {
 	let contents = ``;
-	contents += generateSkipInfo(stackiLvl.value).skipBlurb;
+	contents += generateSkipInfo(
+		stackiLvl,
+		stackRarity,
+		stackGilding
+	).skipBlurb;
 	contents += `<h2>Stacks Required: ${nf(finalStacks.p95)}</h2>`;
 
 	let resultHtml = `<ul>`;
@@ -1312,8 +1324,7 @@ function generateMCVariableRoute(inputs, jumps) {
 			result.jumps++;
 			if (metal) result.jumpsWithMetal++;
 			else result.jumpsWithoutMetal++;
-		} else
-			result.walks++;
+		} else result.walks++;
 		if (!metal && zone > inputs.resetZone) metal = true;
 
 		prevModZone = modZone;
