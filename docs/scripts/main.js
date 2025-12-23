@@ -1,4 +1,4 @@
-const vm = 4.004; // prettier-ignore
+const vm = 4.005; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -263,7 +263,6 @@ function update() {
 }
 
 function generateSkipInfo(iLvlEle, rarityEle, gildingEle) {
-	console.log([iLvlEle.id, rarityEle.id, gildingEle.id]);
 	let ilvls = iLvlEle.value - 1;
 	if (ilvls < 1) {
 		iLvlEle.value = 1;
@@ -286,7 +285,6 @@ function generateSkipInfo(iLvlEle, rarityEle, gildingEle) {
 
 	let skipBlurb = `${p}% chance to skip ${skips[0]} areas.`;
 	if (np > 0) skipBlurb += `<br>${np}% chance to skip ${skips[0] - 1} areas.`;
-	console.log(["  ", skipBlurb, skips, jumps]);
 	return {skipBlurb, skips, jumps};
 }
 
@@ -299,9 +297,7 @@ function equipFeatDesc(feat, jump) {
 }
 
 function determineRarity(val) {
-	console.log([`before`, val]);
 	if (val == null) val = rarityInput.value;
-	console.log([`after`, val]);
 	switch (val) {
 		case `common`:
 			return 0.1;
