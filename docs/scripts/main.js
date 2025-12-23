@@ -1,4 +1,4 @@
-const vm = 4.002; // prettier-ignore
+const vm = 4.003; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -959,7 +959,8 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	}
 
 	// Bad Stack Zone
-	const maxSafeStackZone = (routeData.route[routeData.route.length-3].zone ?? 1) - 1;
+	const maxSafeStackZone =
+		(routeData.route[routeData.route.length - 3].zone ?? 1) - 1;
 	if (inputs.stackZone > maxSafeStackZone) {
 		if (inputs.stackZone > inputs.resetZone)
 			resultHtml += `<li class="bigRedWarning">Your stack zone is higher than your reset zone. Briv will never be able to stack in this situation.</li>`;
@@ -1305,16 +1306,14 @@ function generateMCVariableRoute(inputs, jumps) {
 			zone >= inputs.brivZone &&
 			inputs.routeJson.checkedByZone[zone % 50 || 50];
 
-		if (canJump) {
-			const diff = randomJumpDistance(jumps);
-			zone += diff;
+		const diff = canJump ? randomJumpDistance(jumps) : 1;
+		zone += diff;
+		if (diff > 1) {
 			result.jumps++;
 			if (metal) result.jumpsWithMetal++;
 			else result.jumpsWithoutMetal++;
-		} else {
-			zone += 1;
+		} else
 			result.walks++;
-		}
 		if (!metal && zone > inputs.resetZone) metal = true;
 
 		prevModZone = modZone;
