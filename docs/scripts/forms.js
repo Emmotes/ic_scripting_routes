@@ -1,4 +1,4 @@
-const vf = 1.011; // prettier-ignore
+const vf = 1.012; // prettier-ignore
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -100,7 +100,7 @@ function formsUpdateShow() {
 
 	let q = baseForm.Q;
 	let w = hybrid
-		? [58, 0, 97, 0, 0, 0, 0, 59, 0, 83]
+		? [58, 0, 97, 139, 0, 0, 0, 59, 0, 83]
 		: [58, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	let e = [...q];
 	if (!featSwap) {
