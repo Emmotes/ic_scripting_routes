@@ -1,4 +1,4 @@
-const vm = 5.002; // prettier-ignore
+const vm = 5.003; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -78,6 +78,9 @@ const FF_TAGS = [
 	`plant`,
 	`undead`,
 ];
+const routeTooltipBlurbDefault =
+	`Every zone in the route below has a tooltip on mouseover ` +
+	`with more details - including quests enemies and attack types.`;
 let calculateStacksToken = 0;
 let updateInterval;
 let routeMoreDetailsKey = `expandRoute`;
@@ -1206,9 +1209,7 @@ function renderRouteTable(routeData, inputs) {
 	let expansionInput = `<span style="position:absolute;top:-40px;right:0px;width:max-content;display:flex;align-items:center">`;
 	expansionInput += `<input type="checkbox" id="expandRouteDetails" style="transform:unset" onclick="toggleRouteDetails(this.checked);"`;
 	expansionInput += `${routeMoreDetails ? " checked" : ""}><label for="expandRouteDetails">Display More Details</label></span>`;
-	let tableHtml =
-		`<h3>Route</h3><p style="position:relative">Every zone in the route below has a tooltip on mouseover ` +
-		`with more details - including quests enemies and attack types.${expansionInput}</p><div class="stacksRoutesTable" id="stacksRoutesTable">`;
+	let tableHtml = `<h3>Route</h3><p id="routeTooltipBlurb" style="position:relative">${routeTooltipBlurbDefault}${expansionInput}</p><div class="stacksRoutesTable" id="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
 	let rushCapFound = false;
@@ -1453,11 +1454,17 @@ function createExpandedText(adv, zone) {
 
 	let t = `<span class="routeExpansion" style="display:none">`;
 
-	// Quest Text. e.g. "Kill 25 Enemies" or "Collect 10 Items" or "Kill 1 Boss".
+	// Quest Text.
 	let questText =
 		`<span>` +
 		(quest.type === 1 ? `${THUMBS.collect}Collect` : `${THUMBS.kill}Kill`) +
-		` ${quest.goal}</span>`;
+		` ${quest.goal}${
+			boss ?
+				quest.goal === 1 ?
+					" Boss"
+				:	" Bosses"
+			:	""
+		}</span>`;
 
 	// Monster Texts
 	let areaAtks = [];
@@ -1504,7 +1511,8 @@ function createExpandedText(adv, zone) {
 		areaText = `<span>${capitalize(areaAtks[0])}</span>`;
 
 	// Finalise
-	t += hr + questText + areaText + hr;
+	t += hr + questText + areaText;
+	if (monTexts.length > 0) t += hr;
 	for (let monText of monTexts) t += monText;
 	t += `</span>`;
 
@@ -1690,6 +1698,12 @@ function percentile(arr, p) {
 }
 
 function toggleRouteDetails(checked) {
+	const blurb = document.getElementById("routeTooltipBlurb");
+	if (blurb.children.length === 1)
+		blurb.innerHTML =
+			(checked ? `` : routeTooltipBlurbDefault) +
+			blurb.children[0].outerHTML;
+	document.getElementById("expandRouteDetails").checked = checked;
 	document.querySelectorAll("span[class='routeExpansion']").forEach((ele) => {
 		ele.style.display = checked ? "flex" : "none";
 	});
@@ -1700,14 +1714,17 @@ function toggleRouteDetails(checked) {
 				ele.classList.add("routeExpandsionDistinct")
 			:	ele.classList.remove("routeExpandsionDistinct")
 		);
+	document
+		.querySelectorAll(
+			"span[class*='stacksRoutesTableItem'] span[class='ttc']"
+		)
+		.forEach((ele) => (ele.style.display = checked ? `none` : ``));
 	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
 		ele.style = checked ? "margin-top: -6px" : "";
 	});
 	const grid = document.getElementById("stacksRoutesTable");
 	grid.style =
-		checked ?
-			`grid-template-columns:repeat(auto-fill, 100px);gap:8px`
-		:	``;
+		checked ? `grid-template-columns:repeat(auto-fill, 100px);gap:8px` : ``;
 	let settings = readRoutesSettings();
 	routeMoreDetails = checked;
 	if (!checked && settings.includes(routeMoreDetailsKey)) {
