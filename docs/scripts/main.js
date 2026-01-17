@@ -1,4 +1,4 @@
-const vm = 5.003; // prettier-ignore
+const vm = 5.004; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -78,6 +78,8 @@ const FF_TAGS = [
 	`plant`,
 	`undead`,
 ];
+const indicatorCircle = `<svg width="5" height="5" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>`;
+const indicatorSquare = `<svg width="5" height="5" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="16" height="16"/></svg>`;
 const routeTooltipBlurbDefault =
 	`Every zone in the route below has a tooltip on mouseover ` +
 	`with more details - including quests enemies and attack types.`;
@@ -1247,27 +1249,31 @@ function renderRouteTable(routeData, inputs) {
 
 		// Styling classes
 		let styleClass = "";
-		let rushCapOverline = "";
+		let indicatorFirstRushCapCircle = "";
+		let indicatorStackSquare = "";
 
 		if (currZone.rush) {
 			styleClass += " trcZone";
-			if (!rushCapFound)
-				rushCapOverline = `<span class="firstTrcZone">&nbsp;</span>`;
+			if (!rushCapFound) {
+				indicatorFirstRushCapCircle = `<span class="firstTrcZone" id="firstTrcZone">${indicatorCircle}</span>`;
+				styleClass += " posRel";
+			}
 			rushCapFound = true;
 		}
 		if (currZone.hitZone) styleClass += " hitZone";
 		else if (currZone.armouredZone) styleClass += " armZone";
 		else if (currZone.zone % 5 === 0) styleClass += " bosZone";
 		if (!earliestStackFound && currZone.zone > inputs.stackZone) {
-			styleClass += " stkZone";
 			earliestStackFound = true;
+			if (!styleClass.includes("posRel")) styleClass += " posRel";
+			indicatorStackSquare = `<span class="stkZone">${indicatorSquare}</span>`;
 		}
 
 		const expandedText = createExpandedText(inputs.adv, currZone.zone);
 		const tooltipText = createTooltipText(inputs.adv, currZone.zone);
 		tableHtml += `<span class="stacksRoutesTableItem" data-type="${zoneType}" data-qt="${
 			currZone.qt ? 1 : 0
-		}"><span name="zoneSpan" class="${styleClass}">${currZone.zone} ${icon}</span>${expandedText}${tooltipText}${rushCapOverline}</span>`;
+		}"><span name="zoneSpan" class="${styleClass}">${currZone.zone} ${icon}${indicatorStackSquare}${indicatorFirstRushCapCircle}</span>${expandedText}${tooltipText}</span>`;
 	});
 
 	tableHtml += `</div>`;
@@ -1282,10 +1288,13 @@ function renderRouteTable(routeData, inputs) {
 		{text: `${SVG_arrowQT} Jump QT`},
 		{text: `${SVG_hopQT} Hop QT`},
 		{text: `${SVG_walkQT} Walk QT`},
-		{text: "Earliest Stack Zone", cls: " stkZone"},
 		{
-			text: `<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" id="firstTrcZone" style="top:1px">&nbsp;</span></span>`,
-			cls: " trcZone",
+			text: `Earliest Stack Zone<span class="stkZone">${indicatorSquare}</span>`,
+			cls: " posRel",
+		},
+		{
+			text: `First Rush Capped Zone<span class="firstTrcZone">${indicatorCircle}</span>`,
+			cls: " posRel trcZone",
 		},
 		{text: "Rush Capped Zone", cls: " trcZone"},
 		{text: SVG_arrowReset + " Modron Reset"},
@@ -1722,6 +1731,7 @@ function toggleRouteDetails(checked) {
 	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
 		ele.style = checked ? "margin-top: -6px" : "";
 	});
+	document.getElementById("firstTrcZone").style = checked ? "top:-5px" : "";
 	const grid = document.getElementById("stacksRoutesTable");
 	grid.style =
 		checked ? `grid-template-columns:repeat(auto-fill, 100px);gap:8px` : ``;

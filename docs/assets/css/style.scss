@@ -264,16 +264,24 @@ input[type="checkbox"]:checked::before {
 .routeArrowReset {
 	fill: currentColor;
 }
+.posRel {
+	position: relative;
+}
 .stkZone {
-	text-decoration: underline;
-	text-underline-position: under;
+	position: absolute;
+	bottom: -5px;
+	left: -6px;
+}
+.stkZone svg {
+	fill: currentColor;
 }
 .firstTrcZone {
 	position: absolute;
-	top: 3px;
-	left: 1px;
-	border-top: 1px solid var(--CarolinaBlue);
-	width: 98%;
+	top: -10px;
+	left: -6px;
+}
+.firstTrcZone svg {
+	fill: var(--CarolinaBlue);
 }
 .trcZone {
 	color: var(--CarolinaBlue);
