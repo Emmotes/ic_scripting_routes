@@ -99,9 +99,10 @@ function formsUpdateShow() {
 	baseForm = baseForm[baldric ? "B" : "NB"];
 
 	let q = baseForm.Q;
-	let w = hybrid
-		? [58, 0, 97, 139, 0, 0, 0, 59, 0, 83]
-		: [58, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	let w =
+		hybrid ?
+			[58, 0, 97, 139, 0, 0, 0, 59, 0, 83]
+		:	[58, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	let e = [...q];
 	if (!featSwap) {
 		let index = e.indexOf(58);
@@ -254,10 +255,8 @@ function addSpecInfo(baldric, hybrid, tatyana, specsData) {
 		if (len === 0) addNoneMsg = true;
 		else specTexts.push(createSpecTxt(champId, specsData[champId]));
 	}
-	if (hybrid && !baldric)
-		specTexts.push(createSpecTxt(59, [3514]));
-	if (tatyana)
-		specTexts.push(createSpecTxt(97, [7389]));
+	if (hybrid && !baldric) specTexts.push(createSpecTxt(59, [3514]));
+	if (tatyana) specTexts.push(createSpecTxt(97, [7389]));
 	specTexts.sort();
 	for (let specText of specTexts) txt += specText;
 	if (addNoneMsg) txt += createSpecTxt();

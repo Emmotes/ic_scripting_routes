@@ -1,4 +1,4 @@
-const vm = 4.005; // prettier-ignore
+const vm = 5.000; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -24,7 +24,7 @@ const {
 		"formTatyana", "formResult",
 	].map((id) => [id, document.getElementById(id)])
 );
-const metalLevel = 170;
+const lsKey_routesSettings = `routesSettings`;
 const stackMult = [1 / 0.968, 1 / 0.96];
 const stackResetLimits = [15, 2500];
 const stackFavourLimits = [0, 308];
@@ -55,10 +55,36 @@ const NUMFORM = new Intl.NumberFormat("en", {
 	maximumFractionDigits: 2,
 });
 const advJsonCache = {};
+const THUMBS = {
+	imoen: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Imoen.png" class='routeThumb' alt='Imoen'/>`,
+	minsc: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Minsc.png" class='routeThumb' alt='Minsc'/>`,
+	dynaheir: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Dynaheir.png" class='routeThumb' alt='Dynaheir'/>`,
+	kill: `<img src="images/kill.svg" alt="Kill Enemies">`,
+	collect: `<img src="images/collect.svg" alt="Collect Items">`,
+};
+const FF_TAGS = [
+	`aberration`,
+	`beast`,
+	`celestial`,
+	`construct`,
+	`dragon`,
+	`elemental`,
+	`fey`,
+	`fiend`,
+	`giant`,
+	`humanoid`,
+	`monstrosity`,
+	`ooze`,
+	`plant`,
+	`undead`,
+];
 let calculateStacksToken = 0;
 let updateInterval;
+let routeMoreDetailsKey = `expandRoute`;
+let routeMoreDetails = false;
 
 async function init() {
+	populateSettings();
 	populateStackRoutes();
 	populateFormCampaigns();
 	Array.from(rarityInput.options).forEach((opt) => {
@@ -100,6 +126,11 @@ async function init() {
 	update();
 	await calculateStacks();
 	startUpdateCheckInterval(1800000); // 30 mins
+}
+
+function populateSettings() {
+	const settings = readRoutesSettings();
+	routeMoreDetails = settings.includes(routeMoreDetailsKey);
 }
 
 function preset() {
@@ -854,27 +885,25 @@ function generateRoute(inputs, brivData, currToken) {
 		if (applyRngwr) {
 			rngJumpApplied = true;
 			diff =
-				inputs.brivZone === 1
-					? brivData.brivStack - brivData.thelloraDist + 1
-					: inputs.z1Formation === "q"
-					? inputs.routeJson.q
-					: inputs.z1Formation === "e"
-					? inputs.routeJson.e
-					: inputs.z1Formation === "4" || inputs.z1Formation === "9"
-					? Number(inputs.z1Formation) + 1
-					: 1;
+				inputs.brivZone === 1 ?
+					brivData.brivStack - brivData.thelloraDist + 1
+				: inputs.z1Formation === "q" ? inputs.routeJson.q
+				: inputs.z1Formation === "e" ? inputs.routeJson.e
+				: inputs.z1Formation === "4" || inputs.z1Formation === "9" ?
+					Number(inputs.z1Formation) + 1
+				:	1;
 		} else
 			diff =
-				currentZone < inputs.brivZone
-					? 1
-					: checked
-					? inputs.routeJson.q
-					: inputs.routeJson.e;
+				currentZone < inputs.brivZone ? 1
+				: checked ? inputs.routeJson.q
+				: inputs.routeJson.e;
 		let prevZone = currentZone;
 		currentZone += diff;
 
 		route[route.length - 1].type =
-			diff === 1 ? "walk" : diff === inputs.routeJson.q ? "jump" : "hop";
+			diff === 1 ? "walk"
+			: diff === inputs.routeJson.q ? "jump"
+			: "hop";
 		if (prevZone > rushCap) route[route.length - 1].rush = true;
 		if (
 			isQT(inputs.routeJson, prevZone % 50 || 50, currentZone % 50 || 50)
@@ -891,9 +920,9 @@ function generateRoute(inputs, brivData, currToken) {
 					(inputs.z1Formation !== "e" || inputs.routeJson.e > 1))) &&
 			currentZone >= inputs.brivZone
 		)
-			metalApplicable
-				? brivData.jumpsWithMetal++
-				: brivData.jumpsWithoutMetal++;
+			metalApplicable ?
+				brivData.jumpsWithMetal++
+			:	brivData.jumpsWithoutMetal++;
 	}
 	route[route.length - 1].reset = true;
 	if (currentZone > rushCap) route[route.length - 1].rush = true;
@@ -1022,13 +1051,10 @@ function renderResults(inputs, brivData, routeData, stackData) {
 		// Doubes/Triples/etc..
 		if (inputs.numRuns > 1) {
 			let type =
-				inputs.numRuns === 2
-					? `Doubles`
-					: inputs.numRuns === 3
-					? `Triples`
-					: inputs.numRuns === 4
-					? `Quadrupes`
-					: `${nf(inputs.numRuns)} Times`;
+				inputs.numRuns === 2 ? `Doubles`
+				: inputs.numRuns === 3 ? `Triples`
+				: inputs.numRuns === 4 ? `Quadrupes`
+				: `${nf(inputs.numRuns)} Times`;
 			resultHtml += `<li>Running ${type}.</li>`;
 		}
 		// Bad zones
@@ -1059,6 +1085,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	contents += addToDescRow(resultHtml);
 	contents += addToDescRow(`&nbsp;`);
 	stackResult.innerHTML = contents;
+	toggleRouteDetails(routeMoreDetails);
 
 	// Debug consistency check
 	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
@@ -1122,9 +1149,9 @@ function renderVariableResults(
 	tLands.sort();
 	if (tLands.length > 0 && tLands[0] > 1) {
 		let landings =
-			tLands.length === 1
-				? tLands[0]
-				: `${tLands.slice(0, -1).join(", z")} or z${tLands.at(-1)}`;
+			tLands.length === 1 ?
+				tLands[0]
+			:	`${tLands.slice(0, -1).join(", z")} or z${tLands.at(-1)}`;
 		if (inputs.resetZone < inputs.favour * 5)
 			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${
 				inputs.favour * 5
@@ -1176,41 +1203,45 @@ function renderVariableResults(
 }
 
 function renderRouteTable(routeData, inputs) {
-	let tableHtml = `<h3>Route</h3><p>Every zone in the route below has a tooltip on mouseover with more details - including quests enemies and attack types.</p><div class="stacksRoutesTable">`;
+	let expansionInput = `<span style="position:absolute;top:-40px;right:0px;width:max-content;display:flex;align-items:center">`;
+	expansionInput += `<input type="checkbox" id="expandRouteDetails" style="transform:unset" onclick="toggleRouteDetails(this.checked);"`;
+	expansionInput += `${routeMoreDetails ? " checked" : ""}><label for="expandRouteDetails">Display More Details</label></span>`;
+	let tableHtml =
+		`<h3>Route</h3><p style="position:relative">Every zone in the route below has a tooltip on mouseover ` +
+		`with more details - including quests enemies and attack types.${expansionInput}</p><div class="stacksRoutesTable" id="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
 	let rushCapFound = false;
 
 	routeData.route.forEach((currZone) => {
 		// Determine zone type for styling
-		let zoneType = currZone.type || null;
+		const zoneType = currZone.type || null;
 		let icon = "";
 		if (currZone.reset) icon = SVG_arrowReset;
 		else if (currZone.thellora) {
 			icon = currZone.qt ? SVG_thelloraQT : SVG_thelloraNorm;
 			icon +=
-				currZone.type === "hop"
-					? currZone.qt
-						? SVG_hopQT
-						: SVG_hopNorm
-					: currZone.type === "jump"
-					? currZone.qt
-						? SVG_arrowQT
-						: SVG_arrowNorm
-					: "";
+				currZone.type === "hop" ?
+					currZone.qt ?
+						SVG_hopQT
+					:	SVG_hopNorm
+				: currZone.type === "jump" ?
+					currZone.qt ?
+						SVG_arrowQT
+					:	SVG_arrowNorm
+				:	"";
 		} else {
 			icon =
-				currZone.type === "walk"
-					? currZone.qt
-						? SVG_walkQT
-						: SVG_walkNorm
-					: currZone.type === "hop"
-					? currZone.qt
-						? SVG_hopQT
-						: SVG_hopNorm
-					: currZone.qt
-					? SVG_arrowQT
-					: SVG_arrowNorm;
+				currZone.type === "walk" ?
+					currZone.qt ?
+						SVG_walkQT
+					:	SVG_walkNorm
+				: currZone.type === "hop" ?
+					currZone.qt ?
+						SVG_hopQT
+					:	SVG_hopNorm
+				: currZone.qt ? SVG_arrowQT
+				: SVG_arrowNorm;
 		}
 
 		// Styling classes
@@ -1231,10 +1262,11 @@ function renderRouteTable(routeData, inputs) {
 			earliestStackFound = true;
 		}
 
-		let tooltipText = createTooltipText(inputs.adv, currZone.zone);
+		const expandedText = createExpandedText(inputs.adv, currZone.zone);
+		const tooltipText = createTooltipText(inputs.adv, currZone.zone);
 		tableHtml += `<span class="stacksRoutesTableItem${styleClass}" data-type="${zoneType}" data-qt="${
 			currZone.qt ? 1 : 0
-		}">${currZone.zone} ${icon}${tooltipText}${rushCapOverline}</span>`;
+		}">${currZone.zone} ${icon}${expandedText}${tooltipText}${rushCapOverline}</span>`;
 	});
 
 	tableHtml += `</div>`;
@@ -1251,7 +1283,7 @@ function renderRouteTable(routeData, inputs) {
 		{text: `${SVG_walkQT} Walk QT`},
 		{text: "Earliest Stack Zone", cls: " stkZone"},
 		{
-			text: `<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" style="top:1px">&nbsp;</span></span>`,
+			text: `<span style="width:fit-content;position:relative">First Rush Capped Zone<span class="firstTrcZone" id="firstTrcZone" style="top:1px">&nbsp;</span></span>`,
 			cls: " trcZone",
 		},
 		{text: "Rush Capped Zone", cls: " trcZone"},
@@ -1404,6 +1436,79 @@ function isQT(route, area1, area2) {
 	if (route.qts == null || route.qts.length !== 50) return false;
 	let qts = route.qts;
 	return qts[area1 - 1] === qts[area2 - 1];
+}
+
+function createExpandedText(adv, zone) {
+	const boss = zone % 5 === 0 ? `Boss ` : ``;
+	const mod = zone % 50 || 50;
+	const quest = adv.quests[mod - 1];
+	const hr = `<span class="hr">&nbsp;</span>`;
+	const mons = [];
+	const area = adv.areas[mod - 1];
+	if (area.waves != null)
+		for (let wave of area.waves) for (let mon of wave) mons.push(mon);
+	if (area.monsters != null) for (let mon of area.monsters) mons.push(mon);
+	if (area.staticMonsters != null)
+		for (let mon of area.staticMonsters) mons.push(mon);
+
+	let t = `<span class="routeExpansion" style="display:none">`;
+
+	// Quest Text. e.g. "Kill 25 Enemies" or "Collect 10 Items" or "Kill 1 Boss".
+	let questText =
+		`<span>` +
+		(quest.type === 1 ? `${THUMBS.collect}Collect` : `${THUMBS.kill}Kill`) +
+		` ${quest.goal}</span>`;
+
+	// Monster Texts
+	let areaAtks = [];
+	let monFFTypes = [];
+	let monTexts = [];
+	for (let monId of mons) {
+		let mon = "";
+		for (let monster of adv.monsters) {
+			if (monster.id === monId) {
+				mon = monster;
+				break;
+			}
+		}
+		if (mon === "") continue;
+		for (let tag of mon.tags) {
+			let isAtk = tag === `ranged` || tag === `melee` || tag === `magic`;
+			if (isAtk && !areaAtks.includes(tag)) areaAtks.push(tag);
+			else if (FF_TAGS.includes(tag) && !monFFTypes.includes(tag))
+				monFFTypes.push(tag);
+		}
+	}
+	monFFTypes.sort();
+	for (let ffType of monFFTypes) {
+		let ffImage = ``;
+		switch (ffType) {
+			case `beast`:
+				ffImage = THUMBS.imoen;
+				break;
+			case `fey`:
+				ffImage = THUMBS.minsc;
+				break;
+			case `humanoid`:
+				ffImage = THUMBS.dynaheir;
+				break;
+		}
+		const monText = `<span>${ffImage}${capitalize(ffType)}</span>`;
+		if (!boss && !monTexts.includes(monText)) monTexts.push(monText);
+	}
+
+	// Area Damage Types
+	let areaText = ``;
+	if (areaAtks.length > 1) areaText = `<span>Mixed</span>`;
+	else if (areaAtks.length === 1)
+		areaText = `<span>${capitalize(areaAtks[0])}</span>`;
+
+	// Finalise
+	t += hr + questText + areaText + hr;
+	for (let monText of monTexts) t += monText;
+	t += `</span>`;
+
+	return t;
 }
 
 function createTooltipText(adv, zone) {
@@ -1582,4 +1687,46 @@ function bind(ele, event, ...handlers) {
 function percentile(arr, p) {
 	const idx = Math.floor(p * (arr.length - 1));
 	return arr[idx];
+}
+
+function toggleRouteDetails(checked) {
+	document.querySelectorAll("span[class='routeExpansion']").forEach((ele) => {
+		ele.style.display = checked ? "flex" : "none";
+	});
+	document
+		.querySelectorAll("span[class*='stacksRoutesTableItem']")
+		.forEach((ele) =>
+			checked ?
+				ele.classList.add("routeExpandsionDistinct")
+			:	ele.classList.remove("routeExpandsionDistinct")
+		);
+	document.querySelectorAll("span[class='firstTrcZone']").forEach((ele) => {
+		if (ele.id !== `firstTrcZone`) ele.style = checked ? "top:10px" : "";
+	});
+	const grid = document.getElementById("stacksRoutesTable");
+	grid.style =
+		checked ?
+			`grid-template-columns:repeat(auto-fill, 115px);gap:10px`
+		:	``;
+	let settings = readRoutesSettings();
+	routeMoreDetails = checked;
+	if (!checked && settings.includes(routeMoreDetailsKey)) {
+		settings = settings.filter((e) => e !== routeMoreDetailsKey);
+		saveRoutesSettings(settings);
+	} else if (checked && !settings.includes(routeMoreDetailsKey)) {
+		settings.push(routeMoreDetailsKey);
+		saveRoutesSettings(settings);
+	}
+}
+
+function readRoutesSettings() {
+	const str = localStorage.getItem(lsKey_routesSettings);
+	if (str != null) return JSON.parse(str);
+	return [];
+}
+
+function saveRoutesSettings(settings) {
+	if (!Array.isArray(settings)) settings = [];
+	if (settings.length === 0) localStorage.removeItem(lsKey_routesSettings);
+	else localStorage.setItem(lsKey_routesSettings, JSON.stringify(settings));
 }

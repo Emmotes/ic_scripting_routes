@@ -220,8 +220,7 @@ input[type="checkbox"]:checked::before {
 .stacksRoutesTable {
 	display: grid;
 	grid-template-columns: repeat(auto-fill,60px);
-	column-gap: 2px;
-	row-gap: 2px;
+	gap: 2px;
 }
 .stacksRoutesTableItem {
 	text-align: right;
@@ -387,4 +386,32 @@ input[type="checkbox"]:checked::before {
 }
 .hidden {
 	display: none;
+}
+.routeExpansion {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 0.9em;
+}
+.routeExpansion img {
+	width: 18px;
+	height: 18px;
+	padding-right: 2px;
+}
+.routeExpansion span {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.routeExpandsionDistinct {
+	background-color: var(--Onyx);
+	border: 1px solid var(--Black);
+	border-radius: 10px;
+	padding: 10px;
+}
+.hr {
+	width: 95%;
+	height: 1px;
+	border-top: 1px solid;
+	margin: 2px 0;
 }
