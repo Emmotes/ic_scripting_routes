@@ -1,4 +1,4 @@
-const vm = 5.001; // prettier-ignore
+const vm = 5.002; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1700,9 +1700,6 @@ function toggleRouteDetails(checked) {
 				ele.classList.add("routeExpandsionDistinct")
 			:	ele.classList.remove("routeExpandsionDistinct")
 		);
-	document.querySelectorAll("span[class='firstTrcZone']").forEach((ele) => {
-		if (ele.id !== `firstTrcZone`) ele.style = checked ? "top:10px" : "";
-	});
 	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
 		ele.style = checked ? "margin-top: -6px" : "";
 	});

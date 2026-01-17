@@ -271,9 +271,9 @@ input[type="checkbox"]:checked::before {
 .firstTrcZone {
 	position: absolute;
 	top: 3px;
-	left: 0;
+	left: 1px;
 	border-top: 1px solid var(--CarolinaBlue);
-	width: 100%;
+	width: 98%;
 }
 .trcZone {
 	color: var(--CarolinaBlue);
