@@ -390,7 +390,7 @@ input[type="checkbox"]:checked::before {
 .routeExpansion {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	width: 100%;
 	font-size: 0.9em;
 }
 .routeExpansion img {
@@ -404,10 +404,13 @@ input[type="checkbox"]:checked::before {
 	justify-content: center;
 }
 .routeExpandsionDistinct {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	background-color: var(--Onyx);
 	border: 1px solid var(--Black);
 	border-radius: 10px;
-	padding: 10px;
+	padding: 2px;
 }
 .hr {
 	width: 95%;

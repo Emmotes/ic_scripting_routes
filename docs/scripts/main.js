@@ -1,4 +1,4 @@
-const vm = 5.000; // prettier-ignore
+const vm = 5.001; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1264,9 +1264,9 @@ function renderRouteTable(routeData, inputs) {
 
 		const expandedText = createExpandedText(inputs.adv, currZone.zone);
 		const tooltipText = createTooltipText(inputs.adv, currZone.zone);
-		tableHtml += `<span class="stacksRoutesTableItem${styleClass}" data-type="${zoneType}" data-qt="${
+		tableHtml += `<span class="stacksRoutesTableItem" data-type="${zoneType}" data-qt="${
 			currZone.qt ? 1 : 0
-		}">${currZone.zone} ${icon}${expandedText}${tooltipText}${rushCapOverline}</span>`;
+		}"><span name="zoneSpan" class="${styleClass}">${currZone.zone} ${icon}</span>${expandedText}${tooltipText}${rushCapOverline}</span>`;
 	});
 
 	tableHtml += `</div>`;
@@ -1703,10 +1703,13 @@ function toggleRouteDetails(checked) {
 	document.querySelectorAll("span[class='firstTrcZone']").forEach((ele) => {
 		if (ele.id !== `firstTrcZone`) ele.style = checked ? "top:10px" : "";
 	});
+	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
+		ele.style = checked ? "margin-top: -6px" : "";
+	});
 	const grid = document.getElementById("stacksRoutesTable");
 	grid.style =
 		checked ?
-			`grid-template-columns:repeat(auto-fill, 115px);gap:10px`
+			`grid-template-columns:repeat(auto-fill, 100px);gap:8px`
 		:	``;
 	let settings = readRoutesSettings();
 	routeMoreDetails = checked;
