@@ -1,4 +1,4 @@
-const vm = 5.004; // prettier-ignore
+const vm = 5.005; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -184,7 +184,7 @@ function update() {
 	let {skipBlurb, skips, jumps} = generateSkipInfo(
 		ilvlInput,
 		rarityInput,
-		gildingInput
+		gildingInput,
 	);
 	let comment = ``;
 	let spacer = addToDescRow(`&nbsp;`);
@@ -382,7 +382,7 @@ function addChecked(bf, br) {
 	if (br) comment += addToDescRow(`&nbsp;`);
 	comment += `<span class="routesRow">`;
 	for (let i = 1; i <= 50; i++) {
-		let checked = isChecked(bf, i) ? ` checked` : ``;
+		let checked = isChecked(bf, i) ? jump : ``;
 		comment += `<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
 	}
 	comment += `</span>`;
@@ -580,7 +580,7 @@ async function calculateStacks() {
 			const brivData = setupBriv(
 				inputs,
 				inputs.routeJson.q,
-				inputs.routeJson.e
+				inputs.routeJson.e,
 			);
 			assertToken(calculateStacksToken);
 			const routeData = generateRoute(inputs, brivData, currToken);
@@ -595,23 +595,23 @@ async function calculateStacks() {
 			const jumpMax = jumpMin + 1;
 			const jumpObj = {jumpMin, jumpMinChance, jumpMax};
 			stackRarityNote.innerHTML = `(${(jumpMinChance * 100).toFixed(
-				3
+				3,
 			)}% chance ${jumpMin}j)`;
 			stackGildingNote.innerHTML = `(${(jumpMaxChance * 100).toFixed(
-				3
+				3,
 			)}% chance ${jumpMax}j)`;
 			if (
 				Object.prototype.hasOwnProperty.call(
 					inputs.routeJson,
-					"jump"
+					"jump",
 				) &&
 				Object.prototype.hasOwnProperty.call(
 					inputs.routeJson.jump,
-					"min"
+					"min",
 				) &&
 				Object.prototype.hasOwnProperty.call(
 					inputs.routeJson.jump,
-					"max"
+					"max",
 				) &&
 				(jumpMin !== inputs.routeJson.jump.min ||
 					jumpMax !== inputs.routeJson.jump.max)
@@ -623,7 +623,7 @@ async function calculateStacks() {
 						inputs.routeJson.jump.min
 					}-${
 						inputs.routeJson.jump.max
-					}j of your chosen route. The results of the stack calculation will therefore be useless.</span>`
+					}j of your chosen route. The results of the stack calculation will therefore be useless.</span>`,
 				);
 				contents += addToDescRow(`&nbsp;`);
 				stackResult.innerHTML = contents;
@@ -640,7 +640,7 @@ async function calculateStacks() {
 				const finalStacks = computeMCStacks(inputs, mcRoute);
 				resultData.push(mcRoute);
 				resultStacks.push(
-					finalStacks.thunderStepStacks ?? finalStacks.stacks
+					finalStacks.thunderStepStacks ?? finalStacks.stacks,
 				);
 			}
 
@@ -652,14 +652,14 @@ async function calculateStacks() {
 				jumpObj,
 				simulations,
 				finalStacks,
-				finalData
+				finalData,
 			);
 		}
 	} catch (e) {
 		if (e.message === "Aborted") return;
 		console.error(e);
 		let contents = addToDescRow(
-			`An error occurred while calculating the route.`
+			`An error occurred while calculating the route.`,
 		);
 		contents += addToDescRow(`&nbsp;`);
 		stackResult.innerHTML = contents;
@@ -669,7 +669,7 @@ async function calculateStacks() {
 function parseStackResults(resultStacks) {
 	resultStacks.sort((a, b) => a - b);
 	const avg = Math.ceil(
-		resultStacks.reduce((a, b) => a + b, 0) / resultStacks.length
+		resultStacks.reduce((a, b) => a + b, 0) / resultStacks.length,
 	);
 	const p95 = percentile(resultStacks, 0.95);
 	const p99 = percentile(resultStacks, 0.99);
@@ -753,7 +753,7 @@ async function getRouteInputs() {
 	const jumps = determineJumps(
 		Number(stackiLvl.value) - 1,
 		determineRarity(stackRarity.value),
-		determineGilding(stackGilding.value)
+		determineGilding(stackGilding.value),
 	);
 
 	let advData = await pullAdvJson(routeObj.adv);
@@ -970,7 +970,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	let loopHtml = addLoop(
 		inputs.routeJson.bf,
 		inputs.routeJson.q,
-		inputs.routeJson.e
+		inputs.routeJson.e,
 	).substring(4);
 	resultHtml += `<ul><li>${loopHtml}</li>`;
 
@@ -984,15 +984,15 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	// Thunder Step
 	if (inputs.thunderStep) {
 		resultHtml += `<li>The ${nf(
-			stackData.stacks
+			stackData.stacks,
 		)} stacks required will become ${nf(
-			stackData.thunderStepStacks
+			stackData.thunderStepStacks,
 		)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
 		if (inputs.numRuns === 1)
 			resultHtml += `<ul><li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon - use ${nf(
-				stackData.thunderStepStacks
+				stackData.thunderStepStacks,
 			)} as your Target Stacks. The Stacks Prediction will account for Thunder Step.<br>If you have disabled Stacks Prediction - you may use ${nf(
-				stackData.stacks
+				stackData.stacks,
 			)}.</li></ul>`;
 	}
 
@@ -1065,13 +1065,13 @@ function renderResults(inputs, brivData, routeData, stackData) {
 		// Bad zones
 		if (numArmoured > 0)
 			resultHtml += `<li class="bigRedWarning">This route will hit ${nf(
-				numArmoured
+				numArmoured,
 			)} Armoured zone${
 				numArmoured === 1 ? "" : "s"
 			}. These can be run killers so you need to change some values to avoid them.</li>`;
 		if (numHits > 0)
 			resultHtml += `<li class="littleRedWarning">This route will hit ${nf(
-				numHits
+				numHits,
 			)} Hit-Based zone${
 				numHits === 1 ? "" : "s"
 			}. These are slow and should be avoided.</li>`;
@@ -1079,7 +1079,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 		resultHtml += `</ul>`;
 	}
 	resultHtml += `<li>This route has ${nf(routeData.qtCount)} QTs out of ${nf(
-		routeLength
+		routeLength,
 	)} transitions.</li>`;
 
 	resultHtml += `</ul>`;
@@ -1095,7 +1095,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	// Debug consistency check
 	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
 	let jumpCount = document.querySelectorAll(
-		"span:is([data-type='jump'],[data-type='hop'])"
+		"span:is([data-type='jump'],[data-type='hop'])",
 	).length;
 	let qtsCount = document.querySelectorAll("span[data-qt='1']").length;
 	let calcJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
@@ -1130,13 +1130,13 @@ function renderVariableResults(
 	jumpObj,
 	simulations,
 	finalStacks,
-	finalData
+	finalData,
 ) {
 	let contents = ``;
 	contents += generateSkipInfo(
 		stackiLvl,
 		stackRarity,
-		stackGilding
+		stackGilding,
 	).skipBlurb;
 	contents += `<h2>Stacks Required: ${nf(finalStacks.p95)}</h2>`;
 
@@ -1185,7 +1185,7 @@ function renderVariableResults(
 		}</li>`;
 	if (bosses > 0) {
 		resultHtml += `<li>Briv will hit on average ${nf(
-			bosses
+			bosses,
 		)} normal bosses.`;
 		let badness = ``;
 		if (hits && jumpObj.jumpMin >= 1)
@@ -1199,7 +1199,7 @@ function renderVariableResults(
 	let qts = finalData.avgQTs;
 	let transitions = jumps + walks;
 	resultHtml += `<li>This route has on average ${nf(qts)} QTs out of ${nf(
-		transitions
+		transitions,
 	)} transitions.`;
 
 	contents += addToDescRow(resultHtml);
@@ -1269,8 +1269,9 @@ function renderRouteTable(routeData, inputs) {
 			indicatorStackSquare = `<span class="stkZone">${indicatorSquare}</span>`;
 		}
 
-		const expandedText = createExpandedText(inputs.adv, currZone.zone);
-		const tooltipText = createTooltipText(inputs.adv, currZone.zone);
+		const ctx = getZoneContext(inputs.adv, currZone.zone);
+		const expandedText = createExpandedText(ctx);
+		const tooltipText = createTooltipText(ctx);
 		tableHtml += `<span class="stacksRoutesTableItem" data-type="${zoneType}" data-qt="${
 			currZone.qt ? 1 : 0
 		}"><span name="zoneSpan" class="${styleClass}">${currZone.zone} ${icon}${indicatorStackSquare}${indicatorFirstRushCapCircle}</span>${expandedText}${tooltipText}</span>`;
@@ -1448,135 +1449,146 @@ function isQT(route, area1, area2) {
 	return qts[area1 - 1] === qts[area2 - 1];
 }
 
-function createExpandedText(adv, zone) {
-	const boss = zone % 5 === 0 ? `Boss ` : ``;
+function getZoneContext(adv, zone) {
+	const boss = zone % 5 === 0 ? "Boss " : "";
 	const mod = zone % 50 || 50;
-	const quest = adv.quests[mod - 1];
-	const hr = `<span class="hr">&nbsp;</span>`;
-	const mons = [];
-	const area = adv.areas[mod - 1];
-	if (area.waves != null)
-		for (let wave of area.waves) for (let mon of wave) mons.push(mon);
-	if (area.monsters != null) for (let mon of area.monsters) mons.push(mon);
-	if (area.staticMonsters != null)
-		for (let mon of area.staticMonsters) mons.push(mon);
 
+	const area = adv.areas[mod - 1];
+	const quest = adv.quests[mod - 1];
+
+	// Flatten monster ids for the area
+	const mons = [];
+	if (area?.waves)
+		for (const wave of area.waves) for (const id of wave) mons.push(id);
+	if (area?.monsters) for (const id of area.monsters) mons.push(id);
+	if (area?.staticMonsters)
+		for (const id of area.staticMonsters) mons.push(id);
+
+	// Fast lookup: id -> monster
+	const monsterById = new Map();
+	for (const m of adv.monsters) monsterById.set(m.id, m);
+
+	return {zone, mod, boss, quest, mons, monsterById};
+}
+
+function createExpandedText(ctx) {
+	const {boss, quest, mons, monsterById} = ctx;
+
+	const hr = `<span class="hr">&nbsp;</span>`;
 	let t = `<span class="routeExpansion" style="display:none">`;
 
 	// Quest Text.
-	let questText =
+	const questText =
 		`<span>` +
 		(quest.type === 1 ? `${THUMBS.collect}Collect` : `${THUMBS.kill}Kill`) +
-		` ${quest.goal}${
-			boss ?
-				quest.goal === 1 ?
-					" Boss"
-				:	" Bosses"
-			:	""
-		}</span>`;
+		` ${quest.goal}` +
+		(boss ?
+			quest.goal === 1 ?
+				" Boss"
+			:	" Bosses"
+		:	"") +
+		`</span>`;
 
-	// Monster Texts
-	let areaAtks = [];
-	let monFFTypes = [];
-	let monTexts = [];
-	for (let monId of mons) {
-		let mon = "";
-		for (let monster of adv.monsters) {
-			if (monster.id === monId) {
-				mon = monster;
-				break;
+	// Monster tags (for FF types) + area attack types
+	const areaAtks = [];
+	const monFFTypes = [];
+
+	for (const monId of mons) {
+		const mon = monsterById.get(monId);
+		if (!mon) continue;
+
+		for (const tag of mon.tags) {
+			const isAtk =
+				tag === "ranged" || tag === "melee" || tag === "magic";
+			if (isAtk) {
+				if (!areaAtks.includes(tag)) areaAtks.push(tag);
+			} else if (FF_TAGS.includes(tag)) {
+				if (!monFFTypes.includes(tag)) monFFTypes.push(tag);
 			}
 		}
-		if (mon === "") continue;
-		for (let tag of mon.tags) {
-			let isAtk = tag === `ranged` || tag === `melee` || tag === `magic`;
-			if (isAtk && !areaAtks.includes(tag)) areaAtks.push(tag);
-			else if (FF_TAGS.includes(tag) && !monFFTypes.includes(tag))
-				monFFTypes.push(tag);
-		}
 	}
+
 	monFFTypes.sort();
-	for (let ffType of monFFTypes) {
-		let ffImage = ``;
+
+	const monTexts = [];
+	for (const ffType of monFFTypes) {
+		let ffImage = "";
 		switch (ffType) {
-			case `beast`:
+			case "beast":
 				ffImage = THUMBS.imoen;
 				break;
-			case `fey`:
+			case "fey":
 				ffImage = THUMBS.minsc;
 				break;
-			case `humanoid`:
+			case "humanoid":
 				ffImage = THUMBS.dynaheir;
 				break;
 		}
-		const monText = `<span>${ffImage}${capitalize(ffType)}</span>`;
+		const monText = `<span>${ffImage}${capitalise(ffType)}</span>`;
 		if (!boss && !monTexts.includes(monText)) monTexts.push(monText);
 	}
 
 	// Area Damage Types
-	let areaText = ``;
+	let areaText = "";
 	if (areaAtks.length > 1) areaText = `<span>Mixed</span>`;
 	else if (areaAtks.length === 1)
-		areaText = `<span>${capitalize(areaAtks[0])}</span>`;
+		areaText = `<span>${capitalise(areaAtks[0])}</span>`;
 
 	// Finalise
 	t += hr + questText + areaText;
 	if (monTexts.length > 0) t += hr;
-	for (let monText of monTexts) t += monText;
+	for (const monText of monTexts) t += monText;
 	t += `</span>`;
 
 	return t;
 }
 
-function createTooltipText(adv, zone) {
-	let boss = zone % 5 === 0 ? `Boss ` : ``;
-	let mod = zone % 50 || 50;
+function createTooltipText(ctx) {
+	const {zone, mod, boss, quest, mons, monsterById} = ctx;
+
 	let t = `<span class="ttc"><span class="ttcRow">${boss}Zone: ${zone} (${mod})</span>`;
-	let mons = [];
-	let area = adv.areas[mod - 1];
-	let quest = adv.quests[mod - 1];
-	let questText = quest.type === 1 ? `Collect` : `Kill`;
+
+	let questText = quest.type === 1 ? "Collect" : "Kill";
 	questText += ` ${quest.goal} ${quest.desc}`;
 	t += `<span class="ttcRow">${questText}</span>`;
-	if (area.waves != null)
-		for (let wave of area.waves) for (let mon of wave) mons.push(mon);
-	if (area.monsters != null) for (let mon of area.monsters) mons.push(mon);
-	if (area.staticMonsters != null)
-		for (let mon of area.staticMonsters) mons.push(mon);
-	let monNames = [];
-	let monAtks = [];
-	let monTags = [];
-	for (let monId of mons) {
-		let mon = "";
-		for (let monster of adv.monsters) {
-			if (monster.id === monId) {
-				mon = monster;
-				break;
+
+	const monNames = [];
+	const monAtks = [];
+	const monTags = [];
+
+	for (const monId of mons) {
+		const mon = monsterById.get(monId);
+		if (!mon) continue;
+
+		if (!monNames.includes(mon.name)) monNames.push(mon.name);
+
+		for (const tag of mon.tags) {
+			const isAtk =
+				tag === "ranged" || tag === "melee" || tag === "magic";
+			if (isAtk) {
+				if (!monAtks.includes(tag)) monAtks.push(tag);
+			} else {
+				if (!monTags.includes(tag)) monTags.push(tag);
 			}
 		}
-		if (mon === "") continue;
-		if (!monNames.includes(mon.name)) monNames.push(mon.name);
-		for (let tag of mon.tags) {
-			let isAtk = tag === `ranged` || tag === `melee` || tag === `magic`;
-			if (isAtk && !monAtks.includes(tag)) monAtks.push(tag);
-			else if (!isAtk && !monTags.includes(tag)) monTags.push(tag);
-		}
 	}
+
 	if (monNames.length > 0) {
 		t += `<span class="ttcRow ttcTop">Enemies:</span>`;
-		for (let monName of monNames)
+		for (const monName of monNames)
 			t += `<span class="ttcRow ttcLeft">${monName}</span>`;
 	}
 	if (monAtks.length > 0) {
 		t += `<span class="ttcRow ttcTop">Attack Types:</span>`;
-		for (let atk of monAtks)
-			t += `<span class="ttcRow ttcLeft">${capitalize(atk)}</span>`;
+		for (const atk of monAtks)
+			t += `<span class="ttcRow ttcLeft">${capitalise(atk)}</span>`;
 	}
 	if (monTags.length > 0) {
 		t += `<span class="ttcRow ttcTop">Other Tags:</span>`;
-		for (let tag of monTags)
-			t += `<span class="ttcRow ttcLeft">${capitalize(tag)}</span>`;
+		for (const tag of monTags)
+			t += `<span class="ttcRow ttcLeft">${capitalise(tag)}</span>`;
 	}
+
 	t += `</span>`;
 	return t;
 }
@@ -1640,7 +1652,7 @@ async function pullAdvJson(id) {
 	return parsed;
 }
 
-function capitalize(s) {
+function capitalise(s) {
 	if (s === `armor_based`) return `Armoured`;
 	if (s === `hits_based`) return `Hits-Based`;
 	return s && s[0].toUpperCase() + s.slice(1);
@@ -1664,7 +1676,7 @@ async function checkUpdatedScriptsAvailable() {
 				headers: {"Cache-Control": "no-cache"},
 			})
 		).text(),
-		"text/html"
+		"text/html",
 	);
 	let oldList = [
 		...document.querySelectorAll("script[type='text/javascript']"),
@@ -1721,11 +1733,11 @@ function toggleRouteDetails(checked) {
 		.forEach((ele) =>
 			checked ?
 				ele.classList.add("routeExpandsionDistinct")
-			:	ele.classList.remove("routeExpandsionDistinct")
+			:	ele.classList.remove("routeExpandsionDistinct"),
 		);
 	document
 		.querySelectorAll(
-			"span[class*='stacksRoutesTableItem'] span[class='ttc']"
+			"span[class*='stacksRoutesTableItem'] span[class='ttc']",
 		)
 		.forEach((ele) => (ele.style.display = checked ? `none` : ``));
 	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
