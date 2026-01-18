@@ -1,4 +1,4 @@
-const vm = 5.005; // prettier-ignore
+const vm = 5.006; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -797,8 +797,8 @@ async function getRouteInputs() {
 }
 
 function setupBriv(inputs, Q, E) {
-	let thelloraDist =
-		Math.min(inputs.favour, Math.floor(inputs.resetZone / 5)) + 1;
+	let thelloraDistCalc = computeThelloraDist(inputs, Q, E);
+	let thelloraDist = thelloraDistCalc.minSeen;
 	let brivStack = thelloraDist;
 	let jumpsWithMetal = 0;
 	let jumpsWithoutMetal = 0;
@@ -826,7 +826,7 @@ function setupBriv(inputs, Q, E) {
 	}
 
 	return {
-		thelloraDist,
+		thelloraDistCalc,
 		brivStack,
 		jumpsWithMetal,
 		jumpsWithoutMetal,
@@ -834,12 +834,104 @@ function setupBriv(inputs, Q, E) {
 	};
 }
 
+function computeThelloraDist(inputs, Q, E) {
+	if (inputs.favour <= 0) return 1;
+
+	// If definitely favour-capped, no need to simulate.
+	if (inputs.resetZone >= inputs.favour * 5) return inputs.favour + 1;
+
+	// Start by assuming favour capped.
+	let dist = inputs.favour + 1;
+
+	const seen = new Set([dist]);
+	let minSeen = dist;
+
+	let counter = 0;
+	while (counter < 20) {
+		const finalZone = simulateFinalZone(inputs, dist, Q, E);
+		const nextDist = Math.min(inputs.favour, Math.floor(finalZone / 5)) + 1;
+
+		// If two runs in a row gave the same dist, it's safe to assume the dist is stable.
+		if (nextDist === dist) {
+			seen.clear();
+			seen.add(dist);
+			break;
+		}
+
+		// If we see a cycle, return the minimum dist seen so far.
+		if (seen.has(nextDist)) break;
+
+		dist = nextDist;
+		seen.add(dist);
+		if (dist < minSeen) minSeen = dist;
+		counter++;
+	}
+
+	return {minSeen, seen};
+}
+
+function simulateFinalZone(inputs, thelloraDist, Q, E) {
+	// Mirror setupBriv's brivStack logic, but take thelloraDist as given
+	let brivZone = inputs.brivZone;
+	let brivStack = thelloraDist;
+
+	if (brivZone === 1 && inputs.favour > 0) {
+		switch (inputs.z1Formation) {
+			case "q":
+				brivStack += Q - 1;
+				break;
+			case "e":
+				brivStack += E - 1;
+				if (E === 1) brivZone = 2;
+				break;
+			case "4":
+			case "9":
+				brivStack += Number(inputs.z1Formation);
+				break;
+		}
+	}
+
+	let currentZone = brivStack;
+
+	while (currentZone < inputs.resetZone) {
+		const modZone = currentZone % 50 || 50;
+
+		const applyRngwr =
+			currentZone === brivStack &&
+			inputs.rngWaitingRoom &&
+			inputs.favour > 0;
+
+		const checked =
+			currentZone >= brivZone && inputs.routeJson.checkedByZone[modZone];
+
+		let diff;
+		if (applyRngwr)
+			diff =
+				brivZone === 1 ? brivStack - thelloraDist + 1
+				: inputs.z1Formation === "q" ? inputs.routeJson.q
+				: inputs.z1Formation === "e" ? inputs.routeJson.e
+				: inputs.z1Formation === "4" || inputs.z1Formation === "9" ?
+					Number(inputs.z1Formation) + 1
+				:	1;
+		else
+			diff =
+				currentZone < brivZone ? 1
+				: checked ? inputs.routeJson.q
+				: inputs.routeJson.e;
+
+		currentZone += diff;
+	}
+
+	return currentZone;
+}
+
 function generateRoute(inputs, brivData, currToken) {
 	let currentZone = brivData.brivStack;
-	const dist = currentZone - brivData.thelloraDist + 1;
+	const dist = currentZone - brivData.thelloraDistCalc.minSeen + 1;
 	const route = [{zone: 1}];
 	let qtCount = 0;
-	if (brivData.thelloraDist > 1) route[route.length - 1].thellora = true;
+	if (brivData.thelloraDistCalc.minSeen > 1)
+		route[route.length - 1].thellora = true;
 	if (brivData.combined)
 		route[route.length - 1].type =
 			dist === inputs.routeJson.q ? "jump" : "hop";
@@ -891,7 +983,7 @@ function generateRoute(inputs, brivData, currToken) {
 			rngJumpApplied = true;
 			diff =
 				inputs.brivZone === 1 ?
-					brivData.brivStack - brivData.thelloraDist + 1
+					brivData.brivStack - brivData.thelloraDistCalc.minSeen + 1
 				: inputs.z1Formation === "q" ? inputs.routeJson.q
 				: inputs.z1Formation === "e" ? inputs.routeJson.e
 				: inputs.z1Formation === "4" || inputs.z1Formation === "9" ?
@@ -1010,7 +1102,9 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	// Thellora landing
 	if (inputs.favour > 0) {
 		// Rush capped check
-		if (inputs.resetZone < inputs.favour * 5)
+		if (brivData.thelloraDistCalc.seen.size > 1)
+			resultHtml += `<li class="littleRedWarning">This route has an unstable Thellora landing zone. Some runs she will jump further than others. It is recommended that you never reset below her Rush cap.</li>`;
+		else if (brivData.thelloraDistCalc.minSeen < inputs.favour + 1)
 			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${
 				inputs.favour * 5
 			}.</li>`;
@@ -1743,7 +1837,8 @@ function toggleRouteDetails(checked) {
 	document.querySelectorAll("span[name='zoneSpan']").forEach((ele) => {
 		ele.style = checked ? "margin-top: -6px" : "";
 	});
-	document.getElementById("firstTrcZone").style = checked ? "top:-5px" : "";
+	const firstTrcZone = document.getElementById("firstTrcZone");
+	if (firstTrcZone != null) firstTrcZone.style = checked ? "top:-5px" : "";
 	const grid = document.getElementById("stacksRoutesTable");
 	grid.style =
 		checked ? `grid-template-columns:repeat(auto-fill, 100px);gap:8px` : ``;
