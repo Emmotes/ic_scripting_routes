@@ -265,8 +265,8 @@
 				<label for="formTatyana" id="formTatyanaLabel">Tatyana in M:</label>
 			</span>
 			<span class="routesCol2" style="display:flex">
-				<input type="checkbox" name="formTatyana" id="formTatyana">
-				<span>(Can speed up EllyWait)</span>
+				<input type="checkbox" name="formTatyana" id="formTatyana" checked>
+				<span>(Recommended)</span>
 			</span>
 		</span>
 		<span class="routesRow">
