@@ -1,4 +1,4 @@
-const vf = 1.014; // prettier-ignore
+const vf = 1.015; // prettier-ignore
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -256,7 +256,6 @@ function addSpecInfo(baldric, hybrid, tatyana, specsData) {
 		else specTexts.push(createSpecTxt(champId, specsData[champId]));
 	}
 	if (hybrid && !baldric) specTexts.push(createSpecTxt(59, [3514]));
-	if (tatyana) specTexts.push(createSpecTxt(97, [7389]));
 	specTexts.sort();
 	for (let specText of specTexts) txt += specText;
 	if (addNoneMsg) txt += createSpecTxt();
