@@ -1,4 +1,4 @@
-const vm = 5.006; // prettier-ignore
+const vm = 5.007; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1510,7 +1510,7 @@ function enforceTolerances() {
 	if (stackFavour.value < stackFavourLimits[0])
 		stackFavour.value = stackFavourLimits[0];
 
-	if (stackStack.value < stackStackMin) stackFavour.value = stackStackMin;
+	if (stackStack.value < stackStackMin) stackStack.value = stackStackMin;
 
 	if (stackBrivZone.value < stackBrivZoneMin)
 		stackBrivZone.value = stackBrivZoneMin;
