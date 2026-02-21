@@ -1,4 +1,4 @@
-const vm = 5.007; // prettier-ignore
+const vm = 5.008; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -56,9 +56,9 @@ const NUMFORM = new Intl.NumberFormat("en", {
 });
 const advJsonCache = {};
 const THUMBS = {
-	imoen: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Imoen.png" class='routeThumb' alt='Imoen'/>`,
-	minsc: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Minsc.png" class='routeThumb' alt='Minsc'/>`,
-	dynaheir: `<img src="https://emmotes.github.io/ic_servercalls/images/portraitsNames/Dynaheir.png" class='routeThumb' alt='Dynaheir'/>`,
+	imoen: `<img src="https://emmotes.github.io/ic_servercalls/images/circularisedNames/Imoen.png" class='routeThumb' alt='Imoen'/>`,
+	minsc: `<img src="https://emmotes.github.io/ic_servercalls/images/circularisedNames/Minsc.png" class='routeThumb' alt='Minsc'/>`,
+	dynaheir: `<img src="https://emmotes.github.io/ic_servercalls/images/circularisedNames/Dynaheir.png" class='routeThumb' alt='Dynaheir'/>`,
 	kill: `<img src="images/kill.svg" alt="Kill Enemies">`,
 	collect: `<img src="images/collect.svg" alt="Collect Items">`,
 };

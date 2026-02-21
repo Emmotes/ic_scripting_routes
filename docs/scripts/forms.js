@@ -1,4 +1,4 @@
-const vf = 1.015; // prettier-ignore
+const vf = 1.016; // prettier-ignore
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -222,7 +222,7 @@ function createSVG(slots, ids) {
 		let champ = championData[ids[i]];
 		if (champ == null && ids[i] > 0)
 			console.log(`Unknown champion id: ${ids[i]}`);
-		svg += `<image x="${slots[i].x}" y="${slots[i].y}" width="${circleDiameter}" height="${circleDiameter}" href="https://emmotes.github.io/ic_servercalls/images/portraits/${ids[i]}.png"`;
+		svg += `<image x="${slots[i].x}" y="${slots[i].y}" width="${circleDiameter}" height="${circleDiameter}" href="https://emmotes.github.io/ic_servercalls/images/circularised/${ids[i]}.png"`;
 		if (champ != null) svg += `><title>${champ.name}</title></image>`;
 		else svg += ` />`;
 	}
