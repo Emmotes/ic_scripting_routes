@@ -1,4 +1,4 @@
-const vm = 5.009; // prettier-ignore
+const vm = 5.010; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1266,6 +1266,8 @@ function renderVariableResults(
 			thelloraExtras += `${createBadTravellingWarning(inputs)}`;
 		if (thelloraExtras !== ``) resultHtml += `<ul>${thelloraExtras}</ul>`;
 	}
+	if (inputs.thunderStep)
+		resultHtml += `<li class="tinyRedWarning">If you are running hybrid with the HybridTurboStacks addon and Stacks Prediction is enabled - set your target stacks with the Thunder Step setting disabled. This is because Stacks Prediction accounts for Thunder Step already.</li>`;
 
 	// Bosses
 	const bosses = finalData.avgBosses;
