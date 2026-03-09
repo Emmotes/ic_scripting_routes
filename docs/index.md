@@ -287,10 +287,14 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="formHybrid" id="formHybridLabel">Hybrid Stacking:</label>
+				<label for="formStacking" id="formStackingLabel">Stacking Mode:</label>
 			</span>
 			<span class="routesCol2">
-				<input type="checkbox" name="formHybrid" id="formHybrid">
+				<select name="formStacking" id="formStacking" style="min-width:250px">
+					<option value="Offline" selected>Offline</option>
+					<option value="Melf">Hybrid: Melf</option>
+					<option value="Farideh">Hybrid: Farideh</option>
+				</select>
 			</span>
 		</span>
 		<span class="routesRow">
@@ -302,6 +306,7 @@
 				<p>The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>
 				<p>For Familiars you should put 3 on the field in the Q E and M formations and that's it. None in W. None on champions. None on click damage. When scripting you never use more than 3 familiars.</p>
 				<p><em>Note: It is recommended to use as few Widdle adjacencies as possible. Just know that she might need more ilvls to maintain 1,000% total effect.</em></p>
+				<p id="dynaheirInvestmentNote" style="display:none;color:var(--TangerineYellow)">Warning: Dynaheir requires iLvl investment to be viable. If you have not gotten her to at least 4 quests per Favoured Foe kill - you should use BBEG.<br>And you should not invest in her until at least 7j or 8-j (unless you can do so with bounties during her event).</p>
 			</span>
 		</span>
 		<span class="routesRow">

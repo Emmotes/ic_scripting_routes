@@ -10,8 +10,8 @@ const {
 	stackFavour, stackStack, stackBrivZone, stackz1Form, stackRNGWR,
 	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
-	formFeatSwap, formBaldricLabel, formBaldric, formHybridLabel, formHybrid,
-	formTatyana, formResult,
+	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
+	formTatyana, formResult, dynaheirInvestmentNote,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -20,8 +20,8 @@ const {
 		"stackFavour", "stackStack", "stackBrivZone", "stackz1Form", "stackRNGWR",
 		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
-		"formFeatSwap", "formBaldricLabel", "formBaldric", "formHybridLabel", "formHybrid",
-		"formTatyana", "formResult",
+		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
+		"formTatyana", "formResult", "dynaheirInvestmentNote",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -127,7 +127,7 @@ async function init() {
 	bind(formTatyana, `change`, formsUpdateCheckboxes);
 	bind(formBaldric, `change`, formsUpdateCheckboxes);
 	bind(formFeatSwap, `change`, formsUpdateCheckboxes);
-	bind(formHybrid, `change`, formsUpdateCheckboxes);
+	bind(formStacking, `input`, formsUpdateStacking);
 	update();
 	await calculateStacks();
 	startUpdateCheckInterval(1800000); // 30 mins
@@ -468,7 +468,7 @@ function swapTab() {
 						formTatyana.checked = hash[4] === "1";
 						formBaldric.checked = hash[5] === "1";
 						formFeatSwap.checked = hash[6] === "1";
-						formHybrid.checked = hash[7] === "1";
+						formStacking.value = hash[7];
 					}
 				}
 			}
@@ -495,14 +495,14 @@ function setHash(hash) {
 		const tatyana = formTatyana.checked ? 1 : 0;
 		const baldric = formBaldric.checked ? 1 : 0;
 		const featSwap = formFeatSwap.checked ? 1 : 0;
-		const hybrid = formHybrid.checked ? 1 : 0;
+		const stacking = formStacking.value;
 		hash = `${ft}`;
 		if (formCampaign.value !== ``) {
 			hash += `_${formCampaign.value}`;
 			if (formType.value !== ``) {
 				hash += `_${formType.value}`;
 				if (formWiddle.value !== ``)
-					hash += `_${formWiddle.value}_${tatyana}_${baldric}_${featSwap}_${hybrid}`;
+					hash += `_${formWiddle.value}_${tatyana}_${baldric}_${featSwap}_${stacking}`;
 			}
 		}
 	}
