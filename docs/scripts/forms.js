@@ -1,4 +1,4 @@
-const vf = 2.000; // prettier-ignore
+const vf = 2.001; // prettier-ignore
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -67,10 +67,7 @@ function formsUpdateCampaign() {
 }
 
 function formsUpdateType() {
-	const type = formType.value;
-	const isDynaheir = type === "dynaMinsc" || type === "MImoHeir";
-	dynaheirInvestmentNote.style.display = isDynaheir ? `` : `none`;
-
+	checkDynaheirInvestmentNoteDisplay();
 	populateFormWiddles();
 	decideFormsShowStatus();
 }
@@ -97,6 +94,8 @@ function formsUpdateShow() {
 	let stacking = formStacking.value;
 
 	if (campaign === "" || type === "" || widdle === "") return;
+
+	checkDynaheirInvestmentNoteDisplay();
 
 	const f = formsData[campaign];
 	if (featSwap && f.ignoreFeatSwap === 1) featSwap = false;
@@ -162,6 +161,8 @@ function decideFormsShowStatus() {
 	const campaign = formCampaign.value;
 	const type = formType.value;
 	const widdle = formWiddle.value;
+	
+	checkDynaheirInvestmentNoteDisplay();
 
 	if (campaign === "" || type === "" || widdle === "")
 		disableElements(true, true, true, true);
@@ -195,6 +196,12 @@ function disableElements(tatyana, baldric, featSwap, stacking) {
 	formStacking.disabled = stacking;
 	formStacking.style = stacking ? grey + noCur : ``;
 	formStackingLabel.style = stacking ? grey : ``;
+}
+
+function checkDynaheirInvestmentNoteDisplay() {
+	const type = formType.value;
+	const isDynaheir = type === "dynaMinsc" || type === "MImoHeir";
+	dynaheirInvestmentNote.style.display = isDynaheir ? `` : `none`;
 }
 
 /* ========================== *
