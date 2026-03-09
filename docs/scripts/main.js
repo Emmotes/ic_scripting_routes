@@ -1,4 +1,4 @@
-const vm = 5.010; // prettier-ignore
+const vm = 5.011; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1454,7 +1454,8 @@ function generateMCVariableRoute(inputs, jumps) {
 
 		const canJump =
 			zone >= inputs.brivZone &&
-			inputs.routeJson.checkedByZone[zone % 50 || 50];
+			(inputs.routeJson.checkedByZone[zone % 50 || 50] ||
+				(zone === result.thelloraLanding && inputs.rngWaitingRoom));
 
 		const diff = canJump ? randomJumpDistance(jumps) : 1;
 		zone += diff;
