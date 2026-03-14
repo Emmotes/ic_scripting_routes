@@ -1,4 +1,4 @@
-const vm = 5.011; // prettier-ignore
+const vm = 5.012; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -987,6 +987,7 @@ function generateRoute(inputs, brivData, currToken) {
 			diff =
 				inputs.brivZone === 1 ?
 					brivData.brivStack - brivData.thelloraDistCalc.minSeen + 1
+				: inputs.brivZone > currentZone ? 1
 				: inputs.z1Formation === "q" ? inputs.routeJson.q
 				: inputs.z1Formation === "e" ? inputs.routeJson.e
 				: inputs.z1Formation === "4" || inputs.z1Formation === "9" ?
