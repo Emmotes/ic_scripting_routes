@@ -1,4 +1,4 @@
-const vm = 5.012; // prettier-ignore
+const vm = 5.013; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1105,13 +1105,19 @@ function renderResults(inputs, brivData, routeData, stackData) {
 
 	// Thellora landing
 	if (inputs.favour > 0) {
+		const rushCap = inputs.favour * 5;
 		// Rush capped check
 		if (brivData.thelloraDistCalc.seen.size > 1)
 			resultHtml += `<li class="littleRedWarning">This route has an unstable Thellora landing zone. Some runs she will jump further than others. It is recommended that you never reset below her Rush cap.</li>`;
 		else if (brivData.thelloraDistCalc.minSeen < inputs.favour + 1)
 			resultHtml += `<li class="littleRedWarning">This route will not cap Thellora's Rush stacks. It is recommended that you never reset below her Rush cap. For your current settings that will be z${
-				inputs.favour * 5
+				rushCap
 			}.</li>`;
+		else if (inputs.resetZone < rushCap)
+			resultHtml +=
+				`<li class="littleRedWarning">Do not use a reset zone lower than 5x your favour. If you end up drifting ` +
+				`you may end up resetting before Thellora caps. This could cause further failures.<br>Use a reset zone of at least ` +
+				`z${rushCap} for your current settings.</li>`;
 
 		// General Thellora info
 		resultHtml += `<li>Thellora will land you on z${currentZone}.</li><ul>${brivWarningHtml}`;
