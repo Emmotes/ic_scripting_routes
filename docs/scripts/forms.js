@@ -1,4 +1,6 @@
-const vf = 2.001; // prettier-ignore
+const vf = 2.002; // prettier-ignore
+const f_GREY = `color:#444`;
+const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
  * ===== Data ===== *
  * ================ */
@@ -92,12 +94,20 @@ function formsUpdateShow() {
 	let baldric = formBaldric.checked;
 	let featSwap = formFeatSwap.checked;
 	let stacking = formStacking.value;
+	const baldricAndMelf = baldric && stacking.includes("Melf");
 
 	if (campaign === "" || type === "" || widdle === "") return;
 
-	checkDynaheirInvestmentNoteDisplay();
-
 	const f = formsData[campaign];
+
+	checkDynaheirInvestmentNoteDisplay();
+	checkBaldricAndMelfNoteDisplay(baldricAndMelf);
+
+	if (baldricAndMelf) {
+		formResult.innerHTML = `&nbsp;`;
+		return;
+	}
+
 	if (featSwap && f.ignoreFeatSwap === 1) featSwap = false;
 	if (stacking !== "Offline" && f.ignoreHybrid === 1) stacking = "Offline";
 
@@ -108,6 +118,7 @@ function formsUpdateShow() {
 	const q = baseForm.Q;
 	const w =
 		stacking === "Melf" ? [58, 0, 139, 0, 83, 0, 0, 59, 0, 97]
+		: stacking === "Melf+Farideh" ? [58, 0, 139, 0, 83, 0, 0, 59, 97, 33]
 		: stacking === "Farideh" ? [0, 58, 139, 0, 0, 0, 0, 33, 0, 97]
 		: [58, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	const e = [...q];
@@ -161,7 +172,7 @@ function decideFormsShowStatus() {
 	const campaign = formCampaign.value;
 	const type = formType.value;
 	const widdle = formWiddle.value;
-	
+
 	checkDynaheirInvestmentNoteDisplay();
 
 	if (campaign === "" || type === "" || widdle === "")
@@ -174,34 +185,62 @@ function decideFormsShowStatus() {
 			disableElements(false, disableBaldric, true, true);
 		else disableElements(false, disableBaldric, false, false);
 	}
+	handleBaldricMelfIncompatibility();
 	formsUpdateShow();
 }
 
 function disableElements(tatyana, baldric, featSwap, stacking) {
-	const grey = `color:#444`;
-	const noCur = `;cursor:default;pointer-events:none`;
 	// formTatyana
-	formTatyana.disabled = tatyana;
-	formTatyana.style = tatyana ? grey + noCur : ``;
-	formTatyanaLabel.style = tatyana ? grey : ``;
+	disableElement(formTatyana, formTatyanaLabel, tatyana);
 	// formBaldric
-	formBaldric.disabled = baldric;
-	formBaldric.style = baldric ? grey + noCur : ``;
-	formBaldricLabel.style = baldric ? grey : ``;
+	disableElement(formBaldric, formBaldricLabel, baldric);
 	// formFeatSwap
-	formFeatSwap.disabled = featSwap;
-	formFeatSwap.style = featSwap ? grey + noCur : ``;
-	formFeatSwapLabel.style = featSwap ? grey : ``;
+	disableElement(formFeatSwap, formFeatSwapLabel, featSwap);
 	// formStacking
-	formStacking.disabled = stacking;
-	formStacking.style = stacking ? grey + noCur : ``;
-	formStackingLabel.style = stacking ? grey : ``;
+	disableElement(formStacking, formStackingLabel, stacking);
+}
+
+function disableElement(ele, eleLabel, disable) {
+	ele.disabled = disable;
+	ele.style = disable ? f_GREY + f_NOCURSOR : ``;
+	eleLabel.style = disable ? f_GREY : ``;
+}
+
+function handleBaldricMelfIncompatibility() {
+	const baldric = formBaldric.checked;
+	const melf = formStacking.value.includes("Melf");
+
+	if (baldric && melf)
+		// Somehow someone was able to enable both.
+		// Leave it to the bigRedWarning to tell them off.
+		return;
+
+	// If Baldric is ticked - hide Melf hybrid options.
+	// Otherwise show them.
+	const opts = document.querySelectorAll(`option[data-melf="1"]`);
+	const addLabel = ` (Disabled by Baldric)`;
+	opts.forEach((e) => {
+		e.disabled = baldric;
+		if (baldric && !e.innerHTML.includes(addLabel)) e.innerHTML += addLabel;
+		else if (!baldric) e.innerHTML = e.innerHTML.replace(addLabel, "");
+	});
+	// If a Melf stacking is chosen - disable and uncheck the baldric checkbox.
+	// Otherwise leave it alone. (`decideFormsShowStatus()` will enable it later if applicable.)
+	if (melf) {
+		formBaldric.checked = false;
+		disableElement(formBaldric, formBaldricLabel, true);
+	}
+	baldricDisabledByMelf.style.display = melf ? "" : "none";
 }
 
 function checkDynaheirInvestmentNoteDisplay() {
 	const type = formType.value;
 	const isDynaheir = type === "dynaMinsc" || type === "MImoHeir";
 	dynaheirInvestmentNote.style.display = isDynaheir ? `` : `none`;
+}
+
+function checkBaldricAndMelfNoteDisplay(baldricAndMelf) {
+	baldricMelfWarning.style.display = baldricAndMelf ? `` : `none`;
 }
 
 /* ========================== *

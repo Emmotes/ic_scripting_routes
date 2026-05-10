@@ -1,4 +1,4 @@
-const vm = 5.013; // prettier-ignore
+const vm = 5.014; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -11,7 +11,8 @@ const {
 	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
-	formTatyana, formResult, dynaheirInvestmentNote,
+	formTatyanaLabel, formTatyana, formResult, dynaheirInvestmentNote, baldricDisabledByMelf,
+	baldricMelfWarning,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -21,7 +22,8 @@ const {
 		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
-		"formTatyana", "formResult", "dynaheirInvestmentNote",
+		"formTatyanaLabel", "formTatyana", "formResult", "dynaheirInvestmentNote", "baldricDisabledByMelf",
+		"baldricMelfWarning",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
