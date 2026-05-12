@@ -1,4 +1,4 @@
-const vm = 5.014; // prettier-ignore
+const vm = 5.015; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1055,7 +1055,7 @@ function calculateStacksForRoute(brivData, inputs) {
 
 	let thunderStepStacks = stacks;
 	if (inputs.thunderStep)
-		stacks = minHaste + Math.ceil((stacks - minHaste) / thunderStep);
+		stacks = Math.ceil((stacks - minHaste) / thunderStep);
 
 	return {stacks, thunderStepStacks};
 }
