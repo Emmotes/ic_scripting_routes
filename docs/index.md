@@ -303,15 +303,8 @@
 			<span class="routesCol2">
 				<select name="formStacking" id="formStacking" style="min-width:250px">
 					<option value="Offline" selected>Offline</option>
-					<option value="Melf" data-melf="1">Hybrid: Melf</option>
-					<option value="Melf+Farideh" data-melf="1">Hybrid: Melf + Farideh</option>
 					<option value="Farideh">Hybrid: Farideh</option>
 				</select>
-			</span>
-		</span>
-		<span class="routesRow" id="baldricMelfWarning" style="justify-content:center;display:none;">
-			<span class="bigRedWarning" style="text-align:center;text-wrap-style:balance;padding:2px 20px;">
-				It is not possible to use Melf and Baldric at the same time.<br>Either swap to Farideh hybrid stacking or stop using Baldric.
 			</span>
 		</span>
 		<span class="routesRow">
