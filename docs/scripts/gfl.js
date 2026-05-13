@@ -1,4 +1,4 @@
-const vg = 2.000; // prettier-ignore
+const vg = 2.001; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, parseQTs(`CF`), 3];
 const ntt = [`Tall Tales`, `TT`, parseQTs(`TT`), 1050];
 const nll = [`Roots of Loomlurch`, `LL`, parseQTs(`LL`), 1137];
@@ -457,8 +457,10 @@ const enemyTypes = [
 function parseRoute(key) {
 	const route = gemFarmJson[key];
 	let blurb = route.blurb;
-	if (routeSettings.brivMaster[1])
+	if (routeSettings.brivMaster[1]) {
 		blurb = blurb.replace(fsa, "");
+		blurb = blurb.replace(fsaaa, "");
+	}
 	return (
 		addToDescRow(
 			`<h3>` +
