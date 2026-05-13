@@ -1,4 +1,4 @@
-const vf = 3.001; // prettier-ignore
+const vf = 3.002; // prettier-ignore
 const f_GREY = `color:#444`;
 const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
@@ -257,8 +257,6 @@ function addSpecInfo(baldric, stacking, tatyana, specsData) {
 			`<ul style="margin-left:-10px">` +
 			`<li>Farideh to be set to 100/125 in the Level Up addon.</li>` +
 			x25 +
-			`<li>If you are using Briv Gem Farm you will also<br>` +
-			`need a code edit from my thread on Discord.</li>` +
 			`</ul>`;
 		txt += `</span>`;
 	}
