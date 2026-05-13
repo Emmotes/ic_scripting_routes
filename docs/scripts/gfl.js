@@ -1,4 +1,4 @@
-const vg = 1.006; // prettier-ignore
+const vg = 2.000; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, parseQTs(`CF`), 3];
 const ntt = [`Tall Tales`, `TT`, parseQTs(`TT`), 1050];
 const nll = [`Roots of Loomlurch`, `LL`, parseQTs(`LL`), 1137];
@@ -22,6 +22,7 @@ const sss = `Safer Shandie`;
 const dyn = `<br>This route can optionally use Dynaheir and Minsc instead of BBEG as it always hits Humanoid or Fey enemies only.`;
 const mimo = `<br>This route can optionally use Dynaheir, Minsc and Imoen instead of BBEG as it always hits Humanoid or Fey or Beast enemies only.`;
 const place = `<br><strong><em>This is a placeholder route meant for testing purposes only.</em></strong>`;
+const bmStackingZones = `973vex73g`;
 const gemFarmJson = {
 	unknown: {
 		name: "Unknown",
@@ -33,6 +34,7 @@ const gemFarmJson = {
 		qts: ncf[2],
 		adv: ncf[3],
 		bf: 1125899906842623n,
+		bf64: `________w`,
 		blurb: `${cf} You won't want to be walking any areas as that will only slow you down.`,
 	},
 	mixed01LL: {
@@ -45,6 +47,7 @@ const gemFarmJson = {
 			max: 1,
 		},
 		bf: 1125899906842623n,
+		bf64: `________w`,
 		blurb: `${ll}`,
 	},
 	pure1LL: {
@@ -56,6 +59,7 @@ const gemFarmJson = {
 		q: 2,
 		e: 1,
 		bf: 985162414288895n,
+		bf64: `__f9___-w`,
 		blurb: `${ll}`,
 	},
 	mixed12LL: {
@@ -68,6 +72,7 @@ const gemFarmJson = {
 			max: 2,
 		},
 		bf: 914793668012031n,
+		bf64: `_-f5___8w`,
 		blurb: `${ll}`,
 	},
 	pure2LL: {
@@ -79,6 +84,7 @@ const gemFarmJson = {
 		q: 3,
 		e: 1,
 		bf: 1053332137310143n,
+		bf64: `_e_7__-9w`,
 		blurb: `${ll}`,
 		loop: true,
 	},
@@ -92,6 +98,7 @@ const gemFarmJson = {
 			max: 3,
 		},
 		bf: 1020346787427327n,
+		bf64: `_8_z___5w`,
 		blurb: `${ll}`,
 	},
 	pure3LL: {
@@ -103,6 +110,7 @@ const gemFarmJson = {
 		q: 4,
 		e: 1,
 		bf: 1090715500149758n,
+		bf64: `f9_3v__7w`,
 		blurb: `${ll}`,
 		loop: true,
 		order: 1,
@@ -116,6 +124,7 @@ const gemFarmJson = {
 		q: 4,
 		e: 1,
 		bf: 1090715500142542n,
+		bf64: `c_v3v__7w`,
 		blurb: `${vl}`,
 		loop: true,
 		order: 2,
@@ -130,6 +139,7 @@ const gemFarmJson = {
 			max: 4,
 		},
 		bf: 508470925670862n,
+		bf64: `c5znOc5zg`,
 		blurb: `${tt}<br>Good for any jump between pure 3j and pure 4j.<br>(You can calculate stack amounts for this jump by using the 'TT (100% 4j)' route in the stacks calculator.)`,
 	},
 	pure4TT: {
@@ -141,6 +151,7 @@ const gemFarmJson = {
 		q: 5,
 		e: 1,
 		bf: 544309226487279n,
+		bf64: `973oe9D3g`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 	},
@@ -157,6 +168,7 @@ const gemFarmJson = {
 		q: 5,
 		e: 1,
 		bf: 544309226487279n,
+		bf64: `973oe9D3g`,
 		blurb: `${tt} You'll need to equip Briv's Wasting Haste feat to return to pure 4j.${mimo}`,
 		loop: true,
 	},
@@ -169,6 +181,7 @@ const gemFarmJson = {
 		q: 6,
 		e: 5,
 		bf: 498342527128532n,
+		bf64: `K8pylryjg`,
 		blurb: `${tt}${fsa}`,
 		loop: true,
 		fs: true,
@@ -183,6 +196,7 @@ const gemFarmJson = {
 		q: 7,
 		e: 1,
 		bf: 873863567932216n,
+		bf64: `HN4x7GNYw`,
 		blurb: `${ll}`,
 		loop: true,
 		order: 3,
@@ -196,6 +210,7 @@ const gemFarmJson = {
 		q: 7,
 		e: 5,
 		bf: 800122939009243n,
+		bf64: `2xZxxK3rQ`,
 		blurb: `${tt}${fsa}`,
 		loop: true,
 		fs: true,
@@ -210,6 +225,7 @@ const gemFarmJson = {
 		q: 7,
 		e: 5,
 		bf: 948417617686362n,
+		bf64: `WvbM9Sl6w`,
 		blurb: `${rac} This does not benefit from any quest reduction blessings or perks.${fsa}`,
 		loop: true,
 		fs: true,
@@ -224,6 +240,7 @@ const gemFarmJson = {
 		q: 7,
 		e: 1,
 		bf: 1086144474247034n,
+		bf64: `Xvfx7evbw`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 		order: 2,
@@ -237,6 +254,7 @@ const gemFarmJson = {
 		q: 8,
 		e: 1,
 		bf: 1108238796846077n,
+		bf64: `v8_zz_f3w`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 		order: 2,
@@ -250,6 +268,7 @@ const gemFarmJson = {
 		q: 8,
 		e: 5,
 		bf: 380222613385436n,
+		bf64: `Ow5znvOag`,
 		blurb: `${tt}${fsa}${mimo}`,
 		loop: true,
 		fs: true,
@@ -265,6 +284,7 @@ const gemFarmJson = {
 		q: 9,
 		e: 8,
 		bf: 878610951932870n,
+		bf64: `Y9H1sej4w`,
 		blurb: `${tt}${fsaaa}${crdn(8)}${mimo}`,
 		loop: true,
 		fs: true,
@@ -280,6 +300,7 @@ const gemFarmJson = {
 		q: 9,
 		e: 5,
 		bf: 57952963557919n,
+		bf64: `-F5znK0sA`,
 		blurb: `${tt}${fsa}${dyn}`,
 		loop: true,
 		fs: true,
@@ -294,6 +315,7 @@ const gemFarmJson = {
 		q: 9,
 		e: 1,
 		bf: 985128007367679n,
+		bf64: `_9_3P-_-w`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 		order: 3,
@@ -308,6 +330,7 @@ const gemFarmJson = {
 			max: 9,
 		},
 		bf: 16989228054990n,
+		bf64: `c5znOc7wA`,
 		blurb: `${tt}<br>This route is slower than anything pure 8j can offer so I suggest you equip the Accurate Acrobatics feat and run an 8j preset.`,
 	},
 	feat94TT: {
@@ -319,6 +342,7 @@ const gemFarmJson = {
 		q: 10,
 		e: 5,
 		bf: 35181131988031n,
+		bf64: `_D_7fP_4A`,
 		blurb: `${tt}${fsa}${mimo}`,
 		loop: true,
 		fs: true,
@@ -333,6 +357,7 @@ const gemFarmJson = {
 		q: 10,
 		e: 1,
 		bf: 17020252302587n,
+		bf64: `3zXoa17wA`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 		order: 1,
@@ -346,6 +371,7 @@ const gemFarmJson = {
 		q: 12,
 		e: 1,
 		bf: 853162999544159n,
+		bf64: `-p-hvk_gw`,
 		blurb: `${tt}${dyn}`,
 		loop: true,
 	},
@@ -359,6 +385,7 @@ const gemFarmJson = {
 		q: 13,
 		e: 12,
 		bf: 554220480505760n,
+		bf64: `BeR7QfAfg`,
 		blurb: `${tt}${fsaaa}${crdn(12)}${dyn}`,
 		loop: true,
 		fs: true,
@@ -373,6 +400,7 @@ const gemFarmJson = {
 		q: 15,
 		e: 1,
 		bf: 36326465504417n,
+		bf64: `hSFIV5CEA`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
 		order: 2,
@@ -386,6 +414,7 @@ const gemFarmJson = {
 		q: 15,
 		e: 10,
 		bf: 1125899805626349n,
+		bf64: `t_Hvn___w`,
 		blurb: `${tt}${fsa}${mimo}`,
 		loop: true,
 		order: 1,
@@ -400,6 +429,7 @@ const gemFarmJson = {
 		q: 17,
 		e: 16,
 		bf: 360709071052808n,
+		bf64: `EAQwBAgSg`,
 		blurb: `${tt}${fsaaa}${crdn(16)}${dyn}`,
 		loop: true,
 		fs: true,
@@ -424,14 +454,18 @@ const enemyTypes = [
 	"undead",
 ];
 
-function parseRoute(route) {
+function parseRoute(key) {
+	const route = gemFarmJson[key];
+	let blurb = route.blurb;
+	if (routeSettings.brivMaster[1])
+		blurb = blurb.replace(fsa, "");
 	return (
 		addToDescRow(
 			`<h3>` +
 				parseName(route) +
-				`</h3>${route.blurb}` +
-				(route.loop || false ? addLoop(route.bf, route.q, route.e) : ``)
-		) + addChecked(route.bf, true)
+				`</h3>${blurb}` +
+				(route.loop || false ? addLoop(route.jumpZones, route.q, route.e) : ``)
+		) + addChecked(key, route, true)
 	);
 }
 

@@ -41,6 +41,16 @@
 					<option value="15.99999988j">16–j (15.99999988j)</option>
 				</select>
 			</span>
+			<span style="width:0;height:0;margin:0;padding:0;position:relative;">
+				<span style="display:flex;position:absolute;bottom:-160px;right:6px;">
+					<span class="routesCol3" style="flex-grow:1;min-width:160px;">
+						<label for="brivMasterInput">Using Briv Master:</label>
+					</span>
+					<span class="routesCol4" style="width:fit-content;">
+						<input type="checkbox" class="checkbox" id="brivMasterInput" style="min-width:unset;transform:translateY(-0.39em);">
+					</span>
+				</span>
+			</span>
 		</span>
 		<span class="routesRow">
 			<span class="routesCol1">

@@ -1,4 +1,4 @@
-const vm = 5.015; // prettier-ignore
+const vm = 6.000; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -12,7 +12,7 @@ const {
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
 	formTatyanaLabel, formTatyana, formResult, dynaheirInvestmentNote, baldricDisabledByMelf,
-	baldricMelfWarning,
+	baldricMelfWarning, brivMasterInput,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -23,7 +23,7 @@ const {
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
 		"formTatyanaLabel", "formTatyana", "formResult", "dynaheirInvestmentNote", "baldricDisabledByMelf",
-		"baldricMelfWarning",
+		"baldricMelfWarning", "brivMasterInput",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -52,6 +52,10 @@ const SVG_hopNorm = SVG_hopQT.replace(`QT`, `Norm`);
 const SVG_walkQT = `<svg class="routeArrow routeArrowQT" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" version="2"><path d="m17.5 5.999-.707.707 5.293 5.293H1v1h21.086l-5.294 5.295.707.707L24 12.499l-6.5-6.5z"/></svg>`;
 const SVG_walkNorm = SVG_walkQT.replace(`QT`, `Norm`);
 const SVG_arrowReset = `<svg class="routeArrow routeArrowReset" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="2"><g><path d="m126 15.2-5-1.3-9.4 35.2-35.2-9.5-1.3 5.1 40.1 10.7h.1z"></path><path d="M54.6 80.2 18.8 68.4l-5-1.6-13 40.1 5 1.7 11.3-35.1L53 85.2z"></path><path d="M65.2 18.3c21.8 0 40.1 15.3 44.7 35.7h5.2c-4.7-23.3-25.3-40.8-49.9-40.8-23.7 0-43.7 16.3-49.3 38.3h5.3c5.5-19.2 23.1-33.2 44-33.2zm0 91.9c-22.7 0-41.6-16.6-45.2-38.3h-5.2c3.7 24.6 24.8 43.4 50.4 43.4 22.8 0 42.1-15 48.6-35.7h-5.4c-6.2 17.8-23.2 30.6-43.2 30.6z"></path></g></svg>`;
+const SVG_bmJump = `<svg fill="#00f000" viewBox="0 0 24 24" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><path d="M21 21H3l9-18Z"/></svg>`;
+const SVG_bmJumpNo = SVG_bmJump.replace("#00f000", "#c0c0c0");
+const SVG_bmStack = `<svg viewBox="0 0 24 24" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><path stroke="#f00000" stroke-width="4" stroke-linecap="round" d="M5 5h14M5 19h14M5 12h14"/></svg>`;
+const SVG_bmStackNo = SVG_bmStack.replace("#f00000", "#c0c0c0");
 const NUMFORM = new Intl.NumberFormat("en", {
 	useGrouping: true,
 	maximumFractionDigits: 2,
@@ -87,11 +91,16 @@ const routeTooltipBlurbDefault =
 	`with more details - including quests enemies and attack types.`;
 let calculateStacksToken = 0;
 let updateInterval;
-let routeMoreDetailsKey = `expandRoute`;
-let routeMoreDetails = false;
+const routeSettings = {
+	details: [`expandRoute`, false],
+	brivMaster: [`brivMaster`, false],
+};
 
 async function init() {
 	populateSettings();
+	if (routeSettings.brivMaster[1])
+		brivMasterInput.checked = true;
+	populateJumpZones();
 	populateStackRoutes();
 	populateFormCampaigns();
 	Array.from(rarityInput.options).forEach((opt) => {
@@ -110,6 +119,7 @@ async function init() {
 	bind(presetsInput, `change`, preset);
 	bind(rarityInput, `change`, update);
 	bind(gildingInput, `change`, update);
+	bind(brivMasterInput, `change`, toggleBrivMaster);
 	bind(stackRoute, `change`, calculateStacks);
 	bind(stackiLvl, `input`, calculateStacks);
 	bind(stackRarity, `change`, calculateStacks);
@@ -137,7 +147,19 @@ async function init() {
 
 function populateSettings() {
 	const settings = readRoutesSettings();
-	routeMoreDetails = settings.includes(routeMoreDetailsKey);
+	routeSettings.details[1] = settings.includes(routeSettings.details[0]);
+	routeSettings.brivMaster[1] = settings.includes(
+		routeSettings.brivMaster[0],
+	);
+}
+
+function populateJumpZones() {
+	for (const key in gemFarmJson) {
+		const route = gemFarmJson[key];
+		if (route.bf64 == null) continue;
+
+		route.jumpZones = convertBase64ToBinaryArray(route.bf64);
+	}
 }
 
 function preset() {
@@ -206,81 +228,81 @@ function update() {
 
 	// Pure Jumps.
 	if (jumps === 1) {
-		comment += parseRoute(gemFarmJson.pure1LL);
+		comment += parseRoute(`pure1LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps === 2) {
-		comment += parseRoute(gemFarmJson.pure2LL);
+		comment += parseRoute(`pure2LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps === 3) {
-		comment += parseRoute(gemFarmJson.pure3LL);
+		comment += parseRoute(`pure3LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure3VL);
+		comment += parseRoute(`pure3VL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps === 4) {
-		comment += parseRoute(gemFarmJson.pure4TT);
+		comment += parseRoute(`pure4TT`);
 	} else if (jumps === 5) {
-		comment += parseRoute(gemFarmJson.feat54TT);
+		comment += parseRoute(`feat54TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.feat4TT);
+		comment += parseRoute(`feat4TT`);
 	} else if (jumps === 6) {
-		comment += parseRoute(gemFarmJson.feat64TT);
+		comment += parseRoute(`feat64TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure6TT);
+		comment += parseRoute(`pure6TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure6LL);
+		comment += parseRoute(`pure6LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.feat64RAC);
+		comment += parseRoute(`feat64RAC`);
 	} else if (jumps === 7) {
-		comment += parseRoute(gemFarmJson.feat74TT);
+		comment += parseRoute(`feat74TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure7TT);
+		comment += parseRoute(`pure7TT`);
 	} else if (jumps === 8) {
-		comment += parseRoute(gemFarmJson.feat84TT);
+		comment += parseRoute(`feat84TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure8TT);
+		comment += parseRoute(`pure8TT`);
 	} else if (jumps === 9) {
-		comment += parseRoute(gemFarmJson.pure9TT);
+		comment += parseRoute(`pure9TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.feat94TT);
+		comment += parseRoute(`feat94TT`);
 	} else if (jumps === 11) {
-		comment += parseRoute(gemFarmJson.pure11TT);
+		comment += parseRoute(`pure11TT`);
 	} else if (jumps === 14) {
-		comment += parseRoute(gemFarmJson.feat149TT);
+		comment += parseRoute(`feat149TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.pure14TT);
+		comment += parseRoute(`pure14TT`);
 
 		// Mixed Jumps.
 	} else if (jumps < 1) {
-		comment += parseRoute(gemFarmJson.mixed01LL);
+		comment += parseRoute(`mixed01LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps < 2) {
-		comment += parseRoute(gemFarmJson.mixed12LL);
+		comment += parseRoute(`mixed12LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps < 3) {
-		comment += parseRoute(gemFarmJson.mixed23LL);
+		comment += parseRoute(`mixed23LL`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps < 4) {
-		comment += parseRoute(gemFarmJson.pre4TT);
+		comment += parseRoute(`pre4TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	} else if (jumps > 8 && jumps < 9) {
-		comment += parseRoute(gemFarmJson.mixed89TT);
+		comment += parseRoute(`mixed89TT`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 		comment += spacer;
-		comment += parseRoute(gemFarmJson.feat4TT);
+		comment += parseRoute(`feat4TT`);
 	} else if (jumps > 7.99 && jumps < 8) {
-		comment += parseRoute(gemFarmJson.short87TT);
+		comment += parseRoute(`short87TT`);
 	} else if (jumps > 11.99 && jumps < 12) {
-		comment += parseRoute(gemFarmJson.short1211TT);
+		comment += parseRoute(`short1211TT`);
 	} else if (jumps > 15.99 && jumps < 16) {
-		comment += parseRoute(gemFarmJson.short1615TT);
+		comment += parseRoute(`short1615TT`);
 	} else {
 		if (jumps > 4) {
 			let c = `<h3>No Specialised Routes</h3><p>There aren't any specific routes for this particular jump value. You're going to have to try the options below and use whichever is fastest for you.</p>`;
@@ -295,7 +317,7 @@ function update() {
 			c += `<li>Use the Cursed Farmer route below.</li></ul>`;
 			comment += addToDescRow(c);
 		}
-		comment += parseRoute(gemFarmJson.cf);
+		comment += parseRoute(`cf`);
 	}
 	document.getElementById("wrapper").innerHTML = comment;
 }
@@ -378,26 +400,73 @@ function mapFromToRange(v, oldMin, oldMax, newMin, newMax) {
 	return (v - oldMin) * ((newMax - newMin) / (oldMax - oldMin)) + newMin;
 }
 
-function addChecked(bf, br) {
-	if (bf == null) return addToDescRow(`&nbsp;`);
-	let comment = ``;
-	if (br) comment += addToDescRow(`&nbsp;`);
-	comment += `<span class="routesRow">`;
-	for (let i = 1; i <= 50; i++) {
-		let checked = isChecked(bf, i) ? jump : ``;
-		comment += `<span class="routesBoxes"><input type="checkbox" class="checkbox" id="z${i}" name="z${i}" ${checked} disabled><label class="cblabel" for="z${i}">${i}</label></span>`;
+function addChecked(key, route, br) {
+	const jumpZones = route.jumpZones;
+	if (!Array.isArray(route.jumpZones) || route.jumpZones.length !== 50)
+		return addToDescRow(`&nbsp;`);
+
+	let txt = ``;
+	if (br) txt += addToDescRow(`&nbsp;`);
+
+	const isBM = routeSettings.brivMaster[1];
+
+	const stackZones = isBM ? convertBase64ToBinaryArray(bmStackingZones) : [];
+
+	txt += `<span class="routesBoxesRow" style="row-gap:${isBM ? 6 : 0}px;">`;
+	if (isBM) {
+		const code = `{${route.bf64},${bmStackingZones}}`;
+		txt += `<span style="grid-column:1 / -1">`;
+		txt += `Import Code: <code>${code}</code>`;
+		txt += `<input type="button" value="Copy Code" id="${key}_copy" onclick="copyCodeToClipboard('${key}','${code}');">`;
+		txt += `</span>`;
 	}
-	comment += `</span>`;
-	return comment;
+	for (let i = 1; i <= 50; i++) {
+		const checked = isChecked(route.jumpZones, i) ? jump : ``;
+		const name = `${key}_z${i}`;
+		txt += `<span class="routesBoxes">`;
+		if (isBM) {
+			txt += checked ? SVG_bmJump : SVG_bmJumpNo;
+			txt += isChecked(stackZones, i) ? SVG_bmStack : SVG_bmStackNo;
+			txt += `<span style="display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">${i}</span>`;
+		} else {
+			txt += `<input type="checkbox" class="checkbox" id="${name}" name="${name}" ${checked} disabled>`;
+			txt += `<label class="cblabel" for="${name}">${i}</label>`;
+			txt += `<span>&nbsp;</span>`;
+		}
+		txt += `</span>`;
+	}
+	txt += `</span>`;
+	return txt;
 }
 
-function addLoop(bf, q, e) {
+function copyCodeToClipboard(key, code) {
+	navigator.clipboard.writeText(code).then(
+		function () {
+			modifyCopyButton(key, "Copied");
+		},
+		function (err) {
+			modifyCopyButton(key, "Error");
+		},
+	);
+}
+
+function modifyCopyButton(key,msg) {
+	console.log("modifyCopyButton", key, msg);
+	const button = document.getElementById(`${key}_copy`);
+	if (button) button.value = msg;
+	setInterval(() => {
+		const b = document.getElementById(`${key}_copy`);
+		if (b) b.value = "Copy Code";
+	}, 3000);
+}
+
+function addLoop(jumpZones, q, e) {
 	let s = q;
 	let w = e;
 	let z = 1;
 	let route = [z];
 	while (z <= 200) {
-		z += isChecked(bf, z % 50 || 50) ? s : w;
+		z += isChecked(jumpZones, z % 50 || 50) ? s : w;
 		route.push(z);
 	}
 	let lastOfLoop = route[route.length - 1] % 50;
@@ -425,8 +494,8 @@ function addLoop(bf, q, e) {
 	return comment;
 }
 
-function isChecked(bf, i) {
-	return (bf & (1n << BigInt(i - 1))) !== 0n;
+function isChecked(jumpZones, zone) {
+	return jumpZones[zone - 1];
 }
 
 function vSigFig(n, nDif) {
@@ -761,13 +830,14 @@ async function getRouteInputs() {
 	let advData = await pullAdvJson(routeObj.adv);
 
 	if (!routeObj.checkedByZone) {
+		const arr = convertBase64ToBinaryArray(routeObj.bf64);
 		let checkedByZone = [];
 		let monTagsByZone = [];
 		let armouredByZone = [];
 		let hitsByZone = [];
 		for (let i = 1; i <= 50; i++) {
 			const tags = getZoneMonTags(advData, i);
-			checkedByZone[i] = isChecked(routeObj.bf, i);
+			checkedByZone[i] = isChecked(arr, i);
 			monTagsByZone[i] = tags;
 			armouredByZone[i] = tags.includes("armor_based");
 			hitsByZone[i] = tags.includes("hits_based");
@@ -1066,7 +1136,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 
 	// Loop info
 	let loopHtml = addLoop(
-		inputs.routeJson.bf,
+		inputs.routeJson.jumpZones,
 		inputs.routeJson.q,
 		inputs.routeJson.e,
 	).substring(4);
@@ -1196,7 +1266,7 @@ function renderResults(inputs, brivData, routeData, stackData) {
 	contents += addToDescRow(resultHtml);
 	contents += addToDescRow(`&nbsp;`);
 	stackResult.innerHTML = contents;
-	toggleRouteDetails(routeMoreDetails);
+	toggleRouteDetails(routeSettings.details[1]);
 
 	// Debug consistency check
 	let walkCount = document.querySelectorAll("span[data-type='walk']").length;
@@ -1318,7 +1388,7 @@ function renderVariableResults(
 function renderRouteTable(routeData, inputs) {
 	let expansionInput = `<span style="position:absolute;top:-40px;right:0px;width:max-content;display:flex;align-items:center">`;
 	expansionInput += `<input type="checkbox" id="expandRouteDetails" style="transform:unset" onclick="toggleRouteDetails(this.checked);"`;
-	expansionInput += `${routeMoreDetails ? " checked" : ""}><label for="expandRouteDetails">Display More Details</label></span>`;
+	expansionInput += `${routeSettings.details[1] ? " checked" : ""}><label for="expandRouteDetails">Display More Details</label></span>`;
 	let tableHtml = `<h3>Route</h3><p id="routeTooltipBlurb" style="position:relative">${routeTooltipBlurbDefault}${expansionInput}</p><div class="stacksRoutesTable" id="stacksRoutesTable">`;
 
 	let earliestStackFound = false;
@@ -1858,12 +1928,26 @@ function toggleRouteDetails(checked) {
 	grid.style =
 		checked ? `grid-template-columns:repeat(auto-fill, 100px);gap:8px` : ``;
 	let settings = readRoutesSettings();
-	routeMoreDetails = checked;
-	if (!checked && settings.includes(routeMoreDetailsKey)) {
-		settings = settings.filter((e) => e !== routeMoreDetailsKey);
+	routeSettings.details[1] = checked;
+	modifySettings(settings, checked, routeSettings.details[0]);
+}
+
+function toggleBrivMaster() {
+	const checked = brivMasterInput.checked;
+	let settings = readRoutesSettings();
+
+	routeSettings.brivMaster[1] = checked;
+	modifySettings(settings, checked, routeSettings.brivMaster[0]);
+
+	update();
+}
+
+function modifySettings(settings, add, key) {
+	if (!add && settings.includes(key)) {
+		settings = settings.filter((e) => e !== key);
 		saveRoutesSettings(settings);
-	} else if (checked && !settings.includes(routeMoreDetailsKey)) {
-		settings.push(routeMoreDetailsKey);
+	} else if (add && !settings.includes(key)) {
+		settings.push(key);
 		saveRoutesSettings(settings);
 	}
 }
@@ -1878,4 +1962,53 @@ function saveRoutesSettings(settings) {
 	if (!Array.isArray(settings)) settings = [];
 	if (settings.length === 0) localStorage.removeItem(lsKey_routesSettings);
 	else localStorage.setItem(lsKey_routesSettings, JSON.stringify(settings));
+}
+
+// =====================================
+// ===== Briv Master Compatibility =====
+// =====================================
+
+const BASE_64_CHARACTERS =
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+function binaryArrayToDec(binaryArray) {
+	let result = 0;
+	for (let i = binaryArray.length - 1; i >= 0; i--)
+		result += binaryArray[i] * Math.pow(2, binaryArray.length - 1 - i);
+	return result;
+}
+
+function convertBinaryArrayToBase64(binaryArray) {
+	const chunks = [];
+	for (let i = 0; i < binaryArray.length; i += 6)
+		chunks.push(binaryArray.slice(i, i + 6));
+
+	const lastChunk = chunks[chunks.length - 1];
+	while (lastChunk.length < 6) lastChunk.push(0);
+
+	let result = "";
+	for (const chunk of chunks) {
+		const decValue = binaryArrayToDec(chunk);
+		result += BASE_64_CHARACTERS[decValue];
+	}
+	return result;
+}
+
+function convertBase64ToBinaryArray(base64String) {
+	const result = [];
+
+	for (const char of base64String) {
+		const index = BASE_64_CHARACTERS.indexOf(char);
+		if (index === -1) throw new Error(`Invalid base64 character: ${char}`);
+
+		result.push(
+			(index & 0x20) > 0,
+			(index & 0x10) > 0,
+			(index & 0x08) > 0,
+			(index & 0x04) > 0,
+			(index & 0x02) > 0,
+			(index & 0x01) > 0,
+		);
+	}
+	return result.slice(0, 50);
 }
