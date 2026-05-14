@@ -1,4 +1,4 @@
-const vm = 6.001; // prettier-ignore
+const vm = 6.002; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -449,7 +449,6 @@ function copyCodeToClipboard(key, code) {
 }
 
 function modifyCopyButton(key,msg) {
-	console.log("modifyCopyButton", key, msg);
 	const button = document.getElementById(`${key}_copy`);
 	if (button) button.value = msg;
 	setInterval(() => {
