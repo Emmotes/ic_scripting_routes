@@ -42,12 +42,17 @@
 				</select>
 			</span>
 			<span style="width:0;height:0;margin:0;padding:0;position:relative;">
-				<span style="display:flex;position:absolute;bottom:-160px;right:6px;">
-					<span class="routesCol3" style="flex-grow:1;min-width:160px;">
-						<label for="brivMasterInput">Using Briv Master:</label>
+				<span style="display:flex;flex-direction:column;position:absolute;bottom:-154px;right:6px;">
+					<span style="display:flex;margin-bottom:-6px;">
+						<span class="routesCol3" style="flex-grow:1;min-width:160px;">
+							<label for="brivMasterInput">Using Briv Master:</label>
+						</span>
+						<span class="routesCol4" style="width:fit-content;">
+							<input type="checkbox" class="checkbox" id="brivMasterInput" style="min-width:unset;transform:translateY(-0.39em);">
+						</span>
 					</span>
-					<span class="routesCol4" style="width:fit-content;">
-						<input type="checkbox" class="checkbox" id="brivMasterInput" style="min-width:unset;transform:translateY(-0.39em);">
+					<span class="routesCol5" style="text-align:center;transform:translateX(20px);text-wrap-style:balance;">
+						If you don't know what this is then you aren't using it.
 					</span>
 				</span>
 			</span>
