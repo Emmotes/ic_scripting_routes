@@ -1,4 +1,4 @@
-const vm = 6.002; // prettier-ignore
+const vm = 6.003; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -96,8 +96,7 @@ const routeSettings = {
 
 async function init() {
 	populateSettings();
-	if (routeSettings.brivMaster[1])
-		brivMasterInput.checked = true;
+	if (routeSettings.brivMaster[1]) brivMasterInput.checked = true;
 	populateJumpZones();
 	populateStackRoutes();
 	populateFormCampaigns();
@@ -448,7 +447,7 @@ function copyCodeToClipboard(key, code) {
 	);
 }
 
-function modifyCopyButton(key,msg) {
+function modifyCopyButton(key, msg) {
 	const button = document.getElementById(`${key}_copy`);
 	if (button) button.value = msg;
 	setInterval(() => {
@@ -585,7 +584,7 @@ function populateStackRoutes() {
 	for (let key of keyset) {
 		if (key === `feat4TT`) continue; // Basically duplicates pure4TT.
 		const obj = gemFarmJson[key];
-		if (key !== `cf`) {
+		if (key !== `cf` && key !== `er`) {
 			if (obj == null || obj.jump == null) continue;
 			if (typeof obj.jump === "object" && obj.jump.max > 4) continue; // Not showing mixed above 4j.
 		}
@@ -633,6 +632,14 @@ async function calculateStacks() {
 		return;
 	}
 
+	if (stackRoute.value === `er`) {
+		console.log("getting called?");
+		stackBrivZone.value = 1;
+		stackz1Form.value = `q`;
+		stackRNGWR.checked = false;
+		stackWithMetal.checked = true;
+	}
+
 	enforceTolerances();
 	if (window.location.hash.substring(1).split("_")[0] === st) setHash(st);
 
@@ -642,25 +649,27 @@ async function calculateStacks() {
 
 	try {
 		assertToken(calculateStacksToken);
-		if (inputs.isFixedJump) {
+		const jumpMaxChance = inputs.jumps[1];
+		const jumpMinChance = 1 - jumpMaxChance;
+		const jumpMin = inputs.jumps[0] - 1;
+		const jumpMax = jumpMin + 1;
+		if (inputs.isFixedJump || jumpMaxChance === 1) {
 			stackRarityNote.innerHTML = `&nbsp;`;
 			stackGildingNote.innerHTML = `&nbsp;`;
-			const brivData = setupBriv(
-				inputs,
-				inputs.routeJson.q,
-				inputs.routeJson.e,
-			);
+			let q = inputs.routeJson.q;
+			let e = inputs.routeJson.e;
+			if (jumpMaxChance === 1) {
+				q = jumpMax + 1;
+				e = q;
+			}
+			const brivData = setupBriv(inputs, q, e);
 			assertToken(calculateStacksToken);
-			const routeData = generateRoute(inputs, brivData, currToken);
+			const routeData = generateRoute(inputs, q, e, brivData, currToken);
 			assertToken(calculateStacksToken);
 			const stackData = calculateStacksForRoute(brivData, inputs);
 			assertToken(calculateStacksToken);
-			renderResults(inputs, brivData, routeData, stackData);
+			renderResults(inputs, q, e, brivData, routeData, stackData);
 		} else {
-			const jumpMaxChance = inputs.jumps[1];
-			const jumpMinChance = 1 - jumpMaxChance;
-			const jumpMin = inputs.jumps[0] - 1;
-			const jumpMax = jumpMin + 1;
 			const jumpObj = {jumpMin, jumpMinChance, jumpMax};
 			stackRarityNote.innerHTML = `(${(jumpMinChance * 100).toFixed(
 				3,
@@ -825,6 +834,8 @@ async function getRouteInputs() {
 	);
 
 	let advData = await pullAdvJson(routeObj.adv);
+	if (routeObj.qts == null)
+		routeObj.qts = parseQTs(advData);
 
 	if (!routeObj.checkedByZone) {
 		const arr = convertBase64ToBinaryArray(routeObj.bf64);
@@ -997,7 +1008,7 @@ function simulateFinalZone(inputs, thelloraDist, Q, E) {
 	return currentZone;
 }
 
-function generateRoute(inputs, brivData, currToken) {
+function generateRoute(inputs, q, e, brivData, currToken) {
 	let currentZone = brivData.brivStack;
 	const dist = currentZone - brivData.thelloraDistCalc.minSeen + 1;
 	const route = [{zone: 1}];
@@ -1005,8 +1016,7 @@ function generateRoute(inputs, brivData, currToken) {
 	if (brivData.thelloraDistCalc.minSeen > 1)
 		route[route.length - 1].thellora = true;
 	if (brivData.combined)
-		route[route.length - 1].type =
-			dist === inputs.routeJson.q ? "jump" : "hop";
+		route[route.length - 1].type = dist === q ? "jump" : "hop";
 	if (currentZone > 1) {
 		if (isQT(inputs.routeJson, 1, currentZone % 50 || 50)) {
 			route[route.length - 1].qt = true;
@@ -1057,22 +1067,22 @@ function generateRoute(inputs, brivData, currToken) {
 				inputs.brivZone === 1 ?
 					brivData.brivStack - brivData.thelloraDistCalc.minSeen + 1
 				: inputs.brivZone > currentZone ? 1
-				: inputs.z1Formation === "q" ? inputs.routeJson.q
-				: inputs.z1Formation === "e" ? inputs.routeJson.e
+				: inputs.z1Formation === "q" ? q
+				: inputs.z1Formation === "e" ? e
 				: inputs.z1Formation === "4" || inputs.z1Formation === "9" ?
 					Number(inputs.z1Formation) + 1
 				:	1;
 		} else
 			diff =
 				currentZone < inputs.brivZone ? 1
-				: checked ? inputs.routeJson.q
-				: inputs.routeJson.e;
+				: checked ? q
+				: e;
 		let prevZone = currentZone;
 		currentZone += diff;
 
 		route[route.length - 1].type =
 			diff === 1 ? "walk"
-			: diff === inputs.routeJson.q ? "jump"
+			: diff === q ? "jump"
 			: "hop";
 		if (prevZone > rushCap) route[route.length - 1].rush = true;
 		if (
@@ -1085,9 +1095,8 @@ function generateRoute(inputs, brivData, currToken) {
 
 		if (
 			(checked ||
-				inputs.routeJson.e > 1 ||
-				(applyRngwr &&
-					(inputs.z1Formation !== "e" || inputs.routeJson.e > 1))) &&
+				e > 1 ||
+				(applyRngwr && (inputs.z1Formation !== "e" || e > 1))) &&
 			currentZone >= inputs.brivZone
 		)
 			metalApplicable ?
@@ -1127,16 +1136,12 @@ function calculateStacksForRoute(brivData, inputs) {
 	return {stacks, thunderStepStacks};
 }
 
-function renderResults(inputs, brivData, routeData, stackData) {
+function renderResults(inputs, q, e, brivData, routeData, stackData) {
 	let contents = ``;
 	let resultHtml = `<h2>Stacks Required: ${nf(stackData.stacks)}</h2>`;
 
 	// Loop info
-	let loopHtml = addLoop(
-		inputs.routeJson.jumpZones,
-		inputs.routeJson.q,
-		inputs.routeJson.e,
-	).substring(4);
+	let loopHtml = addLoop(inputs.routeJson.jumpZones, q, e).substring(4);
 	resultHtml += `<ul><li>${loopHtml}</li>`;
 
 	// Briv warnings

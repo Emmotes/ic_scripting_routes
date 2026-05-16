@@ -1,9 +1,10 @@
-const vg = 2.001; // prettier-ignore
-const ncf = [`Cursed Farmer`, `CF`, parseQTs(`CF`), 3];
-const ntt = [`Tall Tales`, `TT`, parseQTs(`TT`), 1050];
-const nll = [`Roots of Loomlurch`, `LL`, parseQTs(`LL`), 1137];
-const nrac = [`Resolve Amongst Chaos`, `RAC`, parseQTs(`RAC`), 605];
-const nvl = [`Vecna Lives!`, `VL!`, parseQTs(`VL!`), 1163];
+const vg = 2.002; // prettier-ignore
+const ncf = [`Cursed Farmer`, `CF`, 3];
+const ntt = [`Tall Tales`, `TT`, 1050];
+const nll = [`Roots of Loomlurch`, `LL`, 1137];
+const nrac = [`Resolve Amongst Chaos`, `RAC`, 605];
+const nvl = [`Vecna Lives!`, `VL!`, 1163];
+const ner = [`Everlasting Rime`, `ER`, 695];
 const fsa = `<br>This route requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const fsaaa = fsa.replace(`n.`, `n and the Accurate Acrobatics feat.`);
 const tt = `${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
@@ -11,6 +12,7 @@ const ll = `The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
 const cf = `${ncf[0]} (${ncf[1]}) is in The Grand Tour of the Sword Coast campaign.`;
 const rac = `${nrac[0]} (${nrac[1]}) is in the Descent into Avernus campaign.`;
 const vl = `${nvl[0]} (${nvl[1]}) is in the Grand Tour of the Sword Coast campaign.`;
+const er = `${ner[0]} (${ner[1]}) is in the Icewind Dale: Rime of the Frostmaiden campaign.`;
 const bbb = `Don't forget to enable Vajra patron to benefit from the Brisk Benefactor Tier 3 Corellon local blessing.`;
 const whf = `Wasting Haste`;
 const ssf = `Strategic Stride`;
@@ -31,17 +33,23 @@ const gemFarmJson = {
 	cf: {
 		name: ncf[0],
 		sname: ncf[1],
-		qts: ncf[2],
-		adv: ncf[3],
+		adv: ncf[2],
 		bf: 1125899906842623n,
 		bf64: `________w`,
 		blurb: `${cf} You won't want to be walking any areas as that will only slow you down.`,
 	},
+	er: {
+		name: ner[0],
+		sname: ner[1],
+		adv: ner[2],
+		bf: 1125899906842623n,
+		bf64: `________w`,
+		blurb: `${er} For Modron Stackers only.`,
+	},
 	mixed01LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: {
 			min: 0,
 			max: 1,
@@ -53,8 +61,7 @@ const gemFarmJson = {
 	pure1LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: 1,
 		q: 2,
 		e: 1,
@@ -65,8 +72,7 @@ const gemFarmJson = {
 	mixed12LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: {
 			min: 1,
 			max: 2,
@@ -78,8 +84,7 @@ const gemFarmJson = {
 	pure2LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: 2,
 		q: 3,
 		e: 1,
@@ -91,8 +96,7 @@ const gemFarmJson = {
 	mixed23LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: {
 			min: 2,
 			max: 3,
@@ -104,8 +108,7 @@ const gemFarmJson = {
 	pure3LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: 3,
 		q: 4,
 		e: 1,
@@ -118,8 +121,7 @@ const gemFarmJson = {
 	pure3VL: {
 		name: nvl[0],
 		sname: nvl[1],
-		qts: nvl[2],
-		adv: nvl[3],
+		adv: nvl[2],
 		jump: 3,
 		q: 4,
 		e: 1,
@@ -132,8 +134,7 @@ const gemFarmJson = {
 	pre4TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: {
 			min: 3,
 			max: 4,
@@ -145,8 +146,7 @@ const gemFarmJson = {
 	pure4TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 4,
 		q: 5,
 		e: 1,
@@ -158,8 +158,7 @@ const gemFarmJson = {
 	feat4TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		feat: 4,
 		jump: {
 			min: 4,
@@ -175,8 +174,7 @@ const gemFarmJson = {
 	feat54TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 5,
 		q: 6,
 		e: 5,
@@ -190,8 +188,7 @@ const gemFarmJson = {
 	pure6LL: {
 		name: nll[0],
 		sname: nll[1],
-		qts: nll[2],
-		adv: nll[3],
+		adv: nll[2],
 		jump: 6,
 		q: 7,
 		e: 1,
@@ -204,8 +201,7 @@ const gemFarmJson = {
 	feat64TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 6,
 		q: 7,
 		e: 5,
@@ -219,8 +215,7 @@ const gemFarmJson = {
 	feat64RAC: {
 		name: nrac[0],
 		sname: nrac[1],
-		qts: nrac[2],
-		adv: nrac[3],
+		adv: nrac[2],
 		jump: 6,
 		q: 7,
 		e: 5,
@@ -234,8 +229,7 @@ const gemFarmJson = {
 	pure6TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 6,
 		q: 7,
 		e: 1,
@@ -248,8 +242,7 @@ const gemFarmJson = {
 	pure7TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 7,
 		q: 8,
 		e: 1,
@@ -262,8 +255,7 @@ const gemFarmJson = {
 	feat74TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 7,
 		q: 8,
 		e: 5,
@@ -277,8 +269,7 @@ const gemFarmJson = {
 	short87TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 8,
 		disp: `0.0031% 7j 99.9969% 8j`,
 		q: 9,
@@ -294,8 +285,7 @@ const gemFarmJson = {
 	feat84TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 8,
 		q: 9,
 		e: 5,
@@ -309,8 +299,7 @@ const gemFarmJson = {
 	pure8TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 8,
 		q: 9,
 		e: 1,
@@ -323,8 +312,7 @@ const gemFarmJson = {
 	mixed89TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: {
 			min: 8,
 			max: 9,
@@ -336,8 +324,7 @@ const gemFarmJson = {
 	feat94TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 9,
 		q: 10,
 		e: 5,
@@ -351,8 +338,7 @@ const gemFarmJson = {
 	pure9TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 9,
 		q: 10,
 		e: 1,
@@ -365,8 +351,7 @@ const gemFarmJson = {
 	pure11TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 11,
 		q: 12,
 		e: 1,
@@ -378,8 +363,7 @@ const gemFarmJson = {
 	short1211TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 11.999998066406249,
 		disp: `0.0002% 11j 99.9998% 12j`,
 		q: 13,
@@ -394,8 +378,7 @@ const gemFarmJson = {
 	pure14TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 14,
 		q: 15,
 		e: 1,
@@ -408,8 +391,7 @@ const gemFarmJson = {
 	feat149TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 14,
 		q: 15,
 		e: 10,
@@ -422,8 +404,7 @@ const gemFarmJson = {
 	short1615TT: {
 		name: ntt[0],
 		sname: ntt[1],
-		qts: ntt[2],
-		adv: ntt[3],
+		adv: ntt[2],
 		jump: 15.9999998791503906,
 		disp: `0.000012% 15j 99.999988% 16j`,
 		q: 17,
@@ -466,7 +447,9 @@ function parseRoute(key) {
 			`<h3>` +
 				parseName(route) +
 				`</h3>${blurb}` +
-				(route.loop || false ? addLoop(route.jumpZones, route.q, route.e) : ``)
+				(route.loop || false ?
+					addLoop(route.jumpZones, route.q, route.e)
+				:	``),
 		) + addChecked(key, route, true)
 	);
 }
@@ -500,44 +483,36 @@ function parseName(route, s) {
 			e += `)`;
 		} else e = ` (Mixed ${route.jump.min}-${route.jump.max}j)`;
 	}
-	return (s ? route.sname : route.name) + e;
+	const name = (s ? route.sname : route.name) + e;
+	switch (name) {
+		case `ER`: return `ER (Modron Stackers)`;
+		case `CF`: return `CF (Any)`;
+		default: return name;
+	}
 }
 
-function parseQTs(name) {
-	switch (name) {
-		case `TT`:
-			return [
-				1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1,
-				1, 1, 1, 1, 1, 1, 4, 4, 5, 1, 1, 6, 6, 6, 1, 1, 0, 0, 0, 0, 0,
-				0, 7, 7, 1, 1, 1, 1, 1,
-			];
-		case `LL`:
-			return [
-				1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3,
-				3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6,
-				6, 6, 6, 6, 6, 6, 6, 6,
-			];
-		case `CF`:
-			return [
-				1, 1, 0, 0, 1, 1, 0, 2, 2, 3, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0,
-				5, 5, 5, 5, 0, 0, 0, 0, 6, 0, 7, 7, 7, 7, 0, 0, 8, 8, 8, 0, 9,
-				10, 10, 10, 10, 10, 10, 10, 10,
-			];
-		case `RAC`:
-			return [
-				0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2,
-				2, 2, 2, 2, 0, 3, 3, 3, 3, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-				2, 2, 2, 0, 0, 0, 0, 0,
-			];
-		case `VL!`:
-			return [
-				1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4,
-				4, 4, 4, 4, 3, 3, 3, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5,
-				5, 5, 5, 5, 5, 5, 5, 6,
-			];
-		default:
-			return [];
+function parseQTs(advData) {
+	const bgs = new Map();
+	for (const bg of advData.backgrounds) {
+		const bgId = Number(bg.id);
+		bgs.set(bgId, bg);
 	}
+	
+	const seenBGs = new Map();
+	let counter = 1;
+	const qts = [];
+	for (const area of advData.areas) {
+		const bgId = Number(area.bgId);
+		const isFixed = bgs.get(bgId).isFixed;
+		if (!isFixed)
+			qts.push(0);
+		else {
+			if (!seenBGs.has(bgId))
+				seenBGs.set(bgId, counter++);
+			qts.push(seenBGs.get(bgId));
+		}
+	}
+	return qts;
 }
 
 function crdn(jump) {
