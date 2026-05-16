@@ -1,4 +1,4 @@
-const vm = 6.003; // prettier-ignore
+const vm = 6.004; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -630,14 +630,6 @@ async function calculateStacks() {
 		contents += addToDescRow(`&nbsp;`);
 		stackResult.innerHTML = contents;
 		return;
-	}
-
-	if (stackRoute.value === `er`) {
-		console.log("getting called?");
-		stackBrivZone.value = 1;
-		stackz1Form.value = `q`;
-		stackRNGWR.checked = false;
-		stackWithMetal.checked = true;
 	}
 
 	enforceTolerances();
