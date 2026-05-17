@@ -1,4 +1,4 @@
-const vg = 2.002; // prettier-ignore
+const vg = 2.003; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, 3];
 const ntt = [`Tall Tales`, `TT`, 1050];
 const nll = [`Roots of Loomlurch`, `LL`, 1137];
@@ -395,8 +395,8 @@ const gemFarmJson = {
 		jump: 14,
 		q: 15,
 		e: 10,
-		bf: 1125899805626349n,
-		bf64: `t_Hvn___w`,
+		bf: 1125899872747503n,
+		bf64: `9_3vv___w`,
 		blurb: `${tt}${fsa}${mimo}`,
 		loop: true,
 		order: 1,
