@@ -1,4 +1,4 @@
-const vf = 3.003; // prettier-ignore
+const vf = 3.004; // prettier-ignore
 const f_GREY = `color:#444`;
 const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
@@ -276,7 +276,7 @@ function addSpecInfo(baldric, stacking, tatyana, specsData) {
 	let addNoneMsg = false;
 	const specTexts = [];
 	for (const champId of Object.keys(specsData)) {
-		if (tatyana && champId === 75) continue;
+		if (tatyana && Number(champId ?? -1) === 75) continue;
 		const len = specsData[champId].length;
 		if (len === 0) addNoneMsg = true;
 		else specTexts.push(createSpecTxt(champId, specsData[champId]));
