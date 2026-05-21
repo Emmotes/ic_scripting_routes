@@ -318,10 +318,17 @@
 		<span class="routesRow">
 			<span style="padding:0 40px 0 20px;text-wrap-style:pretty">
 				<p>The formations listed here are designed to be examples - nothing more. They aren't necessarily meant to be copied exactly - but are to be learned from and modified to fit your needs.</p>
-				<p>The 'M (Modron)' formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>
-				<p>For Familiars you should put 3 on the field in the Q E and M formations and that's it. None in W. None on champions. None on click damage. When scripting you never use more than 3 familiars.</p>
-				<p><em>Note: It is recommended to use as few Widdle adjacencies as possible. Just know that she might need more ilvls to maintain 1,000% total effect.</em></p>
-				<p id="dynaheirInvestmentNote" style="display:none;color:var(--TangerineYellow)">Warning: Dynaheir requires iLvl investment to be viable. If you have not gotten her to at least 4 quests per Favoured Foe kill - you should use BBEG.<br>And you should not invest in her until at least 7j or 8-j (unless you can do so with bounties during her event).</p>
+				<h3 style="line-height:1em;">M (Modron)</h3>
+				<p>This formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>
+				<h3 style="line-height:1em;">Familiars</h3>
+				<p>You should put 3 on the field in the Q and E formations. 6 on the field in M. None in W. None on champions. None on click damage. When scripting you never use more than 3 familiars except in M - and only ever use familiars on the field.</p>
+				<h3 style="line-height:1em;">Widdle</h3>
+				<p id="formsWiddleNote">It is recommended to use as few Widdle adjacencies as possible while still having 1000% total effect. If you can't get that with two adjacencies - put more ilvls on her.<br>
+				The reason we want as few as possible is so that fewer buffs go around - and thereby fewer calculations take place.</p>
+				<h3 style="line-height:1em;display:none" data-investmentnote="melf">Melf Investment</h3>
+				<p style="display:none" data-investmentnote="melf">Melf requires iLvl investment to be viable. If you have not got him to at least 4 quests per kill - you should use BBEG. And you should not invest in him until at least 6j (unless you can do so with bounties during his event).</p>
+				<h3 style="line-height:1em;display:none" data-investmentnote="dynaheir">Dynaheir Investment</h3>
+				<p style="display:none" data-investmentnote="dynaheir">Dynaheir requires iLvl investment to be viable. If you have not got her to at least 4 quests per Favoured Foe kill - you should use BBEG. And you should not invest in her until at least 7j or 8-j (unless you can do so with bounties during her event).</p>
 			</span>
 		</span>
 		<span class="routesRow">

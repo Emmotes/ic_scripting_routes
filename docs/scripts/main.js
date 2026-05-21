@@ -1,4 +1,4 @@
-const vm = 6.004; // prettier-ignore
+const vm = 6.005; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -11,7 +11,7 @@ const {
 	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
-	formTatyanaLabel, formTatyana, formResult, dynaheirInvestmentNote, brivMasterInput,
+	formTatyanaLabel, formTatyana, formResult, brivMasterInput, formsWiddleNote,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -21,7 +21,7 @@ const {
 		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
-		"formTatyanaLabel", "formTatyana", "formResult", "dynaheirInvestmentNote", "brivMasterInput",
+		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInput", "formsWiddleNote",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -139,6 +139,10 @@ async function init() {
 	bind(formStacking, `input`, formsUpdateStacking);
 	update();
 	await calculateStacks();
+	formsWiddleNote.innerHTML = formsWiddleNote.innerHTML.replace(
+		"1000",
+		nf(1000),
+	);
 	startUpdateCheckInterval(1800000); // 30 mins
 }
 
@@ -826,8 +830,7 @@ async function getRouteInputs() {
 	);
 
 	let advData = await pullAdvJson(routeObj.adv);
-	if (routeObj.qts == null)
-		routeObj.qts = parseQTs(advData);
+	if (routeObj.qts == null) routeObj.qts = parseQTs(advData);
 
 	if (!routeObj.checkedByZone) {
 		const arr = convertBase64ToBinaryArray(routeObj.bf64);
