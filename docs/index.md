@@ -321,7 +321,7 @@
 				<h3 style="line-height:1em;">M (Modron)</h3>
 				<p>This formation is a separate 4th formation that is selected in the Modron Automation settings. It becomes the formation that is loaded on z1. All specialisations get saved to the Modron formation - and you don't need to save any to the others.</p>
 				<h3 style="line-height:1em;">Familiars</h3>
-				<p>You should put 3 on the field in the Q and E formations. 6 on the field in M. None in W. None on champions. None on click damage. When scripting you never use more than 3 familiars except in M - and only ever use familiars on the field.</p>
+				<p>You should put 3 on the field in the Q E and M formations. None in W. None on champions. None on click damage. When scripting you never use more than 3 familiars - and only ever use familiars on the field.</p>
 				<h3 style="line-height:1em;">Widdle</h3>
 				<p id="formsWiddleNote">It is recommended to use as few Widdle adjacencies as possible while still having 1000% total effect. If you can't get that with two adjacencies - put more ilvls on her.<br>
 				The reason we want as few as possible is so that fewer buffs go around - and thereby fewer calculations take place.</p>
