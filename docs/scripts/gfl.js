@@ -1,11 +1,11 @@
-const vg = 2.003; // prettier-ignore
+const vg = 2.004; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, 3];
 const ntt = [`Tall Tales`, `TT`, 1050];
 const nll = [`Roots of Loomlurch`, `LL`, 1137];
 const nrac = [`Resolve Amongst Chaos`, `RAC`, 605];
 const nvl = [`Vecna Lives!`, `VL!`, 1163];
 const ner = [`Everlasting Rime`, `ER`, 695];
-const fsa = `<br>This route requires <a href="https://github.com/imp444/IC_Addons/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
+const fsa = `<br>This route requires <a href="https://github.com/antilectual/IC_Addons_1/tree/main/IC_BrivGemFarm_BrivFeatSwap_Extra" target="_blank">ImpEGamer's BrivFeatSwap</a> addon.`;
 const fsaaa = fsa.replace(`n.`, `n and the Accurate Acrobatics feat.`);
 const tt = `${ntt[0]} (${ntt[1]}) is in the Witchlight campaign.`;
 const ll = `The ${nll[0]} (${nll[1]}) is in the Witchlight campaign.`;
