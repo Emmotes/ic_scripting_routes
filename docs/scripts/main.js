@@ -1,4 +1,4 @@
-const vm = 6.006; // prettier-ignore
+const vm = 6.007; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1458,11 +1458,11 @@ function renderRouteTable(routeData, inputs) {
 	let keyEntries = [
 		{text: `${SVG_thelloraNorm} Thellora`},
 		{text: `${SVG_arrowNorm} Jump`},
-		{text: `${SVG_hopNorm} Hop`},
+		{text: `${SVG_hopNorm} Hop (Short Jump)`},
 		{text: `${SVG_walkNorm} Walk`},
 		{text: `${SVG_thelloraQT} Thellora QT`},
 		{text: `${SVG_arrowQT} Jump QT`},
-		{text: `${SVG_hopQT} Hop QT`},
+		{text: `${SVG_hopQT} Hop (Short Jump) QT`},
 		{text: `${SVG_walkQT} Walk QT`},
 		{
 			text: `Earliest Stack Zone<span class="stkZone">${indicatorSquare}</span>`,
