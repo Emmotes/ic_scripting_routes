@@ -45,10 +45,10 @@
 				<span style="display:flex;flex-direction:column;position:absolute;bottom:-154px;right:6px;">
 					<span style="display:flex;margin-bottom:-6px;">
 						<span class="routesCol3" style="flex-grow:1;min-width:160px;">
-							<label for="brivMasterInput">Using Briv Master:</label>
+							<label for="brivMasterInputGFR">Using Briv Master:</label>
 						</span>
 						<span class="routesCol4" style="width:fit-content;">
-							<input type="checkbox" class="checkbox" id="brivMasterInput" style="min-width:unset;transform:translateY(-0.39em);">
+							<input type="checkbox" class="checkbox" id="brivMasterInputGFR" style="min-width:unset;transform:translateY(-0.39em);" onchange="toggleBrivMaster(this.checked)">
 						</span>
 					</span>
 					<span class="routesCol5" style="text-align:center;transform:translateX(20px);text-wrap-style:balance;">
@@ -99,7 +99,22 @@
 	<div class="tabsContent">
 		<span class="routesRow">
 			<span class="routesDesc">
-				<h3 id="eventInput">Fill out all the information below.</h3>
+				<h3 id="eventInput" style="padding-bottom:8px;">Fill out all the information below.</h3>
+			</span>
+			<span style="width:0;height:0;margin:0;padding:0;position:relative;">
+				<span style="display:flex;flex-direction:column;position:absolute;bottom:-52px;right:-16px;">
+					<span style="display:flex;margin-bottom:-6px;">
+						<span class="routesCol3" style="flex-grow:1;min-width:160px;">
+							<label for="brivMasterInputSC">Using Briv Master:</label>
+						</span>
+						<span class="routesCol4" style="width:fit-content;">
+							<input type="checkbox" class="checkbox" id="brivMasterInputSC" style="min-width:unset;transform:translateY(-0.39em);" onchange="toggleBrivMaster(this.checked)">
+						</span>
+					</span>
+					<span class="routesCol5" style="text-align:center;transform:translateX(20px);text-wrap-style:balance;">
+						If you don't know what this is then you aren't using it.
+					</span>
+				</span>
 			</span>
 		</span>
 		<span class="routesRow">
@@ -174,7 +189,7 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackBrivZone">Min Zone to Reach Before Leveling Briv:</label>
+				<label for="stackBrivZone" id="stackBrivZoneLabel">Minimum Zone to Reach Before Leveling Briv:</label>
 			</span>
 			<span class="routesCol2">
 				<input type="number" name="stackBrivZone" id="stackBrivZone" value="2" min="1">
@@ -182,12 +197,12 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackz1Form">z1 Formation (or Modron with RNGWR):</label>
+				<label for="stackz1Form">Briv Jump Feat in M:</label>
 			</span>
 			<span class="routesCol2">
 				<select name="stackz1Form" id="stackz1Form" style="min-width:60px;max-width:200px">
-					<option value="q" selected>Q</option>
-					<option value="e">E</option>
+					<option value="q" selected>Same as Q</option>
+					<option value="e">Same as E</option>
 					<option value="4">Wasting Haste (4j)</option>
 					<option value="9">Strategic Stride (9j)</option>
 				</select>
@@ -195,7 +210,7 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackRNGWR">Using RNG Waiting Room:</label>
+				<label for="stackRNGWR" id="stackRNGWRLabel">Using RNG Waiting Room:</label>
 			</span>
 			<span class="routesCol2" style="width:max-content">
 				<input type="checkbox" name="stackRNGWR" id="stackRNGWR" checked>

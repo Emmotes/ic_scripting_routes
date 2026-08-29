@@ -1,4 +1,4 @@
-const vm = 6.007; // prettier-ignore
+const vm = 6.100; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -11,7 +11,8 @@ const {
 	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
-	formTatyanaLabel, formTatyana, formResult, brivMasterInput, formsWiddleNote,
+	formTatyanaLabel, formTatyana, formResult, brivMasterInputGFR, formsWiddleNote,
+	stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -21,7 +22,8 @@ const {
 		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
-		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInput", "formsWiddleNote",
+		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInputGFR", "formsWiddleNote",
+		"stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -96,7 +98,6 @@ const routeSettings = {
 
 async function init() {
 	populateSettings();
-	if (routeSettings.brivMaster[1]) brivMasterInput.checked = true;
 	populateJumpZones();
 	populateStackRoutes();
 	populateFormCampaigns();
@@ -116,7 +117,6 @@ async function init() {
 	bind(presetsInput, `change`, preset);
 	bind(rarityInput, `change`, update);
 	bind(gildingInput, `change`, update);
-	bind(brivMasterInput, `change`, toggleBrivMaster);
 	bind(stackRoute, `change`, calculateStacks);
 	bind(stackiLvl, `input`, calculateStacks);
 	bind(stackRarity, `change`, calculateStacks);
@@ -137,6 +137,7 @@ async function init() {
 	bind(formBaldric, `change`, formsUpdateCheckboxes);
 	bind(formFeatSwap, `change`, formsUpdateCheckboxes);
 	bind(formStacking, `input`, formsUpdateStacking);
+	toggleBrivMaster(routeSettings.brivMaster[1], true);
 	update();
 	await calculateStacks();
 	formsWiddleNote.innerHTML = formsWiddleNote.innerHTML.replace(
@@ -403,7 +404,7 @@ function mapFromToRange(v, oldMin, oldMax, newMin, newMax) {
 
 function addChecked(key, route, br) {
 	const jumpZones = route.jumpZones;
-	if (!Array.isArray(route.jumpZones) || route.jumpZones.length !== 50)
+	if (!Array.isArray(jumpZones) || jumpZones.length !== 50)
 		return addToDescRow(`&nbsp;`);
 
 	let txt = ``;
@@ -422,7 +423,7 @@ function addChecked(key, route, br) {
 		txt += `</span>`;
 	}
 	for (let i = 1; i <= 50; i++) {
-		const checked = isChecked(route.jumpZones, i) ? jump : ``;
+		const checked = isChecked(jumpZones, i) ? jump : ``;
 		const name = `${key}_z${i}`;
 		txt += `<span class="routesBoxes">`;
 		if (isBM) {
@@ -521,7 +522,8 @@ function swapTab() {
 			stackReset.value = hash[c++];
 			stackFavour.value = hash[c++];
 			stackStack.value = hash[c++];
-			stackBrivZone.value = hash[c++];
+			const sbz = hash[c++];
+			setStackBrivZoneValue(sbz);
 			stackz1Form.value = hash[c++];
 			stackRNGWR.checked = hash[c++] === "1";
 			stackWithMetal.checked = hash[c++] === "1";
@@ -561,7 +563,7 @@ function setHash(hash) {
 			!stackMixedGilding.classList.contains("hidden")
 		)
 			mixedExtras = `_${stackiLvl.value}_${stackRarity.value}_${stackGilding.value}`;
-		hash = `${st}_${stackRoute.value}${mixedExtras}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${stackBrivZone.value}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
+		hash = `${st}_${stackRoute.value}${mixedExtras}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${getStackBrivZoneValue()}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
 	} else if (hash === ft) {
 		const tatyana = formTatyana.checked ? 1 : 0;
 		const baldric = formBaldric.checked ? 1 : 0;
@@ -799,7 +801,7 @@ async function getRouteInputs() {
 		!stackRoute.value ||
 		!stackFavour.value ||
 		!stackReset.value ||
-		!stackBrivZone.value
+		(stackBrivZone.type === `number` && !stackBrivZone.value)
 	)
 		return null;
 
@@ -857,7 +859,7 @@ async function getRouteInputs() {
 		favour: Number(stackFavour.value),
 		resetZone: Number(stackReset.value),
 		stackiLvl: Number(stackiLvl.value),
-		brivZone: Number(stackBrivZone.value),
+		brivZone: Number(getStackBrivZoneValue()),
 		numRuns: Number(stackRuns.value),
 		adv: advData,
 		routeJson: routeObj,
@@ -1591,7 +1593,10 @@ function enforceTolerances() {
 
 	if (stackStack.value < stackStackMin) stackStack.value = stackStackMin;
 
-	if (stackBrivZone.value < stackBrivZoneMin)
+	if (
+		stackBrivZone.type === `number` &&
+		stackBrivZone.value < stackBrivZoneMin
+	)
 		stackBrivZone.value = stackBrivZoneMin;
 
 	if (stackRuns.value < stackRunsMin) stackRuns.value = stackRunsMin;
@@ -1929,14 +1934,58 @@ function toggleRouteDetails(checked) {
 	modifySettings(settings, checked, routeSettings.details[0]);
 }
 
-function toggleBrivMaster() {
-	const checked = brivMasterInput.checked;
+function toggleBrivMaster(checked,init=false) {
+	const eles = document.querySelectorAll(
+		`input[type="checkbox"][id^="brivMasterInput"]`,
+	);
+	for (const ele of eles) ele.checked = checked;
+
 	let settings = readRoutesSettings();
 
 	routeSettings.brivMaster[1] = checked;
 	modifySettings(settings, checked, routeSettings.brivMaster[0]);
 
+	if (stackBrivZone && stackBrivZoneLabel) {
+		stackBrivZoneLabel.textContent =
+			checked ?
+				`Combine Briv and Thellora:`
+			:	`Minimum area to Reach Before Leveling Briv:`;
+
+		const newType = checked ? `checkbox` : `number`;
+		if (stackBrivZone.type !== newType) {
+			const newValue =
+				stackBrivZone.type === `number` ? stackBrivZone.value === `1`
+				: stackBrivZone.checked ? 1
+				: 2;
+			stackBrivZone.type = newType;
+			if (stackBrivZone.type === `number`) {
+				stackBrivZone.removeAttribute(`checked`);
+				stackBrivZone.value = newValue;
+				stackBrivZone.min = 1;
+			} else {
+				stackBrivZone.checked = newValue;
+				stackBrivZone.removeAttribute(`min`);
+				stackBrivZone.removeAttribute(`value`);
+			}
+		}
+	}
+	if (stackRNGWRLabel)
+		stackRNGWRLabel.innerHTML =
+			checked ? `Using Ellywick Casino:` : `Using RNG Waiting Room:`;
+
+	if (init) return;
+
 	update();
+}
+
+function getStackBrivZoneValue() {
+	if (stackBrivZone.type === `number`) return stackBrivZone.value;
+	return stackBrivZone.checked ? `1` : `2`;
+}
+
+function setStackBrivZoneValue(val) {
+	if (stackBrivZone.type === `number`) stackBrivZone.value = val;
+	else stackBrivZone.checked = val === `1`;
 }
 
 function modifySettings(settings, add, key) {
