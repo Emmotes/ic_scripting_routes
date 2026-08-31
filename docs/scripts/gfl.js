@@ -1,4 +1,4 @@
-const vg = 2.004; // prettier-ignore
+const vg = 2.005; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, 3];
 const ntt = [`Tall Tales`, `TT`, 1050];
 const nll = [`Roots of Loomlurch`, `LL`, 1137];
@@ -485,9 +485,12 @@ function parseName(route, s) {
 	}
 	const name = (s ? route.sname : route.name) + e;
 	switch (name) {
-		case `ER`: return `ER (Modron Stackers)`;
-		case `CF`: return `CF (Any)`;
-		default: return name;
+		case `ER`:
+			return `ER (Modron Stackers)`;
+		case `CF`:
+			return `CF (Any)`;
+		default:
+			return name;
 	}
 }
 
@@ -497,18 +500,16 @@ function parseQTs(advData) {
 		const bgId = Number(bg.id);
 		bgs.set(bgId, bg);
 	}
-	
+
 	const seenBGs = new Map();
 	let counter = 1;
 	const qts = [];
 	for (const area of advData.areas) {
 		const bgId = Number(area.bgId);
 		const isFixed = bgs.get(bgId).isFixed;
-		if (!isFixed)
-			qts.push(0);
+		if (!isFixed) qts.push(0);
 		else {
-			if (!seenBGs.has(bgId))
-				seenBGs.set(bgId, counter++);
+			if (!seenBGs.has(bgId)) seenBGs.set(bgId, counter++);
 			qts.push(seenBGs.get(bgId));
 		}
 	}

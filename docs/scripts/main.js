@@ -1,4 +1,4 @@
-const vm = 6.100; // prettier-ignore
+const vm = 6.101; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1934,7 +1934,7 @@ function toggleRouteDetails(checked) {
 	modifySettings(settings, checked, routeSettings.details[0]);
 }
 
-function toggleBrivMaster(checked,init=false) {
+function toggleBrivMaster(checked, init = false) {
 	const eles = document.querySelectorAll(
 		`input[type="checkbox"][id^="brivMasterInput"]`,
 	);
@@ -1976,6 +1976,7 @@ function toggleBrivMaster(checked,init=false) {
 	if (init) return;
 
 	update();
+	formsUpdateShow();
 }
 
 function getStackBrivZoneValue() {

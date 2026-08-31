@@ -1,4 +1,4 @@
-const vf = 3.007; // prettier-ignore
+const vf = 3.100; // prettier-ignore
 const f_GREY = `color:#444`;
 const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
@@ -201,9 +201,11 @@ function checkInvestmentNotesDisplay() {
 	const isMelf = type === "melf";
 	for (const ele of document.querySelectorAll(`[data-investmentnote="melf"]`))
 		ele.style.display = isMelf ? `` : `none`;
-	
+
 	const isDynaheir = type === "dynaMinsc" || type === "MImoHeir";
-	for (const ele of document.querySelectorAll(`[data-investmentnote="dynaheir"]`))
+	for (const ele of document.querySelectorAll(
+		`[data-investmentnote="dynaheir"]`,
+	))
 		ele.style.display = isDynaheir ? `` : `none`;
 }
 
@@ -250,17 +252,26 @@ function createSVG(slots, ids) {
 }
 
 function addSpecInfo(baldric, stacking, tatyana, specsData) {
+	function addChampNote(champ, minLevel, maxLevel) {
+		return (
+			`${champ} to be set to ${routeSettings.brivMaster[1] ? maxLevel : minLevel}/` +
+			`${maxLevel} in the ${routeSettings.brivMaster[1] ? `Levels tab` : `Level Up addon`}.`
+		);
+	}
 	txt = ``;
-	txt += `<span style="display:flex;flex-direction:column;align-items:flex-start">`;
+	txt += `<span style="display:flex;flex-direction:column;align-items:flex-start;width:450px;">`;
 	const x25 =
 		`<li>The x25 level up hotkey set to <code>Ctrl</code>.<br>` +
-		`You can use the Game Settings Fix addon to do this automatically.</li>`;
+		(routeSettings.brivMaster[1] ?
+			`Using the <code>Set Now</code> button in the <code>Game Settings</code> section ` +
+			`of the <code>Home</code> tab can fix this if you've set up your profiles properly.`
+		:	`You can use the Game Settings Fix addon to do this automatically.</li>`);
 	if (stacking === "Farideh") {
 		txt += `<span style="display:flex;flex-direction:column">`;
 		txt += `<h3>Using Farideh</h3>Requires:`;
 		txt +=
 			`<ul style="margin-left:-10px">` +
-			`<li>Farideh to be set to 100/125 in the Level Up addon.</li>` +
+			`<li>${addChampNote(`Farideh`, 100, 125)}</li>` +
 			x25 +
 			`</ul>`;
 		txt += `</span>`;
@@ -270,7 +281,7 @@ function addSpecInfo(baldric, stacking, tatyana, specsData) {
 		txt += `<h3>Tatyana in M</h3>Requires:`;
 		txt +=
 			`<ul style="margin-left:-10px">` +
-			`<li>Hew Maan to be set to 0/225 in the Level Up addon.</li>` +
+			`<li>${addChampNote(`Hew Maan`, 0, 225)}</li>` +
 			x25 +
 			`<li><em>Note: I don't recommend investing iLvls in Tatyana until at least 7j.</em></li>` +
 			`</ul>`;
