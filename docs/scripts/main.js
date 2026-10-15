@@ -1,4 +1,4 @@
-const vm = 6.101; // prettier-ignore
+const vm = 6.102; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1156,7 +1156,7 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 			stackData.thunderStepStacks,
 		)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
 		if (inputs.numRuns === 1)
-			resultHtml += `<ul><li class="tinyRedWarning">If you are running hybrid with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks Off?</code> setting NOT ticked - use ${nf(
+			resultHtml += `<ul><li class="tinyRedWarning">If you are running hybrid with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks</code> setting ticked - use ${nf(
 				stackData.thunderStepStacks,
 			)} as your Target Stacks. The Stacks Prediction will be enabled and account for Thunder Step.<br>If you have that setting ticked and therefore Stacks Prediction disabled - you may use ${nf(
 				stackData.stacks,
@@ -1345,7 +1345,7 @@ function renderVariableResults(
 		if (thelloraExtras !== ``) resultHtml += `<ul>${thelloraExtras}</ul>`;
 	}
 	if (inputs.thunderStep)
-		resultHtml += `<li class="tinyRedWarning">If you are running hybrid with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks Off?</code> setting NOT ticked - set your target stacks with the Thunder Step setting disabled. This is because Stacks Prediction accounts for Thunder Step already.</li>`;
+		resultHtml += `<li class="tinyRedWarning">If you are running hybrid with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks</code> setting ticked - set your target stacks with the Thunder Step setting disabled. This is because Stacks Prediction accounts for Thunder Step already.</li>`;
 
 	// Bosses
 	const bosses = finalData.avgBosses;
