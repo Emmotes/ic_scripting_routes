@@ -1,4 +1,4 @@
-const vm = 6.103; // prettier-ignore
+const vm = 6.200; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -867,7 +867,7 @@ async function getRouteInputs() {
 		jumps: jumps,
 		z1Formation: stackz1Form.value,
 		rngWaitingRoom: stackRNGWR.checked,
-		stackZone: stackStack.value,
+		stackZone: Number(stackStack.value),
 		thunderStep: stackThunderStep.checked,
 		withMetal: stackWithMetal.checked,
 	};
@@ -1164,6 +1164,16 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 	}
 
 	// Bad Stack Zone
+	for (const rdZone of routeData.route) {
+		if (rdZone.zone <= inputs.stackZone) continue;
+		const mod50 = rdZone.zone % 50 || 50;
+		const mod5 = rdZone.zone % 5 || 5;
+		if (mod50 === 33 || mod50 === 34)
+			resultHtml += `<li class="bigRedWarning">Your stack zone is on a Gazer zone. Gazer's can attack everybody in the formation which means only a fraction of attacks will hit Briv and generate stacks. Stack elsewhere.</li>`;
+		if (mod5 === 5)
+			resultHtml += `<li class="bigRedWarning">Your stack zone is a boss zone. We do not stack on boss zones as they have virtually no enemies and Tatyana is disabled.</li>`;
+		break;
+	}
 	const thirdFromEnd = routeData.route.at(-3);
 	const maxSafeStackZone = (thirdFromEnd?.zone ?? 1) - 1;
 	if (inputs.stackZone > maxSafeStackZone) {
