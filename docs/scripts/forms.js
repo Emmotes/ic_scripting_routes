@@ -1,4 +1,4 @@
-const vf = 3.200; // prettier-ignore
+const vf = 3.201; // prettier-ignore
 const f_GREY = `color:#444`;
 const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
@@ -176,7 +176,6 @@ function decideFormsShowStatus() {
 			disableElements(false, disableBaldric, true, true);
 		else {
 			disableElements(false, disableBaldric, false, false);
-			console.log("baldricDisabled");
 			if (disableBaldric) {
 				if (formType.value === `melf`)
 					baldricDisabled.textContent = `(Impossible with Melf)`;
