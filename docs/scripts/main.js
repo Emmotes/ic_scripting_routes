@@ -1,4 +1,4 @@
-const vm = 6.200; // prettier-ignore
+const vm = 6.300; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -12,7 +12,7 @@ const {
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
 	formTatyanaLabel, formTatyana, formResult, brivMasterInputGFR, formsWiddleNote,
-	stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel,
+	stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel, baldricDisabled,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -23,7 +23,7 @@ const {
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
 		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInputGFR", "formsWiddleNote",
-		"stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel",
+		"stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel", "baldricDisabled",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;

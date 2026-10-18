@@ -305,7 +305,7 @@
 			</span>
 			<span class="routesCol2" style="display:flex">
 				<input type="checkbox" name="formBaldric" id="formBaldric">
-				<span id="baldricDisabledByMelf" style="display:none">(Disabled by Melf)</span>
+				<span id="baldricDisabled"></span>
 			</span>
 		</span>
 		<span class="routesRow">

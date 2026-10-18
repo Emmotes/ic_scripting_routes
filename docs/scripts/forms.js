@@ -1,4 +1,4 @@
-const vf = 3.100; // prettier-ignore
+const vf = 3.200; // prettier-ignore
 const f_GREY = `color:#444`;
 const f_NOCURSOR = `;cursor:default;pointer-events:none`;
 /* ================ *
@@ -164,6 +164,7 @@ function decideFormsShowStatus() {
 	const widdle = formWiddle.value;
 
 	checkInvestmentNotesDisplay();
+	baldricDisabled.textContent = ``;
 
 	if (campaign === "" || type === "" || widdle === "")
 		disableElements(true, true, true, true);
@@ -173,7 +174,16 @@ function decideFormsShowStatus() {
 			!Object.keys(formsData[campaign].forms[type][widdle]).includes("B");
 		if (campaign === "GT")
 			disableElements(false, disableBaldric, true, true);
-		else disableElements(false, disableBaldric, false, false);
+		else {
+			disableElements(false, disableBaldric, false, false);
+			console.log("baldricDisabled");
+			if (disableBaldric) {
+				if (formType.value === `melf`)
+					baldricDisabled.textContent = `(Impossible with Melf)`;
+				else if (formWiddle.value === `1`)
+					baldricDisabled.textContent = `(Impossible with 1a Widdle)`;
+			}
+		}
 	}
 	formsUpdateShow();
 }
