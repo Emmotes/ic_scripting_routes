@@ -1,4 +1,4 @@
-const vm = 6.300; // prettier-ignore
+const vm = 6.301; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -647,16 +647,13 @@ async function calculateStacks() {
 
 	try {
 		assertToken(calculateStacksToken);
-		const jumpMaxChance = inputs.jumps[1];
-		const jumpMinChance = 1 - jumpMaxChance;
-		const jumpMin = inputs.jumps[0] - 1;
-		const jumpMax = jumpMin + 1;
-		if (inputs.isFixedJump || jumpMaxChance === 1) {
+		if (inputs.isFixedJump || inputs.jumps[1] === 1) {
 			stackRarityNote.innerHTML = `&nbsp;`;
 			stackGildingNote.innerHTML = `&nbsp;`;
 			let q = inputs.routeJson.q;
 			let e = inputs.routeJson.e;
-			if (jumpMaxChance === 1) {
+			if (!inputs.isFixedJump) {
+				const jumpMax = inputs.jumps[0];
 				q = jumpMax + 1;
 				e = q;
 			}
@@ -668,6 +665,10 @@ async function calculateStacks() {
 			assertToken(calculateStacksToken);
 			renderResults(inputs, q, e, brivData, routeData, stackData);
 		} else {
+			const jumpMaxChance = inputs.jumps[1];
+			const jumpMinChance = 1 - jumpMaxChance;
+			const jumpMin = inputs.jumps[0] - 1;
+			const jumpMax = jumpMin + 1;
 			const jumpObj = {jumpMin, jumpMinChance, jumpMax};
 			stackRarityNote.innerHTML = `(${(jumpMinChance * 100).toFixed(
 				3,
@@ -825,11 +826,13 @@ async function getRouteInputs() {
 			return null;
 	}
 
-	const jumps = determineJumps(
-		Number(stackiLvl.value) - 1,
-		determineRarity(stackRarity.value),
-		determineGilding(stackGilding.value),
-	);
+	const jumps =
+		isFixedJump ? undefined :
+		determineJumps(
+			Number(stackiLvl.value) - 1,
+			determineRarity(stackRarity.value),
+			determineGilding(stackGilding.value),
+		);
 
 	let advData = await pullAdvJson(routeObj.adv);
 	if (routeObj.qts == null) routeObj.qts = parseQTs(advData);
@@ -858,7 +861,6 @@ async function getRouteInputs() {
 	return {
 		favour: Number(stackFavour.value),
 		resetZone: Number(stackReset.value),
-		stackiLvl: Number(stackiLvl.value),
 		brivZone: Number(getStackBrivZoneValue()),
 		numRuns: Number(stackRuns.value),
 		adv: advData,
@@ -1155,7 +1157,7 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 		)} stacks required will become ${nf(
 			stackData.thunderStepStacks,
 		)} when resetting the adventure due to Briv's Thunder Step feat. It is this larger amount that Briv will consume for your runs.</li>`;
-		if (inputs.numRuns === 1)
+		if (inputs.numRuns === 1 && !routeSettings.brivMaster[1])
 			resultHtml += `<ul><li class="tinyRedWarning">If you are running with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks</code> setting ticked - use ${nf(
 				stackData.thunderStepStacks,
 			)} as your Target Stacks. The Stacks Prediction will be enabled and account for Thunder Step.<br>If you have that setting ticked and therefore Stacks Prediction disabled - you may use ${nf(
@@ -1317,12 +1319,14 @@ function renderVariableResults(
 	finalStacks,
 	finalData,
 ) {
-	let contents = ``;
-	contents += generateSkipInfo(
+	const isBM = routeSettings.brivMaster[1];
+	const skips = generateSkipInfo(
 		stackiLvl,
 		stackRarity,
 		stackGilding,
-	).skipBlurb;
+	);
+	let contents = ``;
+	contents += skips.skipBlurb;
 	contents += `<h2>Stacks Required: ${nf(finalStacks.p95)}</h2>`;
 
 	let resultHtml = `<ul>`;
@@ -1334,6 +1338,9 @@ function renderVariableResults(
 		`<li>Ultra-safe: ${nf(finalStacks.p99)}</li>` +
 		`<li>Worst-case: ${nf(finalStacks.worst)}</li>` +
 		`</ul>`;
+	// Briv Master
+	const lowj = skips.skips[0]-1;
+	resultHtml += `<li class="littleRedWarning">Briv Master does not support mixed jumps.<br>You can still use it - but you will need to make it believe you are ${lowj}j (even though you are not) by using that value in the Q and M boxes in the Route tab.<br>It will overstack (calculating for 100% ${lowj}j) - but that's what you pay for running something that isn't supported.</li>`;
 	// Thellora Info
 	const tLands = finalData.thelloraLandings;
 	tLands.sort();
@@ -1354,7 +1361,7 @@ function renderVariableResults(
 			thelloraExtras += `${createBadTravellingWarning(inputs)}`;
 		if (thelloraExtras !== ``) resultHtml += `<ul>${thelloraExtras}</ul>`;
 	}
-	if (inputs.thunderStep)
+	if (inputs.thunderStep && !isBM)
 		resultHtml += `<li class="tinyRedWarning">If you are running with the <code style="font-size:0.95em;color:var(--Soap)">Predict Stacks</code> setting ticked - set your target stacks with the Thunder Step setting disabled. This is because Stacks Prediction accounts for Thunder Step already.</li>`;
 
 	// Bosses
