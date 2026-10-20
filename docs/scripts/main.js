@@ -827,11 +827,12 @@ async function getRouteInputs() {
 	}
 
 	const jumps =
-		isFixedJump ? undefined :
-		determineJumps(
-			Number(stackiLvl.value) - 1,
-			determineRarity(stackRarity.value),
-			determineGilding(stackGilding.value),
+		isFixedJump ? undefined : (
+			determineJumps(
+				Number(stackiLvl.value) - 1,
+				determineRarity(stackRarity.value),
+				determineGilding(stackGilding.value),
+			)
 		);
 
 	let advData = await pullAdvJson(routeObj.adv);
@@ -1320,11 +1321,7 @@ function renderVariableResults(
 	finalData,
 ) {
 	const isBM = routeSettings.brivMaster[1];
-	const skips = generateSkipInfo(
-		stackiLvl,
-		stackRarity,
-		stackGilding,
-	);
+	const skips = generateSkipInfo(stackiLvl, stackRarity, stackGilding);
 	let contents = ``;
 	contents += skips.skipBlurb;
 	contents += `<h2>Stacks Required: ${nf(finalStacks.p95)}</h2>`;
@@ -1339,8 +1336,9 @@ function renderVariableResults(
 		`<li>Worst-case: ${nf(finalStacks.worst)}</li>` +
 		`</ul>`;
 	// Briv Master
-	const lowj = skips.skips[0]-1;
-	resultHtml += `<li class="littleRedWarning">Briv Master does not support mixed jumps.<br>You can still use it - but you will need to make it believe you are ${lowj}j (even though you are not) by using that value in the Q and M boxes in the Route tab.<br>It will overstack (calculating for 100% ${lowj}j) - but that's what you pay for running something that isn't supported.</li>`;
+	const lowj = skips.skips[0] - 1;
+	if (isBM)
+		resultHtml += `<li class="littleRedWarning">Briv Master does not support mixed jumps.<br>You can still use it - but you will need to make it believe you are ${lowj}j (even though you are not) by using that value in the Q and M boxes in the Route tab.<br>It will overstack (calculating for 100% ${lowj}j) - but that's what you pay for running something that isn't supported.</li>`;
 	// Thellora Info
 	const tLands = finalData.thelloraLandings;
 	tLands.sort();
