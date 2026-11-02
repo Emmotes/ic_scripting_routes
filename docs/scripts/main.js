@@ -1,4 +1,4 @@
-const vm = 6.301; // prettier-ignore
+const vm = 6.400; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -11,8 +11,8 @@ const {
 	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
 	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
 	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
-	formTatyanaLabel, formTatyana, formResult, brivMasterInputGFR, formsWiddleNote,
-	stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel, baldricDisabled,
+	formTatyanaLabel, formTatyana, formResult, brivMasterInputGFR, brivMasterInputSC,
+	formsWiddleNote, stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel, baldricDisabled,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
@@ -22,8 +22,8 @@ const {
 		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
 		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
 		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
-		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInputGFR", "formsWiddleNote",
-		"stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel", "baldricDisabled",
+		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInputGFR", "brivMasterInputSC",
+		"formsWiddleNote", "stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel", "baldricDisabled",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -130,6 +130,7 @@ async function init() {
 	bind(stackWithMetal, `change`, calculateStacks);
 	bind(stackRuns, `change`, calculateStacks);
 	bind(stackThunderStep, `change`, calculateStacks);
+	bind(brivMasterInputSC, `change`, calculateStacks);
 	bind(formCampaign, `input`, formsUpdateCampaign);
 	bind(formType, `input`, formsUpdateType);
 	bind(formWiddle, `input`, formsUpdateWiddle);
@@ -266,9 +267,9 @@ function update() {
 		comment += spacer;
 		comment += parseRoute(`pure8TT`);
 	} else if (jumps === 9) {
-		comment += parseRoute(`pure9TT`);
-		comment += spacer;
 		comment += parseRoute(`feat94TT`);
+		comment += spacer;
+		comment += parseRoute(`pure9TT`);
 	} else if (jumps === 11) {
 		comment += parseRoute(`pure11TT`);
 	} else if (jumps === 14) {

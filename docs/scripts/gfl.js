@@ -1,4 +1,4 @@
-const vg = 2.005; // prettier-ignore
+const vg = 2.100; // prettier-ignore
 const ncf = [`Cursed Farmer`, `CF`, 3];
 const ntt = [`Tall Tales`, `TT`, 1050];
 const nll = [`Roots of Loomlurch`, `LL`, 1137];
@@ -321,20 +321,6 @@ const gemFarmJson = {
 		bf64: `c5znOc7wA`,
 		blurb: `${tt}<br>This route is slower than anything pure 8j can offer so I suggest you equip the Accurate Acrobatics feat and run an 8j preset.`,
 	},
-	feat94TT: {
-		name: ntt[0],
-		sname: ntt[1],
-		adv: ntt[2],
-		jump: 9,
-		q: 10,
-		e: 5,
-		bf: 35181131988031n,
-		bf64: `_D_7fP_4A`,
-		blurb: `${tt}${fsa}${mimo}`,
-		loop: true,
-		fs: true,
-		order: 2,
-	},
 	pure9TT: {
 		name: ntt[0],
 		sname: ntt[1],
@@ -346,6 +332,20 @@ const gemFarmJson = {
 		bf64: `3zXoa17wA`,
 		blurb: `${tt}${mimo}`,
 		loop: true,
+		order: 2,
+	},
+	feat94TT: {
+		name: ntt[0],
+		sname: ntt[1],
+		adv: ntt[2],
+		jump: 9,
+		q: 10,
+		e: 5,
+		bf: 35181131988031n,
+		bf64: `_D_7fP_4A`,
+		blurb: `${tt}${fsa}${mimo}<br>This route is only better than pure 9j if you can land on z1s or z2s (mod5). Otherwise it's worse.`,
+		loop: true,
+		fs: true,
 		order: 1,
 	},
 	pure11TT: {
