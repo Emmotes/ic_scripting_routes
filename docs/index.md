@@ -206,21 +206,13 @@
 		</span>
 		<span class="routesRow">
 			<span class="routesCol6">
-				<label for="stackWithMetal">Stack With Metalborn:</label>
-			</span>
-			<span class="routesCol2">
-				<input type="checkbox" name="stackWithMetal" id="stackWithMetal" checked>
-			</span>
-		</span>
-		<span class="routesRow">
-			<span class="routesCol6">
 				<label for="stackRuns">Number of Runs Per Stacking:</label>
 			</span>
 			<span class="routesCol2">
 				<input type="number" name="stackRuns" id="stackRuns" value="1" min="1">
 			</span>
 			<span style="width:0;height:0;margin:0;padding:0;position:relative;">
-				<span style="display:flex;flex-direction:column;position:absolute;top:-15px;left:0;">
+				<span style="display:flex;flex-direction:column;position:absolute;top:0;left:0;">
 					<span style="display:flex;margin-bottom:-6px;">
 						<span class="routesCol3" style="flex-grow:1;min-width:160px;">
 							<label for="brivMasterInputSC">Using Briv Master:</label>

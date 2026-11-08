@@ -1,4 +1,4 @@
-const vm = 6.400; // prettier-ignore
+const vm = 6.500; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -8,22 +8,22 @@ const {
 	stackRoute, stackMixediLvl, stackiLvl, stackMixedRarity, stackRarity,
 	stackRarityNote, stackMixedGilding, stackGilding, stackGildingNote, stackReset,
 	stackFavour, stackStack, stackBrivZone, stackz1Form, stackRNGWR,
-	stackWithMetal, stackRuns, stackThunderStep, stackResult, stackFavourNote,
-	stackResetNote, formCampaign, formType, formWiddle, formFeatSwapLabel,
-	formFeatSwap, formBaldricLabel, formBaldric, formStackingLabel, formStacking,
-	formTatyanaLabel, formTatyana, formResult, brivMasterInputGFR, brivMasterInputSC,
-	formsWiddleNote, stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel, baldricDisabled,
+	stackRuns, stackThunderStep, stackResult, stackFavourNote, stackResetNote,
+	formCampaign, formType, formWiddle, formFeatSwapLabel, formFeatSwap,
+	formBaldricLabel, formBaldric, formStackingLabel, formStacking, formTatyanaLabel,
+	formTatyana, formResult, brivMasterInputGFR, brivMasterInputSC, formsWiddleNote,
+	stackCombineContainer, stackRNGWRLabel, stackBrivZoneLabel, baldricDisabled,
 } = Object.fromEntries(
 	[
 		"ilvlInput", "presetsInput", "rarityInput", "gildingInput", "shinyNote",
 		"stackRoute", "stackMixediLvl", "stackiLvl", "stackMixedRarity", "stackRarity",
 		"stackRarityNote", "stackMixedGilding", "stackGilding", "stackGildingNote", "stackReset",
 		"stackFavour", "stackStack", "stackBrivZone", "stackz1Form", "stackRNGWR",
-		"stackWithMetal", "stackRuns", "stackThunderStep", "stackResult", "stackFavourNote",
-		"stackResetNote", "formCampaign", "formType", "formWiddle", "formFeatSwapLabel",
-		"formFeatSwap", "formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking",
-		"formTatyanaLabel", "formTatyana", "formResult", "brivMasterInputGFR", "brivMasterInputSC",
-		"formsWiddleNote", "stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel", "baldricDisabled",
+		"stackRuns", "stackThunderStep", "stackResult", "stackFavourNote", "stackResetNote",
+		"formCampaign", "formType", "formWiddle", "formFeatSwapLabel", "formFeatSwap",
+		"formBaldricLabel", "formBaldric", "formStackingLabel", "formStacking", "formTatyanaLabel",
+		"formTatyana", "formResult", "brivMasterInputGFR", "brivMasterInputSC", "formsWiddleNote",
+		"stackCombineContainer", "stackRNGWRLabel", "stackBrivZoneLabel", "baldricDisabled",
 	].map((id) => [id, document.getElementById(id)])
 );
 const lsKey_routesSettings = `routesSettings`;
@@ -127,7 +127,6 @@ async function init() {
 	bind(stackBrivZone, `change`, calculateStacks);
 	bind(stackz1Form, `change`, calculateStacks);
 	bind(stackRNGWR, `change`, calculateStacks);
-	bind(stackWithMetal, `change`, calculateStacks);
 	bind(stackRuns, `change`, calculateStacks);
 	bind(stackThunderStep, `change`, calculateStacks);
 	bind(brivMasterInputSC, `change`, calculateStacks);
@@ -515,7 +514,7 @@ function swapTab() {
 		if (hash[0] === st) {
 			let c = 1;
 			stackRoute.value = hash[c++];
-			if (hash.length >= 14) {
+			if (hash.length >= 13) {
 				stackiLvl.value = hash[c++];
 				stackRarity.value = hash[c++];
 				stackGilding.value = hash[c++];
@@ -527,7 +526,7 @@ function swapTab() {
 			setStackBrivZoneValue(sbz);
 			stackz1Form.value = hash[c++];
 			stackRNGWR.checked = hash[c++] === "1";
-			stackWithMetal.checked = hash[c++] === "1";
+			if (hash.length === 11 || hash.length === 14) c++;
 			stackRuns.value = hash[c++];
 			stackThunderStep.checked = hash[c++] === "1";
 		} else if (hash[0] === ft) {
@@ -555,7 +554,6 @@ function swapTab() {
 function setHash(hash) {
 	if (hash === st) {
 		const rngwr = stackRNGWR.checked ? 1 : 0;
-		const swm = stackWithMetal.checked ? 1 : 0;
 		const bts = stackThunderStep.checked ? 1 : 0;
 		let mixedExtras = ``;
 		if (
@@ -564,7 +562,7 @@ function setHash(hash) {
 			!stackMixedGilding.classList.contains("hidden")
 		)
 			mixedExtras = `_${stackiLvl.value}_${stackRarity.value}_${stackGilding.value}`;
-		hash = `${st}_${stackRoute.value}${mixedExtras}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${getStackBrivZoneValue()}_${stackz1Form.value}_${rngwr}_${swm}_${stackRuns.value}_${bts}`;
+		hash = `${st}_${stackRoute.value}${mixedExtras}_${stackReset.value}_${stackFavour.value}_${stackStack.value}_${getStackBrivZoneValue()}_${stackz1Form.value}_${rngwr}_${stackRuns.value}_${bts}`;
 	} else if (hash === ft) {
 		const tatyana = formTatyana.checked ? 1 : 0;
 		const baldric = formBaldric.checked ? 1 : 0;
@@ -873,7 +871,6 @@ async function getRouteInputs() {
 		rngWaitingRoom: stackRNGWR.checked,
 		stackZone: Number(stackStack.value),
 		thunderStep: stackThunderStep.checked,
-		withMetal: stackWithMetal.checked,
 	};
 }
 
@@ -881,26 +878,24 @@ function setupBriv(inputs, Q, E) {
 	let thelloraDistCalc = computeThelloraDist(inputs, Q, E);
 	let thelloraDist = thelloraDistCalc.minSeen;
 	let brivStack = thelloraDist;
-	let jumpsWithMetal = 0;
-	let jumpsWithoutMetal = 0;
+	let jumps = 0;
 	let combined = false;
 
 	if (inputs.brivZone === 1 && inputs.favour > 0) {
 		switch (inputs.z1Formation) {
 			case "q":
 				brivStack += Q - 1;
-				inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+				jumps++;
 				break;
 			case "e":
 				brivStack += E - 1;
-				if (E > 1)
-					inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+				if (E > 1) jumps++;
 				if (E === 1) inputs.brivZone = 2;
 				break;
 			case "4":
 			case "9":
 				brivStack += Number(inputs.z1Formation);
-				inputs.withMetal ? jumpsWithMetal++ : jumpsWithoutMetal++;
+				jumps++;
 				break;
 		}
 		combined = true;
@@ -909,8 +904,7 @@ function setupBriv(inputs, Q, E) {
 	return {
 		thelloraDistCalc,
 		brivStack,
-		jumpsWithMetal,
-		jumpsWithoutMetal,
+		jumps,
 		combined,
 	};
 }
@@ -1059,8 +1053,6 @@ function generateRoute(inputs, q, e, brivData, currToken) {
 		let checked =
 			currentZone >= inputs.brivZone &&
 			inputs.routeJson.checkedByZone[modZone];
-		let metalApplicable =
-			inputs.withMetal || currentZone > inputs.stackZone;
 		let diff;
 		if (applyRngwr) {
 			rngJumpApplied = true;
@@ -1100,14 +1092,12 @@ function generateRoute(inputs, q, e, brivData, currToken) {
 				(applyRngwr && (inputs.z1Formation !== "e" || e > 1))) &&
 			currentZone >= inputs.brivZone
 		)
-			metalApplicable ?
-				brivData.jumpsWithMetal++
-			:	brivData.jumpsWithoutMetal++;
+			brivData.jumps++;
 	}
 	route[route.length - 1].reset = true;
 	if (currentZone > rushCap) route[route.length - 1].rush = true;
 
-	let numJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
+	let numJumps = brivData.jumps;
 
 	return {
 		route,
@@ -1123,12 +1113,9 @@ function generateRoute(inputs, q, e, brivData, currToken) {
 
 function calculateStacksForRoute(brivData, inputs) {
 	let stacks = minHaste;
-	for (let run = 0; run < inputs.numRuns; run++) {
-		for (let i = 0; i < brivData.jumpsWithMetal; i++)
+	for (let run = 0; run < inputs.numRuns; run++)
+		for (let i = 0; i < brivData.jumps; i++)
 			stacks = Math.ceil((stacks - 0.5) * stackMult[0]);
-		for (let i = 0; i < brivData.jumpsWithoutMetal; i++)
-			stacks = Math.ceil((stacks - 0.5) * stackMult[1]);
-	}
 
 	let thunderStepStacks = stacks;
 	if (inputs.thunderStep)
@@ -1179,13 +1166,13 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 		break;
 	}
 	const thirdFromEnd = routeData.route.at(-3);
-	const maxSafeStackZone = (thirdFromEnd?.zone ?? 1) - 1;
+	const maxSafeStackZone = (thirdFromEnd?.zone ?? 1);
 	if (inputs.stackZone > maxSafeStackZone) {
 		if (inputs.stackZone > inputs.resetZone)
 			resultHtml += `<li class="bigRedWarning">Your stack zone is higher than your reset zone. Briv will never be able to stack in this situation.</li>`;
 		else
 			resultHtml += `<li class="littleRedWarning">Your stack zone is too close to your reset zone. You risk the script sometimes not stacking Briv.</li>`;
-		resultHtml += `<ul><li class="tinyRedWarning">Your "<em>Farm Steelbones stacks AFTER this zone</em>" setting should be no higher than ${maxSafeStackZone}.</li></ul>`;
+		resultHtml += `<ul><li class="tinyRedWarning">Your "<em>Stack Zone</em>" setting should be no higher than ${maxSafeStackZone}.</li></ul>`;
 	}
 
 	// Thellora landing
@@ -1287,17 +1274,16 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 		"span:is([data-type='jump'],[data-type='hop'])",
 	).length;
 	let qtsCount = document.querySelectorAll("span[data-qt='1']").length;
-	let calcJumps = brivData.jumpsWithMetal + brivData.jumpsWithoutMetal;
 	let calcWalks =
 		routeData.route.length -
 		1 -
-		calcJumps -
+		brivData.jumps -
 		(inputs.brivZone === 1 ? 0 : 1);
 	let calcQts = routeData.qtCount;
 	if (walkCount !== calcWalks)
 		console.log(`walkCount[${walkCount}] != calcWalks[${calcWalks}]`);
-	if (jumpCount !== calcJumps)
-		console.log(`jumpCount[${jumpCount}] != calcJumps[${calcJumps}]`);
+	if (jumpCount !== brivData.jumps)
+		console.log(`jumpCount[${jumpCount}] != calcJumps[${brivData.jumps}]`);
 	if (qtsCount !== calcQts)
 		console.log(`qtsCount[${qtsCount}] != calcQts[${calcQts}]`);
 }
@@ -1456,7 +1442,7 @@ function renderRouteTable(routeData, inputs) {
 		if (currZone.hitZone) styleClass += " hitZone";
 		else if (currZone.armouredZone) styleClass += " armZone";
 		else if (currZone.zone % 5 === 0) styleClass += " bosZone";
-		if (!earliestStackFound && currZone.zone > inputs.stackZone) {
+		if (!earliestStackFound && currZone.zone >= inputs.stackZone) {
 			earliestStackFound = true;
 			if (!styleClass.includes("posRel")) styleClass += " posRel";
 			indicatorStackSquare = `<span class="stkZone">${indicatorSquare}</span>`;
@@ -1519,8 +1505,6 @@ function renderRouteTable(routeData, inputs) {
 function generateMCVariableRoute(inputs, jumps) {
 	const result = {
 		jumps: 0,
-		jumpsWithMetal: 0,
-		jumpsWithoutMetal: 0,
 		walks: 0,
 		qtCount: 0,
 		bosses: 0,
@@ -1534,10 +1518,8 @@ function generateMCVariableRoute(inputs, jumps) {
 	let prevModZone = 1;
 	let zone = brivData.brivStack;
 	let modZone = zone % 50 || 50;
-	let metal = inputs.withMetal;
 
-	result.jumpsWithMetal += brivData.jumpsWithMetal;
-	result.jumpsWithoutMetal += brivData.jumpsWithoutMetal;
+	result.jumps += brivData.jumps;
 	if (isQT(inputs.routeJson, prevModZone, modZone)) result.qtCount++;
 
 	result.thelloraLanding = zone;
@@ -1555,10 +1537,7 @@ function generateMCVariableRoute(inputs, jumps) {
 		zone += diff;
 		if (diff > 1) {
 			result.jumps++;
-			if (metal) result.jumpsWithMetal++;
-			else result.jumpsWithoutMetal++;
 		} else result.walks++;
-		if (!metal && zone > inputs.resetZone) metal = true;
 
 		prevModZone = modZone;
 		modZone = zone % 50 || 50;
@@ -1586,12 +1565,9 @@ function computeMCStacks(inputs, mc) {
 	let stacks = minHaste;
 	let thunderStepStacks;
 
-	for (let run = 0; run < inputs.numRuns; run++) {
-		for (let i = 0; i < mc.jumpsWithMetal; i++)
+	for (let run = 0; run < inputs.numRuns; run++)
+		for (let i = 0; i < mc.jumps; i++)
 			stacks = Math.ceil((stacks - 0.5) * stackMult[0]);
-		for (let i = 0; i < mc.jumpsWithoutMetal; i++)
-			stacks = Math.ceil((stacks - 0.5) * stackMult[1]);
-	}
 
 	if (inputs.thunderStep)
 		thunderStepStacks =
