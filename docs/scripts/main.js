@@ -1,4 +1,4 @@
-const vm = 6.500; // prettier-ignore
+const vm = 6.501; // prettier-ignore
 const st = `stacksTab`;
 const ft = `formsTab`;
 const jump = ` checked`;
@@ -1156,7 +1156,7 @@ function renderResults(inputs, q, e, brivData, routeData, stackData) {
 
 	// Bad Stack Zone
 	for (const rdZone of routeData.route) {
-		if (rdZone.zone <= inputs.stackZone) continue;
+		if (rdZone.zone < inputs.stackZone) continue;
 		const mod50 = rdZone.zone % 50 || 50;
 		const mod5 = rdZone.zone % 5 || 5;
 		if (mod50 === 33 || mod50 === 34)
